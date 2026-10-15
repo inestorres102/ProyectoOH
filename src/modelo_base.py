@@ -1,6 +1,13 @@
 import pandas as pd
 from ortools.sat.python import cp_model
 
+# Importamos las restricciones desde el nuevo fichero 'restricciones.py'
+from restricciones import (
+    aplicar_restriccion_estudiantes,
+    aplicar_restriccion_cambio_dia
+)
+
+
 def modelo_base():
     # 1. Definir el horizonte temporal semanal (30 franjas horarias)
     dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"]
@@ -11,7 +18,6 @@ def modelo_base():
         "08:30-09:30", "09:30-10:30", "10:30-11:30",
         "11:30-12:30", "12:30-13:30", "13:30-14:30"
     ]
-
 
 
     # 2. Leer las sesiones desde la carpeta datos/
@@ -44,8 +50,16 @@ def modelo_base():
         interval_vars[s_id] = interval
 
 
+# APLICAR RESTRICCIONES DURAS
+    # 1. Primera restricción dura: Los alumnos no se solapan
+    aplicar_restriccion_estudiantes(model, df_clases, interval_vars)
+    
+    # 2. Control de días: Una clase no cruza de un día a otro
+    aplicar_restriccion_cambio_dia(model, df_clases, start_vars, end_vars, horas_por_dia)
 
-    # 4. Resolver (sin restricciones añadidas todavía)
+
+
+    # 4. Resolver (con dos restricciones)
     solver = cp_model.CpSolver()
     status = solver.Solve(model)
 
@@ -53,7 +67,7 @@ def modelo_base():
 
     # 5. Imprimir la asignación temporal básica por consola
     if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-        print("\n Horario base generado (sin restricciones de solape todavia):\n")
+        print("\n Horario base generado (con restriccion de solape):\n")
         asignaciones = []
         for _, row in df_clases.iterrows():
             s_id = str(row["id_sesion"])
