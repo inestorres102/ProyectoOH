@@ -77,6 +77,7 @@ def modelo_base():
             hora_idx = slot_inicio % horas_por_dia
 
             asignaciones.append({
+                "Slot": slot_inicio,
                 "Sesion": s_id,
                 "Asignatura": row["asignatura"],
                 "Tipo": row["tipo"],
@@ -87,8 +88,10 @@ def modelo_base():
                 "Profesor": row["profesor"]
             })
 
-        df_resultado = pd.DataFrame(asignaciones)
-        print(df_resultado.to_string(index=False))
+        # Ordenamos numéricamente por slot (de 0 a 29)
+        df_resultado = pd.DataFrame(asignaciones).sort_values(by="Slot")
+        #Quitamos la columna 'Slot' solo para que la tabla quede limpia
+        print(df_resultado.drop(columns=["Slot"]).to_string(index=False))
     else:
         print("No se encontro solucion factible.")
 
