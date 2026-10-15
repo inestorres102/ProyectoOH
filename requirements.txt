@@ -1,0 +1,5 @@
+# Motor de optimización por restricciones
+ortools>=9.8.3296
+
+# Manipulación y lectura de datos CSV
+pandas>=2.2.0
