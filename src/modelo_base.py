@@ -4,7 +4,8 @@ from ortools.sat.python import cp_model
 # Importamos las restricciones desde el nuevo fichero 'restricciones.py'
 from restricciones import (
     aplicar_restriccion_estudiantes,
-    aplicar_restriccion_cambio_dia
+    aplicar_restriccion_cambio_dia,
+    aplicar_restriccion_profesores
 )
 
 
@@ -56,6 +57,9 @@ def modelo_base():
     
     # 2. Control de días: Una clase no cruza de un día a otro
     aplicar_restriccion_cambio_dia(model, df_clases, start_vars, end_vars, horas_por_dia)
+    
+    # 3. Un profesor no puede impartir dos sesiones al mismo tiempo
+    aplicar_restriccion_profesores(model, df_clases, interval_vars)
 
 
 
@@ -67,7 +71,7 @@ def modelo_base():
 
     # 5. Imprimir la asignación temporal básica por consola
     if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-        print("\n Horario base generado (con restriccion de solape):\n")
+        print("\n Horario base generado (con restriccion de solape y de profesor):\n")
         asignaciones = []
         for _, row in df_clases.iterrows():
             s_id = str(row["id_sesion"])
