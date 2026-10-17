@@ -168,3 +168,75 @@ S166,TP,practica,41,2,20,Laboratorio,Mario Hernandez Tejera,1,2,1
 S167,TP,practica,42,2,20,Laboratorio,Mario Hernandez Tejera,1,2,1
 S168,TP,practica,43,2,20,Laboratorio,Alexis Quesada Arencibia,1,2,1
 S169,TP,practica,44,2,20,Laboratorio,Alexis Quesada Arencibia,1,2,1
+S170,AG,teoria,1,1,80,Teoria,Angel Manuel Ramos del Rosario,1,1,1
+S171,AG,teoria,1,1,80,Teoria,Angel Manuel Ramos del Rosario,1,1,1
+S172,AG,problemas,17,2,40,Teoria,Angel Manuel Ramos del Rosario,1,1,1
+S173,AG,problemas,18,2,40,Teoria,Pedro Saavedra Santana,1,1,1
+S174,FC,teoria,1,1,80,Teoria,Antonio Carlos Dominguez Brito,1,1,1
+S175,FC,teoria,1,1,80,Teoria,Antonio Carlos Dominguez Brito,1,1,1
+S176,FC,practica,41,2,20,Laboratorio,Antonio Carlos Dominguez Brito,1,1,1
+S177,FC,practica,42,2,20,Laboratorio,Antonio Carlos Dominguez Brito,1,1,1
+S178,FC,practica,43,2,20,Laboratorio,Javier Sanchez Perez,1,1,1
+S179,FC,practica,44,2,20,Laboratorio,Javier Sanchez Perez,1,1,1
+S180,MD,teoria,1,1,80,Teoria,Domingo Hernandez Abreu,1,1,1
+S181,MD,teoria,1,1,80,Teoria,Domingo Hernandez Abreu,1,1,1
+S182,MD,problemas,17,2,40,Teoria,Domingo Hernandez Abreu,1,1,1
+S183,MD,problemas,18,2,40,Teoria,Domingo Hernandez Abreu,1,1,1
+S184,HPI,teoria,1,1,80,Teoria,Alexis Quesada Arencibia,1,1,1
+S185,HPI,teoria,1,1,80,Teoria,Alexis Quesada Arencibia,1,1,1
+S186,HPI,problemas,17,2,40,Teoria,Alexis Quesada Arencibia,1,1,1
+S187,HPI,problemas,18,2,40,Teoria,Mario Hernandez Tejera,1,1,1
+S188,FP1,teoria,1,1,80,Teoria,Modesto Castrillon Santana,1,1,1
+S189,FP1,teoria,1,1,80,Teoria,Modesto Castrillon Santana,1,1,1
+S190,FP1,practica,41,2,20,Laboratorio,Daniel Hernandez Sosa,1,1,1
+S191,FP1,practica,42,2,20,Laboratorio,Daniel Hernandez Sosa,1,1,1
+S192,FP1,practica,43,2,20,Laboratorio,Modesto Castrillon Santana,1,1,1
+S193,FP1,practica,44,2,20,Laboratorio,Modesto Castrillon Santana,1,1,1
+S194,AG,teoria,2,1,80,Teoria,Angel Manuel Ramos del Rosario,1,1,2
+S195,AG,teoria,2,1,80,Teoria,Angel Manuel Ramos del Rosario,1,1,2
+S196,AG,problemas,19,2,40,Teoria,Angel Manuel Ramos del Rosario,1,1,2
+S197,AG,problemas,20,2,40,Teoria,Pedro Saavedra Santana,1,1,2
+S198,FC,teoria,2,1,80,Teoria,Javier Sanchez Perez,1,1,2
+S199,FC,teoria,2,1,80,Teoria,Javier Sanchez Perez,1,1,2
+S200,FC,practica,45,2,20,Laboratorio,Antonio Carlos Dominguez Brito,1,1,2
+S201,FC,practica,46,2,20,Laboratorio,Antonio Carlos Dominguez Brito,1,1,2
+S202,FC,practica,47,2,20,Laboratorio,Javier Sanchez Perez,1,1,2
+S203,FC,practica,48,2,20,Laboratorio,Javier Sanchez Perez,1,1,2
+S204,MD,teoria,2,1,80,Teoria,Domingo Hernandez Abreu,1,1,2
+S205,MD,teoria,2,1,80,Teoria,Domingo Hernandez Abreu,1,1,2
+S206,MD,problemas,19,2,40,Teoria,Domingo Hernandez Abreu,1,1,2
+S207,MD,problemas,20,2,40,Teoria,Domingo Hernandez Abreu,1,1,2
+S208,HPI,teoria,2,1,80,Teoria,Mario Hernandez Tejera,1,1,2
+S209,HPI,teoria,2,1,80,Teoria,Mario Hernandez Tejera,1,1,2
+S210,HPI,problemas,19,2,40,Teoria,Mario Hernandez Tejera,1,1,2
+S211,HPI,problemas,20,2,40,Teoria,Alexis Quesada Arencibia,1,1,2
+S212,FP1,teoria,2,1,80,Teoria,Carlos Javier Rivero Rodriguez,1,1,2
+S213,FP1,teoria,2,1,80,Teoria,Carlos Javier Rivero Rodriguez,1,1,2
+S214,FP1,practica,45,2,20,Laboratorio,Carlos Javier Rivero Rodriguez,1,1,2
+S215,FP1,practica,46,2,20,Laboratorio,Carlos Javier Rivero Rodriguez,1,1,2
+S216,FP1,practica,47,2,20,Laboratorio,Cayetano Guerra Artal,1,1,2
+S217,FP1,practica,48,2,20,Laboratorio,Cayetano Guerra Artal,1,1,2
+S218,AG,teoria,3,1,80,Teoria,Pedro Saavedra Santana,1,1,3
+S219,AG,teoria,3,1,80,Teoria,Pedro Saavedra Santana,1,1,3
+S220,AG,problemas,21,2,40,Teoria,Pedro Saavedra Santana,1,1,3
+S221,AG,problemas,22,2,40,Teoria,Angel Manuel Ramos del Rosario,1,1,3
+S222,FC,teoria,3,1,80,Teoria,Zenon Hernandez Figueroa,1,1,3
+S223,FC,teoria,3,1,80,Teoria,Zenon Hernandez Figueroa,1,1,3
+S224,FC,practica,49,2,20,Laboratorio,Zenon Hernandez Figueroa,1,1,3
+S225,FC,practica,50,2,20,Laboratorio,Zenon Hernandez Figueroa,1,1,3
+S226,FC,practica,51,2,20,Laboratorio,Javier Sanchez Perez,1,1,3
+S227,FC,practica,52,2,20,Laboratorio,Javier Sanchez Perez,1,1,3
+S228,MD,teoria,3,1,80,Teoria,Domingo Hernandez Abreu,1,1,3
+S229,MD,teoria,3,1,80,Teoria,Domingo Hernandez Abreu,1,1,3
+S230,MD,problemas,21,2,40,Teoria,Domingo Hernandez Abreu,1,1,3
+S231,MD,problemas,22,2,40,Teoria,Domingo Hernandez Abreu,1,1,3
+S232,HPI,teoria,3,1,80,Teoria,Alexis Quesada Arencibia,1,1,3
+S233,HPI,teoria,3,1,80,Teoria,Alexis Quesada Arencibia,1,1,3
+S234,HPI,problemas,21,2,40,Teoria,Alexis Quesada Arencibia,1,1,3
+S235,HPI,problemas,22,2,40,Teoria,Mario Hernandez Tejera,1,1,3
+S236,FP1,teoria,3,1,80,Teoria,Modesto Castrillon Santana,1,1,3
+S237,FP1,teoria,3,1,80,Teoria,Modesto Castrillon Santana,1,1,3
+S238,FP1,practica,49,2,20,Laboratorio,Modesto Castrillon Santana,1,1,3
+S239,FP1,practica,50,2,20,Laboratorio,Modesto Castrillon Santana,1,1,3
+S240,FP1,practica,51,2,20,Laboratorio,Daniel Hernandez Sosa,1,1,3
+S241,FP1,practica,52,2,20,Laboratorio,Daniel Hernandez Sosa,1,1,3

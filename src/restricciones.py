@@ -36,7 +36,9 @@ def obtener_subgrupos_estudiantes(row, df_clases=None):
         "17": {"41", "42"},
         "18": {"43", "44"},
         "19": {"45", "46"},
-        "20": {"47", "48"}
+        "20": {"47", "48"},
+        "21": {"49", "50"},
+        "22": {"51", "52"}
     }
     if "prob" in tipo_str or "aula" in tipo_str or "pa" in tipo_str:
         if grupo_str in mapeo_aula:
