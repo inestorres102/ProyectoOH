@@ -132,8 +132,13 @@ def modelo_base(semestre=1):
         # Generar el PNG y abrirlo al terminar
         nombre_salida = f"horario_3GII_{semestre}er.png" if semestre == 1 else f"horario_3GII_{semestre}do.png"
         exportar_horario_png(df_resultado, ruta_salida=nombre_salida, abrir_al_terminar=False)
+        return df_resultado
     else:
         print("No se encontro solucion factible. Comprobar si hay suficientes aulas del tipo requerido")
+        return None
 
 if __name__ == "__main__":
+    print("\n================== 3º GII - SEMESTRE 1 ==================")
     modelo_base(semestre=1)
+    print("\n================== 3º GII - SEMESTRE 2 ==================")
+    modelo_base(semestre=2)
