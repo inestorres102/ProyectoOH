@@ -41,7 +41,7 @@ def modelo_base():
     interval_vars = {}  # Intervalo continuo: une inicio, duracion y fin
 
     for _, row in df_clases.iterrows():
-        s_id = str(row["id_sesion"])
+        s_id = str(row["id_sesion"]).strip()
         duracion = int(row["duracion_horas"])
 
         # Una sesión no puede empezar tan tarde como para salirse de la semana
@@ -74,7 +74,7 @@ def modelo_base():
 
 
     # Restricciones a optimizar
-    aplicar_restricciones_blandas(model, df_clases, start_vars, total_slots)
+    aplicar_restricciones_blandas(model, df_clases, start_vars, aula_asignada, total_slots=total_slots, aula_preferida="A2-5")
 
 
 
@@ -86,7 +86,7 @@ def modelo_base():
 
     # 5. Imprimir la asignación temporal básica por consola
     if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-        print("\n Horario con restriccion de solape, profesor, aula y no clase viernes por la tarde:\n")
+        print("\n Horario con restriccion de solape, profesor, aula, no clase viernes por la tarde y aula fija:\n")
         asignaciones = []
 
         for _, row in df_clases.iterrows():
