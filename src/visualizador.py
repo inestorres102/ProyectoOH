@@ -27,14 +27,14 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", abrir
         }
     }
 
-    fig, ax = plt.subplots(figsize=(15, 9), dpi=300)
+    fig, ax = plt.subplots(figsize=(19, 10), dpi=300)
     ax.set_facecolor("#F8F9FA")
     fig.patch.set_facecolor("#F8F9FA")
 
-    x_offset = 1.8
-    col_width = 2.4
+    x_offset = 1.9
+    col_width = 3.2
     y_offset = 0.5
-    row_height = 1.1
+    row_height = 1.2
 
     # 1. Cabecera superior: Días
     for j, dia in enumerate(dias):
@@ -46,7 +46,7 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", abrir
         )
         ax.add_patch(header_box)
         ax.text(x + col_width / 2, len(horas) * row_height + y_offset + 0.38, dia.upper(),
-                ha="center", va="center", color="white", fontsize=11.5, fontweight="bold")
+                ha="center", va="center", color="white", fontsize=12, fontweight="bold")
 
     # 2. Cabecera lateral: Horas
     for i, hora in enumerate(horas):
@@ -58,7 +58,7 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", abrir
         )
         ax.add_patch(time_box)
         ax.text(0.2 + (x_offset - 0.3) / 2, y + row_height / 2, hora,
-                ha="center", va="center", color="#283593", fontsize=9.5, fontweight="bold")
+                ha="center", va="center", color="#283593", fontsize=10, fontweight="bold")
 
     # 3. Cuadrícula de fondo
     for j in range(len(dias)):
@@ -99,47 +99,68 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", abrir
         sub_idx = dia_hora_tracker.get((dia, hora_str), 0)
         dia_hora_tracker[(dia, hora_str)] = sub_idx + 1
 
-        w_box = (col_width - 0.1) / total_en_slot
-        x_box = x_offset + col_idx * col_width + 0.05 + sub_idx * w_box
+        w_box = (col_width - 0.08) / total_en_slot
+        x_box = x_offset + col_idx * col_width + 0.04 + sub_idx * w_box
 
-        h_box = duracion * row_height - 0.1
-        y_box = (len(horas) - row_idx - duracion) * row_height + y_offset + 0.05
+        h_box = duracion * row_height - 0.08
+        y_box = (len(horas) - row_idx - duracion) * row_height + y_offset + 0.04
 
         estilo = estilo_tipo[tipo_clave]
 
+        rounding = 0.08 if total_en_slot <= 2 else 0.03
+        lwidth = 1.8 if total_en_slot <= 2 else 1.1
+
         tarjeta = patches.FancyBboxPatch(
             (x_box + 0.02, y_box + 0.02), w_box - 0.04, h_box - 0.04,
-            boxstyle="round,pad=0.03,rounding_size=0.1",
-            facecolor=estilo["bg"], edgecolor=estilo["border"], linewidth=1.8
+            boxstyle=f"round,pad=0.02,rounding_size={rounding}",
+            facecolor=estilo["bg"], edgecolor=estilo["border"], linewidth=lwidth
         )
         ax.add_patch(tarjeta)
 
         cx = x_box + w_box / 2
         cy = y_box + h_box / 2
 
-        ax.text(cx, cy + (0.18 if duracion > 1 else 0.10), f"{asig} ({tipo_tag}-{grupo})",
-                ha="center", va="center", color=estilo["text"],
-                fontsize=10.5 if total_en_slot == 1 else 8.5, fontweight="bold")
+        # Tipografía responsiva: vertical en desdobles de 3 o más para no amontonar texto
+        if total_en_slot <= 2:
+            ax.text(cx, cy + (0.18 if duracion > 1 else 0.10), f"{asig} ({tipo_tag}-{grupo})",
+                    ha="center", va="center", color=estilo["text"],
+                    fontsize=11 if total_en_slot == 1 else 9.5, fontweight="bold")
 
-        ax.text(cx, cy - (0.12 if duracion > 1 else 0.10), f"Aula: {aula}",
-                ha="center", va="center", color="#37474F",
-                fontsize=9 if total_en_slot == 1 else 7.5, fontweight="bold")
+            ax.text(cx, cy - (0.14 if duracion > 1 else 0.10), f"Aula: {aula}",
+                    ha="center", va="center", color="#37474F",
+                    fontsize=9.5 if total_en_slot == 1 else 8.5, fontweight="bold")
+        else:
+            # Desdoble amplio (3 a 5 subgrupos simultáneos): formato compacto en 3 líneas
+            if duracion > 1:
+                ax.text(cx, cy + 0.32, asig, ha="center", va="center",
+                        color=estilo["text"], fontsize=9, fontweight="bold")
+                ax.text(cx, cy + 0.02, f"{tipo_tag}-{grupo}", ha="center", va="center",
+                        color=estilo["text"], fontsize=7.5, fontweight="bold")
+                ax.text(cx, cy - 0.30, aula, ha="center", va="center",
+                        color="#37474F", fontsize=7.5, fontweight="bold")
+            else:
+                ax.text(cx, cy + 0.18, asig, ha="center", va="center",
+                        color=estilo["text"], fontsize=8, fontweight="bold")
+                ax.text(cx, cy - 0.01, f"{tipo_tag}-{grupo}", ha="center", va="center",
+                        color=estilo["text"], fontsize=7, fontweight="bold")
+                ax.text(cx, cy - 0.20, aula, ha="center", va="center",
+                        color="#37474F", fontsize=7, fontweight="bold")
 
     # 5. Leyenda en la parte superior derecha
-    leyenda_y = len(horas) * row_height + y_offset + 0.82
+    leyenda_y = len(horas) * row_height + y_offset + 0.85
 
-    box_t = patches.FancyBboxPatch((x_offset + 3.0 * col_width, leyenda_y), 1.25, 0.38,
+    box_t = patches.FancyBboxPatch((x_offset + 3.4 * col_width, leyenda_y), 1.25, 0.40,
                                   boxstyle="round,pad=0.02,rounding_size=0.08",
                                   facecolor=estilo_tipo["teoria"]["bg"], edgecolor=estilo_tipo["teoria"]["border"], linewidth=1.6)
     ax.add_patch(box_t)
-    ax.text(x_offset + 3.0 * col_width + 0.625, leyenda_y + 0.19, "TEORÍA",
+    ax.text(x_offset + 3.4 * col_width + 0.625, leyenda_y + 0.20, "TEORÍA",
             ha="center", va="center", color=estilo_tipo["teoria"]["text"], fontsize=9.5, fontweight="bold")
 
-    box_p = patches.FancyBboxPatch((x_offset + 3.7 * col_width, leyenda_y), 1.35, 0.38,
+    box_p = patches.FancyBboxPatch((x_offset + 4.1 * col_width, leyenda_y), 1.35, 0.40,
                                   boxstyle="round,pad=0.02,rounding_size=0.08",
                                   facecolor=estilo_tipo["practica"]["bg"], edgecolor=estilo_tipo["practica"]["border"], linewidth=1.6)
     ax.add_patch(box_p)
-    ax.text(x_offset + 3.7 * col_width + 0.675, leyenda_y + 0.19, "PRÁCTICA",
+    ax.text(x_offset + 4.1 * col_width + 0.675, leyenda_y + 0.20, "PRÁCTICA",
             ha="center", va="center", color=estilo_tipo["practica"]["text"], fontsize=9.5, fontweight="bold")
 
     ax.set_xlim(0, x_offset + len(dias) * col_width + 0.3)
