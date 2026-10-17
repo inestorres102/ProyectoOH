@@ -134,23 +134,64 @@ def aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars):
 
 # RESTRICCIONES BLANDAS (Criterios a optimizar en la función objetivo)
 
-def aplicar_restricciones_blandas(model, df_clases, start_vars, total_slots=30):
+def aplicar_restricciones_blandas(model, df_clases, start_vars, aula_assign, total_slots=30, aula_preferida="A2-5"):
     """
-    BLANDA:
-    - Penaliza ubicar clases en el viernes por la tarde (últimos turnos de la semana).
-    Devuelve la suma de penalizaciones a minimizar.
+    RESTRICCIONES BLANDAS (Función Objetivo a minimizar):
+    1. Penalizar clases en las dos últimas horas del viernes (slots 28 y 29).
+    2. Penalizar que las clases de teoría del Grupo 17 se impartan fuera del aula preferida (A2-5).
     """
     penalizaciones = []
 
-    # Ejemplo 1: Penalizar clases en las dos últimas horas del viernes (slots 28 y 29)
+    def obtener_var_inicio(identificador):
+        """Busca la variable de inicio probando formatos comunes (str, strip, int)."""
+        s_str = str(identificador).strip()
+        if s_str in start_vars:
+            return start_vars[s_str]
+        if identificador in start_vars:
+            return start_vars[identificador]
+        # Por si el ID en el CSV es un número entero
+        try:
+            s_int = int(s_str.replace("S", "").replace("s", ""))
+            if s_int in start_vars:
+                return start_vars[s_int]
+            if str(s_int) in start_vars:
+                return start_vars[str(s_int)]
+        except ValueError:
+            pass
+        return None
+
+    # 1. Penalizar viernes por la tarde
     for _, row in df_clases.iterrows():
-        s_id = str(row["id_sesion"])
-        es_viernes_tarde = model.NewBoolVar(f"vtarde_{s_id}")
+        s_id = row["id_sesion"]
+        var_start = obtener_var_inicio(s_id)
 
-        model.Add(start_vars[s_id] >= (total_slots - 2)).OnlyEnforceIf(es_viernes_tarde)
-        model.Add(start_vars[s_id] < (total_slots - 2)).OnlyEnforceIf(es_viernes_tarde.Not())
+        if var_start is not None:
+            es_viernes_tarde = model.NewBoolVar(f"vtarde_{str(s_id).strip()}")
+            model.Add(var_start >= (total_slots - 2)).OnlyEnforceIf(es_viernes_tarde)
+            model.Add(var_start < (total_slots - 2)).OnlyEnforceIf(es_viernes_tarde.Not())
+            penalizaciones.append(es_viernes_tarde * 10)
 
-        penalizaciones.append(es_viernes_tarde * 15)  # Peso de penalización: 15
+    # 2. Priorizar el aula preferida (A2-5) para teoría del Grupo 17
+    for _, row in df_clases.iterrows():
+        s_id = str(row["id_sesion"]).strip()
+        tipo = str(row.get("tipo", "")).strip().lower()
+        grupo = str(row.get("grupo", "")).strip()
+
+        if "teor" in tipo and grupo == "17":
+            # Probar clave (s_id, aula_preferida)
+            var_aula_pref = aula_assign.get((s_id, aula_preferida))
+            if var_aula_pref is None:
+                # Probar si s_id estaba guardado de otra forma
+                for (s_k, a_k), v in aula_assign.items():
+                    if str(s_k).strip() == s_id and str(a_k).strip() == aula_preferida:
+                        var_aula_pref = v
+                        break
+
+            if var_aula_pref is not None:
+                no_es_aula_pref = model.NewBoolVar(f"no_pref_{s_id}")
+                model.Add(var_aula_pref == 0).OnlyEnforceIf(no_es_aula_pref)
+                model.Add(var_aula_pref == 1).OnlyEnforceIf(no_es_aula_pref.Not())
+                penalizaciones.append(no_es_aula_pref * 25)
 
     if penalizaciones:
         model.Minimize(sum(penalizaciones))
