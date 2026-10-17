@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import pandas as pd
 
-def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", abrir_al_terminar=True):
+def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", titulo=None, abrir_al_terminar=True):
     """
     Exporta el horario a una imagen PNG de alta resolución diferenciando por colores
     Teoría (amarillo/cálido) vs Práctica (verde/esmeralda), y lo abre automáticamente.
@@ -72,43 +72,91 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", abrir
             )
             ax.add_patch(bg_slot)
 
-    # 4. Manejo de sesiones simultáneas (desdobles)
-    dia_hora_count = {}
-    for _, row in df_resultado.iterrows():
-        d = row["Dia"]
-        h = row["Hora"]
-        dia_hora_count[(d, h)] = dia_hora_count.get((d, h), 0) + 1
+    # 4. Manejo de sesiones simultáneas (desdobles y solapes por carriles)
+    horas_map = {h: i for i, h in enumerate(horas)}
 
-    dia_hora_tracker = {}
+    # Asignación de carriles (lanes) por día mediante coloreado de grafos de intervalos
+    sesiones_con_posicion = []
+    for dia in dias:
+        df_dia = df_resultado[df_resultado["Dia"] == dia].copy()
+        if df_dia.empty:
+            continue
 
-    for _, row in df_resultado.iterrows():
-        dia = row["Dia"]
-        hora_str = row["Hora"]
-        duracion = int(str(row["Duracion"]).replace("h", ""))
-        asig = row["Asignatura"]
-        es_teoria = "teor" in str(row["Tipo"]).lower()
+        eventos = df_dia.to_dict("records")
+        for ev in eventos:
+            ev["start_idx"] = horas_map[ev["Hora"]]
+            ev["duracion_num"] = int(str(ev["Duracion"]).replace("h", ""))
+            ev["end_idx"] = ev["start_idx"] + ev["duracion_num"]
+
+        # Grafo de solapes entre sesiones del día
+        adj = {i: [] for i in range(len(eventos))}
+        for i in range(len(eventos)):
+            for j in range(i + 1, len(eventos)):
+                if eventos[i]["start_idx"] < eventos[j]["end_idx"] and eventos[j]["start_idx"] < eventos[i]["end_idx"]:
+                    adj[i].append(j)
+                    adj[j].append(i)
+
+        # Encontrar componentes conexas (clusters de sesiones que solapan directa o indirectamente)
+        visitados = set()
+        for i in range(len(eventos)):
+            if i not in visitados:
+                cluster = []
+                cola = [i]
+                visitados.add(i)
+                while cola:
+                    curr = cola.pop(0)
+                    cluster.append(curr)
+                    for vecino in adj[curr]:
+                        if vecino not in visitados:
+                            visitados.add(vecino)
+                            cola.append(vecino)
+
+                # Coloreado voraz (greedy interval coloring) para asignar carriles sin colisión
+                c_eventos = [eventos[k] for k in cluster]
+                c_eventos.sort(key=lambda x: (x["start_idx"], -x["duracion_num"]))
+                lane_ends = []
+                for ev in c_eventos:
+                    asignado = False
+                    for l_id in range(len(lane_ends)):
+                        if lane_ends[l_id] <= ev["start_idx"]:
+                            lane_ends[l_id] = ev["end_idx"]
+                            ev["lane"] = l_id
+                            asignado = True
+                            break
+                    if not asignado:
+                        ev["lane"] = len(lane_ends)
+                        lane_ends.append(ev["end_idx"])
+
+                total_lanes = len(lane_ends)
+                for ev in c_eventos:
+                    ev["total_lanes"] = total_lanes
+                    sesiones_con_posicion.append(ev)
+
+    for ev in sesiones_con_posicion:
+        dia = ev["Dia"]
+        row_idx = ev["start_idx"]
+        duracion = ev["duracion_num"]
+        asig = ev["Asignatura"]
+        es_teoria = "teor" in str(ev["Tipo"]).lower()
         tipo_clave = "teoria" if es_teoria else "practica"
         tipo_tag = "T" if es_teoria else "P"
-        grupo = f"G{row['Grupo']}"
-        aula = row["Aula"]
+        grupo = f"G{ev['Grupo']}"
+        aula = ev["Aula"]
 
         col_idx = dias.index(dia)
-        row_idx = horas.index(hora_str)
+        total_lanes = ev["total_lanes"]
+        lane_idx = ev["lane"]
 
-        total_en_slot = dia_hora_count.get((dia, hora_str), 1)
-        sub_idx = dia_hora_tracker.get((dia, hora_str), 0)
-        dia_hora_tracker[(dia, hora_str)] = sub_idx + 1
-
-        w_box = (col_width - 0.08) / total_en_slot
-        x_box = x_offset + col_idx * col_width + 0.04 + sub_idx * w_box
+        w_box = (col_width - 0.08) / total_lanes
+        x_box = x_offset + col_idx * col_width + 0.04 + lane_idx * w_box
 
         h_box = duracion * row_height - 0.08
         y_box = (len(horas) - row_idx - duracion) * row_height + y_offset + 0.04
 
         estilo = estilo_tipo[tipo_clave]
 
-        rounding = 0.08 if total_en_slot <= 2 else 0.03
-        lwidth = 1.8 if total_en_slot <= 2 else 1.1
+        rounding = 0.08 if total_lanes <= 2 else 0.03
+        lwidth = 1.8 if total_lanes <= 2 else 1.1
 
         tarjeta = patches.FancyBboxPatch(
             (x_box + 0.02, y_box + 0.02), w_box - 0.04, h_box - 0.04,
@@ -121,30 +169,39 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", abrir
         cy = y_box + h_box / 2
 
         # Tipografía responsiva: vertical en desdobles de 3 o más para no amontonar texto
-        if total_en_slot <= 2:
+        if total_lanes <= 2:
             ax.text(cx, cy + (0.18 if duracion > 1 else 0.10), f"{asig} ({tipo_tag}-{grupo})",
                     ha="center", va="center", color=estilo["text"],
-                    fontsize=11 if total_en_slot == 1 else 9.5, fontweight="bold")
+                    fontsize=11 if total_lanes == 1 else 9.5, fontweight="bold")
 
             ax.text(cx, cy - (0.14 if duracion > 1 else 0.10), f"Aula: {aula}",
                     ha="center", va="center", color="#37474F",
-                    fontsize=9.5 if total_en_slot == 1 else 8.5, fontweight="bold")
+                    fontsize=9.5 if total_lanes == 1 else 8.5, fontweight="bold")
         else:
             # Desdoble amplio (3 a 5 subgrupos simultáneos): formato compacto en 3 líneas
-            if duracion > 1:
-                ax.text(cx, cy + 0.32, asig, ha="center", va="center",
-                        color=estilo["text"], fontsize=9, fontweight="bold")
+            f_asig = 9.0 if total_lanes == 3 else 8.0
+            f_sub = 8.0 if total_lanes == 3 else 7.0
+            if duracion >= 3:
+                ax.text(cx, cy + 0.42, asig, ha="center", va="center",
+                        color=estilo["text"], fontsize=f_asig, fontweight="bold")
                 ax.text(cx, cy + 0.02, f"{tipo_tag}-{grupo}", ha="center", va="center",
-                        color=estilo["text"], fontsize=7.5, fontweight="bold")
-                ax.text(cx, cy - 0.30, aula, ha="center", va="center",
-                        color="#37474F", fontsize=7.5, fontweight="bold")
+                        color=estilo["text"], fontsize=f_sub, fontweight="bold")
+                ax.text(cx, cy - 0.38, aula, ha="center", va="center",
+                        color="#37474F", fontsize=f_sub, fontweight="bold")
+            elif duracion == 2:
+                ax.text(cx, cy + 0.30, asig, ha="center", va="center",
+                        color=estilo["text"], fontsize=f_asig, fontweight="bold")
+                ax.text(cx, cy + 0.02, f"{tipo_tag}-{grupo}", ha="center", va="center",
+                        color=estilo["text"], fontsize=f_sub, fontweight="bold")
+                ax.text(cx, cy - 0.28, aula, ha="center", va="center",
+                        color="#37474F", fontsize=f_sub, fontweight="bold")
             else:
                 ax.text(cx, cy + 0.18, asig, ha="center", va="center",
-                        color=estilo["text"], fontsize=8, fontweight="bold")
+                        color=estilo["text"], fontsize=f_asig - 1, fontweight="bold")
                 ax.text(cx, cy - 0.01, f"{tipo_tag}-{grupo}", ha="center", va="center",
-                        color=estilo["text"], fontsize=7, fontweight="bold")
+                        color=estilo["text"], fontsize=f_sub - 0.5, fontweight="bold")
                 ax.text(cx, cy - 0.20, aula, ha="center", va="center",
-                        color="#37474F", fontsize=7, fontweight="bold")
+                        color="#37474F", fontsize=f_sub - 0.5, fontweight="bold")
 
     # 5. Leyenda en la parte superior derecha
     leyenda_y = len(horas) * row_height + y_offset + 0.85
@@ -167,7 +224,11 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", abrir
     ax.set_ylim(0, len(horas) * row_height + y_offset + 1.4)
     ax.axis("off")
 
-    plt.title("CALENDARIO ACADÉMICO — 3º GII (1er SEMESTRE)", fontsize=16, fontweight="bold", pad=25, color="#1A237E")
+    if titulo is None:
+        sem_str = "2º SEMESTRE" if ("2do" in ruta_salida or "_2" in ruta_salida) else "1er SEMESTRE"
+        titulo = f"CALENDARIO ACADÉMICO — 3º GII ({sem_str})"
+
+    plt.title(titulo, fontsize=16, fontweight="bold", pad=25, color="#1A237E")
     plt.tight_layout()
     plt.savefig(ruta_salida, dpi=300, bbox_inches="tight")
     plt.close()
