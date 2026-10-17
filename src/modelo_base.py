@@ -139,16 +139,34 @@ def modelo_base(semestre=1, curso=3, grupo_principal=1):
 
         # Generar el PNG con nomenclatura organizada en carpetas por curso
         carpeta_curso = f"horarios/{curso}GII"
+        sem_sufijo = "1er" if semestre == 1 else "2do"
+        sem_str = "1er SEMESTRE" if semestre == 1 else f"{semestre}º SEMESTRE"
+
         if curso == 3 and (grupo_principal is None or grupo_principal == 1):
-            nombre_archivo = f"horario_3GII_{semestre}er.png" if semestre == 1 else f"horario_3GII_{semestre}do.png"
+            nombre_archivo = f"horario_3GII_{sem_sufijo}.png"
+            nombre_salida = f"{carpeta_curso}/{nombre_archivo}"
+            exportar_horario_png(df_resultado, ruta_salida=nombre_salida, abrir_al_terminar=False)
+        elif grupo_principal is None:
+            # 1. Exportar horario conjunto (todos los grupos del semestre)
+            exportar_horario_png(
+                df_resultado,
+                ruta_salida=f"{carpeta_curso}/horario_{curso}GII_{sem_sufijo}.png",
+                titulo=f"CALENDARIO ACADÉMICO — {curso}º GII (Grupos 1 y 2 - {sem_str})",
+                abrir_al_terminar=False
+            )
+            # 2. Exportar cada grupo principal por separado
+            for gp in sorted(df_resultado["GrupoPrincipal"].dropna().unique()):
+                df_gp = df_resultado[df_resultado["GrupoPrincipal"] == gp].copy()
+                exportar_horario_png(
+                    df_gp,
+                    ruta_salida=f"{carpeta_curso}/horario_{curso}GII_G{int(gp)}_{sem_sufijo}.png",
+                    titulo=f"CALENDARIO ACADÉMICO — {curso}º GII (Grupo {int(gp)} - {sem_str})",
+                    abrir_al_terminar=False
+                )
         else:
-            sem_sufijo = "1er" if semestre == 1 else "2do"
-            gp_sufijo = f"_G{grupo_principal}" if grupo_principal is not None else ""
-            nombre_archivo = f"horario_{curso}GII{gp_sufijo}_{sem_sufijo}.png"
+            nombre_salida = f"{carpeta_curso}/horario_{curso}GII_G{grupo_principal}_{sem_sufijo}.png"
+            exportar_horario_png(df_resultado, ruta_salida=nombre_salida, abrir_al_terminar=False)
 
-        nombre_salida = f"{carpeta_curso}/{nombre_archivo}"
-
-        exportar_horario_png(df_resultado, ruta_salida=nombre_salida, abrir_al_terminar=False)
         return df_resultado
     else:
         print("No se encontro solucion factible. Comprobar si hay suficientes aulas del tipo requerido")
@@ -159,5 +177,7 @@ if __name__ == "__main__":
     modelo_base(semestre=1, curso=3, grupo_principal=1)
     print("\n================== 3º GII - SEMESTRE 2 ==================")
     modelo_base(semestre=2, curso=3, grupo_principal=1)
-    print("\n================== 2º GII - SEMESTRE 1 (GRUPO 2) ==================")
-    modelo_base(semestre=1, curso=2, grupo_principal=2)
+    print("\n================== 2º GII - SEMESTRE 1 (GRUPOS 1 Y 2) ==================")
+    modelo_base(semestre=1, curso=2, grupo_principal=None)
+    print("\n================== 2º GII - SEMESTRE 2 (GRUPOS 1 Y 2) ==================")
+    modelo_base(semestre=2, curso=2, grupo_principal=None)

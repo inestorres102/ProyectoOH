@@ -52,9 +52,14 @@ def obtener_subgrupos_estudiantes(row, df_clases=None):
             curso_col = "curso" if "curso" in df_clases.columns else "Curso"
             gp_col = "grupo_principal" if "grupo_principal" in df_clases.columns else "GrupoPrincipal"
 
+            sem_col = "semestre" if "semestre" in df_clases.columns else "Semestre"
+            s = row.get("semestre") if "semestre" in row else row.get("Semestre")
+
             filtro = df_clases[~df_clases[tipo_col].astype(str).str.lower().str.contains("teor")].copy()
             if c is not None and curso_col in df_clases.columns:
                 filtro = filtro[filtro[curso_col] == c]
+            if s is not None and sem_col in df_clases.columns:
+                filtro = filtro[filtro[sem_col] == s]
             if gp is not None and gp_col in df_clases.columns:
                 filtro = filtro[filtro[gp_col] == gp]
 

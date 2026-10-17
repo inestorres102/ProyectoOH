@@ -84,3 +84,87 @@ S82,TP,practica,45,2,20,Laboratorio,Mario Hernandez Tejera,1,2,2
 S83,TP,practica,46,2,20,Laboratorio,Mario Hernandez Tejera,1,2,2
 S84,TP,practica,47,2,20,Laboratorio,Alexis Quesada Arencibia,1,2,2
 S85,TP,practica,48,2,20,Laboratorio,Alexis Quesada Arencibia,1,2,2
+S86,AC,teoria,1,1,80,Teoria,Jose Carlos Ruiz Luque,2,2,1
+S87,AC,teoria,1,1,80,Teoria,Jose Carlos Ruiz Luque,2,2,1
+S88,BD1,teoria,1,2,80,Teoria,Octavio Mayor Gonzalez,2,2,1
+S89,EDP,teoria,1,1,80,Teoria,Juan Carlos Rodriguez del Pino,2,2,1
+S90,EDP,teoria,1,1,80,Teoria,Juan Carlos Rodriguez del Pino,2,2,1
+S91,FSO,teoria,1,1,80,Teoria,Jose Miguel Santos Espino,2,2,1
+S92,FSO,teoria,1,1,80,Teoria,Jose Miguel Santos Espino,2,2,1
+S93,MN,teoria,1,1,80,Teoria,Angel Manuel Ramos del Rosario,2,2,1
+S94,MN,teoria,1,1,80,Teoria,Angel Manuel Ramos del Rosario,2,2,1
+S95,AC,practica,41,2,20,Laboratorio,Jose Carlos Ruiz Luque,2,2,1
+S96,AC,practica,42,2,20,Laboratorio,Jose Carlos Ruiz Luque,2,2,1
+S97,AC,practica,43,2,20,Laboratorio,Antonio Carlos Dominguez Brito,2,2,1
+S98,AC,practica,44,2,20,Laboratorio,Antonio Carlos Dominguez Brito,2,2,1
+S99,BD1,practica,41,2,20,Laboratorio,Octavio Mayor Gonzalez,2,2,1
+S100,BD1,practica,42,2,20,Laboratorio,Octavio Mayor Gonzalez,2,2,1
+S101,BD1,practica,43,2,20,Laboratorio,Adrian Penate Sanchez,2,2,1
+S102,BD1,practica,44,2,20,Laboratorio,Adrian Penate Sanchez,2,2,1
+S103,EDP,practica,41,2,20,Laboratorio,Juan Carlos Rodriguez del Pino,2,2,1
+S104,EDP,practica,42,2,20,Laboratorio,Juan Carlos Rodriguez del Pino,2,2,1
+S105,EDP,practica,43,2,20,Laboratorio,Juan Carlos Rodriguez del Pino,2,2,1
+S106,EDP,practica,44,2,20,Laboratorio,Juan Carlos Rodriguez del Pino,2,2,1
+S107,FSO,practica,41,2,20,Laboratorio,Jose Miguel Santos Espino,2,2,1
+S108,FSO,practica,42,2,20,Laboratorio,Jose Miguel Santos Espino,2,2,1
+S109,FSO,practica,43,2,20,Laboratorio,Alexis Quesada Arencibia,2,2,1
+S110,FSO,practica,44,2,20,Laboratorio,Alexis Quesada Arencibia,2,2,1
+S111,MN,practica,41,2,20,Laboratorio,Angel Manuel Ramos del Rosario,2,2,1
+S112,MN,practica,42,2,20,Laboratorio,Angel Manuel Ramos del Rosario,2,2,1
+S113,MN,practica,43,2,20,Laboratorio,Pedro Saavedra Santana,2,2,1
+S114,MN,practica,44,2,20,Laboratorio,Pedro Saavedra Santana,2,2,1
+S115,AC,teoria,2,1,60,Teoria,Jose Carlos Ruiz Luque,2,2,2
+S116,AC,teoria,2,1,60,Teoria,Jose Carlos Ruiz Luque,2,2,2
+S117,BD1,teoria,2,2,60,Teoria,Adrian Penate Sanchez,2,2,2
+S118,EDP,teoria,2,1,60,Teoria,Juan Carlos Rodriguez del Pino,2,2,2
+S119,EDP,teoria,2,1,60,Teoria,Juan Carlos Rodriguez del Pino,2,2,2
+S120,FSO,teoria,2,1,60,Teoria,Jose Miguel Santos Espino,2,2,2
+S121,FSO,teoria,2,1,60,Teoria,Jose Miguel Santos Espino,2,2,2
+S122,MN,teoria,2,1,60,Teoria,Angel Manuel Ramos del Rosario,2,2,2
+S123,MN,teoria,2,1,60,Teoria,Angel Manuel Ramos del Rosario,2,2,2
+S124,AC,practica,45,2,20,Laboratorio,Jose Carlos Ruiz Luque,2,2,2
+S125,AC,practica,46,2,20,Laboratorio,Antonio Carlos Dominguez Brito,2,2,2
+S126,AC,practica,47,2,20,Laboratorio,Antonio Carlos Dominguez Brito,2,2,2
+S127,BD1,practica,45,2,20,Laboratorio,Octavio Mayor Gonzalez,2,2,2
+S128,BD1,practica,46,2,20,Laboratorio,Adrian Penate Sanchez,2,2,2
+S129,BD1,practica,47,2,20,Laboratorio,Adrian Penate Sanchez,2,2,2
+S130,EDP,practica,45,2,20,Laboratorio,Juan Carlos Rodriguez del Pino,2,2,2
+S131,EDP,practica,46,2,20,Laboratorio,Juan Carlos Rodriguez del Pino,2,2,2
+S132,EDP,practica,47,2,20,Laboratorio,Juan Carlos Rodriguez del Pino,2,2,2
+S133,FSO,practica,45,2,20,Laboratorio,Jose Miguel Santos Espino,2,2,2
+S134,FSO,practica,46,2,20,Laboratorio,Alexis Quesada Arencibia,2,2,2
+S135,FSO,practica,47,2,20,Laboratorio,Alexis Quesada Arencibia,2,2,2
+S136,MN,practica,45,2,20,Laboratorio,Angel Manuel Ramos del Rosario,2,2,2
+S137,MN,practica,46,2,20,Laboratorio,Pedro Saavedra Santana,2,2,2
+S138,MN,practica,47,2,20,Laboratorio,Pedro Saavedra Santana,2,2,2
+S139,AP,teoria,1,2,80,Teoria,Zenon Hernandez Figueroa,1,2,1
+S140,AP,problemas,17,1,40,Teoria,Zenon Hernandez Figueroa,1,2,1
+S141,AP,problemas,18,1,40,Teoria,Zenon Hernandez Figueroa,1,2,1
+S142,AP,practica,41,2,20,Laboratorio,Zenon Hernandez Figueroa,1,2,1
+S143,AP,practica,42,2,20,Laboratorio,Zenon Hernandez Figueroa,1,2,1
+S144,AP,practica,43,2,20,Laboratorio,Javier Sanchez Perez,1,2,1
+S145,AP,practica,44,2,20,Laboratorio,Javier Sanchez Perez,1,2,1
+S146,IS1,teoria,1,2,80,Teoria,Carlos Javier Rivero Rodriguez,1,2,1
+S147,IS1,practica,41,2,20,Laboratorio,Carlos Javier Rivero Rodriguez,1,2,1
+S148,IS1,practica,42,2,20,Laboratorio,Carlos Javier Rivero Rodriguez,1,2,1
+S149,IS1,practica,43,2,20,Laboratorio,Jose Juan Hernandez Cabrera,1,2,1
+S150,IS1,practica,44,2,20,Laboratorio,Jose Juan Hernandez Cabrera,1,2,1
+S151,ME,teoria,1,2,80,Teoria,Pedro Saavedra Santana,1,2,1
+S152,ME,problemas,17,1,40,Teoria,Pedro Saavedra Santana,1,2,1
+S153,ME,problemas,18,1,40,Teoria,Pedro Saavedra Santana,1,2,1
+S154,ME,practica,41,2,20,Laboratorio,Pedro Saavedra Santana,1,2,1
+S155,ME,practica,42,2,20,Laboratorio,Pedro Saavedra Santana,1,2,1
+S156,ME,practica,43,2,20,Laboratorio,Juan Manuel Deniz Deniz,1,2,1
+S157,ME,practica,44,2,20,Laboratorio,Juan Manuel Deniz Deniz,1,2,1
+S158,PI,teoria,1,2,80,Teoria,Modesto Castrillon Santana,1,2,1
+S159,PI,practica,41,2,20,Laboratorio,Modesto Castrillon Santana,1,2,1
+S160,PI,practica,42,2,20,Laboratorio,Modesto Castrillon Santana,1,2,1
+S161,PI,practica,43,2,20,Laboratorio,Daniel Hernandez Sosa,1,2,1
+S162,PI,practica,44,2,20,Laboratorio,Daniel Hernandez Sosa,1,2,1
+S163,TP,teoria,1,2,80,Teoria,Mario Hernandez Tejera,1,2,1
+S164,TP,problemas,17,1,40,Teoria,Mario Hernandez Tejera,1,2,1
+S165,TP,problemas,18,1,40,Teoria,Mario Hernandez Tejera,1,2,1
+S166,TP,practica,41,2,20,Laboratorio,Mario Hernandez Tejera,1,2,1
+S167,TP,practica,42,2,20,Laboratorio,Mario Hernandez Tejera,1,2,1
+S168,TP,practica,43,2,20,Laboratorio,Alexis Quesada Arencibia,1,2,1
+S169,TP,practica,44,2,20,Laboratorio,Alexis Quesada Arencibia,1,2,1
