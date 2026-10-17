@@ -146,7 +146,7 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_3GCID_1er.png", abri
     ax.set_ylim(0, len(horas) * row_height + y_offset + 1.4)
     ax.axis("off")
 
-    plt.title("CALENDARIO ACADÉMICO — 3º GCID (1er SEMESTRE)", fontsize=16, fontweight="bold", pad=25, color="#1A237E")
+    plt.title("Horario académico — 3º GCID (1er SEMESTRE)", fontsize=16, fontweight="bold", pad=25, color="#1A237E")
     plt.tight_layout()
     plt.savefig(ruta_salida, dpi=300, bbox_inches="tight")
     plt.close()
