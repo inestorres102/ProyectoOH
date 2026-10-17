@@ -11,8 +11,9 @@ import pandas as pd
 def aplicar_restriccion_estudiantes(model, df_clases, interval_vars):
     """
     DURA: Un alumno no puede tener dos clases al mismo tiempo.
-    - Los subgrupos (41 o 42) no pueden tener dos clases simultáneas.
-    - Si hay clase de teoría (grupo 17), ningún subgrupo puede tener clase a esa misma hora.
+    - Un subgrupo no puede tener dos clases simultáneas.
+    - Si hay clase de teoría general (grupo 1 o 17), ningún subgrupo puede tener clase a esa misma hora.
+    - Dos clases de teoría no pueden coincidir a la misma hora.
     """
     sesiones = df_clases.to_dict("records")
     n = len(sesiones)
@@ -21,10 +22,13 @@ def aplicar_restriccion_estudiantes(model, df_clases, interval_vars):
         for j in range(i + 1, n):
             s1 = sesiones[i]
             s2 = sesiones[j]
-            g1, g2 = str(s1["grupo"]), str(s2["grupo"])
+            g1, g2 = str(s1["grupo"]).strip(), str(s2["grupo"]).strip()
 
-            # Hay conflicto si coinciden en subgrupo o si alguno es teoría de curso completo (17)
-            comparten_estudiantes = (g1 == g2) or (g1 == "17") or (g2 == "17")
+            es_teoria_1 = (g1 in ["1", "17"]) or ("teor" in str(s1.get("tipo", "")).strip().lower())
+            es_teoria_2 = (g2 in ["1", "17"]) or ("teor" in str(s2.get("tipo", "")).strip().lower())
+
+            # Hay conflicto si coinciden en subgrupo o si alguna es teoría general
+            comparten_estudiantes = (g1 == g2) or es_teoria_1 or es_teoria_2
             if comparten_estudiantes:
                 id1 = str(s1["id_sesion"])
                 id2 = str(s2["id_sesion"])
@@ -134,11 +138,11 @@ def aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars):
 
 # RESTRICCIONES BLANDAS (Criterios a optimizar en la función objetivo)
 
-def aplicar_restricciones_blandas(model, df_clases, start_vars, aula_assign, total_slots=30, aula_preferida="A2-5"):
+def aplicar_restricciones_blandas(model, df_clases, start_vars, aula_assign=None, total_slots=30, aula_preferida=None):
     """
     RESTRICCIONES BLANDAS (Función Objetivo a minimizar):
     1. Penalizar clases en las dos últimas horas del viernes (slots 28 y 29).
-    2. Penalizar que las clases de teoría del Grupo 17 se impartan fuera del aula preferida (A2-5).
+    2. Opcional: Penalizar desvíos de aula preferida solo si se especifica explícitamente.
     """
     penalizaciones = []
 
@@ -171,27 +175,25 @@ def aplicar_restricciones_blandas(model, df_clases, start_vars, aula_assign, tot
             model.Add(var_start < (total_slots - 2)).OnlyEnforceIf(es_viernes_tarde.Not())
             penalizaciones.append(es_viernes_tarde * 10)
 
-    # 2. Priorizar el aula preferida (A2-5) para teoría del Grupo 17
-    for _, row in df_clases.iterrows():
-        s_id = str(row["id_sesion"]).strip()
-        tipo = str(row.get("tipo", "")).strip().lower()
-        grupo = str(row.get("grupo", "")).strip()
+    # 2. Priorizar aula preferida solo si se ha configurado expresamente
+    if aula_preferida and aula_assign:
+        for _, row in df_clases.iterrows():
+            s_id = str(row["id_sesion"]).strip()
+            tipo = str(row.get("tipo", "")).strip().lower()
 
-        if "teor" in tipo and grupo == "17":
-            # Probar clave (s_id, aula_preferida)
-            var_aula_pref = aula_assign.get((s_id, aula_preferida))
-            if var_aula_pref is None:
-                # Probar si s_id estaba guardado de otra forma
-                for (s_k, a_k), v in aula_assign.items():
-                    if str(s_k).strip() == s_id and str(a_k).strip() == aula_preferida:
-                        var_aula_pref = v
-                        break
+            if "teor" in tipo:
+                var_aula_pref = aula_assign.get((s_id, aula_preferida))
+                if var_aula_pref is None:
+                    for (s_k, a_k), v in aula_assign.items():
+                        if str(s_k).strip() == s_id and str(a_k).strip() == aula_preferida:
+                            var_aula_pref = v
+                            break
 
-            if var_aula_pref is not None:
-                no_es_aula_pref = model.NewBoolVar(f"no_pref_{s_id}")
-                model.Add(var_aula_pref == 0).OnlyEnforceIf(no_es_aula_pref)
-                model.Add(var_aula_pref == 1).OnlyEnforceIf(no_es_aula_pref.Not())
-                penalizaciones.append(no_es_aula_pref * 25)
+                if var_aula_pref is not None:
+                    no_es_aula_pref = model.NewBoolVar(f"no_pref_{s_id}")
+                    model.Add(var_aula_pref == 0).OnlyEnforceIf(no_es_aula_pref)
+                    model.Add(var_aula_pref == 1).OnlyEnforceIf(no_es_aula_pref.Not())
+                    penalizaciones.append(no_es_aula_pref * 25)
 
     if penalizaciones:
-        model.Minimize(sum(penalizaciones))
+        model.Minimize(sum(penalizaciones))

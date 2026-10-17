@@ -70,17 +70,13 @@ def modelo_base():
     
     # aulas (tipo de aula y no solapamiento físico)
     aula_asignada = aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars)
-    
-    # D. Aulas (tipo y capacidad)
-    aula_asignada = aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars)
 
-
-    # Restricciones a optimizar
-    aplicar_restricciones_blandas(model, df_clases, start_vars, aula_asignada, total_slots=total_slots, aula_preferida="A2-5")
+    # Restricciones a optimizar (sin aula predeterminada)
+    aplicar_restricciones_blandas(model, df_clases, start_vars, total_slots=total_slots)
 
 
 
-    # 4. Resolver (con dos restricciones)
+    # 4. Resolver
     solver = cp_model.CpSolver()
     status = solver.Solve(model)
 
@@ -88,7 +84,7 @@ def modelo_base():
 
     # 5. Imprimir la asignación temporal básica por consola
     if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-        print("\n Horario con restriccion de solape, profesor, aula, no clase viernes por la tarde y aula fija:\n")
+        print("\n Horario óptimo 3º GII (solape, profesor, asignación dinámica de aulas, no viernes tarde):\n")
         asignaciones = []
 
         for _, row in df_clases.iterrows():
@@ -98,20 +94,17 @@ def modelo_base():
             dia_idx = slot_inicio // horas_por_dia
             hora_idx = slot_inicio % horas_por_dia
 
-        # Buscar qué aula se le asignó a esta sesión
+            # Buscar qué aula se le asignó a esta sesión
             aula_elegida = "Sin aula"
             for a_id in df_aulas["id_aula"].astype(str):
-                # Comprobamos tanto la tupla (s_id, a_id) como si la variable vale 1
                 var_aula = aula_asignada.get((s_id, a_id))
                 if var_aula is not None:
-                    # Si es una variable booleana resuelta por el solver
                     try:
                         if solver.Value(var_aula) == 1:
                             aula_elegida = a_id
                             break
                     except Exception:
                         pass
-
 
             asignaciones.append({
                 "Slot": slot_inicio,
@@ -131,7 +124,7 @@ def modelo_base():
         print(df_resultado.drop(columns=["Slot"]).to_string(index=False))
 
         # Generar el PNG y abrirlo al terminar
-        exportar_horario_png(df_resultado, ruta_salida="horario_3GCID_1er.png", abrir_al_terminar=True)
+        exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", abrir_al_terminar=False)
     else:
         print("No se encontro solucion factible. Comprobar si hay suficientes aulas del tipo requerido")
 
