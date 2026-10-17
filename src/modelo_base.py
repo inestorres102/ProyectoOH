@@ -5,7 +5,8 @@ from ortools.sat.python import cp_model
 from restricciones import (
     aplicar_restriccion_estudiantes,
     aplicar_restriccion_cambio_dia,
-    aplicar_restriccion_profesores
+    aplicar_restriccion_profesores,
+    aplicar_restriccion_aulas
 )
 
 
@@ -25,6 +26,9 @@ def modelo_base():
     ruta_clases = "datos/clases.csv"
     df_clases = pd.read_csv(ruta_clases)
     print(f"Cargadas con exito {len(df_clases)} sesiones desde '{ruta_clases}'.")
+
+    df_aulas = pd.read_csv("datos/aulas.csv")
+    print(f"Sesiones cargadas: {len(df_clases)} | Aulas disponibles: {len(df_aulas)}") # relacionamos numero de sesiones con numero de aulas disponibles
 
 
 
@@ -52,14 +56,17 @@ def modelo_base():
 
 
 # APLICAR RESTRICCIONES DURAS
-    # 1. Primera restricción dura: Los alumnos no se solapan
+    # alumnos
     aplicar_restriccion_estudiantes(model, df_clases, interval_vars)
     
-    # 2. Control de días: Una clase no cruza de un día a otro
+    # coherencia horaria
     aplicar_restriccion_cambio_dia(model, df_clases, start_vars, end_vars, horas_por_dia)
     
-    # 3. Un profesor no puede impartir dos sesiones al mismo tiempo
+    # profesores
     aplicar_restriccion_profesores(model, df_clases, interval_vars)
+    
+    # aulas (tipo de aula y no solapamiento físico)
+    aula_asignada = aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars)
 
 
 
@@ -71,14 +78,30 @@ def modelo_base():
 
     # 5. Imprimir la asignación temporal básica por consola
     if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-        print("\n Horario base generado (con restriccion de solape y de profesor):\n")
+        print("\n Horario con restriccion de solape, profesor y aula:\n")
         asignaciones = []
+
         for _, row in df_clases.iterrows():
             s_id = str(row["id_sesion"])
             slot_inicio = solver.Value(start_vars[s_id])
 
             dia_idx = slot_inicio // horas_por_dia
             hora_idx = slot_inicio % horas_por_dia
+
+        # Buscar qué aula se le asignó a esta sesión
+            aula_elegida = "Sin aula"
+            for a_id in df_aulas["id_aula"].astype(str):
+                # Comprobamos tanto la tupla (s_id, a_id) como si la variable vale 1
+                var_aula = aula_asignada.get((s_id, a_id))
+                if var_aula is not None:
+                    # Si es una variable booleana resuelta por el solver
+                    try:
+                        if solver.Value(var_aula) == 1:
+                            aula_elegida = a_id
+                            break
+                    except Exception:
+                        pass
+
 
             asignaciones.append({
                 "Slot": slot_inicio,
@@ -89,6 +112,7 @@ def modelo_base():
                 "Dia": dias[dia_idx],
                 "Hora": horas_etiquetas[hora_idx],
                 "Duracion": f"{row['duracion_horas']}h",
+                "Aula": aula_elegida,
                 "Profesor": row["profesor"]
             })
 
@@ -97,7 +121,7 @@ def modelo_base():
         #Quitamos la columna 'Slot' solo para que la tabla quede limpia
         print(df_resultado.drop(columns=["Slot"]).to_string(index=False))
     else:
-        print("No se encontro solucion factible.")
+        print("No se encontro solucion factible. Comprobar si hay suficientes aulas del tipo requerido")
 
 if __name__ == "__main__":
     modelo_base()
