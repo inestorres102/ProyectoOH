@@ -8,28 +8,90 @@ import pandas as pd
 
 # RESTRICCIONES DURAS (Obligatorias)
 
+def obtener_subgrupos_estudiantes(row, df_clases=None):
+    """
+    Devuelve el conjunto de subgrupos de estudiantes que asisten a la sesión.
+    Jerarquía oficial EII:
+    1. Si la fila tiene 'subgrupos_alumnos', lo usa explícitamente (ej: '45,46').
+    2. Si es Práctica de Aula (Azul):
+       - G17 -> {'41', '42'}
+       - G18 -> {'43', '44'}
+       - G19 -> {'45', '46'}
+       - G20 -> {'47', '48'}
+    3. Si es Teoría (Amarillo):
+       - Todos los subgrupos de prácticas de su mismo (curso, grupo_principal).
+    4. Si es Laboratorio (Verde):
+       - El subgrupo individual {'41'}, {'42'}, etc.
+    """
+    if "subgrupos_alumnos" in row and pd.notna(row["subgrupos_alumnos"]):
+        val = str(row["subgrupos_alumnos"]).strip()
+        if val:
+            return set(val.replace(";", ",").split(","))
+
+    tipo_str = str(row.get("tipo", "")).strip().lower()
+    grupo_str = str(row.get("grupo", "")).strip()
+
+    # Mapeo oficial de prácticas de aula en la EII
+    mapeo_aula = {
+        "17": {"41", "42"},
+        "18": {"43", "44"},
+        "19": {"45", "46"},
+        "20": {"47", "48"}
+    }
+    if "prob" in tipo_str or "aula" in tipo_str or "pa" in tipo_str:
+        if grupo_str in mapeo_aula:
+            return mapeo_aula[grupo_str]
+
+    if "teor" in tipo_str:
+        if df_clases is not None:
+            c = row.get("curso")
+            gp = row.get("grupo_principal")
+            filtro = df_clases[~df_clases["tipo"].astype(str).str.lower().str.contains("teor")].copy()
+            if c is not None and "curso" in df_clases.columns:
+                filtro = filtro[filtro["curso"] == c]
+            if gp is not None and "grupo_principal" in df_clases.columns:
+                filtro = filtro[filtro["grupo_principal"] == gp]
+
+            subgs = set()
+            for _, r in filtro.iterrows():
+                t = str(r.get("tipo", "")).lower()
+                if "prob" not in t and "aula" not in t:
+                    subgs.add(str(r["grupo"]).strip())
+            if subgs:
+                return subgs
+
+        if grupo_str in ["2", "G2", "16", "18"]:
+            return {"45", "46", "47", "48"}
+        return {"41", "42", "43", "44", "45"}
+
+    # Laboratorio (subgrupo atómico)
+    return {grupo_str}
+
+
 def aplicar_restriccion_estudiantes(model, df_clases, interval_vars):
     """
     DURA: Un alumno no puede tener dos clases al mismo tiempo.
-    - Un subgrupo no puede tener dos clases simultáneas.
-    - Si hay clase de teoría general (grupo 1 o 17), ningún subgrupo puede tener clase a esa misma hora.
-    - Dos clases de teoría no pueden coincidir a la misma hora.
+    - Dos sesiones del mismo curso y grupo_principal con alumnos en común no pueden solaparse.
     """
     sesiones = df_clases.to_dict("records")
     n = len(sesiones)
+    alumnos_por_sesion = [obtener_subgrupos_estudiantes(s, df_clases) for s in sesiones]
 
     for i in range(n):
         for j in range(i + 1, n):
             s1 = sesiones[i]
             s2 = sesiones[j]
-            g1, g2 = str(s1["grupo"]).strip(), str(s2["grupo"]).strip()
 
-            es_teoria_1 = (g1 in ["1", "17"]) or ("teor" in str(s1.get("tipo", "")).strip().lower())
-            es_teoria_2 = (g2 in ["1", "17"]) or ("teor" in str(s2.get("tipo", "")).strip().lower())
+            # Si pertenecen a cursos o grupos principales distintos, son alumnos totalmente independientes
+            c1, c2 = s1.get("curso"), s2.get("curso")
+            gp1, gp2 = s1.get("grupo_principal"), s2.get("grupo_principal")
+            if c1 is not None and c2 is not None and c1 != c2:
+                continue
+            if gp1 is not None and gp2 is not None and gp1 != gp2:
+                continue
 
-            # Hay conflicto si coinciden en subgrupo o si alguna es teoría general
-            comparten_estudiantes = (g1 == g2) or es_teoria_1 or es_teoria_2
-            if comparten_estudiantes:
+            # Comparten estudiantes si la intersección de sus subgrupos no es vacía
+            if alumnos_por_sesion[i].intersection(alumnos_por_sesion[j]):
                 id1 = str(s1["id_sesion"])
                 id2 = str(s2["id_sesion"])
                 model.AddNoOverlap([interval_vars[id1], interval_vars[id2]])
@@ -176,9 +238,14 @@ def aplicar_restricciones_blandas(model, df_clases, start_vars, aula_assign=None
             model.Add(var_start < (total_slots - 2)).OnlyEnforceIf(es_viernes_tarde.Not())
             penalizaciones.append(es_viernes_tarde * 20)
 
-    # 2. Minimizar huecos (horas libres) entre clases para cada subgrupo en un mismo día
-    subgrupos = [str(g).strip() for g in df_clases["grupo"].dropna().unique() if str(g).strip() not in ["1", "17"]]
-    if subgrupos:
+    # 2. Minimizar huecos (horas libres) entre clases para cada subgrupo atómico de alumnos
+    subgrupos_atomicos = set()
+    for _, row in df_clases.iterrows():
+        t = str(row.get("tipo", "")).lower()
+        if "teor" not in t and "prob" not in t and "aula" not in t:
+            subgrupos_atomicos.add(str(row["grupo"]).strip())
+
+    if subgrupos_atomicos:
         start_is = {}
         for _, row in df_clases.iterrows():
             s_id = str(row["id_sesion"]).strip()
@@ -191,14 +258,22 @@ def aplicar_restricciones_blandas(model, df_clases, start_vars, aula_assign=None
                     model.Add(v_start != t).OnlyEnforceIf(b.Not())
                     start_is[s_id, t] = b
 
+        # Precomputamos a qué sesiones asiste cada subgrupo atómico
+        sesiones_por_subgrupo = {}
+        for g in subgrupos_atomicos:
+            ses_g = []
+            for _, row in df_clases.iterrows():
+                subs = obtener_subgrupos_estudiantes(row, df_clases)
+                if g in subs:
+                    ses_g.append(row)
+            sesiones_por_subgrupo[g] = ses_g
+
         ocupado = {}
-        for g in subgrupos:
-            ses_g = df_clases[(df_clases["grupo"].astype(str).str.strip() == g) | 
-                              (df_clases["tipo"].astype(str).str.lower().str.contains("teor")) | 
-                              (df_clases["grupo"].astype(str).str.strip().isin(["1", "17"]))]
+        for g in sorted(subgrupos_atomicos):
+            ses_g = sesiones_por_subgrupo[g]
             for t in range(total_slots):
                 covering = []
-                for _, row in ses_g.iterrows():
+                for row in ses_g:
                     s_id = str(row["id_sesion"]).strip()
                     dur = int(row["duracion_horas"])
                     for k in range(dur):
@@ -213,7 +288,7 @@ def aplicar_restricciones_blandas(model, df_clases, start_vars, aula_assign=None
                 ocupado[g, t] = oc
 
         num_dias = total_slots // horas_por_dia
-        for g in subgrupos:
+        for g in sorted(subgrupos_atomicos):
             for d in range(num_dias):
                 day_slots = [d * horas_por_dia + h for h in range(horas_por_dia)]
                 for h in range(1, horas_por_dia - 1):
