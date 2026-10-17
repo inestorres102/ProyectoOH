@@ -1,16 +1,31 @@
 id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor
-S01,OH,practica,41,3,22,Laboratorio,Javier Sanchez Perez
-S02,OH,practica,42,3,16,Laboratorio,Javier Sanchez Perez
-S03,AA2,practica,41,2,24,Laboratorio, Jose Javier Lorenzo Navarro
-S04,AA2,practica,42,2,22,Laboratorio, Jose Javier Lorenzo Navarro
-S05,ASO,practica,41,2,25,Laboratorio, Carmelo Ruben Garcia Rodriguez
-S06,ASO,practica,42,2,25,Laboratorio, Carmelo Ruben Garcia Rodriguez
-S07,BD,practica,41,2,13,Laboratorio, Maria Dolores Afonso
-S08,BD,practica,42,2,10,Laboratorio, Maria Dolores Afonso
-S09,BD2,practica,41,2,25,Laboratorio, Octavio Mayor
-S10,BD2,practica,42,2,25,Laboratorio, Juan de Dios Duque Oliva
-S11,OH,teoria,17,1,30,Teoria,Javier Sanchez Perez
-S12,AA2,teoria,17,2,43,Teoria, Jose Javier Lorenzo Navarro
-S13,BD2,teoria,17,2,27,Teoria, Juan de Dios Duque Oliva
-S14,ASO,teoria,17,1,50,Teoria, Carmelo Ruben Garcia Rodriguez
-S15,BD,teoria,17,2,29,Teoria, Maria Dolores Afonso
+S01,RC,practica,41,2,22,Laboratorio,Juan Carlos Quevedo Losada
+S02,RC,practica,42,2,20,Laboratorio,Juan Carlos Quevedo Losada
+S03,RC,practica,43,2,22,Laboratorio,Juan Carlos Quevedo Losada
+S04,RC,practica,44,2,20,Laboratorio,Juan Carlos Quevedo Losada
+S05,RC,practica,45,2,18,Laboratorio,Juan Carlos Quevedo Losada
+S06,ASO,practica,41,2,22,Laboratorio,Carmelo Ruben Garcia Rodriguez
+S07,ASO,practica,42,2,20,Laboratorio,Carmelo Ruben Garcia Rodriguez
+S08,ASO,practica,43,2,22,Laboratorio,Carmelo Ruben Garcia Rodriguez
+S09,ASO,practica,44,2,20,Laboratorio,Carmelo Ruben Garcia Rodriguez
+S10,ASO,practica,45,2,18,Laboratorio,Carmelo Ruben Garcia Rodriguez
+S11,BD2,practica,41,2,22,Laboratorio,Octavio Mayor
+S12,BD2,practica,42,2,20,Laboratorio,Octavio Mayor
+S13,BD2,practica,43,2,22,Laboratorio,Juan de Dios Duque Oliva
+S14,BD2,practica,44,2,20,Laboratorio,Juan de Dios Duque Oliva
+S15,BD2,practica,45,2,18,Laboratorio,Octavio Mayor
+S16,IS2,practica,41,2,22,Laboratorio,Jose Juan Hernandez Cabrera
+S17,IS2,practica,42,2,20,Laboratorio,Jose Juan Hernandez Cabrera
+S18,IS2,practica,43,2,22,Laboratorio,Jose Juan Hernandez Cabrera
+S19,IS2,practica,44,2,20,Laboratorio,Jose Juan Hernandez Cabrera
+S20,IS2,practica,45,2,18,Laboratorio,Jose Juan Hernandez Cabrera
+S21,FSI,practica,41,2,22,Laboratorio,Cayetano Guerra Artal
+S22,FSI,practica,42,2,20,Laboratorio,Cayetano Guerra Artal
+S23,FSI,practica,43,2,22,Laboratorio,Jose Daniel Hernandez Sosa
+S24,FSI,practica,44,2,20,Laboratorio,Jose Daniel Hernandez Sosa
+S25,FSI,practica,45,2,18,Laboratorio,Cayetano Guerra Artal
+S26,RC,teoria,1,2,85,Teoria,Juan Carlos Quevedo Losada
+S27,ASO,teoria,1,1,85,Teoria,Carmelo Ruben Garcia Rodriguez
+S28,BD2,teoria,1,2,85,Teoria,Juan de Dios Duque Oliva
+S29,IS2,teoria,1,2,85,Teoria,Jose Juan Hernandez Cabrera
+S30,FSI,teoria,1,2,85,Teoria,Cayetano Guerra Artal
