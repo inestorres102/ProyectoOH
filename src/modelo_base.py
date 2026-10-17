@@ -197,6 +197,8 @@ def modelo_base(semestre=1, curso=3, grupo_principal=1):
 if __name__ == "__main__":
     print("\n================== 1º GII - SEMESTRE 1 (GRUPOS 1, 2 Y 3 TARDE) ==================")
     modelo_base(semestre=1, curso=1, grupo_principal=None)
+    print("\n================== 1º GII - SEMESTRE 2 (GRUPOS 1, 2 Y 3 TARDE) ==================")
+    modelo_base(semestre=2, curso=1, grupo_principal=None)
 
     print("\n================== 2º GII - SEMESTRE 1 (GRUPOS 1 Y 2) ==================")
     modelo_base(semestre=1, curso=2, grupo_principal=None)

@@ -240,3 +240,84 @@ S238,FP1,practica,49,2,20,Laboratorio,Modesto Castrillon Santana,1,1,3
 S239,FP1,practica,50,2,20,Laboratorio,Modesto Castrillon Santana,1,1,3
 S240,FP1,practica,51,2,20,Laboratorio,Daniel Hernandez Sosa,1,1,3
 S241,FP1,practica,52,2,20,Laboratorio,Daniel Hernandez Sosa,1,1,3
+S242,FP2,teoria,1,1,80,Teoria,Modesto Castrillon Santana,2,1,1
+S243,FP2,teoria,1,1,80,Teoria,Modesto Castrillon Santana,2,1,1
+S244,FP2,practica,41,2,20,Laboratorio,Daniel Hernandez Sosa,2,1,1
+S245,FP2,practica,42,2,20,Laboratorio,Daniel Hernandez Sosa,2,1,1
+S246,FP2,practica,43,2,20,Laboratorio,Modesto Castrillon Santana,2,1,1
+S247,FP2,practica,44,2,20,Laboratorio,Modesto Castrillon Santana,2,1,1
+S248,EC,teoria,1,1,80,Teoria,Antonio Carlos Dominguez Brito,2,1,1
+S249,EC,teoria,1,1,80,Teoria,Antonio Carlos Dominguez Brito,2,1,1
+S250,EC,practica,41,2,20,Laboratorio,Antonio Carlos Dominguez Brito,2,1,1
+S251,EC,practica,42,2,20,Laboratorio,Antonio Carlos Dominguez Brito,2,1,1
+S252,EC,practica,43,2,20,Laboratorio,Javier Sanchez Perez,2,1,1
+S253,EC,practica,44,2,20,Laboratorio,Javier Sanchez Perez,2,1,1
+S254,FFI,teoria,1,1,80,Teoria,Jose Maria Miranda Pantoja,2,1,1
+S255,FFI,teoria,1,1,80,Teoria,Jose Maria Miranda Pantoja,2,1,1
+S256,FFI,teoria,1,1,80,Teoria,Jose Maria Miranda Pantoja,2,1,1
+S257,FFI,practica,41,2,20,Laboratorio,Jose Maria Miranda Pantoja,2,1,1
+S258,FFI,practica,42,2,20,Laboratorio,Jose Maria Miranda Pantoja,2,1,1
+S259,FFI,practica,43,2,20,Laboratorio,Jesus Garcia-Rubio,2,1,1
+S260,FFI,practica,44,2,20,Laboratorio,Jesus Garcia-Rubio,2,1,1
+S261,EP,teoria,1,1,80,Teoria,Pedro Saavedra Santana,2,1,1
+S262,EP,teoria,1,1,80,Teoria,Pedro Saavedra Santana,2,1,1
+S263,EP,problemas,17,2,40,Teoria,Pedro Saavedra Santana,2,1,1
+S264,EP,problemas,18,2,40,Teoria,Angel Manuel Ramos del Rosario,2,1,1
+S265,MC,teoria,1,1,80,Teoria,Domingo Hernandez Abreu,2,1,1
+S266,MC,teoria,1,1,80,Teoria,Domingo Hernandez Abreu,2,1,1
+S267,MC,problemas,17,2,40,Teoria,Domingo Hernandez Abreu,2,1,1
+S268,MC,problemas,18,2,40,Teoria,Domingo Hernandez Abreu,2,1,1
+S269,FP2,teoria,2,1,80,Teoria,Carlos Javier Rivero Rodriguez,2,1,2
+S270,FP2,teoria,2,1,80,Teoria,Carlos Javier Rivero Rodriguez,2,1,2
+S271,FP2,practica,45,2,20,Laboratorio,Carlos Javier Rivero Rodriguez,2,1,2
+S272,FP2,practica,46,2,20,Laboratorio,Carlos Javier Rivero Rodriguez,2,1,2
+S273,FP2,practica,47,2,20,Laboratorio,Cayetano Guerra Artal,2,1,2
+S274,FP2,practica,48,2,20,Laboratorio,Cayetano Guerra Artal,2,1,2
+S275,EC,teoria,2,1,80,Teoria,Javier Sanchez Perez,2,1,2
+S276,EC,teoria,2,1,80,Teoria,Javier Sanchez Perez,2,1,2
+S277,EC,practica,45,2,20,Laboratorio,Antonio Carlos Dominguez Brito,2,1,2
+S278,EC,practica,46,2,20,Laboratorio,Antonio Carlos Dominguez Brito,2,1,2
+S279,EC,practica,47,2,20,Laboratorio,Javier Sanchez Perez,2,1,2
+S280,EC,practica,48,2,20,Laboratorio,Javier Sanchez Perez,2,1,2
+S281,FFI,teoria,2,1,80,Teoria,Jesus Garcia-Rubio,2,1,2
+S282,FFI,teoria,2,1,80,Teoria,Jesus Garcia-Rubio,2,1,2
+S283,FFI,teoria,2,1,80,Teoria,Jesus Garcia-Rubio,2,1,2
+S284,FFI,practica,45,2,20,Laboratorio,Jose Maria Miranda Pantoja,2,1,2
+S285,FFI,practica,46,2,20,Laboratorio,Jose Maria Miranda Pantoja,2,1,2
+S286,FFI,practica,47,2,20,Laboratorio,Jesus Garcia-Rubio,2,1,2
+S287,FFI,practica,48,2,20,Laboratorio,Jesus Garcia-Rubio,2,1,2
+S288,EP,teoria,2,1,80,Teoria,Angel Manuel Ramos del Rosario,2,1,2
+S289,EP,teoria,2,1,80,Teoria,Angel Manuel Ramos del Rosario,2,1,2
+S290,EP,problemas,19,2,40,Teoria,Angel Manuel Ramos del Rosario,2,1,2
+S291,EP,problemas,20,2,40,Teoria,Pedro Saavedra Santana,2,1,2
+S292,MC,teoria,2,1,80,Teoria,Domingo Hernandez Abreu,2,1,2
+S293,MC,teoria,2,1,80,Teoria,Domingo Hernandez Abreu,2,1,2
+S294,MC,problemas,19,2,40,Teoria,Domingo Hernandez Abreu,2,1,2
+S295,MC,problemas,20,2,40,Teoria,Domingo Hernandez Abreu,2,1,2
+S296,FP2,teoria,3,1,80,Teoria,Modesto Castrillon Santana,2,1,3
+S297,FP2,teoria,3,1,80,Teoria,Modesto Castrillon Santana,2,1,3
+S298,FP2,practica,49,2,20,Laboratorio,Modesto Castrillon Santana,2,1,3
+S299,FP2,practica,50,2,20,Laboratorio,Modesto Castrillon Santana,2,1,3
+S300,FP2,practica,51,2,20,Laboratorio,Daniel Hernandez Sosa,2,1,3
+S301,FP2,practica,52,2,20,Laboratorio,Daniel Hernandez Sosa,2,1,3
+S302,EC,teoria,3,1,80,Teoria,Antonio Carlos Dominguez Brito,2,1,3
+S303,EC,teoria,3,1,80,Teoria,Antonio Carlos Dominguez Brito,2,1,3
+S304,EC,practica,49,2,20,Laboratorio,Antonio Carlos Dominguez Brito,2,1,3
+S305,EC,practica,50,2,20,Laboratorio,Antonio Carlos Dominguez Brito,2,1,3
+S306,EC,practica,51,2,20,Laboratorio,Javier Sanchez Perez,2,1,3
+S307,EC,practica,52,2,20,Laboratorio,Javier Sanchez Perez,2,1,3
+S308,FFI,teoria,3,1,80,Teoria,Jose Maria Miranda Pantoja,2,1,3
+S309,FFI,teoria,3,1,80,Teoria,Jose Maria Miranda Pantoja,2,1,3
+S310,FFI,teoria,3,1,80,Teoria,Jose Maria Miranda Pantoja,2,1,3
+S311,FFI,practica,49,2,20,Laboratorio,Jose Maria Miranda Pantoja,2,1,3
+S312,FFI,practica,50,2,20,Laboratorio,Jose Maria Miranda Pantoja,2,1,3
+S313,FFI,practica,51,2,20,Laboratorio,Jesus Garcia-Rubio,2,1,3
+S314,FFI,practica,52,2,20,Laboratorio,Jesus Garcia-Rubio,2,1,3
+S315,EP,teoria,3,1,80,Teoria,Pedro Saavedra Santana,2,1,3
+S316,EP,teoria,3,1,80,Teoria,Pedro Saavedra Santana,2,1,3
+S317,EP,problemas,21,2,40,Teoria,Pedro Saavedra Santana,2,1,3
+S318,EP,problemas,22,2,40,Teoria,Angel Manuel Ramos del Rosario,2,1,3
+S319,MC,teoria,3,1,80,Teoria,Domingo Hernandez Abreu,2,1,3
+S320,MC,teoria,3,1,80,Teoria,Domingo Hernandez Abreu,2,1,3
+S321,MC,problemas,21,2,40,Teoria,Domingo Hernandez Abreu,2,1,3
+S322,MC,problemas,22,2,40,Teoria,Domingo Hernandez Abreu,2,1,3
