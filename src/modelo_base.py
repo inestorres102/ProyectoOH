@@ -208,4 +208,9 @@ if __name__ == "__main__":
     print("\n================== 3º GII - SEMESTRE 1 ==================")
     modelo_base(semestre=1, curso=3, grupo_principal=1)
     print("\n================== 3º GII - SEMESTRE 2 ==================")
-    modelo_base(semestre=2, curso=3, grupo_principal=1)
+    modelo_base(semestre=2, curso=3, grupo_principal=1)
+
+    print("\n================== 4º GII - SEMESTRE 1 ==================")
+    modelo_base(semestre=1, curso=4, grupo_principal=1)
+    print("\n================== 4º GII - SEMESTRE 2 ==================")
+    modelo_base(semestre=2, curso=4, grupo_principal=1)
