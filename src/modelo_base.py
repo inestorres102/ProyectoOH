@@ -128,6 +128,7 @@ def modelo_base(semestre=1, curso=3, grupo_principal=1):
                 "Aula": aula_elegida,
                 "Profesor": row["profesor"],
                 "Curso": row.get("curso", curso),
+                "Semestre": row.get("semestre", semestre),
                 "GrupoPrincipal": row.get("grupo_principal", grupo_principal)
             })
 
@@ -155,6 +156,8 @@ def modelo_base(semestre=1, curso=3, grupo_principal=1):
 
 if __name__ == "__main__":
     print("\n================== 3º GII - SEMESTRE 1 ==================")
-    modelo_base(semestre=1)
+    modelo_base(semestre=1, curso=3, grupo_principal=1)
     print("\n================== 3º GII - SEMESTRE 2 ==================")
-    modelo_base(semestre=2)
+    modelo_base(semestre=2, curso=3, grupo_principal=1)
+    print("\n================== 2º GII - SEMESTRE 1 (GRUPO 2) ==================")
+    modelo_base(semestre=1, curso=2, grupo_principal=2)

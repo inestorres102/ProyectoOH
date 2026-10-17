@@ -249,7 +249,11 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", titul
     if titulo is None:
         c_val = df_resultado["Curso"].iloc[0] if "Curso" in df_resultado.columns else 3
         gp_val = df_resultado["GrupoPrincipal"].iloc[0] if "GrupoPrincipal" in df_resultado.columns else 1
-        sem_str = "2º SEMESTRE" if ("2do" in ruta_salida or "_2" in ruta_salida) else "1er SEMESTRE"
+        if "Semestre" in df_resultado.columns:
+            s_num = int(df_resultado["Semestre"].iloc[0])
+            sem_str = "1er SEMESTRE" if s_num == 1 else f"{s_num}º SEMESTRE"
+        else:
+            sem_str = "2º SEMESTRE" if ("2do" in ruta_salida or "semestre 2" in ruta_salida.lower()) else "1er SEMESTRE"
         titulo = f"CALENDARIO ACADÉMICO — {c_val}º GII (Grupo {gp_val} - {sem_str})"
 
     plt.title(titulo, fontsize=16, fontweight="bold", pad=25, color="#1A237E")

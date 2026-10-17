@@ -53,3 +53,34 @@ S51,ASR,teoria,1,2,85,Teoria,Humberto Javier Alamo Deniz,2,3,1
 S52,VPD,teoria,1,2,85,Teoria,Francisco Alexis Quesada Arencibia,2,3,1
 S53,PWM,teoria,1,3,85,Teoria,Luis M. Hernandez Acosta,2,3,1
 S54,PS,teoria,1,3,85,Teoria,Nelson Monzon Lopez,2,3,1
+S55,AP,teoria,2,2,80,Teoria,Zenon Hernandez Figueroa,1,2,2
+S56,AP,problemas,19,1,40,Teoria,Zenon Hernandez Figueroa,1,2,2
+S57,AP,problemas,20,1,40,Teoria,Zenon Hernandez Figueroa,1,2,2
+S58,AP,practica,45,2,20,Laboratorio,Zenon Hernandez Figueroa,1,2,2
+S59,AP,practica,46,2,20,Laboratorio,Zenon Hernandez Figueroa,1,2,2
+S60,AP,practica,47,2,20,Laboratorio,Javier Sanchez Perez,1,2,2
+S61,AP,practica,48,2,20,Laboratorio,Javier Sanchez Perez,1,2,2
+S62,IS1,teoria,2,2,80,Teoria,Carlos Javier Rivero Rodriguez,1,2,2
+S63,IS1,practica,45,2,20,Laboratorio,Carlos Javier Rivero Rodriguez,1,2,2
+S64,IS1,practica,46,2,20,Laboratorio,Carlos Javier Rivero Rodriguez,1,2,2
+S65,IS1,practica,47,2,20,Laboratorio,Jose Juan Hernandez Cabrera,1,2,2
+S66,IS1,practica,48,2,20,Laboratorio,Jose Juan Hernandez Cabrera,1,2,2
+S67,ME,teoria,2,2,80,Teoria,Pedro Saavedra Santana,1,2,2
+S68,ME,problemas,19,1,40,Teoria,Pedro Saavedra Santana,1,2,2
+S69,ME,problemas,20,1,40,Teoria,Pedro Saavedra Santana,1,2,2
+S70,ME,practica,45,2,20,Laboratorio,Pedro Saavedra Santana,1,2,2
+S71,ME,practica,46,2,20,Laboratorio,Pedro Saavedra Santana,1,2,2
+S72,ME,practica,47,2,20,Laboratorio,Juan Manuel Deniz Deniz,1,2,2
+S73,ME,practica,48,2,20,Laboratorio,Juan Manuel Deniz Deniz,1,2,2
+S74,PI,teoria,2,2,80,Teoria,Modesto Castrillon Santana,1,2,2
+S75,PI,practica,45,2,20,Laboratorio,Modesto Castrillon Santana,1,2,2
+S76,PI,practica,46,2,20,Laboratorio,Modesto Castrillon Santana,1,2,2
+S77,PI,practica,47,2,20,Laboratorio,Daniel Hernandez Sosa,1,2,2
+S78,PI,practica,48,2,20,Laboratorio,Daniel Hernandez Sosa,1,2,2
+S79,TP,teoria,2,2,80,Teoria,Mario Hernandez Tejera,1,2,2
+S80,TP,problemas,19,1,40,Teoria,Mario Hernandez Tejera,1,2,2
+S81,TP,problemas,20,1,40,Teoria,Mario Hernandez Tejera,1,2,2
+S82,TP,practica,45,2,20,Laboratorio,Mario Hernandez Tejera,1,2,2
+S83,TP,practica,46,2,20,Laboratorio,Mario Hernandez Tejera,1,2,2
+S84,TP,practica,47,2,20,Laboratorio,Alexis Quesada Arencibia,1,2,2
+S85,TP,practica,48,2,20,Laboratorio,Alexis Quesada Arencibia,1,2,2
