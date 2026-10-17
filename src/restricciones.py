@@ -28,8 +28,8 @@ def obtener_subgrupos_estudiantes(row, df_clases=None):
         if val:
             return set(val.replace(";", ",").split(","))
 
-    tipo_str = str(row.get("tipo", "")).strip().lower()
-    grupo_str = str(row.get("grupo", "")).strip()
+    tipo_str = str(row.get("tipo", row.get("Tipo", ""))).strip().lower()
+    grupo_str = str(row.get("grupo", row.get("Grupo", ""))).strip()
 
     # Mapeo oficial de prácticas de aula en la EII
     mapeo_aula = {
@@ -44,19 +44,25 @@ def obtener_subgrupos_estudiantes(row, df_clases=None):
 
     if "teor" in tipo_str:
         if df_clases is not None:
-            c = row.get("curso")
-            gp = row.get("grupo_principal")
-            filtro = df_clases[~df_clases["tipo"].astype(str).str.lower().str.contains("teor")].copy()
-            if c is not None and "curso" in df_clases.columns:
-                filtro = filtro[filtro["curso"] == c]
-            if gp is not None and "grupo_principal" in df_clases.columns:
-                filtro = filtro[filtro["grupo_principal"] == gp]
+            c = row.get("curso") if "curso" in row else row.get("Curso")
+            gp = row.get("grupo_principal") if "grupo_principal" in row else row.get("GrupoPrincipal")
+            
+            tipo_col = "tipo" if "tipo" in df_clases.columns else "Tipo"
+            grupo_col = "grupo" if "grupo" in df_clases.columns else "Grupo"
+            curso_col = "curso" if "curso" in df_clases.columns else "Curso"
+            gp_col = "grupo_principal" if "grupo_principal" in df_clases.columns else "GrupoPrincipal"
+
+            filtro = df_clases[~df_clases[tipo_col].astype(str).str.lower().str.contains("teor")].copy()
+            if c is not None and curso_col in df_clases.columns:
+                filtro = filtro[filtro[curso_col] == c]
+            if gp is not None and gp_col in df_clases.columns:
+                filtro = filtro[filtro[gp_col] == gp]
 
             subgs = set()
             for _, r in filtro.iterrows():
-                t = str(r.get("tipo", "")).lower()
+                t = str(r.get(tipo_col, "")).lower()
                 if "prob" not in t and "aula" not in t:
-                    subgs.add(str(r["grupo"]).strip())
+                    subgs.add(str(r[grupo_col]).strip())
             if subgs:
                 return subgs
 

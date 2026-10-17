@@ -4,6 +4,7 @@ import subprocess
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import pandas as pd
+from restricciones import obtener_subgrupos_estudiantes
 
 def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", titulo=None, abrir_al_terminar=True):
     """
@@ -41,17 +42,56 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", titul
     y_offset = 0.5
     row_height = 1.2
 
-    # 1. Cabecera superior: Días
+    # Identificar subgrupos atómicos presentes en este horario
+    subgrupos_atomicos = set()
+    for _, r in df_resultado.iterrows():
+        t = str(r.get("Tipo", r.get("tipo", ""))).lower()
+        if "teor" not in t and "prob" not in t and "aula" not in t:
+            subgrupos_atomicos.add(str(r.get("Grupo", r.get("grupo", ""))).strip())
+
+    if not subgrupos_atomicos:
+        for _, r in df_resultado.iterrows():
+            subgrupos_atomicos.add(str(r.get("Grupo", r.get("grupo", ""))).strip())
+
+    subgrupos_ordenados = sorted(list(subgrupos_atomicos), key=lambda x: int(x) if x.isdigit() else x)
+    num_subgrupos = len(subgrupos_ordenados)
+    track_map = {sg: idx for idx, sg in enumerate(subgrupos_ordenados)}
+    w_tr = (col_width - 0.08) / max(1, num_subgrupos)
+
+    # 1. Cabecera superior: Días y Subgrupos
     for j, dia in enumerate(dias):
         x = x_offset + j * col_width
-        header_box = patches.FancyBboxPatch(
-            (x + 0.05, len(horas) * row_height + y_offset + 0.1), col_width - 0.1, 0.55,
-            boxstyle="round,pad=0.03,rounding_size=0.1",
-            facecolor="#1A237E", edgecolor="none"
-        )
-        ax.add_patch(header_box)
-        ax.text(x + col_width / 2, len(horas) * row_height + y_offset + 0.38, dia.upper(),
-                ha="center", va="center", color="white", fontsize=12, fontweight="bold")
+        if num_subgrupos > 1:
+            header_box = patches.FancyBboxPatch(
+                (x + 0.04, len(horas) * row_height + y_offset + 0.32), col_width - 0.08, 0.42,
+                boxstyle="round,pad=0.03,rounding_size=0.08",
+                facecolor="#1A237E", edgecolor="none"
+            )
+            ax.add_patch(header_box)
+            ax.text(x + col_width / 2, len(horas) * row_height + y_offset + 0.53, dia.upper(),
+                    ha="center", va="center", color="white", fontsize=11.5, fontweight="bold")
+
+            # Sub-cabeceras por subgrupo atómico
+            for t_idx, sg in enumerate(subgrupos_ordenados):
+                x_sub = x + 0.04 + t_idx * w_tr
+                sub_box = patches.FancyBboxPatch(
+                    (x_sub + 0.01, len(horas) * row_height + y_offset + 0.04), w_tr - 0.02, 0.24,
+                    boxstyle="round,pad=0.02,rounding_size=0.04",
+                    facecolor="#E8EAF6", edgecolor="#C5CAE9", linewidth=0.9
+                )
+                ax.add_patch(sub_box)
+                ax.text(x_sub + w_tr / 2, len(horas) * row_height + y_offset + 0.16,
+                        f"G{sg}" if len(sg) <= 2 else sg,
+                        ha="center", va="center", color="#283593", fontsize=7.5, fontweight="bold")
+        else:
+            header_box = patches.FancyBboxPatch(
+                (x + 0.05, len(horas) * row_height + y_offset + 0.1), col_width - 0.1, 0.55,
+                boxstyle="round,pad=0.03,rounding_size=0.1",
+                facecolor="#1A237E", edgecolor="none"
+            )
+            ax.add_patch(header_box)
+            ax.text(x + col_width / 2, len(horas) * row_height + y_offset + 0.38, dia.upper(),
+                    ha="center", va="center", color="white", fontsize=12, fontweight="bold")
 
     # 2. Cabecera lateral: Horas
     for i, hora in enumerate(horas):
@@ -76,72 +116,24 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", titul
                 facecolor="#FFFFFF", edgecolor="#E0E0E0", linewidth=0.8, linestyle=":"
             )
             ax.add_patch(bg_slot)
+            if num_subgrupos > 1:
+                for t_idx in range(1, num_subgrupos):
+                    x_sep = x + 0.04 + t_idx * w_tr
+                    ax.plot([x_sep, x_sep], [y + 0.04, y + row_height - 0.04],
+                            color="#F0F0F0", linestyle="--", linewidth=0.6)
 
-    # 4. Manejo de sesiones simultáneas (desdobles y solapes por carriles)
+    # 4. Asignación de posiciones basada en subgrupos atómicos fijos
     horas_map = {h: i for i, h in enumerate(horas)}
 
-    # Asignación de carriles (lanes) por día mediante coloreado de grafos de intervalos
-    sesiones_con_posicion = []
-    for dia in dias:
-        df_dia = df_resultado[df_resultado["Dia"] == dia].copy()
-        if df_dia.empty:
-            continue
-
-        eventos = df_dia.to_dict("records")
-        for ev in eventos:
-            ev["start_idx"] = horas_map[ev["Hora"]]
-            ev["duracion_num"] = int(str(ev["Duracion"]).replace("h", ""))
-            ev["end_idx"] = ev["start_idx"] + ev["duracion_num"]
-
-        # Grafo de solapes entre sesiones del día
-        adj = {i: [] for i in range(len(eventos))}
-        for i in range(len(eventos)):
-            for j in range(i + 1, len(eventos)):
-                if eventos[i]["start_idx"] < eventos[j]["end_idx"] and eventos[j]["start_idx"] < eventos[i]["end_idx"]:
-                    adj[i].append(j)
-                    adj[j].append(i)
-
-        # Encontrar componentes conexas (clusters de sesiones que solapan directa o indirectamente)
-        visitados = set()
-        for i in range(len(eventos)):
-            if i not in visitados:
-                cluster = []
-                cola = [i]
-                visitados.add(i)
-                while cola:
-                    curr = cola.pop(0)
-                    cluster.append(curr)
-                    for vecino in adj[curr]:
-                        if vecino not in visitados:
-                            visitados.add(vecino)
-                            cola.append(vecino)
-
-                # Coloreado voraz (greedy interval coloring) para asignar carriles sin colisión
-                c_eventos = [eventos[k] for k in cluster]
-                c_eventos.sort(key=lambda x: (x["start_idx"], -x["duracion_num"]))
-                lane_ends = []
-                for ev in c_eventos:
-                    asignado = False
-                    for l_id in range(len(lane_ends)):
-                        if lane_ends[l_id] <= ev["start_idx"]:
-                            lane_ends[l_id] = ev["end_idx"]
-                            ev["lane"] = l_id
-                            asignado = True
-                            break
-                    if not asignado:
-                        ev["lane"] = len(lane_ends)
-                        lane_ends.append(ev["end_idx"])
-
-                total_lanes = len(lane_ends)
-                for ev in c_eventos:
-                    ev["total_lanes"] = total_lanes
-                    sesiones_con_posicion.append(ev)
-
-    for ev in sesiones_con_posicion:
+    for _, ev in df_resultado.iterrows():
         dia = ev["Dia"]
-        row_idx = ev["start_idx"]
-        duracion = ev["duracion_num"]
+        hora = ev["Hora"]
+        duracion = int(str(ev["Duracion"]).replace("h", ""))
+        row_idx = horas_map[hora]
         asig = ev["Asignatura"]
+        aula = ev["Aula"]
+        col_idx = dias.index(dia)
+
         tipo_str = str(ev.get("Tipo", "")).strip().lower()
         if "teor" in tipo_str:
             tipo_clave = "teoria"
@@ -153,22 +145,27 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", titul
             tipo_clave = "practica"
             tipo_tag = "P"
         grupo = f"G{ev['Grupo']}"
-        aula = ev["Aula"]
 
-        col_idx = dias.index(dia)
-        total_lanes = ev["total_lanes"]
-        lane_idx = ev["lane"]
+        # Subgrupos atómicos a los que pertenece esta sesión
+        subs = obtener_subgrupos_estudiantes(ev, df_clases=df_resultado)
+        tracks = [track_map[g] for g in subs if g in track_map]
 
-        w_box = (col_width - 0.08) / total_lanes
-        x_box = x_offset + col_idx * col_width + 0.04 + lane_idx * w_box
+        if not tracks or num_subgrupos <= 1:
+            min_t = 0
+            span = max(1, num_subgrupos)
+        else:
+            min_t = min(tracks)
+            span = max(tracks) - min_t + 1
+
+        x_box = x_offset + col_idx * col_width + 0.04 + min_t * w_tr
+        w_box = span * w_tr
 
         h_box = duracion * row_height - 0.08
         y_box = (len(horas) - row_idx - duracion) * row_height + y_offset + 0.04
 
         estilo = estilo_tipo[tipo_clave]
-
-        rounding = 0.08 if total_lanes <= 2 else 0.03
-        lwidth = 1.8 if total_lanes <= 2 else 1.1
+        rounding = 0.08 if span >= 2 else 0.03
+        lwidth = 1.8 if span >= 2 else 1.1
 
         tarjeta = patches.FancyBboxPatch(
             (x_box + 0.02, y_box + 0.02), w_box - 0.04, h_box - 0.04,
@@ -180,19 +177,39 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", titul
         cx = x_box + w_box / 2
         cy = y_box + h_box / 2
 
-        # Tipografía responsiva: vertical en desdobles de 3 o más para no amontonar texto
-        if total_lanes <= 2:
+        # Tipografía responsiva según el ancho disponible (span)
+        if span >= 3:
+            # Teoría o clases que abarcan casi todo el día: formato espacioso a 2 líneas
+            f_asig = 11.0 if span == num_subgrupos else 10.0
+            f_sub = 9.5 if span == num_subgrupos else 8.5
             ax.text(cx, cy + (0.18 if duracion > 1 else 0.10), f"{asig} ({tipo_tag}-{grupo})",
                     ha="center", va="center", color=estilo["text"],
-                    fontsize=11 if total_lanes == 1 else 9.5, fontweight="bold")
-
+                    fontsize=f_asig, fontweight="bold")
             ax.text(cx, cy - (0.14 if duracion > 1 else 0.10), f"Aula: {aula}",
                     ha="center", va="center", color="#37474F",
-                    fontsize=9.5 if total_lanes == 1 else 8.5, fontweight="bold")
+                    fontsize=f_sub, fontweight="bold")
+        elif span == 2:
+            # Práctica de aula (2 subgrupos, ej: G19 sobre 45-46 o G20 sobre 47-48)
+            f_asig = 9.0
+            f_sub = 8.0
+            if duracion >= 2:
+                ax.text(cx, cy + 0.20, f"{asig} ({tipo_tag}-{grupo})",
+                        ha="center", va="center", color=estilo["text"],
+                        fontsize=f_asig, fontweight="bold")
+                ax.text(cx, cy - 0.16, f"Aula: {aula}",
+                        ha="center", va="center", color="#37474F",
+                        fontsize=f_sub, fontweight="bold")
+            else:
+                ax.text(cx, cy + 0.12, f"{asig} ({tipo_tag}-{grupo})",
+                        ha="center", va="center", color=estilo["text"],
+                        fontsize=f_asig - 0.5, fontweight="bold")
+                ax.text(cx, cy - 0.12, f"Aula: {aula}",
+                        ha="center", va="center", color="#37474F",
+                        fontsize=f_sub - 0.5, fontweight="bold")
         else:
-            # Desdoble amplio (3 a 5 subgrupos simultáneos): formato compacto en 3 líneas
-            f_asig = 9.0 if total_lanes == 3 else 8.0
-            f_sub = 8.0 if total_lanes == 3 else 7.0
+            # Laboratorio individual (carril estrecho de 1 subgrupo): formato compacto en 3 líneas
+            f_asig = 8.0
+            f_sub = 7.0
             if duracion >= 3:
                 ax.text(cx, cy + 0.42, asig, ha="center", va="center",
                         color=estilo["text"], fontsize=f_asig, fontweight="bold")
@@ -201,11 +218,11 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", titul
                 ax.text(cx, cy - 0.38, aula, ha="center", va="center",
                         color="#37474F", fontsize=f_sub, fontweight="bold")
             elif duracion == 2:
-                ax.text(cx, cy + 0.30, asig, ha="center", va="center",
+                ax.text(cx, cy + 0.28, asig, ha="center", va="center",
                         color=estilo["text"], fontsize=f_asig, fontweight="bold")
                 ax.text(cx, cy + 0.02, f"{tipo_tag}-{grupo}", ha="center", va="center",
                         color=estilo["text"], fontsize=f_sub, fontweight="bold")
-                ax.text(cx, cy - 0.28, aula, ha="center", va="center",
+                ax.text(cx, cy - 0.26, aula, ha="center", va="center",
                         color="#37474F", fontsize=f_sub, fontweight="bold")
             else:
                 ax.text(cx, cy + 0.18, asig, ha="center", va="center",
