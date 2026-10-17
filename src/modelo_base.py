@@ -6,7 +6,8 @@ from restricciones import (
     aplicar_restriccion_estudiantes,
     aplicar_restriccion_cambio_dia,
     aplicar_restriccion_profesores,
-    aplicar_restriccion_aulas
+    aplicar_restriccion_aulas,
+    aplicar_restricciones_blandas
 )
 
 
@@ -67,6 +68,13 @@ def modelo_base():
     
     # aulas (tipo de aula y no solapamiento físico)
     aula_asignada = aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars)
+    
+    # D. Aulas (tipo y capacidad)
+    aula_asignada = aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars)
+
+
+    # Restricciones a optimizar
+    aplicar_restricciones_blandas(model, df_clases, start_vars, total_slots)
 
 
 
@@ -78,7 +86,7 @@ def modelo_base():
 
     # 5. Imprimir la asignación temporal básica por consola
     if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-        print("\n Horario con restriccion de solape, profesor y aula:\n")
+        print("\n Horario con restriccion de solape, profesor, aula y no clase viernes por la tarde:\n")
         asignaciones = []
 
         for _, row in df_clases.iterrows():
