@@ -138,11 +138,12 @@ def aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars):
 
 # RESTRICCIONES BLANDAS (Criterios a optimizar en la función objetivo)
 
-def aplicar_restricciones_blandas(model, df_clases, start_vars, aula_assign=None, total_slots=30, aula_preferida=None):
+def aplicar_restricciones_blandas(model, df_clases, start_vars, aula_assign=None, total_slots=30, aula_preferida=None, horas_por_dia=6):
     """
     RESTRICCIONES BLANDAS (Función Objetivo a minimizar):
     1. Penalizar clases en las dos últimas horas del viernes (slots 28 y 29).
-    2. Opcional: Penalizar desvíos de aula preferida solo si se especifica explícitamente.
+    2. Minimizar horas libres (huecos) entre clases para los alumnos en un mismo día.
+    3. Opcional: Penalizar desvíos de aula preferida solo si se especifica explícitamente.
     """
     penalizaciones = []
 
@@ -173,9 +174,61 @@ def aplicar_restricciones_blandas(model, df_clases, start_vars, aula_assign=None
             es_viernes_tarde = model.NewBoolVar(f"vtarde_{str(s_id).strip()}")
             model.Add(var_start >= (total_slots - 2)).OnlyEnforceIf(es_viernes_tarde)
             model.Add(var_start < (total_slots - 2)).OnlyEnforceIf(es_viernes_tarde.Not())
-            penalizaciones.append(es_viernes_tarde * 10)
+            penalizaciones.append(es_viernes_tarde * 20)
 
-    # 2. Priorizar aula preferida solo si se ha configurado expresamente
+    # 2. Minimizar huecos (horas libres) entre clases para cada subgrupo en un mismo día
+    subgrupos = [str(g).strip() for g in df_clases["grupo"].dropna().unique() if str(g).strip() not in ["1", "17"]]
+    if subgrupos:
+        start_is = {}
+        for _, row in df_clases.iterrows():
+            s_id = str(row["id_sesion"]).strip()
+            dur = int(row["duracion_horas"])
+            v_start = obtener_var_inicio(s_id)
+            if v_start is not None:
+                for t in range(total_slots - dur + 1):
+                    b = model.NewBoolVar(f"st_{s_id}_{t}")
+                    model.Add(v_start == t).OnlyEnforceIf(b)
+                    model.Add(v_start != t).OnlyEnforceIf(b.Not())
+                    start_is[s_id, t] = b
+
+        ocupado = {}
+        for g in subgrupos:
+            ses_g = df_clases[(df_clases["grupo"].astype(str).str.strip() == g) | 
+                              (df_clases["tipo"].astype(str).str.lower().str.contains("teor")) | 
+                              (df_clases["grupo"].astype(str).str.strip().isin(["1", "17"]))]
+            for t in range(total_slots):
+                covering = []
+                for _, row in ses_g.iterrows():
+                    s_id = str(row["id_sesion"]).strip()
+                    dur = int(row["duracion_horas"])
+                    for k in range(dur):
+                        st_slot = t - k
+                        if (s_id, st_slot) in start_is:
+                            covering.append(start_is[s_id, st_slot])
+                oc = model.NewBoolVar(f"oc_{g}_{t}")
+                if covering:
+                    model.Add(oc == sum(covering))
+                else:
+                    model.Add(oc == 0)
+                ocupado[g, t] = oc
+
+        num_dias = total_slots // horas_por_dia
+        for g in subgrupos:
+            for d in range(num_dias):
+                day_slots = [d * horas_por_dia + h for h in range(horas_por_dia)]
+                for h in range(1, horas_por_dia - 1):
+                    t = day_slots[h]
+                    hay_antes = model.NewBoolVar(f"ha_{g}_{d}_{h}")
+                    hay_desp = model.NewBoolVar(f"hd_{g}_{d}_{h}")
+                    model.AddMaxEquality(hay_antes, [ocupado[g, day_slots[k]] for k in range(h)])
+                    model.AddMaxEquality(hay_desp, [ocupado[g, day_slots[k]] for k in range(h + 1, horas_por_dia)])
+
+                    es_hueco = model.NewBoolVar(f"gap_{g}_{d}_{h}")
+                    model.AddBoolAnd([hay_antes, hay_desp, ocupado[g, t].Not()]).OnlyEnforceIf(es_hueco)
+                    model.AddBoolOr([hay_antes.Not(), hay_desp.Not(), ocupado[g, t]]).OnlyEnforceIf(es_hueco.Not())
+                    penalizaciones.append(es_hueco * 15)
+
+    # 3. Priorizar aula preferida solo si se ha configurado expresamente
     if aula_preferida and aula_assign:
         for _, row in df_clases.iterrows():
             s_id = str(row["id_sesion"]).strip()
