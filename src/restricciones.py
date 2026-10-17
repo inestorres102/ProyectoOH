@@ -3,6 +3,7 @@ Módulo de restricciones para el planificador de horarios
 Contiene tanto las restricciones duras (inviolables) como las blandas (a minimizar).
 """
 from ortools.sat.python import cp_model
+import pandas as pd
 
 
 # RESTRICCIONES DURAS (Obligatorias)
@@ -60,41 +61,71 @@ def aplicar_restriccion_cambio_dia(model, df_clases, start_vars, end_vars, horas
 def aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars):
     """
     DURA:
-    1. A cada sesión se le asigna un aula que cumpla con el tipo requerido (teoría o laboratorio).
-    2. Dos clases no pueden coincidir en el mismo aula y a la misma hora.
+    1. A cada sesión se le asigna un aula que cumpla con el tipo requerido y capacidad suficiente.
+    2. Dos clases no pueden coincidir en la misma aula y a la misma hora.
     Devuelve el diccionario de asignaciones aula_assign[s_id, a_id].
     """
+    # 1. Definir primero la función auxiliar (ANTES de llamarla)
+    def estandarizar_tipo(texto):
+        t = str(texto).strip().lower()
+        return "teoria" if "teor" in t else "laboratorio"
+
+    # 2. Normalizar cabeceras a minúsculas
+    df_aulas.columns = df_aulas.columns.str.strip().str.lower()
+    df_clases.columns = df_clases.columns.str.strip().str.lower()
+
+    col_tipo = "tipo" if "tipo" in df_aulas.columns else "tipo_aula"
+    col_id_aula = "id_aula" if "id_aula" in df_aulas.columns else df_aulas.columns[0]
+
+    # 3. Aplicar estandarización a las aulas
+    tipos_aulas = df_aulas[col_tipo].apply(estandarizar_tipo)
     aula_assign = {}
 
+    # 4. Asignación por sesión considerando TIPO y CAPACIDAD
     for _, row in df_clases.iterrows():
         s_id = str(row["id_sesion"])
-        tipo_aula_req = row.get("tipo_aula_requerida", "laboratorio" if row["tipo"] == "practica" else "aula_teoria")
 
-        aulas_compatibles = df_aulas[df_aulas["tipo"] == tipo_aula_req]["id_aula"].astype(str).tolist()
+        if "tipo_aula_requerida" in row and pd.notna(row["tipo_aula_requerida"]):
+            tipo_necesario = estandarizar_tipo(row["tipo_aula_requerida"])
+        else:
+            tipo_necesario = "laboratorio" if "prac" in str(row["tipo"]).strip().lower() else "teoria"
 
-        for a_id in df_aulas["id_aula"].astype(str):
+        num_alumnos = int(row.get("num_alumnos", 0))
+
+        # Filtro: tipo compatible Y capacidad suficiente
+        aulas_compatibles = df_aulas[
+            (tipos_aulas == tipo_necesario) & 
+            (df_aulas["capacidad"] >= num_alumnos)
+        ][col_id_aula].astype(str).tolist()
+
+        if not aulas_compatibles:
+            raise ValueError(
+                f"Error: No hay aulas de tipo '{tipo_necesario}' con capacidad >= {num_alumnos} para la sesión {s_id}."
+            )
+
+        for a_id in df_aulas[col_id_aula].astype(str):
             if a_id in aulas_compatibles:
                 aula_assign[s_id, a_id] = model.NewBoolVar(f"aula_{s_id}_{a_id}")
             else:
                 aula_assign[s_id, a_id] = model.NewConstant(0)
 
-        # Exactamente 1 aula compatible asignada
+        # Exactamente 1 aula asignada
         model.Add(sum(aula_assign[s_id, a_id] for a_id in aulas_compatibles) == 1)
 
-    # No solapamiento de aulas
-    for a_id in df_aulas["id_aula"].astype(str):
+    # 5. Restricción de No Solapamiento físico en aulas
+    for a_id in df_aulas[col_id_aula].astype(str):
         intervalos_aula = []
         for _, row in df_clases.iterrows():
             s_id = str(row["id_sesion"])
             dur = int(row["duracion_horas"])
 
-            # Intervalo condicionado a que la clase se imparta en esta aula
             opt_interval = model.NewOptionalIntervalVar(
                 start_vars[s_id], dur, end_vars[s_id],
                 aula_assign[s_id, a_id],
                 f"opt_int_{s_id}_{a_id}"
             )
             intervalos_aula.append(opt_interval)
+            
         model.AddNoOverlap(intervalos_aula)
 
     return aula_assign
