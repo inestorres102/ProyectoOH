@@ -136,13 +136,16 @@ def modelo_base(semestre=1, curso=3, grupo_principal=1):
         cols_mostrar = [c for c in ["Sesion", "Asignatura", "Tipo", "Grupo", "Dia", "Hora", "Duracion", "Aula", "Profesor"] if c in df_resultado.columns]
         print(df_resultado[cols_mostrar].to_string(index=False))
 
-        # Generar el PNG con nomenclatura adaptada al curso y grupo
+        # Generar el PNG con nomenclatura organizada en carpetas por curso
+        carpeta_curso = f"horarios/{curso}GII"
         if curso == 3 and (grupo_principal is None or grupo_principal == 1):
-            nombre_salida = f"horario_3GII_{semestre}er.png" if semestre == 1 else f"horario_3GII_{semestre}do.png"
+            nombre_archivo = f"horario_3GII_{semestre}er.png" if semestre == 1 else f"horario_3GII_{semestre}do.png"
         else:
             sem_sufijo = "1er" if semestre == 1 else "2do"
             gp_sufijo = f"_G{grupo_principal}" if grupo_principal is not None else ""
-            nombre_salida = f"horario_{curso}GII{gp_sufijo}_{sem_sufijo}.png"
+            nombre_archivo = f"horario_{curso}GII{gp_sufijo}_{sem_sufijo}.png"
+
+        nombre_salida = f"{carpeta_curso}/{nombre_archivo}"
 
         exportar_horario_png(df_resultado, ruta_salida=nombre_salida, abrir_al_terminar=False)
         return df_resultado

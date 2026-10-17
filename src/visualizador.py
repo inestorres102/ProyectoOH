@@ -254,6 +254,9 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", titul
 
     plt.title(titulo, fontsize=16, fontweight="bold", pad=25, color="#1A237E")
     plt.tight_layout()
+    carpeta = os.path.dirname(ruta_salida)
+    if carpeta:
+        os.makedirs(carpeta, exist_ok=True)
     plt.savefig(ruta_salida, dpi=300, bbox_inches="tight")
     plt.close()
     print(f" Imagen guardada con éxito en: {ruta_salida}")
