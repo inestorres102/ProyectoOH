@@ -13,12 +13,17 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", titul
     dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"]
     horas = ["08:30-09:30", "09:30-10:30", "10:30-11:30", "11:30-12:30", "12:30-13:30", "13:30-14:30"]
 
-    # Diferenciación visual Teoría vs Práctica (estilo oficial EII)
+    # Diferenciación visual: Teoría (Amarillo), Práctica de Aula (Azul), Laboratorio (Verde)
     estilo_tipo = {
         "teoria": {
             "bg": "#FFF9C4",      # Amarillo pastel
             "border": "#FBC02D",  # Dorado
             "text": "#E65100"     # Ámbar / naranja
+        },
+        "problemas": {
+            "bg": "#E1F5FE",      # Azul pastel
+            "border": "#0288D1",  # Azul medio
+            "text": "#01579B"     # Azul marino oscuro
         },
         "practica": {
             "bg": "#C8E6C9",      # Verde pastel
@@ -137,9 +142,16 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", titul
         row_idx = ev["start_idx"]
         duracion = ev["duracion_num"]
         asig = ev["Asignatura"]
-        es_teoria = "teor" in str(ev["Tipo"]).lower()
-        tipo_clave = "teoria" if es_teoria else "practica"
-        tipo_tag = "T" if es_teoria else "P"
+        tipo_str = str(ev.get("Tipo", "")).strip().lower()
+        if "teor" in tipo_str:
+            tipo_clave = "teoria"
+            tipo_tag = "T"
+        elif "prob" in tipo_str or "aula" in tipo_str or "ejer" in tipo_str or "pa" in tipo_str:
+            tipo_clave = "problemas"
+            tipo_tag = "PA"
+        else:
+            tipo_clave = "practica"
+            tipo_tag = "P"
         grupo = f"G{ev['Grupo']}"
         aula = ev["Aula"]
 
@@ -203,30 +215,42 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", titul
                 ax.text(cx, cy - 0.20, aula, ha="center", va="center",
                         color="#37474F", fontsize=f_sub - 0.5, fontweight="bold")
 
-    # 5. Leyenda en la parte superior derecha
+    # 5. Leyenda en la parte superior derecha (3 modalidades oficiales EII)
     leyenda_y = len(horas) * row_height + y_offset + 0.85
 
-    box_t = patches.FancyBboxPatch((x_offset + 3.4 * col_width, leyenda_y), 1.25, 0.40,
+    # Caja 1: Teoría
+    box_t = patches.FancyBboxPatch((x_offset + 2.65 * col_width, leyenda_y), 1.15, 0.40,
                                   boxstyle="round,pad=0.02,rounding_size=0.08",
                                   facecolor=estilo_tipo["teoria"]["bg"], edgecolor=estilo_tipo["teoria"]["border"], linewidth=1.6)
     ax.add_patch(box_t)
-    ax.text(x_offset + 3.4 * col_width + 0.625, leyenda_y + 0.20, "TEORÍA",
-            ha="center", va="center", color=estilo_tipo["teoria"]["text"], fontsize=9.5, fontweight="bold")
+    ax.text(x_offset + 2.65 * col_width + 0.575, leyenda_y + 0.20, "TEORÍA",
+            ha="center", va="center", color=estilo_tipo["teoria"]["text"], fontsize=9.0, fontweight="bold")
 
-    box_p = patches.FancyBboxPatch((x_offset + 4.1 * col_width, leyenda_y), 1.35, 0.40,
+    # Caja 2: Práctica de Aula / Problemas
+    box_a = patches.FancyBboxPatch((x_offset + 3.40 * col_width, leyenda_y), 1.55, 0.40,
+                                  boxstyle="round,pad=0.02,rounding_size=0.08",
+                                  facecolor=estilo_tipo["problemas"]["bg"], edgecolor=estilo_tipo["problemas"]["border"], linewidth=1.6)
+    ax.add_patch(box_a)
+    ax.text(x_offset + 3.40 * col_width + 0.775, leyenda_y + 0.20, "PRÁCTICA AULA",
+            ha="center", va="center", color=estilo_tipo["problemas"]["text"], fontsize=9.0, fontweight="bold")
+
+    # Caja 3: Laboratorio
+    box_p = patches.FancyBboxPatch((x_offset + 4.25 * col_width, leyenda_y), 1.50, 0.40,
                                   boxstyle="round,pad=0.02,rounding_size=0.08",
                                   facecolor=estilo_tipo["practica"]["bg"], edgecolor=estilo_tipo["practica"]["border"], linewidth=1.6)
     ax.add_patch(box_p)
-    ax.text(x_offset + 4.1 * col_width + 0.675, leyenda_y + 0.20, "PRÁCTICA",
-            ha="center", va="center", color=estilo_tipo["practica"]["text"], fontsize=9.5, fontweight="bold")
+    ax.text(x_offset + 4.25 * col_width + 0.750, leyenda_y + 0.20, "LABORATORIO",
+            ha="center", va="center", color=estilo_tipo["practica"]["text"], fontsize=9.0, fontweight="bold")
 
     ax.set_xlim(0, x_offset + len(dias) * col_width + 0.3)
     ax.set_ylim(0, len(horas) * row_height + y_offset + 1.4)
     ax.axis("off")
 
     if titulo is None:
+        c_val = df_resultado["Curso"].iloc[0] if "Curso" in df_resultado.columns else 3
+        gp_val = df_resultado["GrupoPrincipal"].iloc[0] if "GrupoPrincipal" in df_resultado.columns else 1
         sem_str = "2º SEMESTRE" if ("2do" in ruta_salida or "_2" in ruta_salida) else "1er SEMESTRE"
-        titulo = f"CALENDARIO ACADÉMICO — 3º GII ({sem_str})"
+        titulo = f"CALENDARIO ACADÉMICO — {c_val}º GII (Grupo {gp_val} - {sem_str})"
 
     plt.title(titulo, fontsize=16, fontweight="bold", pad=25, color="#1A237E")
     plt.tight_layout()

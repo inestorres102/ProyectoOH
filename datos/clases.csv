@@ -1,55 +1,55 @@
-id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor,semestre
-S01,RC,practica,41,2,22,Laboratorio,Juan Carlos Quevedo Losada,1
-S02,RC,practica,42,2,20,Laboratorio,Juan Carlos Quevedo Losada,1
-S03,RC,practica,43,2,22,Laboratorio,Juan Carlos Quevedo Losada,1
-S04,RC,practica,44,2,20,Laboratorio,Juan Carlos Quevedo Losada,1
-S05,RC,practica,45,2,18,Laboratorio,Juan Carlos Quevedo Losada,1
-S06,ASO,practica,41,2,22,Laboratorio,Carmelo Ruben Garcia Rodriguez,1
-S07,ASO,practica,42,2,20,Laboratorio,Carmelo Ruben Garcia Rodriguez,1
-S08,ASO,practica,43,2,22,Laboratorio,Carmelo Ruben Garcia Rodriguez,1
-S09,ASO,practica,44,2,20,Laboratorio,Carmelo Ruben Garcia Rodriguez,1
-S10,ASO,practica,45,2,18,Laboratorio,Carmelo Ruben Garcia Rodriguez,1
-S11,BD2,practica,41,2,22,Laboratorio,Octavio Mayor,1
-S12,BD2,practica,42,2,20,Laboratorio,Octavio Mayor,1
-S13,BD2,practica,43,2,22,Laboratorio,Juan de Dios Duque Oliva,1
-S14,BD2,practica,44,2,20,Laboratorio,Juan de Dios Duque Oliva,1
-S15,BD2,practica,45,2,18,Laboratorio,Octavio Mayor,1
-S16,IS2,practica,41,2,22,Laboratorio,Jose Juan Hernandez Cabrera,1
-S17,IS2,practica,42,2,20,Laboratorio,Jose Juan Hernandez Cabrera,1
-S18,IS2,practica,43,2,22,Laboratorio,Jose Juan Hernandez Cabrera,1
-S19,IS2,practica,44,2,20,Laboratorio,Jose Juan Hernandez Cabrera,1
-S20,IS2,practica,45,2,18,Laboratorio,Jose Juan Hernandez Cabrera,1
-S21,FSI,practica,41,2,22,Laboratorio,Cayetano Guerra Artal,1
-S22,FSI,practica,42,2,20,Laboratorio,Cayetano Guerra Artal,1
-S23,FSI,practica,43,2,22,Laboratorio,Jose Daniel Hernandez Sosa,1
-S24,FSI,practica,44,2,20,Laboratorio,Jose Daniel Hernandez Sosa,1
-S25,FSI,practica,45,2,18,Laboratorio,Cayetano Guerra Artal,1
-S26,RC,teoria,1,2,85,Teoria,Juan Carlos Quevedo Losada,1
-S27,ASO,teoria,1,1,85,Teoria,Carmelo Ruben Garcia Rodriguez,1
-S28,BD2,teoria,1,2,85,Teoria,Juan de Dios Duque Oliva,1
-S29,IS2,teoria,1,2,85,Teoria,Jose Juan Hernandez Cabrera,1
-S30,FSI,teoria,1,2,85,Teoria,Cayetano Guerra Artal,1
-S31,ASR,practica,41,2,22,Laboratorio,Humberto Javier Alamo Deniz,2
-S32,ASR,practica,42,2,20,Laboratorio,Humberto Javier Alamo Deniz,2
-S33,ASR,practica,43,2,22,Laboratorio,Humberto Javier Alamo Deniz,2
-S34,ASR,practica,44,2,20,Laboratorio,Humberto Javier Alamo Deniz,2
-S35,ASR,practica,45,2,18,Laboratorio,Humberto Javier Alamo Deniz,2
-S36,VPD,practica,41,2,22,Laboratorio,Francisco Alexis Quesada Arencibia,2
-S37,VPD,practica,42,2,20,Laboratorio,Francisco Alexis Quesada Arencibia,2
-S38,VPD,practica,43,2,22,Laboratorio,Francisco Alexis Quesada Arencibia,2
-S39,VPD,practica,44,2,20,Laboratorio,Francisco Alexis Quesada Arencibia,2
-S40,VPD,practica,45,2,18,Laboratorio,Francisco Alexis Quesada Arencibia,2
-S41,PWM,practica,41,3,22,Laboratorio,Luis M. Hernandez Acosta,2
-S42,PWM,practica,42,3,20,Laboratorio,Luis M. Hernandez Acosta,2
-S43,PWM,practica,43,3,22,Laboratorio,Luis M. Hernandez Acosta,2
-S44,PWM,practica,44,3,20,Laboratorio,Luis M. Hernandez Acosta,2
-S45,PWM,practica,45,3,18,Laboratorio,Luis M. Hernandez Acosta,2
-S46,PS,practica,41,3,22,Laboratorio,Nelson Monzon Lopez,2
-S47,PS,practica,42,3,20,Laboratorio,Nelson Monzon Lopez,2
-S48,PS,practica,43,3,22,Laboratorio,Nelson Monzon Lopez,2
-S49,PS,practica,44,3,20,Laboratorio,Nelson Monzon Lopez,2
-S50,PS,practica,45,3,18,Laboratorio,Nelson Monzon Lopez,2
-S51,ASR,teoria,1,2,85,Teoria,Humberto Javier Alamo Deniz,2
-S52,VPD,teoria,1,2,85,Teoria,Francisco Alexis Quesada Arencibia,2
-S53,PWM,teoria,1,3,85,Teoria,Luis M. Hernandez Acosta,2
-S54,PS,teoria,1,3,85,Teoria,Nelson Monzon Lopez,2
+id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor,semestre,curso,grupo_principal
+S01,RC,practica,41,2,22,Laboratorio,Juan Carlos Quevedo Losada,1,3,1
+S02,RC,practica,42,2,20,Laboratorio,Juan Carlos Quevedo Losada,1,3,1
+S03,RC,practica,43,2,22,Laboratorio,Juan Carlos Quevedo Losada,1,3,1
+S04,RC,practica,44,2,20,Laboratorio,Juan Carlos Quevedo Losada,1,3,1
+S05,RC,practica,45,2,18,Laboratorio,Juan Carlos Quevedo Losada,1,3,1
+S06,ASO,practica,41,2,22,Laboratorio,Carmelo Ruben Garcia Rodriguez,1,3,1
+S07,ASO,practica,42,2,20,Laboratorio,Carmelo Ruben Garcia Rodriguez,1,3,1
+S08,ASO,practica,43,2,22,Laboratorio,Carmelo Ruben Garcia Rodriguez,1,3,1
+S09,ASO,practica,44,2,20,Laboratorio,Carmelo Ruben Garcia Rodriguez,1,3,1
+S10,ASO,practica,45,2,18,Laboratorio,Carmelo Ruben Garcia Rodriguez,1,3,1
+S11,BD2,practica,41,2,22,Laboratorio,Octavio Mayor,1,3,1
+S12,BD2,practica,42,2,20,Laboratorio,Octavio Mayor,1,3,1
+S13,BD2,practica,43,2,22,Laboratorio,Juan de Dios Duque Oliva,1,3,1
+S14,BD2,practica,44,2,20,Laboratorio,Juan de Dios Duque Oliva,1,3,1
+S15,BD2,practica,45,2,18,Laboratorio,Octavio Mayor,1,3,1
+S16,IS2,practica,41,2,22,Laboratorio,Jose Juan Hernandez Cabrera,1,3,1
+S17,IS2,practica,42,2,20,Laboratorio,Jose Juan Hernandez Cabrera,1,3,1
+S18,IS2,practica,43,2,22,Laboratorio,Jose Juan Hernandez Cabrera,1,3,1
+S19,IS2,practica,44,2,20,Laboratorio,Jose Juan Hernandez Cabrera,1,3,1
+S20,IS2,practica,45,2,18,Laboratorio,Jose Juan Hernandez Cabrera,1,3,1
+S21,FSI,practica,41,2,22,Laboratorio,Cayetano Guerra Artal,1,3,1
+S22,FSI,practica,42,2,20,Laboratorio,Cayetano Guerra Artal,1,3,1
+S23,FSI,practica,43,2,22,Laboratorio,Jose Daniel Hernandez Sosa,1,3,1
+S24,FSI,practica,44,2,20,Laboratorio,Jose Daniel Hernandez Sosa,1,3,1
+S25,FSI,practica,45,2,18,Laboratorio,Cayetano Guerra Artal,1,3,1
+S26,RC,teoria,1,2,85,Teoria,Juan Carlos Quevedo Losada,1,3,1
+S27,ASO,teoria,1,1,85,Teoria,Carmelo Ruben Garcia Rodriguez,1,3,1
+S28,BD2,teoria,1,2,85,Teoria,Juan de Dios Duque Oliva,1,3,1
+S29,IS2,teoria,1,2,85,Teoria,Jose Juan Hernandez Cabrera,1,3,1
+S30,FSI,teoria,1,2,85,Teoria,Cayetano Guerra Artal,1,3,1
+S31,ASR,practica,41,2,22,Laboratorio,Humberto Javier Alamo Deniz,2,3,1
+S32,ASR,practica,42,2,20,Laboratorio,Humberto Javier Alamo Deniz,2,3,1
+S33,ASR,practica,43,2,22,Laboratorio,Humberto Javier Alamo Deniz,2,3,1
+S34,ASR,practica,44,2,20,Laboratorio,Humberto Javier Alamo Deniz,2,3,1
+S35,ASR,practica,45,2,18,Laboratorio,Humberto Javier Alamo Deniz,2,3,1
+S36,VPD,practica,41,2,22,Laboratorio,Francisco Alexis Quesada Arencibia,2,3,1
+S37,VPD,practica,42,2,20,Laboratorio,Francisco Alexis Quesada Arencibia,2,3,1
+S38,VPD,practica,43,2,22,Laboratorio,Francisco Alexis Quesada Arencibia,2,3,1
+S39,VPD,practica,44,2,20,Laboratorio,Francisco Alexis Quesada Arencibia,2,3,1
+S40,VPD,practica,45,2,18,Laboratorio,Francisco Alexis Quesada Arencibia,2,3,1
+S41,PWM,practica,41,3,22,Laboratorio,Luis M. Hernandez Acosta,2,3,1
+S42,PWM,practica,42,3,20,Laboratorio,Luis M. Hernandez Acosta,2,3,1
+S43,PWM,practica,43,3,22,Laboratorio,Luis M. Hernandez Acosta,2,3,1
+S44,PWM,practica,44,3,20,Laboratorio,Luis M. Hernandez Acosta,2,3,1
+S45,PWM,practica,45,3,18,Laboratorio,Luis M. Hernandez Acosta,2,3,1
+S46,PS,practica,41,3,22,Laboratorio,Nelson Monzon Lopez,2,3,1
+S47,PS,practica,42,3,20,Laboratorio,Nelson Monzon Lopez,2,3,1
+S48,PS,practica,43,3,22,Laboratorio,Nelson Monzon Lopez,2,3,1
+S49,PS,practica,44,3,20,Laboratorio,Nelson Monzon Lopez,2,3,1
+S50,PS,practica,45,3,18,Laboratorio,Nelson Monzon Lopez,2,3,1
+S51,ASR,teoria,1,2,85,Teoria,Humberto Javier Alamo Deniz,2,3,1
+S52,VPD,teoria,1,2,85,Teoria,Francisco Alexis Quesada Arencibia,2,3,1
+S53,PWM,teoria,1,3,85,Teoria,Luis M. Hernandez Acosta,2,3,1
+S54,PS,teoria,1,3,85,Teoria,Nelson Monzon Lopez,2,3,1

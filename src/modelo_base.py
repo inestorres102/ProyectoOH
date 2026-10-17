@@ -13,7 +13,7 @@ from restricciones import (
 from visualizador import exportar_horario_png
 
 
-def modelo_base(semestre=1):
+def modelo_base(semestre=1, curso=3, grupo_principal=1):
     # 1. Definir el horizonte temporal semanal (30 franjas horarias)
     dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"]
     horas_por_dia = 6  # 6 franjas por día: de 08:30 a 14:30
@@ -29,12 +29,16 @@ def modelo_base(semestre=1):
     ruta_clases = "datos/clases.csv"
     df_clases = pd.read_csv(ruta_clases)
 
-    # Filtrar por semestre si existe la columna
-    if "semestre" in df_clases.columns:
+    # Filtrar por curso, semestre y grupo_principal si existen las columnas
+    if "curso" in df_clases.columns and curso is not None:
+        df_clases = df_clases[df_clases["curso"] == curso].copy()
+    if "semestre" in df_clases.columns and semestre is not None:
         df_clases = df_clases[df_clases["semestre"] == semestre].copy()
-        print(f"Cargadas con exito {len(df_clases)} sesiones del Semestre {semestre} desde '{ruta_clases}'.")
-    else:
-        print(f"Cargadas con exito {len(df_clases)} sesiones desde '{ruta_clases}'.")
+    if "grupo_principal" in df_clases.columns and grupo_principal is not None:
+        df_clases = df_clases[df_clases["grupo_principal"] == grupo_principal].copy()
+
+    filtro_info = f"Curso {curso} | Semestre {semestre}" + (f" | Grupo {grupo_principal}" if grupo_principal is not None else "")
+    print(f"Cargadas con exito {len(df_clases)} sesiones ({filtro_info}) desde '{ruta_clases}'.")
 
     df_aulas = pd.read_csv("datos/aulas.csv")
     print(f"Sesiones cargadas: {len(df_clases)} | Aulas disponibles: {len(df_aulas)}")
@@ -122,15 +126,24 @@ def modelo_base(semestre=1):
                 "Hora": horas_etiquetas[hora_idx],
                 "Duracion": f"{row['duracion_horas']}h",
                 "Aula": aula_elegida,
-                "Profesor": row["profesor"]
+                "Profesor": row["profesor"],
+                "Curso": row.get("curso", curso),
+                "GrupoPrincipal": row.get("grupo_principal", grupo_principal)
             })
 
         # Ordenamos numéricamente por slot (de 0 a 29)
         df_resultado = pd.DataFrame(asignaciones).sort_values(by="Slot")
-        print(df_resultado.drop(columns=["Slot"]).to_string(index=False))
+        cols_mostrar = [c for c in ["Sesion", "Asignatura", "Tipo", "Grupo", "Dia", "Hora", "Duracion", "Aula", "Profesor"] if c in df_resultado.columns]
+        print(df_resultado[cols_mostrar].to_string(index=False))
 
-        # Generar el PNG y abrirlo al terminar
-        nombre_salida = f"horario_3GII_{semestre}er.png" if semestre == 1 else f"horario_3GII_{semestre}do.png"
+        # Generar el PNG con nomenclatura adaptada al curso y grupo
+        if curso == 3 and (grupo_principal is None or grupo_principal == 1):
+            nombre_salida = f"horario_3GII_{semestre}er.png" if semestre == 1 else f"horario_3GII_{semestre}do.png"
+        else:
+            sem_sufijo = "1er" if semestre == 1 else "2do"
+            gp_sufijo = f"_G{grupo_principal}" if grupo_principal is not None else ""
+            nombre_salida = f"horario_{curso}GII{gp_sufijo}_{sem_sufijo}.png"
+
         exportar_horario_png(df_resultado, ruta_salida=nombre_salida, abrir_al_terminar=False)
         return df_resultado
     else:
