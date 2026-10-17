@@ -13,7 +13,7 @@ from restricciones import (
 from visualizador import exportar_horario_png
 
 
-def modelo_base():
+def modelo_base(semestre=1):
     # 1. Definir el horizonte temporal semanal (30 franjas horarias)
     dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"]
     horas_por_dia = 6  # 6 franjas por día: de 08:30 a 14:30
@@ -28,10 +28,16 @@ def modelo_base():
     # 2. Leer las sesiones desde la carpeta datos/
     ruta_clases = "datos/clases.csv"
     df_clases = pd.read_csv(ruta_clases)
-    print(f"Cargadas con exito {len(df_clases)} sesiones desde '{ruta_clases}'.")
+
+    # Filtrar por semestre si existe la columna
+    if "semestre" in df_clases.columns:
+        df_clases = df_clases[df_clases["semestre"] == semestre].copy()
+        print(f"Cargadas con exito {len(df_clases)} sesiones del Semestre {semestre} desde '{ruta_clases}'.")
+    else:
+        print(f"Cargadas con exito {len(df_clases)} sesiones desde '{ruta_clases}'.")
 
     df_aulas = pd.read_csv("datos/aulas.csv")
-    print(f"Sesiones cargadas: {len(df_clases)} | Aulas disponibles: {len(df_aulas)}") # relacionamos numero de sesiones con numero de aulas disponibles
+    print(f"Sesiones cargadas: {len(df_clases)} | Aulas disponibles: {len(df_aulas)}")
 
 
 
@@ -124,9 +130,10 @@ def modelo_base():
         print(df_resultado.drop(columns=["Slot"]).to_string(index=False))
 
         # Generar el PNG y abrirlo al terminar
-        exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", abrir_al_terminar=False)
+        nombre_salida = f"horario_3GII_{semestre}er.png" if semestre == 1 else f"horario_3GII_{semestre}do.png"
+        exportar_horario_png(df_resultado, ruta_salida=nombre_salida, abrir_al_terminar=False)
     else:
         print("No se encontro solucion factible. Comprobar si hay suficientes aulas del tipo requerido")
 
 if __name__ == "__main__":
-    modelo_base()
+    modelo_base(semestre=1)
