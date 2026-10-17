@@ -10,6 +10,8 @@ from restricciones import (
     aplicar_restricciones_blandas
 )
 
+from visualizador import exportar_horario_png
+
 
 def modelo_base():
     # 1. Definir el horizonte temporal semanal (30 franjas horarias)
@@ -126,8 +128,10 @@ def modelo_base():
 
         # Ordenamos numéricamente por slot (de 0 a 29)
         df_resultado = pd.DataFrame(asignaciones).sort_values(by="Slot")
-        #Quitamos la columna 'Slot' solo para que la tabla quede limpia
         print(df_resultado.drop(columns=["Slot"]).to_string(index=False))
+
+        # Generar el PNG y abrirlo al terminar
+        exportar_horario_png(df_resultado, ruta_salida="horario_3GCID_1er.png", abrir_al_terminar=True)
     else:
         print("No se encontro solucion factible. Comprobar si hay suficientes aulas del tipo requerido")
 
