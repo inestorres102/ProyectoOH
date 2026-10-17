@@ -26,12 +26,23 @@ def modelo_base():
 
 
     # 2. Leer las sesiones desde la carpeta datos/
-    ruta_clases = "datos/clases.csv"
-    df_clases = pd.read_csv(ruta_clases)
-    print(f"Cargadas con exito {len(df_clases)} sesiones desde '{ruta_clases}'.")
+    import glob
+
+    # Busca todos los archivos que empiecen por clases_ en la carpeta datos/
+    archivos_clases = glob.glob("datos/clases_*.csv")
+    
+    if archivos_clases:
+        # Si existen clases_gcid.csv, clases_gii.csv, etc., los une todos
+        df_clases = pd.concat([pd.read_csv(f) for f in archivos_clases], ignore_index=True)
+    else:
+        # Por compatibilidad, si sigue llamándose clases.csv
+        df_clases = pd.read_csv("datos/clases.csv")
+
+    print(f"Cargadas con exito {len(df_clases)} sesiones desde '{archivos_clases}'.")
 
     df_aulas = pd.read_csv("datos/aulas.csv")
     print(f"Sesiones cargadas: {len(df_clases)} | Aulas disponibles: {len(df_aulas)}") # relacionamos numero de sesiones con numero de aulas disponibles
+
 
 
 
