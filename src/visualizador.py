@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import pandas as pd
 
-def exportar_horario_png(df_resultado, ruta_salida="horario_3GCID_1er.png", abrir_al_terminar=True):
+def exportar_horario_png(df_resultado, ruta_salida="horario_1GIFM_1er.png", abrir_al_terminar=True):
     """
     Exporta el horario a una imagen PNG de alta resolución diferenciando por colores
     Teoría (amarillo/cálido) vs Práctica (verde/esmeralda), y lo abre automáticamente.
