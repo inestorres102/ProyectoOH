@@ -1,7 +1,7 @@
 import pandas as pd
 from ortools.sat.python import cp_model
 
-# Importamos las restricciones desde el nuevo fichero 'restricciones.py'
+# Importamos las restricciones desde el fichero 'restricciones.py'
 from restricciones import (
     aplicar_restriccion_estudiantes,
     aplicar_restriccion_cambio_dia,
@@ -24,16 +24,13 @@ def modelo_base():
         "11:30-12:30", "12:30-13:30", "13:30-14:30"
     ]
 
-
     # 2. Leer las sesiones desde la carpeta datos/
     ruta_clases = "datos/clases.csv"
     df_clases = pd.read_csv(ruta_clases)
     print(f"Cargadas con exito {len(df_clases)} sesiones desde '{ruta_clases}'.")
 
     df_aulas = pd.read_csv("datos/aulas.csv")
-    print(f"Sesiones cargadas: {len(df_clases)} | Aulas disponibles: {len(df_aulas)}") # relacionamos numero de sesiones con numero de aulas disponibles
-
-
+    print(f"Sesiones cargadas: {len(df_clases)} | Aulas disponibles: {len(df_aulas)}")
 
     # 3. Crear el modelo CP-SAT y definir variables de decisión
     model = cp_model.CpModel()
@@ -57,8 +54,7 @@ def modelo_base():
         end_vars[s_id] = end
         interval_vars[s_id] = interval
 
-
-# APLICAR RESTRICCIONES DURAS
+    # APLICAR RESTRICCIONES DURAS
     # alumnos
     aplicar_restriccion_estudiantes(model, df_clases, interval_vars)
     
@@ -70,25 +66,17 @@ def modelo_base():
     
     # aulas (tipo de aula y no solapamiento físico)
     aula_asignada = aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars)
-    
-    # D. Aulas (tipo y capacidad)
-    aula_asignada = aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars)
 
+    # Restricciones a optimizar (blandas)
+    aplicar_restricciones_blandas(model, df_clases, start_vars, aula_asignada, total_slots=total_slots, aula_preferida="A3-1")
 
-    # Restricciones a optimizar
-    aplicar_restricciones_blandas(model, df_clases, start_vars, aula_asignada, total_slots=total_slots, aula_preferida="A2-5")
-
-
-
-    # 4. Resolver (con dos restricciones)
+    # 4. Resolver
     solver = cp_model.CpSolver()
     status = solver.Solve(model)
 
-
-
     # 5. Imprimir la asignación temporal básica por consola
     if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-        print("\n Horario con restriccion de solape, profesor, aula, no clase viernes por la tarde y aula fija:\n")
+        print("\n Horario con restriccion de solape, profesor, aula y aula fija:\n")
         asignaciones = []
 
         for _, row in df_clases.iterrows():
@@ -98,20 +86,17 @@ def modelo_base():
             dia_idx = slot_inicio // horas_por_dia
             hora_idx = slot_inicio % horas_por_dia
 
-        # Buscar qué aula se le asignó a esta sesión
+            # Buscar qué aula se le asignó a esta sesión
             aula_elegida = "Sin aula"
             for a_id in df_aulas["id_aula"].astype(str):
-                # Comprobamos tanto la tupla (s_id, a_id) como si la variable vale 1
                 var_aula = aula_asignada.get((s_id, a_id))
                 if var_aula is not None:
-                    # Si es una variable booleana resuelta por el solver
                     try:
                         if solver.Value(var_aula) == 1:
                             aula_elegida = a_id
                             break
                     except Exception:
                         pass
-
 
             asignaciones.append({
                 "Slot": slot_inicio,
