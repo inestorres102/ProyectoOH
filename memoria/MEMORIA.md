@@ -203,10 +203,33 @@ flowchart TD
     M2 & M3 --> O3
 ```
 
-### Optimizaciones Críticas de Rendimiento
+### 7.1. Optimizaciones Críticas de Rendimiento
 Para permitir que el Recocido Simulado en Python puro evalúe más de **13.000 estados por segundo**, se implementaron:
 1. **Tablas de compatibilidad precomputadas:** Eliminación de búsquedas en DataFrames durante el bucle caliente mediante diccionarios y conjuntos `set()` en memoria $O(1)$.
 2. **Mapeo atómico de subgrupos:** Proyección de grupos compuestos (ej. clase de aula $G17$ que une a las subprácticas de laboratorio $A3$ y $A4$) en conjuntos atómicos disjuntos, evitando el chequeo redundante de colisiones.
+
+### 7.2. Dificultades Técnicas Encontradas y Resolución Iterativa del Modelado
+Durante el ciclo de desarrollo experimental y de ingeniería del software, se superaron diversos obstáculos técnicos y anomalías del modelado hasta alcanzar la solución final óptima:
+
+1. **Gestión de la Jerarquía Docente y Colisión de Subgrupos:**
+   * *Problema inicial:* En una primera formulación, las clases se asociaban a cadenas de texto de grupo independientes. Esto provocaba que sesiones teóricas del curso completo (ej. Grupo 17 en 3º GII o Grupo 1 en 1º/2º GII) no generaran conflicto con subgrupos de prácticas de laboratorio (ej. subgrupos 41 y 42), solapando la docencia de los mismos estudiantes.
+   * *Resolución:* Se desarrolló un mapeo matricial de subgrupos atómicos (`atomic_subgroups`). Cualquier sesión asignada a un grupo superior bloquea automáticamente a todos sus subgrupos descendientes durante esa franja horaria.
+
+2. **Renderizado de Desdobles Simultáneos en el Visualizador Oficial:**
+   * *Problema inicial:* Cuando dos o más subgrupos (ej. 45 y 46) cursaban simultáneamente prácticas en distintos laboratorios dentro de la misma franja horaria, la primera versión del visualizador gráfico Matplotlib solapaba los bloques de color en el mismo carril vertical, ocultando información crítica del horario.
+   * *Resolución:* Se implementó un algoritmo de particionado de columnas (*lane allocation algorithm*) en `src/visualizador.py`. El sistema detecta dinámicamente el número de desdobles concurrentes y subdivide la anchura de la celda de forma proporcional y equitativa, emulando fielmente la maquetación oficial de la EII.
+
+3. **Infactibilidad por Carencia de Recursos Espaciales Especializados (`LF-4`):**
+   * *Problema inicial:* Al incorporar la docencia de 1º de GII del segundo semestre, el solver CP-SAT devolvía sistemáticamente estado `INFEASIBLE`. El análisis de trazas reveló que la asignatura *Fundamentos Físicos de la Informática* (FFI) requería sesiones experimentales en un laboratorio de física que no figuraba en el catálogo preliminar de aulas (donde sólo constaban aulas de teoría y laboratorios informáticos).
+   * *Resolución:* Se investigó la infraestructura física del centro docente y se incorporó el laboratorio especializado `LF-4` a `datos/aulas.csv`, asignándole las restricciones de tipología adecuadas y permitiendo la resolución inmediata y factible del modelo.
+
+4. **Coexistencia y Aislamiento de Turnos de Mañana y Tarde:**
+   * *Problema inicial:* En 1º de GII, los Grupos 1 y 2 se imparten en turno matutino (08:30 a 14:30), mientras que el Grupo 3 asiste en turno vespertino (14:30 a 20:30). Resolver ambos turnos en una cuadrícula horaria homogénea sin partición provocaba asignaciones espurias cruzadas y ventanas horarias inhabitables.
+   * *Resolución:* Se desacopló la resolución temporal introduciendo el parámetro `es_tarde`, que traslada matemáticamente el dominio de las variables de inicio a las franjas 14:30–20:30 y garantiza una segmentación limpia de los calendarios generados.
+
+5. **Eliminación de Dependencias Externas en la Suite de Benchmark:**
+   * *Problema inicial:* Durante la ejecución automatizada del banco de pruebas comparativo, la exportación del informe tabular falló debido a una dependencia ausente de terceros (`tabulate`) en el entorno de ejecución.
+   * *Resolución:* Se sustituyó la dependencia por un generador nativo de tablas Markdown en Python puro, garantizando la reproducibilidad íntegra del experimento en cualquier instalación estándar de Python 3 sin paquetes adicionales innecesarios.
 
 ---
 
@@ -251,14 +274,29 @@ Para el Recocido Simulado propio se ejecutaron **5 repeticiones independientes c
 
 ![Gráfica Comparativa de Benchmark](grafica_comparativa_benchmark.png)
 
+#### Interpretación Simple de la Gráfica Comparativa (¿Qué estamos viendo?):
+* **Panel Izquierdo (Calidad del Horario - Menor altura es mejor):**
+  * La **barra azul (Búsqueda Aleatoria / Azar)** se dispara hasta las nubes (más de 30.000 puntos de penalización). Significa que colocar clases al tuntún deja decenas de choques de profesores y aulas.
+  * La **barra verde (OR-Tools CP-SAT)** es baja porque elimina todos los choques ilegales, pero sigue teniendo altura visible (140 a 270 puntos) debido a que deja muchas "horas muertas" (ventanas libres) para los estudiantes.
+  * La **barra naranja (Recocido Simulado Propio)** queda prácticamente pegada al suelo (0 en 1º de carrera y ~58-61 en los demás). Demuestra visualmente que nuestro algoritmo propio no solo evita los choques, sino que agrupa las clases en bloques continuos sin horas libres en medio.
+* **Panel Derecho (Tiempo de Cómputo):**
+  * Todos los métodos tardan **menos de 5 segundos**. Aunque nuestro algoritmo propio explora miles de posibilidades adicionales para compactar el horario del alumno, la diferencia en tiempo humano es imperceptible (apenas 1 a 3 segundos más que el solver comercial).
+
 ### 9.3. Curva de Convergencia del Recocido Simulado
-En la siguiente figura se ilustra la trayectoria de optimización del algoritmo de Recocido Simulado propio sobre la instancia de 3º GII:
+En la siguiente figura se ilustra paso a paso cómo aprende y se optimiza el algoritmo de Recocido Simulado propio a lo largo de sus 24.300 iteraciones (ejemplo sobre 3º GII):
 
 ![Curva de Convergencia del Recocido Simulado](curva_convergencia_sa.png)
 
-* **Fase de Alta Temperatura ($T > 50$):** El algoritmo acepta transitoriamente estados con mayor energía (saltos hacia arriba), lo que le permite liberarse de óptimos locales con colisiones de profesores y aulas.
-* **Fase de Enfriamiento Intermedio ($10 < T < 50$):** Se produce una drástica caída de la energía total, alcanzando la **factibilidad estricta (0 violaciones duras)** aproximadamente en la iteración 6.000.
-* **Fase de Cristalización ($T < 5$):** El algoritmo actúa como una búsqueda voraz (*greedy descent*), ajustando las clases para erradicar los huecos entre horas y logrando una solución compacta.
+#### Explicación Sencilla de los Tres Paneles (La física del algoritmo):
+1. **Gráfico Superior (Energía / Nivel de Desorden):**
+   * Empieza arriba del todo (energía ~35.000), lo que representa un horario caótico con múltiples profesores solapados y aulas ocupadas a la vez.
+   * Alrededor de la iteración 6.000 cae en picado hasta llegar a cero conflictos duros (horario 100% legal).
+   * A partir de ahí, sigue puliendo los detalles hasta eliminar casi todas las horas muertas, terminando en una línea horizontal plana y estable.
+2. **Gráfico Central (Temperatura):**
+   * Muestra el enfriamiento progresivo (como una pieza de acero caliente que se va templando). Empieza en 120º y va bajando suavemente hasta 0º.
+3. **Gráfico Inferior (Flexibilidad / Tasa de Aceptación):**
+   * Al principio (cuando está "caliente"), el algoritmo acepta casi el 80% de los cambios aunque empeoren un poco, lo que le permite explorar ideas nuevas y no atascarse.
+   * Conforme se enfría, se vuelve cada vez más exigente (baja al 0%), quedándose únicamente con los movimientos que mejoran la comodidad de los alumnos.
 
 ### 9.4. Visualización de Horarios Generados
 Los horarios resultantes fueron exportados en alta resolución (300 DPI) emulando fielmente el formato matricial oficial del centro (Teoría en amarillo, Clases de aula en azul claro, Prácticas de laboratorio en verde menta):
