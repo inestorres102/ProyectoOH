@@ -116,7 +116,7 @@ def modelo_base():
         print(df_resultado.drop(columns=["Slot"]).to_string(index=False))
 
         # Generar el PNG y abrirlo al terminar
-        exportar_horario_png(df_resultado, ruta_salida="horario_3GCID_1er.png", abrir_al_terminar=True)
+        exportar_horario_png(df_resultado, ruta_salida="horario_1GIFM_1er.png", abrir_al_terminar=True)
     else:
         print("No se encontro solucion factible. Comprobar si hay suficientes aulas del tipo requerido")
 
