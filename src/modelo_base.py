@@ -25,7 +25,7 @@ def modelo_base():
     ]
 
     # 2. Leer las sesiones desde la carpeta datos/
-    ruta_clases = "datos/clases_1er_cuatri.csv"
+    ruta_clases = "datos/clases_2do_cuatri.csv"
     df_clases = pd.read_csv(ruta_clases)
     print(f"Cargadas con exito {len(df_clases)} sesiones desde '{ruta_clases}'.")
 

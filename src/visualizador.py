@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import pandas as pd
 
-def exportar_horario_png(df_resultado, ruta_salida="horario_1GIFM_1er.png", abrir_al_terminar=True):
+def exportar_horario_png(df_resultado, ruta_salida="horario_1GIFM_2do.png", abrir_al_terminar=True):
     """
     Exporta el horario a una imagen PNG de alta resolución diferenciando por colores
     Teoría (amarillo/cálido) vs Práctica (verde/esmeralda), y lo abre automáticamente.
@@ -146,7 +146,7 @@ def exportar_horario_png(df_resultado, ruta_salida="horario_1GIFM_1er.png", abri
     ax.set_ylim(0, len(horas) * row_height + y_offset + 1.4)
     ax.axis("off")
 
-    plt.title("CALENDARIO ACADÉMICO — 1º GIFM (1er SEMESTRE)", fontsize=16, fontweight="bold", pad=25, color="#1A237E")
+    plt.title("CALENDARIO ACADÉMICO — 1º GIFM (2do SEMESTRE)", fontsize=16, fontweight="bold", pad=25, color="#1A237E")
     plt.tight_layout()
     plt.savefig(ruta_salida, dpi=300, bbox_inches="tight")
     plt.close()
