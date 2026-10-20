@@ -1,0 +1,10 @@
+id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor
+S01,MAR,teoria,17,4,22,Teoria,Juan Miguel Gil de la Fe
+S02,T,teoria,17,4,16,Teoria,Ángel Rodríguez Santana
+S03,MMA1,teoria,17,4,16,Teoria,Albert Oliver Serra
+S04,AM1,teoria,17,2,24,Teoria,Begoña González Landín
+S05,P2,teoria,17,2,24,Teoria, Daniel Elías Santana Cedrés
+S08,MAR,practica,41,2,22,Laboratorio,Juan Miguel Gil de la Fe
+S09,T,practica,41,2,22,Laboratorio,Ángel Rodríguez Santana
+S10,MMA1,practica,41,2,22,Laboratorio,Albert Oliver González Landín
+S11,P2,practica,41,2,22,Laboratorio,Daniel Elías Santana Cedrés
