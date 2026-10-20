@@ -1,0 +1,7 @@
+id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor
+S01,FF2,teoria,17,6,22,Teoria,Jesús Garcia Rubiano/Héctor Eulogio Alonso Hernández
+S02,MNF,teoria,17,2,16,Teoria,Gustavo Montero García
+S03,MNF,practica,41,4,16,Laboratorio,Marcos Javier Hernández Gil
+S04,FEC1,practica,41,4,24,Laboratorio,Aridai Bordón Sánchez
+S05,G1,teoria,17,2,24,Teoria,Luis González Sánchez
+S08,FM2,teoria,17,4,22,Teoria,Josefa Caballero Mena
