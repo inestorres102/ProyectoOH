@@ -1,0 +1,18 @@
+id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor
+S01,FFFT,teoria,17,5,22,Teoria,María de los Ángeles Marrero Diaz
+S02,ESM,teoria,17,5,16,Teoria,Antonio Alejandro Valido Flores
+S03,IM,teoria,17,2,16,Teoria, Juan Antonio Montiel Nelson
+S04,MMA3,teoria,17,4,24,Teoria,Begoña González Landín
+S05,FPAT,teoria,17,2,24,Teoria,Rafael Rodríguez Pérez
+S08,FO,teoria,17,2,22,Teoria,Alonso Hernández Guerra
+S09,AP,teoria,17,3,22,Teoria, Francisco Mario Hernández Tejera
+S10,IE,teoria,17,2,22,Teoria,Francisco José Vázquez Polo
+S11,FFT,practica,41,4,22,Laboratorio,Ángel Rodríguez Santana
+S12,ESM,practica,41,7,22,Laboratorio,Antonio Alejandro Valido Flores
+S13,IM,practica,41,5,22,Laboratorio,Juan Montiel Caminos
+S14,MMA3,practica,41,4,22,Laboratorio,Begoña González Landín
+S15,FPAT,practica,41,2,22,Laboratorio,Juan Miguel Gil de la Fe
+S16,FO,practica,41,2,22,Laboratorio,Alonso Hernández Guerra
+S17,AP,practica,41,3,22,Laboratorio,Jose Carlos Rodríguez Rodríguez
+S18,IE,practica,41,4,22,Laboratorio,Simón Rodríguez Santana
+

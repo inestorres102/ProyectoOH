@@ -1,0 +1,12 @@
+id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor
+S01,FMC,teoria,17,5,22,Teoria,Juan Miguel Gil de la Fe
+S02,EOF2,teoria,17,5,16,Teoria,Antonio Alejandro Valido Flores
+S03,MMA2,teoria,17,2,16,Teoria, Albert Oliver Serra
+S04,AM3,teoria,17,6,24,Teoria,Isaac Alvarez Romero
+S05,E,teoria,17,4,24,Teoria,Ángelo Santana Del Pino
+S08,FMC,practica,41,2,22,Laboratorio,Juan Miguel Gil de la Fe
+S09,EOF2,practica,41,4,22,Laboratorio,Antonio Alejandro Valido Flores
+S10,MMA2,practica,41,4,22,Laboratorio,Albert Oliver Serra
+S11,AM3,practica,41,2,22,Laboratorio,Isaac Alvarez Romero
+S12,E,practica,41,2,22,Laboratorio,Angelo Santana del Pino
+

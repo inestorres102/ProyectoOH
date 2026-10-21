@@ -1,0 +1,18 @@
+id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor
+S01,MACT,teoria,17,4,22,Teoria,Rafael Rodríguez Pérez
+S02,FESC,teoria,17,3,16,Teoria,Rafael Rodríguez Pérez
+S03,PI,teoria,17,2,16,Teoria, Juan Antonio Guerra Montenegro
+S04,AM4,teoria,17,3,24,Teoria,Jackie Jerónimo Harjani Saúco
+S05,DGDM,teoria,17,2,24,Teoria,Ángel Rodríguez Santana
+S08,DF,teoria,17,2,22,Teoria,Antonio Hernández Ballester
+S09,FRIAT,teoria,17,2,22,Teoria,Jesús García Rubiano
+S10,MEM,teoria,17,2,22,Teoria,Pedro Saavedra Sanatana
+S11,MACT,practica,41,1,22,Laboratorio,Rafael Rodríguez Pérez
+S12,FESC,practica,41,1,22,Laboratorio,Rafael Rodríguez Pérez
+S13,PI,practica,41,2,22,Laboratorio,Juan Manuel Cerezo Sánchez
+S14,AM4,practica,41,2,22,Laboratorio,Jackie Jerónimo Harjani Saúco
+S15,DGDM,practica,41,1,22,Laboratorio,Ángel Rodríguez Santana
+S16,DF,practica,41,1,22,Laboratorio,Antonio Hernández Ballester
+S17,FRIAT,practica,41,1,22,Laboratorio,Jesús García Rubiano
+S18,MEM,practica,41,2,22,Laboratorio, Ángelo Santana del Pino
+

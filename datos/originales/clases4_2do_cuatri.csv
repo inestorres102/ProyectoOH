@@ -1,0 +1,9 @@
+id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor
+S01,CC,teoria,17,1,22,Teoria,José Carlos Ruiz Luque
+S02,EB,teoria,17,2,16,Teoria,Francisco José Vázquez Polo
+S03,MSFADE,teoria,17,2,16,Teoria, Juan Miguel Gil de la Fe
+S04,RC,teoria,17,2,24,Teoria,Juan de Dios Hernández
+S05,CC,practica,41,1,22,Laboratorio,Carmelo Cuenca Hernández
+S06,EB,practica,41,2,22,Laboratorio,Simón Rodríguez Santana
+S07,MSFADE,practica,41,1,22,Laboratorio,Juan Miguel Gil de la Fe
+S08,RC,practica,41,2,22,Laboratorio,Juan de Dios Hernández

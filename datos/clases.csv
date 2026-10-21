@@ -1,0 +1,82 @@
+﻿id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor,curso,cuatrimestre
+S01,FF1,teoria,17,6,22,Teoria,Jesús Garcia Rubiano,1,1
+S02,IFM,teoria,17,2,16,Teoria,Jesús Garcia Rubiano,1,1
+S03,FM1,teoria,17,4,24,Teoria,Jackie Jerónimo Harjani Saúco,1,1
+S04,AL,teoria,17,4,22,Teoria,Luis González Sánchez/María Belén López Brito,1,1
+S05,P1,teoria,17,2,25,Teoria,Daniel ELías Santana Cedrés,1,1
+S06,P1,practica,41,2,25,Laboratorio,Mario Carmelo Caballero Benitez,1,1
+S07,P1,practica,42,2,25,Laboratorio,Mario Carmelo Caballero Benitez,1,1
+S01,FF2,teoria,17,6,22,Teoria,Jesús Garcia Rubiano/Héctor Eulogio Alonso Hernández,1,2
+S02,MNF,teoria,17,2,16,Teoria,Gustavo Montero García,1,2
+S03,MNF,practica,41,4,16,Laboratorio,Marcos Javier Hernández Gil,1,2
+S04,FEC1,practica,41,4,24,Laboratorio,Aridai Bordón Sánchez,1,2
+S05,G1,teoria,17,2,24,Teoria,Luis González Sánchez,1,2
+S08,FM2,teoria,17,4,22,Teoria,Josefa Caballero Mena,1,2
+S01,MAR,teoria,17,4,22,Teoria,Juan Miguel Gil de la Fe,2,1
+S02,T,teoria,17,4,16,Teoria,Ángel Rodríguez Santana,2,1
+S03,MMA1,teoria,17,4,16,Teoria,Albert Oliver Serra,2,1
+S04,AM1,teoria,17,2,24,Teoria,Begoña González Landín,2,1
+S05,P2,teoria,17,2,24,Teoria,Daniel Elías Santana Cedrés,2,1
+S08,MAR,practica,41,2,22,Laboratorio,Juan Miguel Gil de la Fe,2,1
+S09,T,practica,41,2,22,Laboratorio,Ángel Rodríguez Santana,2,1
+S10,MMA1,practica,41,2,22,Laboratorio,Albert Oliver González Landín,2,1
+S11,P2,practica,41,2,22,Laboratorio,Daniel Elías Santana Cedrés,2,1
+S01,FEC2,teoria,17,1,22,Teoria,Juan Miguel Gil de la Fe,2,2
+S02,FE,teoria,17,3,16,Teoria,Antonio Hernández Ballester,2,2
+S03,EOF1,teoria,17,4,16,Teoria,Antonio Hernández Ballester,2,2
+S04,AM2,teoria,17,4,24,Teoria,Isaac Alvarez Romero,2,2
+S05,G2,teoria,17,2,24,Teoria,Alberto Montoya Soderberg,2,2
+S08,P,teoria,17,4,22,Teoria,Juan Miguel Gil de la Fe,2,2
+S09,FEC2,practica,41,4,22,Laboratorio,Juan Miguel Gil de la Fe,2,2
+S10,FE,practica,41,4,22,Laboratorio,Antonio Hernández Ballester,2,2
+S11,EOF1,practica,41,2,22,Laboratorio,Antonio Hernández Ballester,2,2
+S01,FMC,teoria,17,5,22,Teoria,Juan Miguel Gil de la Fe,3,1
+S02,EOF2,teoria,17,5,16,Teoria,Antonio Alejandro Valido Flores,3,1
+S03,MMA2,teoria,17,2,16,Teoria,Albert Oliver Serra,3,1
+S04,AM3,teoria,17,6,24,Teoria,Isaac Alvarez Romero,3,1
+S05,E,teoria,17,4,24,Teoria,Ángelo Santana Del Pino,3,1
+S08,FMC,practica,41,2,22,Laboratorio,Juan Miguel Gil de la Fe,3,1
+S09,EOF2,practica,41,4,22,Laboratorio,Antonio Alejandro Valido Flores,3,1
+S10,MMA2,practica,41,4,22,Laboratorio,Albert Oliver Serra,3,1
+S11,AM3,practica,41,2,22,Laboratorio,Isaac Alvarez Romero,3,1
+S12,E,practica,41,2,22,Laboratorio,Angelo Santana del Pino,3,1
+S01,FFFT,teoria,17,5,22,Teoria,María de los Ángeles Marrero Diaz,3,2
+S02,ESM,teoria,17,5,16,Teoria,Antonio Alejandro Valido Flores,3,2
+S03,IM,teoria,17,2,16,Teoria,Juan Antonio Montiel Nelson,3,2
+S04,MMA3,teoria,17,4,24,Teoria,Begoña González Landín,3,2
+S05,FPAT,teoria,17,2,24,Teoria,Rafael Rodríguez Pérez,3,2
+S08,FO,teoria,17,2,22,Teoria,Alonso Hernández Guerra,3,2
+S09,AP,teoria,17,3,22,Teoria,Francisco Mario Hernández Tejera,3,2
+S10,IE,teoria,17,2,22,Teoria,Francisco José Vázquez Polo,3,2
+S11,FFT,practica,41,4,22,Laboratorio,Ángel Rodríguez Santana,3,2
+S12,ESM,practica,41,7,22,Laboratorio,Antonio Alejandro Valido Flores,3,2
+S13,IM,practica,41,5,22,Laboratorio,Juan Montiel Caminos,3,2
+S14,MMA3,practica,41,4,22,Laboratorio,Begoña González Landín,3,2
+S15,FPAT,practica,41,2,22,Laboratorio,Juan Miguel Gil de la Fe,3,2
+S16,FO,practica,41,2,22,Laboratorio,Alonso Hernández Guerra,3,2
+S17,AP,practica,41,3,22,Laboratorio,Jose Carlos Rodríguez Rodríguez,3,2
+S18,IE,practica,41,4,22,Laboratorio,Simón Rodríguez Santana,3,2
+S01,MACT,teoria,17,4,22,Teoria,Rafael Rodríguez Pérez,4,1
+S02,FESC,teoria,17,3,16,Teoria,Rafael Rodríguez Pérez,4,1
+S03,PI,teoria,17,2,16,Teoria,Juan Antonio Guerra Montenegro,4,1
+S04,AM4,teoria,17,3,24,Teoria,Jackie Jerónimo Harjani Saúco,4,1
+S05,DGDM,teoria,17,2,24,Teoria,Ángel Rodríguez Santana,4,1
+S08,DF,teoria,17,2,22,Teoria,Antonio Hernández Ballester,4,1
+S09,FRIAT,teoria,17,2,22,Teoria,Jesús García Rubiano,4,1
+S10,MEM,teoria,17,2,22,Teoria,Pedro Saavedra Sanatana,4,1
+S11,MACT,practica,41,1,22,Laboratorio,Rafael Rodríguez Pérez,4,1
+S12,FESC,practica,41,1,22,Laboratorio,Rafael Rodríguez Pérez,4,1
+S13,PI,practica,41,2,22,Laboratorio,Juan Manuel Cerezo Sánchez,4,1
+S14,AM4,practica,41,2,22,Laboratorio,Jackie Jerónimo Harjani Saúco,4,1
+S15,DGDM,practica,41,1,22,Laboratorio,Ángel Rodríguez Santana,4,1
+S16,DF,practica,41,1,22,Laboratorio,Antonio Hernández Ballester,4,1
+S17,FRIAT,practica,41,1,22,Laboratorio,Jesús García Rubiano,4,1
+S18,MEM,practica,41,2,22,Laboratorio,Ángelo Santana del Pino,4,1
+S01,CC,teoria,17,1,22,Teoria,José Carlos Ruiz Luque,4,2
+S02,EB,teoria,17,2,16,Teoria,Francisco José Vázquez Polo,4,2
+S03,MSFADE,teoria,17,2,16,Teoria,Juan Miguel Gil de la Fe,4,2
+S04,RC,teoria,17,2,24,Teoria,Juan de Dios Hernández,4,2
+S05,CC,practica,41,1,22,Laboratorio,Carmelo Cuenca Hernández,4,2
+S06,EB,practica,41,2,22,Laboratorio,Simón Rodríguez Santana,4,2
+S07,MSFADE,practica,41,1,22,Laboratorio,Juan Miguel Gil de la Fe,4,2
+S08,RC,practica,41,2,22,Laboratorio,Juan de Dios Hernández,4,2

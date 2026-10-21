@@ -1,0 +1,11 @@
+id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor
+S01,FEC2,teoria,17,1,22,Teoria,Juan Miguel Gil de la Fe
+S02,FE,teoria,17,3,16,Teoria,Antonio Hernández Ballester
+S03,EOF1,teoria,17,4,16,Teoria,Antonio Hernández Ballester
+S04,AM2,teoria,17,4,24,Teoria,Isaac Alvarez Romero
+S05,G2,teoria,17,2,24,Teoria, Alberto Montoya Soderberg
+S08,P,teoria,17,4,22,Teoria,Juan Miguel Gil de la Fe
+S09,FEC2,practica,41,4,22,Laboratorio,Juan Miguel Gil de la Fe
+S10,FE,practica,41,4,22,Laboratorio,Antonio Hernández Ballester
+S11,EOF1,practica,41,2,22,Laboratorio,Antonio Hernández Ballester
+
