@@ -243,4 +243,4 @@ def modelo_base(curso=1, cuatrimestre=1):
 
 if __name__ == "__main__":
     # Cambia estos dos valores para elegir el horario que quieres generar.
-    modelo_base(curso=1, cuatrimestre=2)
+    modelo_base(curso=2, cuatrimestre=1)
