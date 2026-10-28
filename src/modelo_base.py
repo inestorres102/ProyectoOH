@@ -1,19 +1,22 @@
+import glob
+import os
 import pandas as pd
 from ortools.sat.python import cp_model
 
-# Importamos las restricciones desde el nuevo fichero 'restricciones.py'
+# Importamos las restricciones desde 'restricciones.py'
 from restricciones import (
     aplicar_restriccion_estudiantes,
     aplicar_restriccion_cambio_dia,
     aplicar_restriccion_profesores,
     aplicar_restriccion_aulas,
-    aplicar_restricciones_blandas
+    aplicar_restricciones_blandas,
+    aplicar_restriccion_sin_huecos
 )
 
 from visualizador import exportar_horario_png
 
 
-def modelo_base():
+def modelo_base(cuatrimestre=1):
     # 1. Definir el horizonte temporal semanal (30 franjas horarias)
     dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"]
     horas_por_dia = 6  # 6 franjas por día: de 08:30 a 14:30
@@ -24,16 +27,29 @@ def modelo_base():
         "11:30-12:30", "12:30-13:30", "13:30-14:30"
     ]
 
-
     # 2. Leer las sesiones desde la carpeta datos/
-    ruta_clases = "datos/clases.csv"
-    df_clases = pd.read_csv(ruta_clases)
-    print(f"Cargadas con exito {len(df_clases)} sesiones desde '{ruta_clases}'.")
+    archivos_clases = glob.glob("datos/clases_*.csv")
+    if archivos_clases:
+        df_clases_total = pd.concat([pd.read_csv(f) for f in archivos_clases], ignore_index=True)
+    elif os.path.exists("datos/clases.csv"):
+        df_clases_total = pd.read_csv("datos/clases.csv")
+    else:
+        raise FileNotFoundError("No se encontró ningún archivo de clases en 'datos/'")
+
+    # Limpiar espacios en los nombres de las columnas
+    df_clases_total.columns = df_clases_total.columns.str.strip()
+
+    # Filtrar por el cuatrimestre que queremos resolver (1 o 2)
+    if "cuatrimestre" in df_clases_total.columns:
+        df_clases = df_clases_total[df_clases_total["cuatrimestre"] == cuatrimestre].copy()
+    else:
+        df_clases = df_clases_total.copy()
 
     df_aulas = pd.read_csv("datos/aulas.csv")
-    print(f"Sesiones cargadas: {len(df_clases)} | Aulas disponibles: {len(df_aulas)}") # relacionamos numero de sesiones con numero de aulas disponibles
+    df_aulas.columns = df_aulas.columns.str.strip()
 
-
+    print(f"\n--- OPTIMIZANDO HORARIO: CUATRIMESTRE {cuatrimestre} ---")
+    print(f"Sesiones cargadas: {len(df_clases)} | Aulas disponibles: {len(df_aulas)}")
 
     # 3. Crear el modelo CP-SAT y definir variables de decisión
     model = cp_model.CpModel()
@@ -50,68 +66,60 @@ def modelo_base():
         start = model.NewIntVar(0, total_slots - duracion, f"start_{s_id}")
         end = model.NewIntVar(duracion, total_slots, f"end_{s_id}")
         
-        # NewIntervalVar enlaza matemáticamente: end == start + duracion
+        # Enlace matemático: end == start + duracion
         interval = model.NewIntervalVar(start, duracion, end, f"interval_{s_id}")
 
         start_vars[s_id] = start
         end_vars[s_id] = end
         interval_vars[s_id] = interval
 
-
-# APLICAR RESTRICCIONES DURAS
-    # alumnos
+    # ---------------------------------------------------------
+    # APLICAR RESTRICCIONES DURAS
+    # ---------------------------------------------------------
+    # A. Estudiantes (evitar solapes de un mismo grupo)
     aplicar_restriccion_estudiantes(model, df_clases, interval_vars)
     
-    # coherencia horaria
+    # B. Coherencia horaria (no partir sesiones entre días distintos)
     aplicar_restriccion_cambio_dia(model, df_clases, start_vars, end_vars, horas_por_dia)
     
-    # profesores
+    # C. Profesores (un profesor no puede estar en dos sitios a la vez)
     aplicar_restriccion_profesores(model, df_clases, interval_vars)
     
-    # aulas (tipo de aula y no solapamiento físico)
-    aula_asignada = aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars)
-    
-    # D. Aulas (tipo y capacidad)
+    # D. Aulas (capacidad, tipo y evitar solapamiento físico)
     aula_asignada = aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars)
 
-
-    # Restricciones a optimizar
+    # ---------------------------------------------------------
+    # RESTRICCIONES BLANDAS (FUNCIÓN OBJETIVO)
+    # ---------------------------------------------------------
     aplicar_restricciones_blandas(model, df_clases, start_vars, aula_asignada, total_slots=total_slots, aula_preferida="A2-5")
 
-
-
-    # 4. Resolver (con dos restricciones)
+    # 4. Resolver
     solver = cp_model.CpSolver()
     status = solver.Solve(model)
 
-
-
-    # 5. Imprimir la asignación temporal básica por consola
+    # 5. Imprimir y exportar resultados
     if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-        print("\n Horario con restriccion de solape, profesor, aula, no clase viernes por la tarde y aula fija:\n")
+        print("\nHorario optimizado encontrado con éxito:\n")
         asignaciones = []
 
         for _, row in df_clases.iterrows():
-            s_id = str(row["id_sesion"])
+            s_id = str(row["id_sesion"]).strip()
             slot_inicio = solver.Value(start_vars[s_id])
 
             dia_idx = slot_inicio // horas_por_dia
             hora_idx = slot_inicio % horas_por_dia
 
-        # Buscar qué aula se le asignó a esta sesión
+            # Buscar qué aula se le asignó a esta sesión
             aula_elegida = "Sin aula"
             for a_id in df_aulas["id_aula"].astype(str):
-                # Comprobamos tanto la tupla (s_id, a_id) como si la variable vale 1
                 var_aula = aula_asignada.get((s_id, a_id))
                 if var_aula is not None:
-                    # Si es una variable booleana resuelta por el solver
                     try:
                         if solver.Value(var_aula) == 1:
                             aula_elegida = a_id
                             break
                     except Exception:
                         pass
-
 
             asignaciones.append({
                 "Slot": slot_inicio,
@@ -126,14 +134,17 @@ def modelo_base():
                 "Profesor": row["profesor"]
             })
 
-        # Ordenamos numéricamente por slot (de 0 a 29)
         df_resultado = pd.DataFrame(asignaciones).sort_values(by="Slot")
         print(df_resultado.drop(columns=["Slot"]).to_string(index=False))
 
-        # Generar el PNG y abrirlo al terminar
-        exportar_horario_png(df_resultado, ruta_salida="horario_3GCID_1er.png", abrir_al_terminar=True)
+        # Generar el PNG con el nombre del cuatrimestre correspondiente
+        sufijo = "1er" if cuatrimestre == 1 else "2do"
+        nombre_salida = f"horario_3GCID_{sufijo}.png"
+        
+        exportar_horario_png(df_resultado, ruta_salida=nombre_salida, abrir_al_terminar=True)
     else:
-        print("No se encontro solucion factible. Comprobar si hay suficientes aulas del tipo requerido")
+        print("No se encontró solución factible. Comprobar disponibilidad de aulas o solapamientos.")
 
 if __name__ == "__main__":
-    modelo_base()
+    # Cambia aquí a 1 o 2 según el cuatrimestre que quieras resolver
+    modelo_base(cuatrimestre=1)
