@@ -175,7 +175,7 @@ def aplicar_restriccion_sin_huecos(model, df_clases, start_vars, end_vars, horas
 
 def aplicar_restriccion_dias_libres_practicas(model, df_clases, start_vars):
     """
-    DURA (Específica del 2º Cuatrimestre):
+    DURA (Específica del 2º Cuatrimestr, solo se activa con cuatrimestre=2):
     Concentra la docencia presencial en Lunes, Martes y Miércoles (slots 0 a 17)
     para liberar completamente Jueves y Viernes para las Prácticas Externas.
     """
