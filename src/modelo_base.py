@@ -87,6 +87,9 @@ def modelo_base(cuatrimestre=1):
     
     # D. Aulas (capacidad, tipo y evitar solapamiento físico)
     aula_asignada = aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars)
+    
+    # E. Sin huecos libres para el mismo grupo
+    aplicar_restriccion_sin_huecos(model, df_clases, start_vars, end_vars, horas_por_dia)
 
     # ---------------------------------------------------------
     # RESTRICCIONES BLANDAS (FUNCIÓN OBJETIVO)
