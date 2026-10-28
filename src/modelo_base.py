@@ -153,5 +153,11 @@ def modelo_base(cuatrimestre=1):
     else:
         print("No se encontró solución factible. Comprobar disponibilidad de aulas o solapamientos.")
 
+
 if __name__ == "__main__":
-    modelo_base(cuatrimestre=2)
+    print("==================================================")
+    print("     GENERACIÓN AUTOMÁTICA DE CALENDARIOS GCID    ")
+    print("==================================================")
+    # Ejecuta automáticamente ambos cuatrimestres
+    for c in [1, 2]:
+        modelo_base(cuatrimestre=c)
