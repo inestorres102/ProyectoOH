@@ -144,10 +144,9 @@ def modelo_base(cuatrimestre=1):
         sufijo = "1er" if cuatrimestre == 1 else "2do"
         nombre_salida = f"horario_3GCID_{sufijo}.png"
         
-        exportar_horario_png(df_resultado, ruta_salida=nombre_salida, abrir_al_terminar=True)
+        exportar_horario_png(df_resultado, cuatrimestre=cuatrimestre, abrir_al_terminar=True)
     else:
         print("No se encontró solución factible. Comprobar disponibilidad de aulas o solapamientos.")
 
 if __name__ == "__main__":
-    # Cambia aquí a 1 o 2 según el cuatrimestre que quieras resolver
     modelo_base(cuatrimestre=1)
