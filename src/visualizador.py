@@ -5,13 +5,14 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import pandas as pd
 
-def exportar_horario_png(df_resultado, cuatrimestre=1, ruta_salida=None, abrir_al_terminar=True):
+def exportar_horario_png(df_resultado, curso=3, cuatrimestre=1, ruta_salida=None, abrir_al_terminar=True):
     """
-    Exporta el horario a PNG diferenciando Teoría vs Práctica con título y archivo dinámicos.
+    Exporta el horario a PNG diferenciando por curso y cuatrimestre.
     """
-    sufijo = "1er" if cuatrimestre == 1 else "2do"
+    sufijo_cuatri = "1er" if cuatrimestre == 1 else "2do"
+    
     if ruta_salida is None:
-        ruta_salida = f"horario_3GCID_{sufijo}.png"
+        ruta_salida = f"horario_{curso}GCID_{sufijo_cuatri}.png"
 
     dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"]
     horas = ["08:30-09:30", "09:30-10:30", "10:30-11:30", "11:30-12:30", "12:30-13:30", "13:30-14:30"]
@@ -141,14 +142,16 @@ def exportar_horario_png(df_resultado, cuatrimestre=1, ruta_salida=None, abrir_a
     ax.set_ylim(0, len(horas) * row_height + y_offset + 1.4)
     ax.axis("off")
 
-    # Título dinámico
-    plt.title(f"CALENDARIO ACADÉMICO — 3º GCID ({sufijo.upper()} SEMESTRE)", fontsize=16, fontweight="bold", pad=25, color="#1A237E")
+    # TÍTULO DINÁMICO CON CURSO Y CUATRIMESTRE:
+    plt.title(f"CALENDARIO ACADÉMICO — {curso}º GCID ({sufijo_cuatri.upper()} SEMESTRE)", 
+              fontsize=16, fontweight="bold", pad=25, color="#1A237E")
+
     plt.tight_layout()
     plt.savefig(ruta_salida, dpi=300, bbox_inches="tight")
     plt.close()
-    print(f"[OK] Imagen guardada en: {os.path.abspath(ruta_salida)}")
+    print(f" Imagen guardada con éxito en: {os.path.abspath(ruta_salida)}")
 
-    # Apertura forzada y fiable
+    # Apertura en Windows
     if abrir_al_terminar:
         ruta_abs = os.path.abspath(ruta_salida)
         try:
@@ -156,5 +159,5 @@ def exportar_horario_png(df_resultado, cuatrimestre=1, ruta_salida=None, abrir_a
                 os.system(f'start "" "{ruta_abs}"')
             else:
                 subprocess.run(["open" if sys.platform.startswith("darwin") else "xdg-open", ruta_abs])
-        except Exception as e:
-            print(f"Aviso: Puedes abrir la imagen en {ruta_abs}. Detalle: {e}")
+        except Exception:
+            pass
