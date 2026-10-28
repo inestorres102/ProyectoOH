@@ -10,7 +10,8 @@ from restricciones import (
     aplicar_restriccion_profesores,
     aplicar_restriccion_aulas,
     aplicar_restricciones_blandas,
-    aplicar_restriccion_sin_huecos
+    aplicar_restriccion_sin_huecos,
+    aplicar_restriccion_dias_libres_practicas
 )
 
 from visualizador import exportar_horario_png
@@ -90,6 +91,10 @@ def modelo_base(cuatrimestre=1):
     
     # E. Sin huecos libres para el mismo grupo
     aplicar_restriccion_sin_huecos(model, df_clases, start_vars, end_vars, horas_por_dia)
+    
+    # F. Si estamos optimizando el 2º cuatrimestre, liberamos jueves y viernes
+    if cuatrimestre == 2:
+        aplicar_restriccion_dias_libres_practicas(model, df_clases, start_vars)
 
     # ---------------------------------------------------------
     # RESTRICCIONES BLANDAS (FUNCIÓN OBJETIVO)
