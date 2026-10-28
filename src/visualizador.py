@@ -7,27 +7,18 @@ import pandas as pd
 
 def exportar_horario_png(df_resultado, cuatrimestre=1, ruta_salida=None, abrir_al_terminar=True):
     """
-    Exporta el horario a una imagen PNG de alta resolución diferenciando por colores
-    Teoría (amarillo/cálido) vs Práctica (verde/esmeralda), y lo abre automáticamente.
+    Exporta el horario a PNG diferenciando Teoría vs Práctica con título y archivo dinámicos.
     """
     sufijo = "1er" if cuatrimestre == 1 else "2do"
     if ruta_salida is None:
         ruta_salida = f"horario_3GCID_{sufijo}.png"
+
     dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"]
     horas = ["08:30-09:30", "09:30-10:30", "10:30-11:30", "11:30-12:30", "12:30-13:30", "13:30-14:30"]
 
-    # Diferenciación visual Teoría vs Práctica (estilo oficial EII)
     estilo_tipo = {
-        "teoria": {
-            "bg": "#FFF9C4",      # Amarillo pastel
-            "border": "#FBC02D",  # Dorado
-            "text": "#E65100"     # Ámbar / naranja
-        },
-        "practica": {
-            "bg": "#C8E6C9",      # Verde pastel
-            "border": "#43A047",  # Verde bosque
-            "text": "#1B5E20"     # Verde oscuro
-        }
+        "teoria": {"bg": "#FFF9C4", "border": "#FBC02D", "text": "#E65100"},
+        "practica": {"bg": "#C8E6C9", "border": "#43A047", "text": "#1B5E20"}
     }
 
     fig, ax = plt.subplots(figsize=(15, 9), dpi=300)
@@ -39,7 +30,7 @@ def exportar_horario_png(df_resultado, cuatrimestre=1, ruta_salida=None, abrir_a
     y_offset = 0.5
     row_height = 1.1
 
-    # 1. Cabecera superior: Días
+    # 1. Cabecera Días
     for j, dia in enumerate(dias):
         x = x_offset + j * col_width
         header_box = patches.FancyBboxPatch(
@@ -51,7 +42,7 @@ def exportar_horario_png(df_resultado, cuatrimestre=1, ruta_salida=None, abrir_a
         ax.text(x + col_width / 2, len(horas) * row_height + y_offset + 0.38, dia.upper(),
                 ha="center", va="center", color="white", fontsize=11.5, fontweight="bold")
 
-    # 2. Cabecera lateral: Horas
+    # 2. Horas
     for i, hora in enumerate(horas):
         y = (len(horas) - 1 - i) * row_height + y_offset
         time_box = patches.FancyBboxPatch(
@@ -75,62 +66,63 @@ def exportar_horario_png(df_resultado, cuatrimestre=1, ruta_salida=None, abrir_a
             )
             ax.add_patch(bg_slot)
 
-    # 4. Manejo de sesiones simultáneas (desdobles)
-    dia_hora_count = {}
+    # 4. Estructurar eventos
+    eventos = []
     for _, row in df_resultado.iterrows():
         d = row["Dia"]
-        h = row["Hora"]
-        dia_hora_count[(d, h)] = dia_hora_count.get((d, h), 0) + 1
+        h_str = row["Hora"]
+        dur = int(str(row["Duracion"]).replace("h", ""))
+        eventos.append({
+            "dia_idx": dias.index(d),
+            "start": horas.index(h_str),
+            "end": horas.index(h_str) + dur,
+            "dur": dur,
+            "asig": row["Asignatura"],
+            "tipo": "teoria" if "teor" in str(row["Tipo"]).lower() else "practica",
+            "grupo": str(row["Grupo"]).strip(),
+            "aula": row["Aula"]
+        })
 
-    dia_hora_tracker = {}
+    # 5. Dibujar tarjetas en sus carriles correspondientes
+    for d_idx in range(len(dias)):
+        eventos_dia = [e for e in eventos if e["dia_idx"] == d_idx]
+        for ev in eventos_dia:
+            # Comprobar si se solapa con cualquier otra sesión durante su duración
+            solapados = [otro for otro in eventos_dia if max(ev["start"], otro["start"]) < min(ev["end"], otro["end"])]
 
-    for _, row in df_resultado.iterrows():
-        dia = row["Dia"]
-        hora_str = row["Hora"]
-        duracion = int(str(row["Duracion"]).replace("h", ""))
-        asig = row["Asignatura"]
-        es_teoria = "teor" in str(row["Tipo"]).lower()
-        tipo_clave = "teoria" if es_teoria else "practica"
-        tipo_tag = "T" if es_teoria else "P"
-        grupo = f"G{row['Grupo']}"
-        aula = row["Aula"]
+            if ev["tipo"] == "teoria" or len(solapados) <= 1:
+                w_box = col_width - 0.1
+                x_box = x_offset + d_idx * col_width + 0.05
+            else:
+                # Carril izquierdo para 41, derecho para 42
+                w_box = (col_width - 0.1) / 2
+                sub_idx = 0 if ev["grupo"] in ["41", "1"] else 1
+                x_box = x_offset + d_idx * col_width + 0.05 + sub_idx * w_box
 
-        col_idx = dias.index(dia)
-        row_idx = horas.index(hora_str)
+            h_box = ev["dur"] * row_height - 0.1
+            y_box = (len(horas) - ev["start"] - ev["dur"]) * row_height + y_offset + 0.05
 
-        total_en_slot = dia_hora_count.get((dia, hora_str), 1)
-        sub_idx = dia_hora_tracker.get((dia, hora_str), 0)
-        dia_hora_tracker[(dia, hora_str)] = sub_idx + 1
+            estilo = estilo_tipo[ev["tipo"]]
+            tarjeta = patches.FancyBboxPatch(
+                (x_box + 0.02, y_box + 0.02), w_box - 0.04, h_box - 0.04,
+                boxstyle="round,pad=0.03,rounding_size=0.1",
+                facecolor=estilo["bg"], edgecolor=estilo["border"], linewidth=1.8
+            )
+            ax.add_patch(tarjeta)
 
-        w_box = (col_width - 0.1) / total_en_slot
-        x_box = x_offset + col_idx * col_width + 0.05 + sub_idx * w_box
+            cx = x_box + w_box / 2
+            cy = y_box + h_box / 2
+            tipo_tag = "T" if ev["tipo"] == "teoria" else "P"
+            font_title = 10.5 if w_box > col_width * 0.7 else 8.5
+            font_sub = 9.0 if w_box > col_width * 0.7 else 7.5
 
-        h_box = duracion * row_height - 0.1
-        y_box = (len(horas) - row_idx - duracion) * row_height + y_offset + 0.05
+            ax.text(cx, cy + (0.18 if ev["dur"] > 1 else 0.10), f"{ev['asig']} ({tipo_tag}-G{ev['grupo']})",
+                    ha="center", va="center", color=estilo["text"], fontsize=font_title, fontweight="bold")
+            ax.text(cx, cy - (0.12 if ev["dur"] > 1 else 0.10), f"Aula: {ev['aula']}",
+                    ha="center", va="center", color="#37474F", fontsize=font_sub, fontweight="bold")
 
-        estilo = estilo_tipo[tipo_clave]
-
-        tarjeta = patches.FancyBboxPatch(
-            (x_box + 0.02, y_box + 0.02), w_box - 0.04, h_box - 0.04,
-            boxstyle="round,pad=0.03,rounding_size=0.1",
-            facecolor=estilo["bg"], edgecolor=estilo["border"], linewidth=1.8
-        )
-        ax.add_patch(tarjeta)
-
-        cx = x_box + w_box / 2
-        cy = y_box + h_box / 2
-
-        ax.text(cx, cy + (0.18 if duracion > 1 else 0.10), f"{asig} ({tipo_tag}-{grupo})",
-                ha="center", va="center", color=estilo["text"],
-                fontsize=10.5 if total_en_slot == 1 else 8.5, fontweight="bold")
-
-        ax.text(cx, cy - (0.12 if duracion > 1 else 0.10), f"Aula: {aula}",
-                ha="center", va="center", color="#37474F",
-                fontsize=9 if total_en_slot == 1 else 7.5, fontweight="bold")
-
-    # 5. Leyenda en la parte superior derecha
+    # 6. Leyenda
     leyenda_y = len(horas) * row_height + y_offset + 0.82
-
     box_t = patches.FancyBboxPatch((x_offset + 3.0 * col_width, leyenda_y), 1.25, 0.38,
                                   boxstyle="round,pad=0.02,rounding_size=0.08",
                                   facecolor=estilo_tipo["teoria"]["bg"], edgecolor=estilo_tipo["teoria"]["border"], linewidth=1.6)
@@ -149,20 +141,20 @@ def exportar_horario_png(df_resultado, cuatrimestre=1, ruta_salida=None, abrir_a
     ax.set_ylim(0, len(horas) * row_height + y_offset + 1.4)
     ax.axis("off")
 
-    plt.title("CALENDARIO ACADÉMICO — 3º GCID (2do SEMESTRE)", fontsize=16, fontweight="bold", pad=25, color="#1A237E")
+    # Título dinámico
+    plt.title(f"CALENDARIO ACADÉMICO — 3º GCID ({sufijo.upper()} SEMESTRE)", fontsize=16, fontweight="bold", pad=25, color="#1A237E")
     plt.tight_layout()
     plt.savefig(ruta_salida, dpi=300, bbox_inches="tight")
     plt.close()
-    print(f" Imagen guardada con éxito en: {ruta_salida}")
+    print(f"[OK] Imagen guardada en: {os.path.abspath(ruta_salida)}")
 
-    # 6. Abrir automáticamente la imagen generada
+    # Apertura forzada y fiable
     if abrir_al_terminar:
+        ruta_abs = os.path.abspath(ruta_salida)
         try:
             if sys.platform.startswith("win"):
-                os.startfile(ruta_salida)
-            elif sys.platform.startswith("darwin"):
-                subprocess.run(["open", ruta_salida])
+                os.system(f'start "" "{ruta_abs}"')
             else:
-                subprocess.run(["xdg-open", ruta_salida])
+                subprocess.run(["open" if sys.platform.startswith("darwin") else "xdg-open", ruta_abs])
         except Exception as e:
-            print(f"No se pudo abrir automáticamente la imagen: {e}")
+            print(f"Aviso: Puedes abrir la imagen en {ruta_abs}. Detalle: {e}")
