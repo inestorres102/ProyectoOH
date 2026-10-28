@@ -1,4 +1,33 @@
 id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor,curso,cuatrimestre
+S101,IC1,teoria,17,2,80,Teoria,Jose Carlos Ruiz Luque,1,1
+S102,IC1,practica,41,2,25,Laboratorio,Jose Carlos Ruiz Luque,1,1
+S103,IC1,practica,42,2,25,Laboratorio,Francisca Candelaria Quintana Dominguez,1,1
+S104,IC1,practica,43,2,25,Laboratorio,Jose Carlos Ruiz Luque,1,1
+S105,IC1,practica,44,2,25,Laboratorio,Francisca Candelaria Quintana Dominguez,1,1
+S106,MD,teoria,17,2,55,Teoria,Carmen Paz Suarez Araujo,1,1
+S107,MD,practica,41,2,25,Teoria,Javier Jesus Sanchez Medina,1,1
+S108,MD,practica,42,2,25,Teoria,Javier Jesus Sanchez Medina,1,1
+S109,MD,practica,43,2,25,Teoria,Javier Jesus Sanchez Medina,1,1
+S110,MD,practica,44,2,25,Teoria,Javier Jesus Sanchez Medina,1,1
+S111,AG,teoria,17,2,55,Teoria,Gabriele Salvatore De Blasio,1,1
+S112,AG,practica,41,2,25,Teoria,Gabriele Salvatore De Blasio,1,1
+S113,AG,practica,42,2,25,Teoria,Gabriele Salvatore De Blasio,1,1
+S114,AG,practica,43,2,25,Teoria,Gabriele Salvatore De Blasio,1,1
+S115,AG,practica,44,2,25,Teoria,Gabriele Salvatore De Blasio,1,1
+S116,FP1,teoria,17,2,55,Teoria,Miguel Angel Perez Aguiar,1,1
+S117,FP1,practica,41,2,25,Laboratorio,Francisco Javier Carreras Riudavets,1,1
+S118,FP1,practica,42,2,25,Laboratorio,Jose Daniel Gonzalez Dominguez,1,1
+S119,FP1,practica,43,2,25,Laboratorio,Francisco Javier Carreras Riudavets,1,1
+S120,FP1,practica,44,2,25,Laboratorio,Jose Daniel Gonzalez Dominguez,1,1
+S121,ME1,teoria,17,2,55,Teoria,Francisco Jose Vazquez Polo,1,1
+S122,ME1,practica,41,2,25,Laboratorio,Francisco Jose Vazquez Polo,1,1
+S123,ME1,practica,42,2,25,Laboratorio,Francisco Jose Vazquez Polo,1,1
+S124,ME1,practica,43,2,25,Laboratorio,Francisco Jose Vazquez Polo,1,1
+S125,ME1,practica,44,2,25,Laboratorio,Francisco Jose Vazquez Polo,1,1
+
+
+
+
 S01,OH,practica,41,3,22,Laboratorio,Javier Sanchez Perez,3,1
 S02,OH,practica,42,3,16,Laboratorio,Javier Sanchez Perez,3,1
 S03,AA2,practica,41,2,24,Laboratorio, Jose Javier Lorenzo Navarro,3,1
