@@ -149,4 +149,4 @@ def modelo_base(cuatrimestre=1):
         print("No se encontró solución factible. Comprobar disponibilidad de aulas o solapamientos.")
 
 if __name__ == "__main__":
-    modelo_base(cuatrimestre=1)
+    modelo_base(cuatrimestre=2)
