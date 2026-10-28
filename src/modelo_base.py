@@ -40,8 +40,12 @@ def modelo_base(cuatrimestre=1):
     # Limpiar espacios en los nombres de las columnas
     df_clases_total.columns = df_clases_total.columns.str.strip()
 
-    # Filtrar por el cuatrimestre que queremos resolver (1 o 2)
+    # Asegurar tipo numérico en curso y cuatrimestre
+    if "curso" in df_clases_total.columns:
+        df_clases_total["curso"] = pd.to_numeric(df_clases_total["curso"], errors="coerce").fillna(3).astype(int)
+
     if "cuatrimestre" in df_clases_total.columns:
+        df_clases_total["cuatrimestre"] = pd.to_numeric(df_clases_total["cuatrimestre"], errors="coerce").fillna(1).astype(int)
         df_clases = df_clases_total[df_clases_total["cuatrimestre"] == cuatrimestre].copy()
     else:
         df_clases = df_clases_total.copy()
@@ -49,7 +53,9 @@ def modelo_base(cuatrimestre=1):
     df_aulas = pd.read_csv("datos/aulas.csv")
     df_aulas.columns = df_aulas.columns.str.strip()
 
-    print(f"\n--- OPTIMIZANDO HORARIO: CUATRIMESTRE {cuatrimestre} ---")
+    print(f"\n=======================================================")
+    print(f"      OPTIMIZANDO HORARIO: CUATRIMESTRE {cuatrimestre}")
+    print(f"=======================================================")
     print(f"Sesiones cargadas: {len(df_clases)} | Aulas disponibles: {len(df_aulas)}")
 
     # 3. Crear el modelo CP-SAT y definir variables de decisión
@@ -77,7 +83,7 @@ def modelo_base(cuatrimestre=1):
     # ---------------------------------------------------------
     # APLICAR RESTRICCIONES DURAS
     # ---------------------------------------------------------
-    # A. Estudiantes (evitar solapes de un mismo grupo)
+    # A. Estudiantes (evitar solapes de un mismo grupo dentro de su curso)
     aplicar_restriccion_estudiantes(model, df_clases, interval_vars)
     
     # B. Coherencia horaria (no partir sesiones entre días distintos)
@@ -89,10 +95,10 @@ def modelo_base(cuatrimestre=1):
     # D. Aulas (capacidad, tipo y evitar solapamiento físico)
     aula_asignada = aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars)
     
-    # E. Sin huecos libres para el mismo grupo
+    # E. Sin huecos libres para el mismo grupo dentro de cada curso
     aplicar_restriccion_sin_huecos(model, df_clases, start_vars, end_vars, horas_por_dia)
     
-    # F. Si estamos optimizando el 2º cuatrimestre, liberamos jueves y viernes
+    # F. Si estamos optimizando el 2º cuatrimestre, liberamos jueves y viernes para prácticas externas
     if cuatrimestre == 2:
         aplicar_restriccion_dias_libres_practicas(model, df_clases, start_vars)
 
@@ -107,7 +113,7 @@ def modelo_base(cuatrimestre=1):
 
     # 5. Imprimir y exportar resultados
     if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-        print("\nHorario optimizado encontrado con éxito:\n")
+        print(f"\n[OK] Horario encontrado para el Cuatrimestre {cuatrimestre}.\n")
         asignaciones = []
 
         for _, row in df_clases.iterrows():
@@ -132,6 +138,7 @@ def modelo_base(cuatrimestre=1):
             asignaciones.append({
                 "Slot": slot_inicio,
                 "Sesion": s_id,
+                "Curso": int(row["curso"]),
                 "Asignatura": row["asignatura"],
                 "Tipo": row["tipo"],
                 "Grupo": row["grupo"],
@@ -145,13 +152,20 @@ def modelo_base(cuatrimestre=1):
         df_resultado = pd.DataFrame(asignaciones).sort_values(by="Slot")
         print(df_resultado.drop(columns=["Slot"]).to_string(index=False))
 
-        # Generar el PNG con el nombre del cuatrimestre correspondiente
-        sufijo = "1er" if cuatrimestre == 1 else "2do"
-        nombre_salida = f"horario_3GCID_{sufijo}.png"
-        
-        exportar_horario_png(df_resultado, cuatrimestre=cuatrimestre, abrir_al_terminar=True)
+        # SEPARAR Y EXPORTAR UNA IMAGEN POR CADA CURSO RESUELTO
+        cursos_disponibles = sorted(df_resultado["Curso"].unique())
+        for cur in cursos_disponibles:
+            df_curso = df_resultado[df_resultado["Curso"] == cur].copy()
+            print(f"\nGenerando imagen para {cur}º GCID (Semestre {cuatrimestre})...")
+            
+            exportar_horario_png(
+                df_resultado=df_curso,
+                curso=int(cur),
+                cuatrimestre=cuatrimestre,
+                abrir_al_terminar=True
+            )
     else:
-        print("No se encontró solución factible. Comprobar disponibilidad de aulas o solapamientos.")
+        print(f"No se encontró solución factible para el Cuatrimestre {cuatrimestre}. Comprobar disponibilidad de aulas o solapamientos.")
 
 
 if __name__ == "__main__":
