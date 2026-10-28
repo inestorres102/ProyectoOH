@@ -1,16 +1,25 @@
-id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor
-S01,OH,practica,41,3,22,Laboratorio,Javier Sanchez Perez
-S02,OH,practica,42,3,16,Laboratorio,Javier Sanchez Perez
-S03,AA2,practica,41,2,24,Laboratorio, Jose Javier Lorenzo Navarro
-S04,AA2,practica,42,2,22,Laboratorio, Jose Javier Lorenzo Navarro
-S05,ASO,practica,41,2,25,Laboratorio, Carmelo Ruben Garcia Rodriguez
-S06,ASO,practica,42,2,25,Laboratorio, Carmelo Ruben Garcia Rodriguez
-S07,BD,practica,41,2,13,Laboratorio, Maria Dolores Afonso
-S08,BD,practica,42,2,10,Laboratorio, Maria Dolores Afonso
-S09,BD2,practica,41,2,25,Laboratorio, Octavio Mayor
-S10,BD2,practica,42,2,25,Laboratorio, Juan de Dios Duque Oliva
-S11,OH,teoria,17,1,30,Teoria,Javier Sanchez Perez
-S12,AA2,teoria,17,2,43,Teoria, Jose Javier Lorenzo Navarro
-S13,BD2,teoria,17,2,27,Teoria, Juan de Dios Duque Oliva
-S14,ASO,teoria,17,1,50,Teoria, Carmelo Ruben Garcia Rodriguez
-S15,BD,teoria,17,2,29,Teoria, Maria Dolores Afonso
+id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor, curso, cuatrimestre
+S01,OH,practica,41,3,22,Laboratorio,Javier Sanchez Perez, 3, 1
+S02,OH,practica,42,3,16,Laboratorio,Javier Sanchez Perez, 3, 1
+S03,AA2,practica,41,2,24,Laboratorio, Jose Javier Lorenzo Navarro, 3, 1
+S04,AA2,practica,42,2,22,Laboratorio, Jose Javier Lorenzo Navarro, 3, 1
+S05,ASO,practica,41,2,25,Laboratorio, Carmelo Ruben Garcia Rodriguez, 3, 1
+S06,ASO,practica,42,2,25,Laboratorio, Carmelo Ruben Garcia Rodriguez, 3, 1
+S07,BD,practica,41,2,13,Laboratorio, Maria Dolores Afonso, 3, 1
+S08,BD,practica,42,2,10,Laboratorio, Maria Dolores Afonso, 3, 1
+S09,BD2,practica,41,2,25,Laboratorio, Octavio Mayor, 3, 1
+S10,BD2,practica,42,2,25,Laboratorio, Juan de Dios Duque Oliva, 3, 1
+S11,OH,teoria,17,1,30,Teoria,Javier Sanchez Perez, 3, 1
+S12,AA2,teoria,17,2,43,Teoria, Jose Javier Lorenzo Navarro, 3, 1
+S13,BD2,teoria,17,2,27,Teoria, Juan de Dios Duque Oliva, 3, 1
+S14,ASO,teoria,17,1,50,Teoria, Carmelo Ruben Garcia Rodriguez, 3, 1
+S15,BD,teoria,17,2,29,Teoria, Maria Dolores Afonso, 3, 1
+S16,ASR,practica,41,2,25,Laboratorio,Humberto Javier Alamo Deniz, 3, 2
+S17,ASR,practica,42,2,25,Laboratorio,Humberto Javier Alamo Deniz, 3, 2
+S18,BDNR,practica,41,2,24,Laboratorio,Gabino Padron Morales, 3, 2
+S19,BDNR,practica,42,2,22,Laboratorio,Gabino Padron Morales, 3, 2
+S20,VPD,practica,41,2,25,Laboratorio,Carmelo Ruben Garcia Rodriguez, 3, 2
+S21,VPD,practica,42,2,25,Laboratorio,Carmelo Ruben Garcia Rodriguez, 3, 2
+S24,ASR,teoria,17,2,45,Teoria,Humberto Javier Alamo Deniz, 3, 2
+S25,BDNR,teoria,17,2,45,Teoria,Gabino Padron Morales, 3, 2
+S26,VPD,teoria,17,2,45,Teoria,Carmelo Ruben Garcia Rodriguez, 3, 2
