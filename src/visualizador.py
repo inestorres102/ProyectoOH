@@ -5,11 +5,14 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import pandas as pd
 
-def exportar_horario_png(df_resultado, ruta_salida="horario_3GCID_1er.png", abrir_al_terminar=True):
+def exportar_horario_png(df_resultado, cuatrimestre=1, ruta_salida=None, abrir_al_terminar=True):
     """
     Exporta el horario a una imagen PNG de alta resolución diferenciando por colores
     Teoría (amarillo/cálido) vs Práctica (verde/esmeralda), y lo abre automáticamente.
     """
+    sufijo = "1er" if cuatrimestre == 1 else "2do"
+    if ruta_salida is None:
+        ruta_salida = f"horario_3GCID_{sufijo}.png"
     dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"]
     horas = ["08:30-09:30", "09:30-10:30", "10:30-11:30", "11:30-12:30", "12:30-13:30", "13:30-14:30"]
 
