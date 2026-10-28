@@ -137,44 +137,37 @@ def aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars):
 
 def aplicar_restriccion_sin_huecos(model, df_clases, start_vars, end_vars, horas_por_dia=6):
     """
-    DURA: Si un mismo grupo de estudiantes (teoría 17, o prácticas 41/42) tiene 
-    más de una sesión el mismo día, estas deben ser consecutivas (sin horas muertas entre ellas).
+    DURA: Evita horas libres intermedias para un mismo grupo dentro de su curso.
     """
-    for grp in ["17", "41", "42"]:
-        df_grp = df_clases[df_clases["grupo"].astype(str).str.strip() == grp]
-        sesiones_grp = df_grp["id_sesion"].astype(str).str.strip().tolist()
+    for curso in df_clases["curso"].unique():
+        df_curso = df_clases[df_clases["curso"] == curso]
+        for grp in df_curso["grupo"].unique():
+            sesiones_grp = df_curso[df_curso["grupo"] == grp]["id_sesion"].astype(str).str.strip().tolist()
 
-        if len(sesiones_grp) <= 1:
-            continue
+            if len(sesiones_grp) <= 1:
+                continue
 
-        for i in range(len(sesiones_grp)):
-            for j in range(i + 1, len(sesiones_grp)):
-                id1 = sesiones_grp[i]
-                id2 = sesiones_grp[j]
+            for i in range(len(sesiones_grp)):
+                for j in range(i + 1, len(sesiones_grp)):
+                    id1, id2 = sesiones_grp[i], sesiones_grp[j]
 
-                d1 = model.NewIntVar(0, 4, f"dia_{id1}_{id2}")
-                d2 = model.NewIntVar(0, 4, f"dia2_{id1}_{id2}")
-                model.AddDivisionEquality(d1, start_vars[id1], horas_por_dia)
-                model.AddDivisionEquality(d2, start_vars[id2], horas_por_dia)
+                    d1 = model.NewIntVar(0, 4, f"dia_{id1}_{id2}")
+                    d2 = model.NewIntVar(0, 4, f"dia2_{id1}_{id2}")
+                    model.AddDivisionEquality(d1, start_vars[id1], horas_por_dia)
+                    model.AddDivisionEquality(d2, start_vars[id2], horas_por_dia)
 
-                # Variable booleana: ¿coinciden ambas sesiones en el mismo día?
-                mismo_dia = model.NewBoolVar(f"same_day_{id1}_{id2}")
-                model.Add(d1 == d2).OnlyEnforceIf(mismo_dia)
-                model.Add(d1 != d2).OnlyEnforceIf(mismo_dia.Not())
+                    mismo_dia = model.NewBoolVar(f"same_day_{id1}_{id2}")
+                    model.Add(d1 == d2).OnlyEnforceIf(mismo_dia)
+                    model.Add(d1 != d2).OnlyEnforceIf(mismo_dia.Not())
 
-                # Si están en el mismo día, deben ser contiguas:
-                # (id2 empieza justo cuando termina id1) O (id1 empieza justo cuando termina id2)
-                contigua_1_2 = model.NewBoolVar(f"contig1_{id1}_{id2}")
-                contigua_2_1 = model.NewBoolVar(f"contig2_{id1}_{id2}")
+                    c1 = model.NewBoolVar(f"c1_{id1}_{id2}")
+                    c2 = model.NewBoolVar(f"c2_{id1}_{id2}")
+                    model.Add(start_vars[id2] == end_vars[id1]).OnlyEnforceIf(c1)
+                    model.Add(start_vars[id2] != end_vars[id1]).OnlyEnforceIf(c1.Not())
+                    model.Add(start_vars[id1] == end_vars[id2]).OnlyEnforceIf(c2)
+                    model.Add(start_vars[id1] != end_vars[id2]).OnlyEnforceIf(c2.Not())
 
-                model.Add(start_vars[id2] == end_vars[id1]).OnlyEnforceIf(contigua_1_2)
-                model.Add(start_vars[id2] != end_vars[id1]).OnlyEnforceIf(contigua_1_2.Not())
-
-                model.Add(start_vars[id1] == end_vars[id2]).OnlyEnforceIf(contigua_2_1)
-                model.Add(start_vars[id1] != end_vars[id2]).OnlyEnforceIf(contigua_2_1.Not())
-
-                # Imponer consecutividad obligatoria cuando coinciden el mismo día
-                model.AddBoolOr([contigua_1_2, contigua_2_1]).OnlyEnforceIf(mismo_dia)
+                    model.AddBoolOr([c1, c2]).OnlyEnforceIf(mismo_dia)
 
 
 def aplicar_restriccion_dias_libres_practicas(model, df_clases, start_vars):
