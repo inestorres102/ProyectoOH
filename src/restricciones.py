@@ -11,8 +11,8 @@ import pandas as pd
 def aplicar_restriccion_estudiantes(model, df_clases, interval_vars):
     """
     DURA: Un alumno no puede tener dos clases al mismo tiempo.
-    - Los subgrupos (41 o 42) no pueden tener dos clases simultáneas.
-    - Si hay clase de teoría (grupo 17), ningún subgrupo puede tener clase a esa misma hora.
+    - Dos sesiones solo colisionan si pertenecen AL MISMO CURSO.
+    - Dentro del mismo curso: coincidencia de subgrupo (41, 42, 43, 44) o teoría de curso completo (17).
     """
     sesiones = df_clases.to_dict("records")
     n = len(sesiones)
@@ -21,14 +21,18 @@ def aplicar_restriccion_estudiantes(model, df_clases, interval_vars):
         for j in range(i + 1, n):
             s1 = sesiones[i]
             s2 = sesiones[j]
-            g1, g2 = str(s1["grupo"]), str(s2["grupo"])
 
-            # Hay conflicto si coinciden en subgrupo o si alguno es teoría de curso completo (17)
-            comparten_estudiantes = (g1 == g2) or (g1 == "17") or (g2 == "17")
-            if comparten_estudiantes:
-                id1 = str(s1["id_sesion"])
-                id2 = str(s2["id_sesion"])
-                model.AddNoOverlap([interval_vars[id1], interval_vars[id2]])
+            # Solo hay conflicto entre estudiantes SI SON DEL MISMO CURSO
+            if str(s1["curso"]).strip() == str(s2["curso"]).strip():
+                g1 = str(s1["grupo"]).strip()
+                g2 = str(s2["grupo"]).strip()
+
+                # Teoría (17) choca con todo su curso; prácticas chocan si es el mismo subgrupo
+                comparten = (g1 == g2) or (g1 == "17") or (g2 == "17")
+                if comparten:
+                    id1 = str(s1["id_sesion"]).strip()
+                    id2 = str(s2["id_sesion"]).strip()
+                    model.AddNoOverlap([interval_vars[id1], interval_vars[id2]])
 
 
 def aplicar_restriccion_profesores(model, df_clases, interval_vars):
