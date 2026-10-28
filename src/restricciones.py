@@ -173,6 +173,17 @@ def aplicar_restriccion_sin_huecos(model, df_clases, start_vars, end_vars, horas
                 model.AddBoolOr([contigua_1_2, contigua_2_1]).OnlyEnforceIf(mismo_dia)
 
 
+def aplicar_restriccion_dias_libres_practicas(model, df_clases, start_vars):
+    """
+    DURA (Específica del 2º Cuatrimestre):
+    Concentra la docencia presencial en Lunes, Martes y Miércoles (slots 0 a 17)
+    para liberar completamente Jueves y Viernes para las Prácticas Externas.
+    """
+    for _, row in df_clases.iterrows():
+        s_id = str(row["id_sesion"]).strip()
+        # Prohibir cualquier inicio a partir del jueves a las 08:30 (slot 18)
+        model.Add(start_vars[s_id] < 18)
+
 
 # RESTRICCIONES BLANDAS (Criterios a optimizar en la función objetivo)
 
