@@ -11,6 +11,49 @@ import pandas as pd
 def aplicar_restriccion_estudiantes(model, df_clases, interval_vars):
     """
     DURA: Un alumno no puede tener dos clases al mismo tiempo.
+    - Cursos independientes no colisionan.
+    - Curso 3: Teoría 17 frente a prácticas 41/42.
+    - Curso 1: Teoría general frente a todo; practica_aula 17 (41 y 42) y 18 (43 y 44).
+    """
+    sesiones = df_clases.to_dict("records")
+    n = len(sesiones)
+
+    for i in range(n):
+        for j in range(i + 1, n):
+            s1, s2 = sesiones[i], sesiones[j]
+            c1, c2 = int(s1["curso"]), int(s2["curso"])
+
+            if c1 != c2:
+                continue
+
+            g1, g2 = str(s1["grupo"]).strip(), str(s2["grupo"]).strip()
+            t1, t2 = str(s1["tipo"]).strip().lower(), str(s2["tipo"]).strip().lower()
+            comparten = False
+
+            if c1 == 3:
+                comparten = (g1 == g2) or (g1 == "17") or (g2 == "17")
+            elif c1 == 1:
+                # Teoría general de curso completo colisiona con cualquier sesión de 1º
+                if t1 == "teoria" or t2 == "teoria":
+                    comparten = True
+                elif g1 == g2:
+                    comparten = True
+                # Prácticas de aula 17 agrupan a 41 y 42
+                elif (g1 == "17" and g2 in ["41", "42"]) or (g2 == "17" and g1 in ["41", "42"]):
+                    comparten = True
+                # Prácticas de aula 18 agrupan a 43 y 44
+                elif (g1 == "18" and g2 in ["43", "44"]) or (g2 == "18" and g1 in ["43", "44"]):
+                    comparten = True
+
+            if comparten:
+                id1 = str(s1["id_sesion"]).strip()
+                id2 = str(s2["id_sesion"]).strip()
+                model.AddNoOverlap([interval_vars[id1], interval_vars[id2]])
+
+
+
+    """
+    DURA: Un alumno no puede tener dos clases al mismo tiempo.
     - Dos sesiones solo colisionan si pertenecen AL MISMO CURSO.
     - Dentro del mismo curso: coincidencia de subgrupo (41, 42, 43, 44) o teoría de curso completo (17).
     """
