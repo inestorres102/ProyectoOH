@@ -6,10 +6,6 @@ import matplotlib.patches as patches
 import pandas as pd
 
 def exportar_horario_png(df_resultado, curso=1, cuatrimestre=1, ruta_salida=None, abrir_al_terminar=True):
-    """
-    Exporta el horario a PNG adaptando dinámicamente el ancho de las columnas
-    según el número de grupos de prácticas existentes (41, 42, 43, 44...).
-    """
     sufijo_cuatri = "1er" if cuatrimestre == 1 else "2do"
     if ruta_salida is None:
         ruta_salida = f"horario_{curso}GCID_{sufijo_cuatri}.png"
@@ -18,19 +14,10 @@ def exportar_horario_png(df_resultado, curso=1, cuatrimestre=1, ruta_salida=None
     horas = ["08:30-09:30", "09:30-10:30", "10:30-11:30", "11:30-12:30", "12:30-13:30", "13:30-14:30"]
 
     estilo_tipo = {
-        "teoria": {"bg": "#FFF9C4", "border": "#FBC02D", "text": "#E65100"},
-        "practica": {"bg": "#C8E6C9", "border": "#43A047", "text": "#1B5E20"}
+        "teoria": {"bg": "#FFF9C4", "border": "#FBC02D", "text": "#E65100", "tag": "T"},
+        "practica": {"bg": "#C8E6C9", "border": "#43A047", "text": "#1B5E20", "tag": "PL"},
+        "practica_aula": {"bg": "#BBDEFB", "border": "#1976D2", "text": "#0D47A1", "tag": "PA"}
     }
-
-    # Detectar dinámicamente qué grupos de prácticas existen en este horario
-    grupos_teoria = ["17", "11", "18", "10"]
-    subgrupos_prac = sorted([
-        str(g).strip() for g in df_resultado["Grupo"].unique() 
-        if str(g).strip() not in grupos_teoria
-    ])
-    
-    num_carriles = max(len(subgrupos_prac), 1)
-    lane_map = {grp: i for i, grp in enumerate(subgrupos_prac)}
 
     fig, ax = plt.subplots(figsize=(16, 9.5), dpi=300)
     ax.set_facecolor("#F8F9FA")
@@ -80,77 +67,94 @@ def exportar_horario_png(df_resultado, curso=1, cuatrimestre=1, ruta_salida=None
     # 4. Estructurar eventos
     eventos = []
     for _, row in df_resultado.iterrows():
-        d = row["Dia"]
-        h_str = row["Hora"]
-        dur = int(str(row["Duracion"]).replace("h", ""))
+        t_raw = str(row["Tipo"]).strip().lower()
+        if "aula" in t_raw:
+            tipo_key = "practica_aula"
+        elif "teor" in t_raw:
+            tipo_key = "teoria"
+        else:
+            tipo_key = "practica"
+
         eventos.append({
-            "dia_idx": dias.index(d),
-            "start": horas.index(h_str),
-            "end": horas.index(h_str) + dur,
-            "dur": dur,
+            "dia_idx": dias.index(row["Dia"]),
+            "start": horas.index(row["Hora"]),
+            "dur": int(str(row["Duracion"]).replace("h", "")),
             "asig": row["Asignatura"],
-            "tipo": "teoria" if "teor" in str(row["Tipo"]).lower() else "practica",
+            "tipo": tipo_key,
             "grupo": str(row["Grupo"]).strip(),
             "aula": row["Aula"]
         })
 
-    # 5. Dibujar tarjetas
-    for d_idx in range(len(dias)):
-        eventos_dia = [e for e in eventos if e["dia_idx"] == d_idx]
-        for ev in eventos_dia:
-            if ev["tipo"] == "teoria":
-                # Teoría ocupa todo el ancho de la columna
-                w_box = col_width - 0.1
-                x_box = x_offset + d_idx * col_width + 0.05
+    # 5. Geometría según el curso
+    lane_map_1 = {"41": 0, "42": 1, "43": 2, "44": 3}
+    lane_map_3 = {"41": 0, "42": 1}
+
+    for ev in eventos:
+        d_idx = ev["dia_idx"]
+        dur = ev["dur"]
+        h_box = dur * row_height - 0.1
+        y_box = (len(horas) - ev["start"] - dur) * row_height + y_offset + 0.05
+
+        if ev["tipo"] == "teoria":
+            w_box = col_width - 0.1
+            x_box = x_offset + d_idx * col_width + 0.05
+        elif curso == 1:
+            w_single = (col_width - 0.1) / 4
+            if ev["tipo"] == "practica_aula":
+                # Grupo 17 abarca 41 y 42 (mitad izquierda); 18 abarca 43 y 44 (mitad derecha)
+                w_box = w_single * 2
+                start_lane = 0 if ev["grupo"] == "17" else 2
+                x_box = x_offset + d_idx * col_width + 0.05 + start_lane * w_single
             else:
-                # Cada subgrupo va a su carril correspondiente (0..num_carriles-1)
-                w_box = (col_width - 0.1) / num_carriles
-                sub_idx = lane_map.get(ev["grupo"], 0)
-                x_box = x_offset + d_idx * col_width + 0.05 + sub_idx * w_box
+                w_box = w_single
+                lane = lane_map_1.get(ev["grupo"], 0)
+                x_box = x_offset + d_idx * col_width + 0.05 + lane * w_single
+        else:
+            # 3º GCID (2 subgrupos estándar)
+            w_single = (col_width - 0.1) / 2
+            w_box = w_single
+            lane = lane_map_3.get(ev["grupo"], 0)
+            x_box = x_offset + d_idx * col_width + 0.05 + lane * w_single
 
-            h_box = ev["dur"] * row_height - 0.1
-            y_box = (len(horas) - ev["start"] - ev["dur"]) * row_height + y_offset + 0.05
+        estilo = estilo_tipo[ev["tipo"]]
+        tarjeta = patches.FancyBboxPatch(
+            (x_box + 0.015, y_box + 0.02), w_box - 0.03, h_box - 0.04,
+            boxstyle="round,pad=0.02,rounding_size=0.08",
+            facecolor=estilo["bg"], edgecolor=estilo["border"], linewidth=1.5
+        )
+        ax.add_patch(tarjeta)
 
-            estilo = estilo_tipo[ev["tipo"]]
-            tarjeta = patches.FancyBboxPatch(
-                (x_box + 0.015, y_box + 0.02), w_box - 0.03, h_box - 0.04,
-                boxstyle="round,pad=0.02,rounding_size=0.08",
-                facecolor=estilo["bg"], edgecolor=estilo["border"], linewidth=1.5
-            )
-            ax.add_patch(tarjeta)
+        cx = x_box + w_box / 2
+        cy = y_box + h_box / 2
 
-            cx = x_box + w_box / 2
-            cy = y_box + h_box / 2
-            tipo_tag = "T" if ev["tipo"] == "teoria" else "P"
+        if w_box > col_width * 0.7:
+            font_title, font_sub = 10.5, 9.0
+        elif w_box > col_width * 0.4:
+            font_title, font_sub = 8.5, 7.5
+        else:
+            font_title, font_sub = 7.0, 6.0
 
-            # Ajuste dinámico de tipografía según la anchura de la tarjeta
-            if w_box > col_width * 0.7:
-                font_title, font_sub = 10.5, 9.0
-            elif w_box > col_width * 0.4:
-                font_title, font_sub = 8.5, 7.5
-            else:
-                font_title, font_sub = 7.0, 6.0
-
-            ax.text(cx, cy + (0.16 if ev["dur"] > 1 else 0.09), f"{ev['asig']}\n({tipo_tag}-G{ev['grupo']})",
-                    ha="center", va="center", color=estilo["text"], fontsize=font_title, fontweight="bold")
-            ax.text(cx, cy - (0.18 if ev["dur"] > 1 else 0.11), f"Aula:\n{ev['aula']}",
-                    ha="center", va="center", color="#37474F", fontsize=font_sub, fontweight="bold")
+        tag = estilo["tag"]
+        ax.text(cx, cy + (0.16 if dur > 1 else 0.09), f"{ev['asig']}\n({tag}-G{ev['grupo']})",
+                ha="center", va="center", color=estilo["text"], fontsize=font_title, fontweight="bold")
+        ax.text(cx, cy - (0.18 if dur > 1 else 0.11), f"Aula:\n{ev['aula']}",
+                ha="center", va="center", color="#37474F", fontsize=font_sub, fontweight="bold")
 
     # 6. Leyenda
     leyenda_y = len(horas) * row_height + y_offset + 0.82
-    box_t = patches.FancyBboxPatch((x_offset + 3.2 * col_width, leyenda_y), 1.25, 0.38,
-                                  boxstyle="round,pad=0.02,rounding_size=0.08",
-                                  facecolor=estilo_tipo["teoria"]["bg"], edgecolor=estilo_tipo["teoria"]["border"], linewidth=1.6)
-    ax.add_patch(box_t)
-    ax.text(x_offset + 3.2 * col_width + 0.625, leyenda_y + 0.19, "TEORÍA",
-            ha="center", va="center", color=estilo_tipo["teoria"]["text"], fontsize=9.5, fontweight="bold")
-
-    box_p = patches.FancyBboxPatch((x_offset + 3.8 * col_width, leyenda_y), 1.35, 0.38,
-                                  boxstyle="round,pad=0.02,rounding_size=0.08",
-                                  facecolor=estilo_tipo["practica"]["bg"], edgecolor=estilo_tipo["practica"]["border"], linewidth=1.6)
-    ax.add_patch(box_p)
-    ax.text(x_offset + 3.8 * col_width + 0.675, leyenda_y + 0.19, "PRÁCTICA",
-            ha="center", va="center", color=estilo_tipo["practica"]["text"], fontsize=9.5, fontweight="bold")
+    leyendas = [
+        ("TEORÍA", estilo_tipo["teoria"]),
+        ("PRÁCTICA AULA", estilo_tipo["practica_aula"]),
+        ("LABORATORIO", estilo_tipo["practica"])
+    ]
+    for idx, (label, st) in enumerate(leyendas):
+        bx = x_offset + (2.1 + idx * 0.95) * col_width
+        b_box = patches.FancyBboxPatch((bx, leyenda_y), 0.9 * col_width, 0.38,
+                                      boxstyle="round,pad=0.02,rounding_size=0.08",
+                                      facecolor=st["bg"], edgecolor=st["border"], linewidth=1.6)
+        ax.add_patch(b_box)
+        ax.text(bx + (0.45 * col_width), leyenda_y + 0.19, label,
+                ha="center", va="center", color=st["text"], fontsize=8.5, fontweight="bold")
 
     ax.set_xlim(0, x_offset + len(dias) * col_width + 0.3)
     ax.set_ylim(0, len(horas) * row_height + y_offset + 1.4)
