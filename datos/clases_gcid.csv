@@ -62,6 +62,31 @@ S318,IS,practica,43,2,25,Laboratorio,Mario Carmelo Caballero Ramírez,2,1
 S319,FMCC,teoria,17,2,60,Teoria,Manuel,2,1
 S320,FMCC,practica_aula,17,2,25,Teoria,Manuel,2,1
 S321,FMCC,practica_aula,18,2,25,Teoria,Manuel,2,1
+S401,BD1,teoria,17,2,60,Teoria,Octavio Mayor,2,2
+S402,BD1,practica,41,2,25,Laboratorio,Octavio Mayor,2,2
+S403,BD1,practica,42,2,25,Laboratorio,Octavio Mayor,2,2
+S404,BD1,practica,43,2,25,Laboratorio,Octavio Mayor,2,2
+S405,BD1,practica,44,2,25,Laboratorio,Octavio Mayor,2,2
+S406,CDEF,teoria,17,2,50,Teoria,Rodrigo Naumchick,2,2
+S407,CDEF,practica,41,2,25,Laboratorio,Rodrigo Naumchick,2,2
+S408,CDEF,practica,42,2,25,Laboratorio,Rodrigo Naumchick,2,2
+S409,CDEF,practica,43,2,25,Laboratorio,Rodrigo Naumchick,2,2
+S410,CDEF,practica,44,2,25,Laboratorio,Rodrigo Naumchick,2,2
+S411,AA1,teoria,17,2,60,Teoria,Francisco Mario Hernandez Tejera,2,2
+S412,AA1,practica,41,2,24,Laboratorio,Jose Javier Lorenzo Navarro,2,2
+S413,AA1,practica,42,2,24,Laboratorio,Jose Javier Lorenzo Navarro,2,2
+S414,AA1,practica,43,2,24,Laboratorio,Jose Javier Lorenzo Navarro,2,2
+S415,AA1,practica,44,2,24,Laboratorio,Jose Javier Lorenzo Navarro,2,2
+S416,IACD,teoria,17,2,60,Teoria,Pablo Carmelo,2,2
+S417,IACD,practica,41,2,25,Laboratorio,Pablo Carmelo,2,2
+S418,IACD,practica,42,2,25,Laboratorio,Pablo Carmelo,2,2
+S419,IACD,practica,43,2,25,Laboratorio,Pablo Carmelo,2,2
+S420,IACD,practica,44,2,25,Laboratorio,Pablo Carmelo,2,2
+S421,DACD,teoria,17,2,60,Teoria,Octavio Roncal Andres,2,2
+S422,DACD,practica,41,2,23,Laboratorio,Octavio Roncal Andres,2,2
+S423,DACD,practica,42,2,23,Laboratorio,Octavio Roncal Andres,2,2
+S424,DACD,practica,43,2,23,Laboratorio,Octavio Roncal Andres,2,2
+S425,DACD,practica,44,2,23,Laboratorio,Octavio Roncal Andres,2,2
 S01,OH,practica,41,3,22,Laboratorio,Javier Sanchez Perez,3,1
 S02,OH,practica,42,3,16,Laboratorio,Javier Sanchez Perez,3,1
 S03,AA2,practica,41,2,24,Laboratorio, Jose Javier Lorenzo Navarro,3,1
