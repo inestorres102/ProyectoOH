@@ -4,6 +4,8 @@ import subprocess
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import pandas as pd
+import io
+import time
 
 
 def exportar_horario_png(df_resultado, curso=1, cuatrimestre=1, ruta_salida=None, abrir_al_terminar=True):
@@ -90,9 +92,14 @@ def exportar_horario_png(df_resultado, curso=1, cuatrimestre=1, ruta_salida=None
             "aula": row["Aula"]
         })
 
-    # Detección automática de 4 carriles (grupos 41-44 / 18) o 2 carriles (41-42)
+    # Detección automática de carriles según los subgrupos presentes en el curso
     grupos_curso = {ev["grupo"] for ev in eventos}
-    usa_4_carriles = any(g in grupos_curso for g in ["43", "44", "18"])
+    if any(g in grupos_curso for g in ["43", "44", "18"]):
+        num_carriles = 4
+    elif "42" in grupos_curso:
+        num_carriles = 2
+    else:
+        num_carriles = 1
 
     lane_map_4 = {"41": 0, "42": 1, "43": 2, "44": 3}
     lane_map_2 = {"41": 0, "42": 1}
@@ -104,10 +111,10 @@ def exportar_horario_png(df_resultado, curso=1, cuatrimestre=1, ruta_salida=None
         h_box = dur * row_height - 0.1
         y_box = (len(horas) - ev["start"] - dur) * row_height + y_offset + 0.05
 
-        if ev["tipo"] == "teoria":
+        if ev["tipo"] == "teoria" or num_carriles == 1:
             w_box = col_width - 0.1
             x_box = x_offset + d_idx * col_width + 0.05
-        elif usa_4_carriles:
+        elif num_carriles == 4:
             w_single = (col_width - 0.1) / 4
             if ev["tipo"] == "practica_aula":
                 w_box = w_single * 2
@@ -117,7 +124,7 @@ def exportar_horario_png(df_resultado, curso=1, cuatrimestre=1, ruta_salida=None
                 w_box = w_single
                 lane = lane_map_4.get(ev["grupo"], 0)
                 x_box = x_offset + d_idx * col_width + 0.05 + lane * w_single
-        else:
+        else:  # num_carriles == 2
             w_single = (col_width - 0.1) / 2
             if ev["tipo"] == "practica_aula":
                 w_box = col_width - 0.1
@@ -191,17 +198,38 @@ def exportar_horario_png(df_resultado, curso=1, cuatrimestre=1, ruta_salida=None
     ax.set_ylim(0, len(horas) * row_height + y_offset + 1.4)
     ax.axis("off")
 
+
     plt.title(f"CALENDARIO ACADÉMICO — {curso}º GCID ({sufijo_cuatri.upper()} SEMESTRE)",
               fontsize=16, fontweight="bold", pad=25, color="#1A237E")
     plt.tight_layout()
-    plt.savefig(ruta_salida, dpi=300, bbox_inches="tight")
+
+    # Renderizar en memoria para evitar bloqueos de OneDrive/Fotos en Windows
+    buf = io.BytesIO()
+    plt.savefig(buf, format="png", dpi=300, bbox_inches="tight")
     plt.close("all")
+
+    os.makedirs(os.path.dirname(ruta_salida), exist_ok=True)
+    if os.path.exists(ruta_salida):
+        try:
+            os.remove(ruta_salida)
+        except OSError:
+            time.sleep(0.3)
+
+    try:
+        with open(ruta_salida, "wb") as f:
+            f.write(buf.getvalue())
+    except OSError:
+        import tempfile
+        ruta_salida = os.path.join(tempfile.gettempdir(), os.path.basename(ruta_salida))
+        with open(ruta_salida, "wb") as f:
+            f.write(buf.getvalue())
+
     print(f" Imagen guardada con éxito en: {ruta_salida}")
 
     if abrir_al_terminar:
         try:
             if sys.platform.startswith("win"):
-                os.system(f'start "" "{ruta_salida}"')
+                os.startfile(ruta_salida)
             else:
                 subprocess.run(["open" if sys.platform.startswith("darwin") else "xdg-open", ruta_salida])
         except Exception:
