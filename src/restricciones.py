@@ -49,9 +49,12 @@ def aplicar_restriccion_estudiantes(model, df_clases, interval_vars):
 
 def aplicar_restriccion_profesores(model, df_clases, interval_vars):
     """
-    DURA: Un profesor no puede impartir dos sesiones al mismo tiempo (ni siquiera en cursos distintos).
+    DURA: Un profesor no puede impartir dos sesiones al mismo tiempo.
     """
+    df_clases["profesor"] = df_clases["profesor"].astype(str).str.strip()
     for profesor in df_clases["profesor"].dropna().unique():
+        if profesor.lower() in ["", "nan", "none"]:
+            continue
         sesiones_prof = df_clases[df_clases["profesor"] == profesor]["id_sesion"].astype(str).str.strip().tolist()
         if len(sesiones_prof) > 1:
             model.AddNoOverlap([interval_vars[s_id] for s_id in sesiones_prof])
@@ -141,36 +144,59 @@ def aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars):
 def aplicar_restriccion_sin_huecos(model, df_clases, start_vars, end_vars, horas_por_dia=6):
     """
     DURA: Evita horas libres intermedias para un mismo grupo dentro de su curso.
+    Funciona independientemente de si un grupo tiene 2, 3, 4 o más clases en el mismo día.
     """
     for curso in df_clases["curso"].unique():
         df_curso = df_clases[df_clases["curso"] == curso]
         for grp in df_curso["grupo"].unique():
-            sesiones_grp = df_curso[df_curso["grupo"] == grp]["id_sesion"].astype(str).str.strip().tolist()
-
-            if len(sesiones_grp) <= 1:
+            df_grp = df_curso[df_curso["grupo"] == grp]
+            if len(df_grp) <= 1:
                 continue
 
-            for i in range(len(sesiones_grp)):
-                for j in range(i + 1, len(sesiones_grp)):
-                    id1, id2 = sesiones_grp[i], sesiones_grp[j]
+            sesiones_info = []
+            for _, row in df_grp.iterrows():
+                s_id = str(row["id_sesion"]).strip()
+                dur = int(row["duracion_horas"])
+                dia_var = model.NewIntVar(0, 4, f"dia_grp_{curso}_{grp}_{s_id}")
+                model.AddDivisionEquality(dia_var, start_vars[s_id], horas_por_dia)
+                sesiones_info.append((s_id, dur, dia_var))
 
-                    d1 = model.NewIntVar(0, 4, f"dia_{id1}_{id2}")
-                    d2 = model.NewIntVar(0, 4, f"dia2_{id1}_{id2}")
-                    model.AddDivisionEquality(d1, start_vars[id1], horas_por_dia)
-                    model.AddDivisionEquality(d2, start_vars[id2], horas_por_dia)
+            for d in range(5):
+                inicio_dia = d * horas_por_dia
+                fin_dia = (d + 1) * horas_por_dia
 
-                    mismo_dia = model.NewBoolVar(f"same_day_{id1}_{id2}")
-                    model.Add(d1 == d2).OnlyEnforceIf(mismo_dia)
-                    model.Add(d1 != d2).OnlyEnforceIf(mismo_dia.Not())
+                en_dia_vars = []
+                starts_dia = []
+                ends_dia = []
 
-                    c1 = model.NewBoolVar(f"c1_{id1}_{id2}")
-                    c2 = model.NewBoolVar(f"c2_{id1}_{id2}")
-                    model.Add(start_vars[id2] == end_vars[id1]).OnlyEnforceIf(c1)
-                    model.Add(start_vars[id2] != end_vars[id1]).OnlyEnforceIf(c1.Not())
-                    model.Add(start_vars[id1] == end_vars[id2]).OnlyEnforceIf(c2)
-                    model.Add(start_vars[id1] != end_vars[id2]).OnlyEnforceIf(c2.Not())
+                for s_id, dur, dia_var in sesiones_info:
+                    en_dia = model.NewBoolVar(f"en_dia_{curso}_{grp}_{s_id}_{d}")
+                    model.Add(dia_var == d).OnlyEnforceIf(en_dia)
+                    model.Add(dia_var != d).OnlyEnforceIf(en_dia.Not())
+                    en_dia_vars.append((en_dia, dur))
 
-                    model.AddBoolOr([c1, c2]).OnlyEnforceIf(mismo_dia)
+                    s_d = model.NewIntVar(inicio_dia, fin_dia, f"sd_{curso}_{grp}_{s_id}_{d}")
+                    model.Add(s_d == start_vars[s_id]).OnlyEnforceIf(en_dia)
+                    model.Add(s_d == fin_dia).OnlyEnforceIf(en_dia.Not())
+                    starts_dia.append(s_d)
+
+                    e_d = model.NewIntVar(inicio_dia, fin_dia, f"ed_{curso}_{grp}_{s_id}_{d}")
+                    model.Add(e_d == end_vars[s_id]).OnlyEnforceIf(en_dia)
+                    model.Add(e_d == inicio_dia).OnlyEnforceIf(en_dia.Not())
+                    ends_dia.append(e_d)
+
+                horas_en_dia = sum(en_dia * dur for en_dia, dur in en_dia_vars)
+                hay_clase = model.NewBoolVar(f"hay_clase_{curso}_{grp}_{d}")
+                model.Add(horas_en_dia >= 1).OnlyEnforceIf(hay_clase)
+                model.Add(horas_en_dia == 0).OnlyEnforceIf(hay_clase.Not())
+
+                min_ini = model.NewIntVar(inicio_dia, fin_dia, f"min_ini_{curso}_{grp}_{d}")
+                max_fin = model.NewIntVar(inicio_dia, fin_dia, f"max_fin_{curso}_{grp}_{d}")
+                model.AddMinEquality(min_ini, starts_dia)
+                model.AddMaxEquality(max_fin, ends_dia)
+
+                # Sin huecos: la amplitud total del bloque diario coincide con las horas lectivas
+                model.Add(max_fin - min_ini == horas_en_dia).OnlyEnforceIf(hay_clase)
 
 
 def aplicar_restriccion_dias_libres_practicas(model, df_clases, start_vars):
