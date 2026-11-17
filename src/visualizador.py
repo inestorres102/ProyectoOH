@@ -5,10 +5,12 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import pandas as pd
 
+
 def exportar_horario_png(df_resultado, curso=1, cuatrimestre=1, ruta_salida=None, abrir_al_terminar=True):
     sufijo_cuatri = "1er" if cuatrimestre == 1 else "2do"
     if ruta_salida is None:
         ruta_salida = f"horario_{curso}GCID_{sufijo_cuatri}.png"
+    ruta_salida = os.path.abspath(ruta_salida)
 
     dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"]
     horas = ["08:30-09:30", "09:30-10:30", "10:30-11:30", "11:30-12:30", "12:30-13:30", "13:30-14:30"]
@@ -88,8 +90,12 @@ def exportar_horario_png(df_resultado, curso=1, cuatrimestre=1, ruta_salida=None
             "aula": row["Aula"]
         })
 
-    lane_map_1 = {"41": 0, "42": 1, "43": 2, "44": 3}
-    lane_map_3 = {"41": 0, "42": 1}
+    # Detección automática de 4 carriles (grupos 41-44 / 18) o 2 carriles (41-42)
+    grupos_curso = {ev["grupo"] for ev in eventos}
+    usa_4_carriles = any(g in grupos_curso for g in ["43", "44", "18"])
+
+    lane_map_4 = {"41": 0, "42": 1, "43": 2, "44": 3}
+    lane_map_2 = {"41": 0, "42": 1}
 
     # 5. Dibujar tarjetas sin solapes de texto
     for ev in eventos:
@@ -101,7 +107,7 @@ def exportar_horario_png(df_resultado, curso=1, cuatrimestre=1, ruta_salida=None
         if ev["tipo"] == "teoria":
             w_box = col_width - 0.1
             x_box = x_offset + d_idx * col_width + 0.05
-        elif curso == 1:
+        elif usa_4_carriles:
             w_single = (col_width - 0.1) / 4
             if ev["tipo"] == "practica_aula":
                 w_box = w_single * 2
@@ -109,13 +115,17 @@ def exportar_horario_png(df_resultado, curso=1, cuatrimestre=1, ruta_salida=None
                 x_box = x_offset + d_idx * col_width + 0.05 + start_lane * w_single
             else:
                 w_box = w_single
-                lane = lane_map_1.get(ev["grupo"], 0)
+                lane = lane_map_4.get(ev["grupo"], 0)
                 x_box = x_offset + d_idx * col_width + 0.05 + lane * w_single
         else:
             w_single = (col_width - 0.1) / 2
-            w_box = w_single
-            lane = lane_map_3.get(ev["grupo"], 0)
-            x_box = x_offset + d_idx * col_width + 0.05 + lane * w_single
+            if ev["tipo"] == "practica_aula":
+                w_box = col_width - 0.1
+                x_box = x_offset + d_idx * col_width + 0.05
+            else:
+                w_box = w_single
+                lane = lane_map_2.get(ev["grupo"], 0)
+                x_box = x_offset + d_idx * col_width + 0.05 + lane * w_single
 
         estilo = estilos_todos[ev["tipo"]]
         tarjeta = patches.FancyBboxPatch(
@@ -129,22 +139,18 @@ def exportar_horario_png(df_resultado, curso=1, cuatrimestre=1, ruta_salida=None
         cy = y_box + h_box / 2
         tag = estilo["tag"]
 
-        # Formato de texto según duración y ancho de tarjeta
         if dur == 1:
             if w_box > col_width * 0.7:
-                # 1 hora en teoría (ancho completo)
                 ax.text(cx, cy + 0.18, f"{ev['asig']} ({tag}-G{ev['grupo']})",
                         ha="center", va="center", color=estilo["text"], fontsize=10, fontweight="bold")
                 ax.text(cx, cy - 0.18, f"Aula: {ev['aula']}",
                         ha="center", va="center", color="#37474F", fontsize=9, fontweight="bold")
             else:
-                # 1 hora estrecha
                 ax.text(cx, cy + 0.18, f"{ev['asig']} ({tag}{ev['grupo']})",
                         ha="center", va="center", color=estilo["text"], fontsize=7.5, fontweight="bold")
                 ax.text(cx, cy - 0.18, f"{ev['aula']}",
                         ha="center", va="center", color="#37474F", fontsize=7.0, fontweight="bold")
         else:
-            # 2 o más horas
             if w_box > col_width * 0.7:
                 f_t, f_s = 10.5, 9.5
                 desp_t, desp_a = 0.22, 0.20
@@ -185,19 +191,18 @@ def exportar_horario_png(df_resultado, curso=1, cuatrimestre=1, ruta_salida=None
     ax.set_ylim(0, len(horas) * row_height + y_offset + 1.4)
     ax.axis("off")
 
-    plt.title(f"CALENDARIO ACADÉMICO — {curso}º GCID ({sufijo_cuatri.upper()} SEMESTRE)", 
+    plt.title(f"CALENDARIO ACADÉMICO — {curso}º GCID ({sufijo_cuatri.upper()} SEMESTRE)",
               fontsize=16, fontweight="bold", pad=25, color="#1A237E")
     plt.tight_layout()
     plt.savefig(ruta_salida, dpi=300, bbox_inches="tight")
-    plt.close()
-    print(f" Imagen guardada con éxito en: {os.path.abspath(ruta_salida)}")
+    plt.close("all")
+    print(f" Imagen guardada con éxito en: {ruta_salida}")
 
     if abrir_al_terminar:
-        ruta_abs = os.path.abspath(ruta_salida)
         try:
             if sys.platform.startswith("win"):
-                os.system(f'start "" "{ruta_abs}"')
+                os.system(f'start "" "{ruta_salida}"')
             else:
-                subprocess.run(["open" if sys.platform.startswith("darwin") else "xdg-open", ruta_abs])
+                subprocess.run(["open" if sys.platform.startswith("darwin") else "xdg-open", ruta_salida])
         except Exception:
             pass

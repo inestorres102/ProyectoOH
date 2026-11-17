@@ -153,14 +153,12 @@ def modelo_base(cuatrimestre=1):
         print(df_resultado.drop(columns=["Slot"]).to_string(index=False))
 
         # SEPARAR Y EXPORTAR UNA IMAGEN POR CADA CURSO RESUELTO
-        cursos_disponibles = sorted(df_resultado["Curso"].unique())
-        for cur in cursos_disponibles:
-            df_curso = df_resultado[df_resultado["Curso"] == cur].copy()
-            print(f"\nGenerando imagen para {cur}º GCID (Semestre {cuatrimestre})...")
-            
+        for curso in sorted(df_resultado["curso"].unique()):
+            df_curso = df_resultado[df_resultado["curso"] == curso]
+            print(f"Generando imagen para {curso}º GCID (Semestre {cuatrimestre})...")
             exportar_horario_png(
                 df_resultado=df_curso,
-                curso=int(cur),
+                curso=int(curso),
                 cuatrimestre=cuatrimestre,
                 abrir_al_terminar=True
             )
