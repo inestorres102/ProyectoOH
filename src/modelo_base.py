@@ -159,7 +159,8 @@ def modelo_base(cuatrimestre=1):
                 df_resultado=df_curso,
                 curso=int(curso),
                 cuatrimestre=cuatrimestre,
-                abrir_al_terminar=True
+                abrir_al_terminar=False,
+                etiqueta_metodo="CP-SAT"
             )
     else:
         print(f"No se encontró solución factible para el Cuatrimestre {cuatrimestre}. Comprobar disponibilidad de aulas o solapamientos.")

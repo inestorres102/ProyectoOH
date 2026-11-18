@@ -1,14 +1,21 @@
 import os
+import io
 import sys
+import time
 import subprocess
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import pandas as pd
-import io
-import time
 
 
-def exportar_horario_png(df_resultado, curso=1, cuatrimestre=1, ruta_salida=None, abrir_al_terminar=True):
+def exportar_horario_png(
+    df_resultado,
+    curso=1,
+    cuatrimestre=1,
+    ruta_salida=None,
+    abrir_al_terminar=False,
+    etiqueta_metodo=""
+):
     sufijo_cuatri = "1er" if cuatrimestre == 1 else "2do"
     if ruta_salida is None:
         ruta_salida = f"horario_{curso}GCID_{sufijo_cuatri}.png"
@@ -104,7 +111,7 @@ def exportar_horario_png(df_resultado, curso=1, cuatrimestre=1, ruta_salida=None
     lane_map_4 = {"41": 0, "42": 1, "43": 2, "44": 3}
     lane_map_2 = {"41": 0, "42": 1}
 
-    # 5. Dibujar tarjetas sin solapes de texto
+    # 5. Dibujar tarjetas
     for ev in eventos:
         d_idx = ev["dia_idx"]
         dur = ev["dur"]
@@ -173,7 +180,7 @@ def exportar_horario_png(df_resultado, curso=1, cuatrimestre=1, ruta_salida=None
             ax.text(cx, cy - desp_a, f"Aula: {ev['aula']}",
                     ha="center", va="center", color="#37474F", fontsize=f_s, fontweight="bold")
 
-    # 6. Leyenda dinámica (solo tipos realmente presentes)
+    # 6. Leyenda dinámica
     orden_claves = ["teoria", "practica_aula", "practica"]
     claves_a_mostrar = [k for k in orden_claves if k in tipos_presentes]
 
@@ -198,12 +205,14 @@ def exportar_horario_png(df_resultado, curso=1, cuatrimestre=1, ruta_salida=None
     ax.set_ylim(0, len(horas) * row_height + y_offset + 1.4)
     ax.axis("off")
 
-
-    plt.title(f"CALENDARIO ACADÉMICO — {curso}º GCID ({sufijo_cuatri.upper()} SEMESTRE)",
-              fontsize=16, fontweight="bold", pad=25, color="#1A237E")
+    sufijo_metodo = f" — {etiqueta_metodo.upper()}" if etiqueta_metodo else ""
+    plt.title(
+        f"CALENDARIO ACADÉMICO — {curso}º GCID ({sufijo_cuatri.upper()} SEMESTRE){sufijo_metodo}",
+        fontsize=15, fontweight="bold", pad=25, color="#1A237E"
+    )
     plt.tight_layout()
 
-    # Renderizar en memoria para evitar bloqueos de OneDrive/Fotos en Windows
+    # Renderizado en memoria para evitar bloqueos de OneDrive/Fotos en Windows
     buf = io.BytesIO()
     plt.savefig(buf, format="png", dpi=300, bbox_inches="tight")
     plt.close("all")
