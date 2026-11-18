@@ -164,6 +164,7 @@ def modelo_base(curso=4, cuatrimestre=1):
 
     # 9. Resolver el modelo
     solver = cp_model.CpSolver()
+    solver.parameters.log_search_progress = True
     status = solver.Solve(model)
 
     # 10. Mostrar e imprimir el horario
@@ -227,7 +228,7 @@ def modelo_base(curso=4, cuatrimestre=1):
         exportar_horario_png(
             df_resultado,
             ruta_salida=str(ruta_salida),
-            abrir_al_terminar=True,
+            abrir_al_terminar=False,
             titulo=titulo
         )
 
