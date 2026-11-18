@@ -13,17 +13,17 @@ El proyecto aborda el problema completo de los **4 cursos (1.º a 4.º)** y **2 
 ```text
 Proyecto_OH/
 ├── datos/
-│   ├── aulas.csv               # Catálogo de aulas de teoría y laboratorios con sus capacidades
-│   └── clases_gcid.csv         # Sesiones lectivas de 1º a 4º curso (ambos cuatrimestres)
+│   ├── aulas.csv                   # Catálogo de aulas de teoría y laboratorios con sus capacidades
+│   └── clases_gcid.csv             # Sesiones lectivas de 1º a 4º curso (ambos cuatrimestres)
 ├── src/
-│   ├── modelo_base.py          # Solver exacto basado en OR-Tools CP-SAT
-│   ├── restricciones.py        # Definición formal de restricciones duras y blandas
-│   ├── metaheuristica.py       # Implementación de Recocido Simulado y gráficas de convergencia
+│   ├── modelo_base.py              # Solver exacto basado en OR-Tools CP-SAT
+│   ├── restricciones.py            # Definición formal de restricciones duras y blandas
+│   ├── metaheuristica.py           # Implementación de Recocido Simulado y gráficas de convergencia
 │   └── visualizador.py  
 ├── graficas/ 
-│   ├── convergencia_SA_1er.png
-│   └── convergencia_SA_2do.png
-├── horarios_CP-SAT/
+│   ├── convergencia_SA_1er.png     # Gráfica de convergencia del primer cuatrimestre
+│   └── convergencia_SA_2do.png     # Gráfica de convergencia del segundo cuatrimestre
+├── horarios_CP-SAT/                # Horarios generados mediante CP-SAT
 │   ├── primero/ 
 │   │   └── horario_1GCID_1er.png 
 │   │   └── horario_1GCID_2do.png
@@ -36,7 +36,7 @@ Proyecto_OH/
 │   ├── cuarto/ 
 │   │   └── horario_4GCID_1er.png 
 │   │   └── horario_4GCID_2do.png 
-├── horarios_metaheuristica/
+├── horarios_metaheuristica/         # Horarios generados mediante metaheurística
 │   ├── primero/ 
 │   │   └── horario_SA_1GCID_1er.png 
 │   │   └── horario_SA_1GCID_2do.png
@@ -50,8 +50,7 @@ Proyecto_OH/
 │   │   └── horario_SA_4GCID_1er.png 
 │   │   └── horario_SA_4GCID_2do.png
 ├── .gitignore
-├── requirements.txt
-├── restricciones.md 
+├── requirements.txt                 
 └── README.md
 ```
 
