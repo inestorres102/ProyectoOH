@@ -336,11 +336,14 @@ def ejecutar_recocido_simulado(cuatrimestre=1, max_iter=60000, t_inicial=5000.0,
 
     sufijo = "1er" if cuatrimestre == 1 else "2do"
 
-    # Exportar gráfica de evolución del coste
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    ruta_grafica = os.path.join(base_dir, "graficas", f"convergencia_SA_{sufijo}.png")
+
+    # Exportar gráfica de evolución del coste en graficas/
     exportar_grafica_convergencia(
         historial=historial,
         cuatrimestre=cuatrimestre,
-        ruta_salida=f"convergencia_SA_{sufijo}.png"
+        ruta_salida=ruta_grafica
     )
 
     # Construir DataFrame compatible con visualizador.py
@@ -367,18 +370,16 @@ def ejecutar_recocido_simulado(cuatrimestre=1, max_iter=60000, t_inicial=5000.0,
 
     df_resultado = pd.DataFrame(asignaciones).sort_values(by="Slot")
 
+
     for curso in sorted(df_resultado["Curso"].unique()):
         df_curso = df_resultado[df_resultado["Curso"] == curso]
-        nombre_png = f"horario_SA_{int(curso)}GCID_{sufijo}.png"
         exportar_horario_png(
             df_resultado=df_curso,
             curso=int(curso),
             cuatrimestre=cuatrimestre,
-            ruta_salida=nombre_png,
             abrir_al_terminar=False,
             etiqueta_metodo="RECOCIDO SIMULADO"
         )
-
 
 if __name__ == "__main__":
     print("==================================================")

@@ -114,6 +114,8 @@ def modelo_base(cuatrimestre=1):
     # 5. Imprimir y exportar resultados
     if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
         print(f"\n[OK] Horario encontrado para el Cuatrimestre {cuatrimestre}.\n")
+        print(f"Tiempo CP-SAT       : {solver.WallTime():.3f} s")
+        print(f"Penalización blanda : {int(solver.ObjectiveValue())}")
         asignaciones = []
 
         for _, row in df_clases.iterrows():

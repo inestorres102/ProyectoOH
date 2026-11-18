@@ -18,7 +18,18 @@ def exportar_horario_png(
 ):
     sufijo_cuatri = "1er" if cuatrimestre == 1 else "2do"
     if ruta_salida is None:
-        ruta_salida = f"horario_{curso}GCID_{sufijo_cuatri}.png"
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        nombres_curso = {1: "primero", 2: "segundo", 3: "tercero", 4: "cuarto"}
+        carpeta_curso = nombres_curso.get(int(curso), f"curso_{curso}")
+
+        etiqueta_norm = etiqueta_metodo.strip().upper()
+        es_sa = etiqueta_norm == "SA" or any(k in etiqueta_norm for k in ["RECOCIDO", "META"])
+        carpeta_metodo = "horarios_metaheuristica" if es_sa else "horarios_CP-SAT"
+        prefijo = "horario_SA" if es_sa else "horario"
+
+        ruta_salida = os.path.join(
+            base_dir, carpeta_metodo, carpeta_curso, f"{prefijo}_{curso}GCID_{sufijo_cuatri}.png"
+        )
     ruta_salida = os.path.abspath(ruta_salida)
 
     dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"]
