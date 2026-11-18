@@ -16,7 +16,7 @@ from restricciones import (
 from visualizador import exportar_horario_png
 
 
-def modelo_base(curso=4, cuatrimestre=1):
+def modelo_base(curso=4, cuatrimestre=2):
     # 1. Definir el horizonte temporal semanal (30 franjas horarias)
     dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"]
     horas_por_dia = 6  # 6 franjas por día: de 08:30 a 14:30
@@ -164,7 +164,8 @@ def modelo_base(curso=4, cuatrimestre=1):
 
     # 9. Resolver el modelo
     solver = cp_model.CpSolver()
-    solver.parameters.log_search_progress = True
+    solver.parameters.stop_after_first_solution = True
+    solver.parameters.max_time_in_seconds = 10.0
     status = solver.Solve(model)
 
     # 10. Mostrar e imprimir el horario
@@ -228,7 +229,7 @@ def modelo_base(curso=4, cuatrimestre=1):
         exportar_horario_png(
             df_resultado,
             ruta_salida=str(ruta_salida),
-            abrir_al_terminar=False,
+            abrir_al_terminar=True,
             titulo=titulo
         )
 
@@ -244,4 +245,4 @@ def modelo_base(curso=4, cuatrimestre=1):
 
 if __name__ == "__main__":
     # Cambia estos dos valores para elegir el horario que quieres generar.
-    modelo_base(curso=4, cuatrimestre=1)
+    modelo_base(curso=4, cuatrimestre=2)

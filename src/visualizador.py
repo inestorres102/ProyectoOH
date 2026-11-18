@@ -11,9 +11,9 @@ import pandas as pd
 
 def exportar_horario_png(
     df_resultado,
-    ruta_salida="horario_4GIFM_1er.png",
+    ruta_salida="horario_4GIFM_2do.png",
     abrir_al_terminar=True,
-    titulo="CALENDARIO ACADÉMICO — 4º GIFM (1er SEMESTRE)"
+    titulo="CALENDARIO ACADÉMICO — 4º GIFM (2do SEMESTRE)"
 ):
     """
     Exporta el horario a una imagen PNG de alta resolución,
