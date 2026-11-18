@@ -19,7 +19,39 @@ Proyecto_OH/
 │   ├── modelo_base.py          # Solver exacto basado en OR-Tools CP-SAT
 │   ├── restricciones.py        # Definición formal de restricciones duras y blandas
 │   ├── metaheuristica.py       # Implementación de Recocido Simulado y gráficas de convergencia
-│   └── visualizador.py         # Exportador de horarios a PNG con carriles dinámicos por subgrupo
+│   └── visualizador.py  
+├── graficas/ 
+│   ├── convergencia_SA_1er.png
+│   └── convergencia_SA_2do.png
+├── horarios_CP-SAT/
+│   ├── primero/ 
+│   │   └── horario_1GCID_1er.png 
+│   │   └── horario_1GCID_2do.png
+│   ├── segundo/
+│   │   └── horario_2GCID_1er.png 
+│   │   └── horario_2GCID_2do.png
+│   ├── tercero/
+│   │   └── horario_3GCID_1er.png 
+│   │   └── horario_3GCID_2do.png
+│   ├── cuarto/ 
+│   │   └── horario_4GCID_1er.png 
+│   │   └── horario_4GCID_2do.png 
+├── horarios_metaheuristica/
+│   ├── primero/ 
+│   │   └── horario_SA_1GCID_1er.png 
+│   │   └── horario_SA_1GCID_2do.png
+│   ├── segundo/
+│   │   └── horario_SA_2GCID_1er.png 
+│   │   └── horario_SA_2GCID_2do.png
+│   ├── tercero/
+│   │   └── horario_SA_3GCID_1er.png 
+│   │   └── horario_SA_3GCID_2do.png
+│   ├── cuarto/ 
+│   │   └── horario_SA_4GCID_1er.png 
+│   │   └── horario_SA_4GCID_2do.png
+├── .gitignore
+├── requirements.txt
+├── restricciones.md 
 └── README.md
 ```
 
