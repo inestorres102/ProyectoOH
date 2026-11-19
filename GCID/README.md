@@ -11,7 +11,7 @@ El proyecto aborda el problema completo de los **4 cursos (1.º a 4.º)** y **2 
 ## Estructura del Repositorio
 
 ```text
-Proyecto_OH/
+GCID/
 ├── datos/
 │   ├── aulas.csv                   # Catálogo de aulas de teoría y laboratorios con sus capacidades
 │   └── clases_gcid.csv             # Sesiones lectivas de 1.º a 4.º curso (ambos cuatrimestres)
