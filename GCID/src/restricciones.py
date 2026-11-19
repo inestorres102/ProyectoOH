@@ -244,6 +244,46 @@ def aplicar_restriccion_dias_libres_practicas(model, df_clases, start_vars):
         model.Add(start_vars[s_id] < 18)
 
 
+def aplicar_distribucion_teoria_primero(model, df_clases, start_vars, horas_por_dia=6):
+    """
+    1. Impide que las dos sesiones de teoría de 1h de una misma asignatura en 1º caigan el mismo día.
+    2. Limita la jornada de 1º a máximo 4h/día para repartir las 20h semanales de lunes a viernes.
+    """
+    df_1 = df_clases[df_clases["curso"] == 1].copy()
+    if df_1.empty:
+        return
+
+    df_1["id_str"] = df_1["id_sesion"].astype(str).str.strip()
+    df_1["tipo_str"] = df_1["tipo"].astype(str).str.strip().str.lower()
+
+    # 1. Teorías de la misma asignatura en días distintos
+    df_teoria = df_1[df_1["tipo_str"] == "teoria"]
+    for asig, grupo_asig in df_teoria.groupby("asignatura"):
+        ids = grupo_asig["id_str"].tolist()
+        if len(ids) > 1:
+            dias = []
+            for s_id in ids:
+                d_var = model.NewIntVar(0, 4, f"dia_t1_{asig}_{s_id}")
+                model.AddDivisionEquality(d_var, start_vars[s_id], horas_por_dia)
+                dias.append(d_var)
+            model.AddAllDifferent(dias)
+
+    # 2. Máximo 4 horas diarias por itinerario de 1º (fuerza 4h/día de lunes a viernes)
+    itinerarios = obtener_sesiones_por_itinerario(df_1)
+    for sub, lista_ids in itinerarios.items():
+        for d in range(5):
+            horas_dia = []
+            for s_id in lista_ids:
+                dur = int(df_1[df_1["id_str"] == s_id]["duracion_horas"].iloc[0])
+                dia_var = model.NewIntVar(0, 4, f"d_cap1_{sub}_{s_id}_{d}")
+                model.AddDivisionEquality(dia_var, start_vars[s_id], horas_por_dia)
+                en_dia = model.NewBoolVar(f"en_cap1_{sub}_{s_id}_{d}")
+                model.Add(dia_var == d).OnlyEnforceIf(en_dia)
+                model.Add(dia_var != d).OnlyEnforceIf(en_dia.Not())
+                horas_dia.append(en_dia * dur)
+            model.Add(sum(horas_dia) <= 4)
+
+
 # RESTRICCIONES BLANDAS (Criterios a optimizar en la función objetivo)
 
 def aplicar_restricciones_blandas(model, df_clases, start_vars, aula_assign, total_slots=30, aula_preferida="A2-5"):

@@ -11,7 +11,8 @@ from restricciones import (
     aplicar_restriccion_aulas,
     aplicar_restricciones_blandas,
     aplicar_restriccion_sin_huecos,
-    aplicar_restriccion_dias_libres_practicas
+    aplicar_restriccion_dias_libres_practicas,
+    aplicar_distribucion_teoria_primero
 )
 
 from visualizador import exportar_horario_png
@@ -28,14 +29,19 @@ def modelo_base(cuatrimestre=1):
         "11:30-12:30", "12:30-13:30", "13:30-14:30"
     ]
 
-    # 2. Leer las sesiones desde la carpeta datos/
-    archivos_clases = glob.glob("datos/clases_*.csv")
+    # 2. Leer las sesiones desde la carpeta datos/ (relativa a GCID/)
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    ruta_patron = os.path.join(base_dir, "datos", "clases_*.csv")
+    ruta_fallback = os.path.join(base_dir, "datos", "clases.csv")
+    ruta_aulas = os.path.join(base_dir, "datos", "aulas.csv")
+
+    archivos_clases = glob.glob(ruta_patron)
     if archivos_clases:
         df_clases_total = pd.concat([pd.read_csv(f) for f in archivos_clases], ignore_index=True)
-    elif os.path.exists("datos/clases.csv"):
-        df_clases_total = pd.read_csv("datos/clases.csv")
+    elif os.path.exists(ruta_fallback):
+        df_clases_total = pd.read_csv(ruta_fallback)
     else:
-        raise FileNotFoundError("No se encontró ningún archivo de clases en 'datos/'")
+        raise FileNotFoundError(f"No se encontró ningún archivo de clases en '{os.path.join(base_dir, 'datos')}'")
 
     # Limpiar espacios en los nombres de las columnas
     df_clases_total.columns = df_clases_total.columns.str.strip()
@@ -50,7 +56,7 @@ def modelo_base(cuatrimestre=1):
     else:
         df_clases = df_clases_total.copy()
 
-    df_aulas = pd.read_csv("datos/aulas.csv")
+    df_aulas = pd.read_csv(ruta_aulas)
     df_aulas.columns = df_aulas.columns.str.strip()
 
     print(f"\n=======================================================")
@@ -95,10 +101,13 @@ def modelo_base(cuatrimestre=1):
     # D. Aulas (capacidad, tipo y evitar solapamiento físico)
     aula_asignada = aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars)
     
-    # E. Sin huecos libres para el mismo grupo dentro de cada curso
+    # E. Sin huecos libres en el itinerario diario de cada subgrupo
     aplicar_restriccion_sin_huecos(model, df_clases, start_vars, end_vars, horas_por_dia)
+
+    # F. Reparto de teorías de 1h en días distintos y máximo 4h/día en 1º curso
+    aplicar_distribucion_teoria_primero(model, df_clases, start_vars, horas_por_dia)
     
-    # F. Si estamos optimizando el 2º cuatrimestre, liberamos jueves y viernes para prácticas externas
+    # G. Si estamos optimizando el 2º cuatrimestre, liberamos jueves y viernes para prácticas externas
     if cuatrimestre == 2:
         aplicar_restriccion_dias_libres_practicas(model, df_clases, start_vars)
 

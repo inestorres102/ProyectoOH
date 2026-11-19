@@ -135,6 +135,43 @@ def preparar_estructuras(df_clases, df_aulas, cuatrimestre, horas_por_dia=6, tot
     return sesiones, meta, pares_estudiantes, pares_profesores, grupos_sesiones
 
 
+def contar_violaciones_primero(estado, meta, grupos_sesiones, horas_por_dia=6):
+    """
+    Evalúa las reglas de distribución de 1º curso:
+    1. Dos teorías de la misma asignatura no pueden caer el mismo día.
+    2. Máximo 4 horas lectivas por día en cada subgrupo de 1º.
+    """
+    violaciones = 0
+
+    # 1. Teorías de la misma asignatura en días distintos
+    teorias_por_asig = {}
+    for s_id, info in meta.items():
+        if int(info["curso"]) == 1 and str(info.get("tipo", "")).strip().lower() == "teoria":
+            asig = str(info["asignatura"]).strip()
+            teorias_por_asig.setdefault(asig, []).append(s_id)
+
+    for asig, ids in teorias_por_asig.items():
+        if len(ids) > 1:
+            dias = [estado[s_id][0] // horas_por_dia for s_id in ids]
+            violaciones += len(dias) - len(set(dias))
+
+    # 2. Tope de 4 horas diarias en 1º curso
+    for (curso, sub), lista_ids in grupos_sesiones.items():
+        if int(curso) != 1:
+            continue
+        horas_dia = [0] * 5
+        for s_id in lista_ids:
+            d = estado[s_id][0] // horas_por_dia
+            dur = int(meta[s_id]["dur"])
+            if 0 <= d < 5:
+                horas_dia[d] += dur
+        for h in horas_dia:
+            if h > 4:
+                violaciones += (h - 4)
+
+    return violaciones
+
+
 def evaluar_estado(estado, sesiones, meta, pares_est, pares_prof, grupos_sesiones,
                    horas_por_dia=6, total_slots=30, aula_preferida="A2-5"):
     violaciones_duras = 0
@@ -194,6 +231,7 @@ def evaluar_estado(estado, sesiones, meta, pares_est, pares_prof, grupos_sesione
         if "teor" in m["tipo"] and m["grupo"] == "17" and aula != aula_preferida:
             coste_blando += 25
 
+    violaciones_duras += contar_violaciones_primero(estado, meta, grupos_sesiones)
     coste_total = (violaciones_duras * 10000) + (horas_hueco * 2000) + coste_blando
     return coste_total, violaciones_duras, horas_hueco, coste_blando
 

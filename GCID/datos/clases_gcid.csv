@@ -1,42 +1,52 @@
 id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor,curso,cuatrimestre
-S101,IC1,teoria,17,2,80,Teoria,Jose Carlos Ruiz Luque,1,1
+S101a,IC1,teoria,17,1,80,Teoria,Jose Carlos Ruiz Luque,1,1
+S101b,IC1,teoria,17,1,80,Teoria,Jose Carlos Ruiz Luque,1,1
 S102,IC1,practica,41,2,25,Laboratorio,Jose Carlos Ruiz Luque,1,1
 S103,IC1,practica,42,2,25,Laboratorio,Francisca Candelaria Quintana Dominguez,1,1
 S104,IC1,practica,43,2,25,Laboratorio,Jose Carlos Ruiz Luque,1,1
 S105,IC1,practica,44,2,25,Laboratorio,Francisca Candelaria Quintana Dominguez,1,1
-S106,MD,teoria,17,2,80,Teoria,Carmen Paz Suarez Araujo,1,1
+S106a,MD,teoria,17,1,80,Teoria,Carmen Paz Suarez Araujo,1,1
+S106b,MD,teoria,17,1,80,Teoria,Carmen Paz Suarez Araujo,1,1
 S107,MD,practica_aula,17,2,50,Teoria,Javier Jesus Sanchez Medina,1,1
 S108,MD,practica_aula,18,2,50,Teoria,Javier Jesus Sanchez Medina,1,1
-S111,AG,teoria,17,2,80,Teoria,Gabriele Salvatore De Blasio,1,1
+S111a,AG,teoria,17,1,80,Teoria,Gabriele Salvatore De Blasio,1,1
+S111b,AG,teoria,17,1,80,Teoria,Gabriele Salvatore De Blasio,1,1
 S112,AG,practica_aula,17,2,50,Teoria,Gabriele Salvatore De Blasio,1,1
 S113,AG,practica_aula,18,2,50,Teoria,Gabriele Salvatore De Blasio,1,1
-S114,FP1,teoria,17,2,55,Teoria,Miguel Angel Perez Aguiar,1,1
+S114a,FP1,teoria,17,1,55,Teoria,Miguel Angel Perez Aguiar,1,1
+S114b,FP1,teoria,17,1,55,Teoria,Miguel Angel Perez Aguiar,1,1
 S115,FP1,practica,41,2,25,Laboratorio,Francisco Javier Carreras Riudavets,1,1
 S116,FP1,practica,42,2,25,Laboratorio,Jose Daniel Gonzalez Dominguez,1,1
 S117,FP1,practica,43,2,25,Laboratorio,Francisco Javier Carreras Riudavets,1,1
 S118,FP1,practica,44,2,25,Laboratorio,Jose Daniel Gonzalez Dominguez,1,1
-S119,ME1,teoria,17,2,55,Teoria,Francisco Jose Vazquez Polo,1,1
+S119a,ME1,teoria,17,1,55,Teoria,Francisco Jose Vazquez Polo,1,1
+S119b,ME1,teoria,17,1,55,Teoria,Francisco Jose Vazquez Polo,1,1
 S120,ME1,practica,41,2,25,Laboratorio,Francisco Jose Vazquez Polo,1,1
 S121,ME1,practica,42,2,25,Laboratorio,Francisco Jose Vazquez Polo,1,1
 S122,ME1,practica,43,2,25,Laboratorio,Francisco Jose Vazquez Polo,1,1
 S123,ME1,practica,44,2,25,Laboratorio,Francisco Jose Vazquez Polo,1,1
-S201,IC2,teoria,17,2,60,Teoria,Maria Cristina Carmona Duarte,1,2
+S201a,IC2,teoria,17,1,60,Teoria,Maria Cristina Carmona Duarte,1,2
+S201b,IC2,teoria,17,1,60,Teoria,Maria Cristina Carmona Duarte,1,2
 S202,IC2,practica,41,2,25,Laboratorio,Maria Cristina Carmona Duarte,1,2
 S203,IC2,practica,42,2,25,Laboratorio,Maria Cristina Carmona Duarte,1,2
 S204,IC2,practica,43,2,25,Laboratorio,Maria Cristina Carmona Duarte,1,2
 S205,IC2,practica,44,2,25,Laboratorio,Maria Cristina Carmona Duarte,1,2
-S206,FP2,teoria,17,2,60,Teoria,Miguel Angel Perez Aguiar,1,2
+S206a,FP2,teoria,17,1,60,Teoria,Miguel Angel Perez Aguiar,1,2
+S206b,FP2,teoria,17,1,60,Teoria,Miguel Angel Perez Aguiar,1,2
 S207,FP2,practica,41,2,25,Laboratorio,Jose Evora Gomez,1,2
 S208,FP2,practica,42,2,25,Laboratorio,Jose Daniel Gonzalez Dominguez,1,2
 S209,FP2,practica,43,2,25,Laboratorio,Miguel Angel Perez Aguiar,1,2
 S210,FP2,practica,44,2,25,Laboratorio,Jose Evora Gomez,1,2
-S211,MC,teoria,17,2,80,Teoria,Maximo,1,2
+S211a,MC,teoria,17,1,80,Teoria,Maximo,1,2
+S211b,MC,teoria,17,1,80,Teoria,Maximo,1,2
 S212,MC,practica_aula,17,2,50,Teoria,Maximo,1,2
 S213,MC,practica_aula,18,2,50,Teoria,Maximo,1,2
-S214,EP,teoria,17,2,70,Teoria,Julia Nieves Rodriguez,1,2
+S214a,EP,teoria,17,1,70,Teoria,Julia Nieves Rodriguez,1,2
+S214b,EP,teoria,17,1,70,Teoria,Julia Nieves Rodriguez,1,2
 S215,EP,practica_aula,17,2,50,Teoria,Julia Nieves Rodriguez,1,2
 S216,EP,practica_aula,18,2,50,Teoria,Julia Nieves Rodriguez,1,2
-S217,ME2,teoria,17,2,80,Teoria,Jose Vazquez Polo,1,2
+S217a,ME2,teoria,17,1,80,Teoria,Jose Vazquez Polo,1,2
+S217b,ME2,teoria,17,1,80,Teoria,Jose Vazquez Polo,1,2
 S218,ME2,practica,41,2,25,Laboratorio,Jose Vazquez Polo,1,2
 S219,ME2,practica,42,2,25,Laboratorio,Jose Vazquez Polo,1,2
 S220,ME2,practica,43,2,25,Laboratorio,Jose Vazquez Polo,1,2
