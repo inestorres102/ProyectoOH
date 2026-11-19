@@ -109,6 +109,7 @@ def modelo_base(cuatrimestre=1):
 
     # 4. Resolver
     solver = cp_model.CpSolver()
+    solver.parameters.max_time_in_seconds = 60.0
     status = solver.Solve(model)
 
     # 5. Imprimir y exportar resultados

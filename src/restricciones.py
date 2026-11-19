@@ -141,23 +141,57 @@ def aplicar_restriccion_aulas(model, df_clases, df_aulas, start_vars, end_vars):
     return aula_assign
 
 
+def obtener_sesiones_por_itinerario(df_curso):
+    """
+    Combina todas las sesiones a las que asiste realmente cada subgrupo de alumnos
+    (Teoría 17 + Práctica Aula 17/18 + Laboratorio 41-44).
+    """
+    df_c = df_curso.copy()
+    df_c["grupo_str"] = df_c["grupo"].astype(str).str.strip()
+    df_c["tipo_str"] = df_c["tipo"].astype(str).str.strip().str.lower()
+    df_c["id_str"] = df_c["id_sesion"].astype(str).str.strip()
+
+    grupos_presentes = set(df_c["grupo_str"].unique())
+    subgrupos = [g for g in ["41", "42", "43", "44"] if g in grupos_presentes]
+    if not subgrupos:
+        subgrupos = list(grupos_presentes)
+
+    itinerarios = {}
+    for sub in subgrupos:
+        if sub in ["41", "42"]:
+            mask = (df_c["grupo_str"] == sub) | (df_c["grupo_str"] == "17")
+        elif sub in ["43", "44"]:
+            mask = (
+                (df_c["grupo_str"] == sub) |
+                (df_c["grupo_str"] == "18") |
+                ((df_c["grupo_str"] == "17") & (df_c["tipo_str"] == "teoria"))
+            )
+        else:
+            mask = (df_c["grupo_str"] == sub)
+
+        itinerarios[sub] = df_c[mask]["id_str"].tolist()
+
+    return itinerarios
+
+
 def aplicar_restriccion_sin_huecos(model, df_clases, start_vars, end_vars, horas_por_dia=6):
     """
-    DURA: Evita horas libres intermedias para un mismo grupo dentro de su curso.
-    Funciona independientemente de si un grupo tiene 2, 3, 4 o más clases en el mismo día.
+    DURA: Evita horas libres intermedias en la jornada real de cada subgrupo de estudiantes.
     """
     for curso in df_clases["curso"].unique():
         df_curso = df_clases[df_clases["curso"] == curso]
-        for grp in df_curso["grupo"].unique():
-            df_grp = df_curso[df_curso["grupo"] == grp]
-            if len(df_grp) <= 1:
+        itinerarios = obtener_sesiones_por_itinerario(df_curso)
+
+        for sub, lista_ids in itinerarios.items():
+            if len(lista_ids) <= 1:
                 continue
 
             sesiones_info = []
-            for _, row in df_grp.iterrows():
-                s_id = str(row["id_sesion"]).strip()
-                dur = int(row["duracion_horas"])
-                dia_var = model.NewIntVar(0, 4, f"dia_grp_{curso}_{grp}_{s_id}")
+            for s_id in lista_ids:
+                dur = int(
+                    df_curso[df_curso["id_sesion"].astype(str).str.strip() == s_id]["duracion_horas"].iloc[0]
+                )
+                dia_var = model.NewIntVar(0, 4, f"dia_it_{curso}_{sub}_{s_id}")
                 model.AddDivisionEquality(dia_var, start_vars[s_id], horas_por_dia)
                 sesiones_info.append((s_id, dur, dia_var))
 
@@ -170,32 +204,31 @@ def aplicar_restriccion_sin_huecos(model, df_clases, start_vars, end_vars, horas
                 ends_dia = []
 
                 for s_id, dur, dia_var in sesiones_info:
-                    en_dia = model.NewBoolVar(f"en_dia_{curso}_{grp}_{s_id}_{d}")
+                    en_dia = model.NewBoolVar(f"en_dia_{curso}_{sub}_{s_id}_{d}")
                     model.Add(dia_var == d).OnlyEnforceIf(en_dia)
                     model.Add(dia_var != d).OnlyEnforceIf(en_dia.Not())
                     en_dia_vars.append((en_dia, dur))
 
-                    s_d = model.NewIntVar(inicio_dia, fin_dia, f"sd_{curso}_{grp}_{s_id}_{d}")
+                    s_d = model.NewIntVar(inicio_dia, fin_dia, f"sd_{curso}_{sub}_{s_id}_{d}")
                     model.Add(s_d == start_vars[s_id]).OnlyEnforceIf(en_dia)
                     model.Add(s_d == fin_dia).OnlyEnforceIf(en_dia.Not())
                     starts_dia.append(s_d)
 
-                    e_d = model.NewIntVar(inicio_dia, fin_dia, f"ed_{curso}_{grp}_{s_id}_{d}")
+                    e_d = model.NewIntVar(inicio_dia, fin_dia, f"ed_{curso}_{sub}_{s_id}_{d}")
                     model.Add(e_d == end_vars[s_id]).OnlyEnforceIf(en_dia)
                     model.Add(e_d == inicio_dia).OnlyEnforceIf(en_dia.Not())
                     ends_dia.append(e_d)
 
                 horas_en_dia = sum(en_dia * dur for en_dia, dur in en_dia_vars)
-                hay_clase = model.NewBoolVar(f"hay_clase_{curso}_{grp}_{d}")
+                hay_clase = model.NewBoolVar(f"hay_clase_{curso}_{sub}_{d}")
                 model.Add(horas_en_dia >= 1).OnlyEnforceIf(hay_clase)
                 model.Add(horas_en_dia == 0).OnlyEnforceIf(hay_clase.Not())
 
-                min_ini = model.NewIntVar(inicio_dia, fin_dia, f"min_ini_{curso}_{grp}_{d}")
-                max_fin = model.NewIntVar(inicio_dia, fin_dia, f"max_fin_{curso}_{grp}_{d}")
+                min_ini = model.NewIntVar(inicio_dia, fin_dia, f"min_ini_{curso}_{sub}_{d}")
+                max_fin = model.NewIntVar(inicio_dia, fin_dia, f"max_fin_{curso}_{sub}_{d}")
                 model.AddMinEquality(min_ini, starts_dia)
                 model.AddMaxEquality(max_fin, ends_dia)
 
-                # Sin huecos: la amplitud total del bloque diario coincide con las horas lectivas
                 model.Add(max_fin - min_ini == horas_en_dia).OnlyEnforceIf(hay_clase)
 
 

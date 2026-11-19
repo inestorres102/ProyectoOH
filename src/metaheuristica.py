@@ -106,10 +106,31 @@ def preparar_estructuras(df_clases, df_aulas, cuatrimestre, horas_por_dia=6, tot
             if m1["profesor"] == m2["profesor"] and m1["profesor"].lower() not in ["", "nan", "none"]:
                 pares_profesores.append((id1, id2))
 
+    # Agrupar sesiones por itinerario real de cada subgrupo de alumnos (Teoría + PA + Lab)
     grupos_sesiones = {}
-    for s_id in sesiones:
-        clave = (meta[s_id]["curso"], meta[s_id]["grupo"])
-        grupos_sesiones.setdefault(clave, []).append(s_id)
+    for c in sorted({meta[s_id]["curso"] for s_id in sesiones}):
+        sesiones_c = [s_id for s_id in sesiones if meta[s_id]["curso"] == c]
+        grupos_c = {meta[s_id]["grupo"] for s_id in sesiones_c}
+        subgrupos = [g for g in ["41", "42", "43", "44"] if g in grupos_c]
+        if not subgrupos:
+            subgrupos = list(grupos_c)
+
+        for sub in subgrupos:
+            if sub in ["41", "42"]:
+                grupos_sesiones[(c, sub)] = [
+                    s_id for s_id in sesiones_c
+                    if meta[s_id]["grupo"] in [sub, "17"]
+                ]
+            elif sub in ["43", "44"]:
+                grupos_sesiones[(c, sub)] = [
+                    s_id for s_id in sesiones_c
+                    if meta[s_id]["grupo"] in [sub, "18"]
+                    or (meta[s_id]["grupo"] == "17" and meta[s_id]["tipo"] == "teoria")
+                ]
+            else:
+                grupos_sesiones[(c, sub)] = [
+                    s_id for s_id in sesiones_c if meta[s_id]["grupo"] == sub
+                ]
 
     return sesiones, meta, pares_estudiantes, pares_profesores, grupos_sesiones
 
