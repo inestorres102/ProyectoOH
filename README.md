@@ -14,43 +14,43 @@ El proyecto aborda el problema completo de los **4 cursos (1.º a 4.º)** y **2 
 Proyecto_OH/
 ├── datos/
 │   ├── aulas.csv                   # Catálogo de aulas de teoría y laboratorios con sus capacidades
-│   └── clases_gcid.csv             # Sesiones lectivas de 1º a 4º curso (ambos cuatrimestres)
+│   └── clases_gcid.csv             # Sesiones lectivas de 1.º a 4.º curso (ambos cuatrimestres)
 ├── src/
 │   ├── modelo_base.py              # Solver exacto basado en OR-Tools CP-SAT
 │   ├── restricciones.py            # Definición formal de restricciones duras y blandas
 │   ├── metaheuristica.py           # Implementación de Recocido Simulado y gráficas de convergencia
-│   └── visualizador.py  
-├── graficas/ 
+│   └── visualizador.py             # Exportador de horarios a PNG con carriles dinámicos
+├── graficas/
 │   ├── convergencia_SA_1er.png     # Gráfica de convergencia del primer cuatrimestre
 │   └── convergencia_SA_2do.png     # Gráfica de convergencia del segundo cuatrimestre
 ├── horarios_CP-SAT/                # Horarios generados mediante CP-SAT
-│   ├── primero/ 
-│   │   └── horario_1GCID_1er.png 
+│   ├── primero/
+│   │   ├── horario_1GCID_1er.png
 │   │   └── horario_1GCID_2do.png
 │   ├── segundo/
-│   │   └── horario_2GCID_1er.png 
+│   │   ├── horario_2GCID_1er.png
 │   │   └── horario_2GCID_2do.png
 │   ├── tercero/
-│   │   └── horario_3GCID_1er.png 
+│   │   ├── horario_3GCID_1er.png
 │   │   └── horario_3GCID_2do.png
-│   ├── cuarto/ 
-│   │   └── horario_4GCID_1er.png 
-│   │   └── horario_4GCID_2do.png 
+│   └── cuarto/
+│       ├── horario_4GCID_1er.png
+│       └── horario_4GCID_2do.png
 ├── horarios_metaheuristica/         # Horarios generados mediante metaheurística
-│   ├── primero/ 
-│   │   └── horario_SA_1GCID_1er.png 
+│   ├── primero/
+│   │   ├── horario_SA_1GCID_1er.png
 │   │   └── horario_SA_1GCID_2do.png
 │   ├── segundo/
-│   │   └── horario_SA_2GCID_1er.png 
+│   │   ├── horario_SA_2GCID_1er.png
 │   │   └── horario_SA_2GCID_2do.png
 │   ├── tercero/
-│   │   └── horario_SA_3GCID_1er.png 
+│   │   ├── horario_SA_3GCID_1er.png
 │   │   └── horario_SA_3GCID_2do.png
-│   ├── cuarto/ 
-│   │   └── horario_SA_4GCID_1er.png 
-│   │   └── horario_SA_4GCID_2do.png
+│   └── cuarto/
+│       ├── horario_SA_4GCID_1er.png
+│       └── horario_SA_4GCID_2do.png
 ├── .gitignore
-├── requirements.txt                 
+├── requirements.txt
 └── README.md
 ```
 
@@ -77,7 +77,11 @@ El horizonte semanal consta de **30 franjas horarias discretas** (de lunes a vie
 ## Instalación y Uso
 
 ### 1. Requisitos
-Asegúrate de tener Python 3.10+ instalado junto con las siguientes dependencias:
+Asegúrate de tener Python 3.10+ instalado e instala las dependencias del proyecto:
+
+```bash
+pip install -r requirements.txt
+``` 
 
 ```bash
 pip install ortools pandas matplotlib
