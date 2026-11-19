@@ -22,7 +22,7 @@ El proyecto aborda la planificación y optimización del calendario docente del 
 ## 📁 Estructura del Repositorio
 
 ```text
-ProyectoOH-GII/
+GII/
 ├── datos/
 │   ├── clases.csv                   # Catálogo completo de las 364 sesiones docentes
 │   └── aulas.csv                    # Catálogo de 27 aulas físicas con tipos y capacidades
@@ -43,7 +43,8 @@ ProyectoOH-GII/
 │   ├── 2GII/
 │   ├── 3GII/
 │   └── 4GII/
-├── requirements.txt                 # Dependencias del proyecto
+├── horario_GII_2026_2027.pdf        # Horario oficial de referencia de la EII
+├── restricciones.md                 # Notas de restricciones del problema
 └── README.md                        # Documentación técnica del proyecto
 ```
 
@@ -51,7 +52,7 @@ ProyectoOH-GII/
 
 ## 🚀 Instalación y Requisitos
 
-Se requiere Python 3.10 o superior. Para instalar las dependencias necesarias:
+Se requiere Python 3.10 o superior. Para instalar las dependencias necesarias desde la raíz del repositorio:
 
 ```bash
 pip install -r requirements.txt
@@ -61,24 +62,26 @@ pip install -r requirements.txt
 
 ## 🛠️ Guía de Ejecución
 
+Todos los scripts calculan sus rutas dinámicamente respecto a `GII/`, por lo que pueden ejecutarse tanto desde la raíz del repositorio como desde dentro de `GII/`.
+
 ### 1. Ejecutar el Solver Exacto y Generar Horarios Oficiales (CP-SAT)
-Para resolver las asignaciones de todos los cursos y generar los horarios visuales en `horarios/`:
+Para resolver las asignaciones de todos los cursos y generar los horarios visuales en `GII/horarios/`:
 ```bash
-python src/modelo_base.py
+python GII/src/modelo_base.py
 ```
 
 ### 2. Ejecutar la Metaheurística Propia (Recocido Simulado)
 Para ejecutar el algoritmo de Recocido Simulado programado desde cero y trazar su curva de convergencia:
 ```bash
-python src/metaheuristica_sa.py
+python GII/src/metaheuristica_sa.py
 ```
 
 ### 3. Reproducir la Suite Experimental Completa (Benchmark)
 Para ejecutar la comparativa rigurosa entre Búsqueda Aleatoria, Recocido Simulado (5 semillas estadísticas) y CP-SAT:
 ```bash
-python src/evaluador_benchmark.py
+python GII/src/evaluador_benchmark.py
 ```
-Este comando regenera automáticamente los ficheros en `memoria/` (`benchmark_resultados.csv`, `tabla_comparativa.md` y `grafica_comparativa_benchmark.png`).
+Este comando regenera automáticamente los ficheros en `GII/memoria/` (`benchmark_resultados.csv`, `tabla_comparativa.md` y `grafica_comparativa_benchmark.png`).
 
 ---
 

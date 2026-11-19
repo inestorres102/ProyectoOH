@@ -12,10 +12,17 @@ Cumple con los requisitos de la propuesta D1 de Optimización y Heurística:
 import math
 import os
 import random
+import sys
 import time
+from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+
+SRC_DIR = Path(__file__).resolve().parent
+BASE_DIR = SRC_DIR.parent
+if str(SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_DIR))
 
 from restricciones import obtener_subgrupos_estudiantes
 from visualizador import exportar_horario_png
@@ -376,9 +383,15 @@ class SimulatedAnnealingTimetabling:
         df_res = pd.DataFrame(asignaciones).sort_values(by="Slot").reset_index(drop=True)
         return df_res
 
-    def guardar_grafica_convergencia(self, historial, ruta_salida="memoria/convergencia_sa.png"):
+    def guardar_grafica_convergencia(self, historial, ruta_salida=None):
         """Genera y guarda la gráfica de convergencia del Recocido Simulado para la Memoria."""
-        os.makedirs(os.path.dirname(ruta_salida), exist_ok=True)
+        if ruta_salida is None:
+            ruta_salida = BASE_DIR / "memoria" / "convergencia_sa.png"
+        else:
+            ruta_path = Path(ruta_salida)
+            ruta_salida = ruta_path if ruta_path.is_absolute() else (BASE_DIR / ruta_path)
+        os.makedirs(ruta_salida.parent, exist_ok=True)
+        ruta_salida = str(ruta_salida)
         df_h = pd.DataFrame(historial)
 
         fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8), sharex=True, dpi=300)
@@ -421,8 +434,8 @@ def resolver_con_sa(semestre=1, curso=3, grupo_principal=1, ruta_grafica=None):
     """
     Función de entrada para resolver un curso/semestre usando la Metaheurística de Recocido Simulado.
     """
-    df_clases = pd.read_csv("datos/clases.csv")
-    df_aulas = pd.read_csv("datos/aulas.csv")
+    df_clases = pd.read_csv(BASE_DIR / "datos" / "clases.csv")
+    df_aulas = pd.read_csv(BASE_DIR / "datos" / "aulas.csv")
 
     if curso is not None:
         df_clases = df_clases[df_clases["curso"] == curso].copy()
@@ -457,7 +470,7 @@ if __name__ == "__main__":
     print("\n================== PRUEBA DE METAHEURÍSTICA SA (3º GII - SEMESTRE 1) ==================")
     df_res, energia, t_calc, hist = resolver_con_sa(
         semestre=1, curso=3, grupo_principal=1,
-        ruta_grafica="horarios/convergencia_sa_3GII_1er.png"
+        ruta_grafica=str(BASE_DIR / "horarios" / "convergencia_sa_3GII_1er.png")
     )
     print(f"\nResultado final SA:")
     print(f"- Tiempo de cálculo: {t_calc:.2f} s")

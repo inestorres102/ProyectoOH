@@ -1,9 +1,16 @@
 import os
 import sys
 import subprocess
+from pathlib import Path
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import pandas as pd
+
+SRC_DIR = Path(__file__).resolve().parent
+BASE_DIR = SRC_DIR.parent
+if str(SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_DIR))
+
 from restricciones import obtener_subgrupos_estudiantes
 
 # Diferenciación visual oficial EII: Teoría (Amarillo), Práctica de Aula (Azul), Laboratorio (Verde)
@@ -227,12 +234,20 @@ def dibujar_bloque_grupo(ax, df_gp, gp_id, y_base, x_offset, col_width, row_heig
                         color="#37474F", fontsize=f_sub - 0.5, fontweight="bold")
 
 
-def exportar_horario_png(df_resultado, ruta_salida="horario_3GII_1er.png", titulo=None, abrir_al_terminar=False):
+def exportar_horario_png(df_resultado, ruta_salida=None, titulo=None, abrir_al_terminar=False):
     """
     Exporta el horario a PNG.
     Si df_resultado contiene varios grupos principales, los dibuja apilados verticalmente
     (como en el PDF oficial de la EII), cada uno con su distintivo lateral y horas.
     """
+    if ruta_salida is None:
+        ruta_salida = str(BASE_DIR / "horarios" / "horario_3GII_1er.png")
+    else:
+        ruta_path = Path(ruta_salida)
+        if not ruta_path.is_absolute():
+            ruta_salida = str(BASE_DIR / ruta_path)
+        else:
+            ruta_salida = str(ruta_path)
     dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"]
     horas_manana = ["08:30-09:30", "09:30-10:30", "10:30-11:30", "11:30-12:30", "12:30-13:30", "13:30-14:30"]
     horas_tarde = ["14:30-15:30", "15:30-16:30", "16:30-17:30", "17:30-18:30", "18:30-19:30", "19:30-20:30"]

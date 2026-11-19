@@ -1,6 +1,13 @@
 import os
+import sys
+from pathlib import Path
 import pandas as pd
 from ortools.sat.python import cp_model
+
+SRC_DIR = Path(__file__).resolve().parent
+BASE_DIR = SRC_DIR.parent
+if str(SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_DIR))
 
 # Importamos las restricciones desde el nuevo fichero 'restricciones.py'
 from restricciones import (
@@ -104,7 +111,7 @@ def _resolver_turno(df_sub, df_aulas, es_tarde=False, curso=1, semestre=1):
 
 
 def modelo_base(semestre=1, curso=3, grupo_principal=1):
-    ruta_clases = "datos/clases.csv"
+    ruta_clases = BASE_DIR / "datos" / "clases.csv"
     df_clases = pd.read_csv(ruta_clases)
 
     if "curso" in df_clases.columns and curso is not None:
@@ -117,7 +124,8 @@ def modelo_base(semestre=1, curso=3, grupo_principal=1):
     filtro_info = f"Curso {curso} | Semestre {semestre}" + (f" | Grupo {grupo_principal}" if grupo_principal is not None else "")
     print(f"\nCargadas con éxito {len(df_clases)} sesiones ({filtro_info}) desde '{ruta_clases}'.")
 
-    df_aulas = pd.read_csv("datos/aulas.csv")
+    ruta_aulas = BASE_DIR / "datos" / "aulas.csv"
+    df_aulas = pd.read_csv(ruta_aulas)
 
     resultados = []
 
@@ -158,7 +166,7 @@ def modelo_base(semestre=1, curso=3, grupo_principal=1):
 
     # Generar el PNG con nomenclatura organizada en carpetas por curso y semestre
     sem_carpeta = "1er_Semestre" if semestre == 1 else f"{semestre}do_Semestre"
-    carpeta_destino = f"horarios/{curso}GII/{sem_carpeta}"
+    carpeta_destino = BASE_DIR / "horarios" / f"{curso}GII" / sem_carpeta
     sem_str = "1er SEMESTRE" if semestre == 1 else f"{semestre}º SEMESTRE"
     os.makedirs(carpeta_destino, exist_ok=True)
 
@@ -168,7 +176,7 @@ def modelo_base(semestre=1, curso=3, grupo_principal=1):
         gps_txt = " y ".join([f"Grupo {int(g)}" if g != 3 else "Grupo 3 (Tarde)" for g in grupos_en_resultado])
         exportar_horario_png(
             df_resultado,
-            ruta_salida=f"{carpeta_destino}/horario_conjunto.png",
+            ruta_salida=str(carpeta_destino / "horario_conjunto.png"),
             titulo=f"CALENDARIO ACADÉMICO — {curso}º GII ({gps_txt} - {sem_str})",
             abrir_al_terminar=False
         )
@@ -177,7 +185,7 @@ def modelo_base(semestre=1, curso=3, grupo_principal=1):
             txt_ind = f"Grupo {int(gp)}" if gp != 3 else "Grupo 3 (Tarde)"
             exportar_horario_png(
                 df_gp,
-                ruta_salida=f"{carpeta_destino}/horario_Grupo_{int(gp)}.png",
+                ruta_salida=str(carpeta_destino / f"horario_Grupo_{int(gp)}.png"),
                 titulo=f"CALENDARIO ACADÉMICO — {curso}º GII ({txt_ind} - {sem_str})",
                 abrir_al_terminar=False
             )
@@ -186,7 +194,7 @@ def modelo_base(semestre=1, curso=3, grupo_principal=1):
         txt_ind = f"Grupo {gp_num}" if gp_num != 3 else "Grupo 3 (Tarde)"
         exportar_horario_png(
             df_resultado,
-            ruta_salida=f"{carpeta_destino}/horario_Grupo_{gp_num}.png",
+            ruta_salida=str(carpeta_destino / f"horario_Grupo_{gp_num}.png"),
             titulo=f"CALENDARIO ACADÉMICO — {curso}º GII ({txt_ind} - {sem_str})",
             abrir_al_terminar=False
         )

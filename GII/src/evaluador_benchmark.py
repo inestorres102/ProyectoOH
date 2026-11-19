@@ -11,10 +11,17 @@ para incluir directamente en la Memoria del proyecto.
 """
 
 import os
+import sys
 import time
+from pathlib import Path
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+
+SRC_DIR = Path(__file__).resolve().parent
+BASE_DIR = SRC_DIR.parent
+if str(SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_DIR))
 
 from metaheuristica_sa import SimulatedAnnealingTimetabling
 from modelo_base import _resolver_turno
@@ -117,13 +124,20 @@ def evaluar_cpsat(df_clases, df_aulas, es_tarde=False):
     }
 
 
-def ejecutar_benchmark_completo(instancias=[(3, 1, 1), (2, 1, 1), (1, 1, 1)], ruta_salida="memoria/benchmark_resultados.csv"):
+def ejecutar_benchmark_completo(instancias=[(3, 1, 1), (2, 1, 1), (1, 1, 1)], ruta_salida=None):
     """
     Ejecuta el benchmark comparativo sobre varias instancias reales de la EII.
     """
-    os.makedirs(os.path.dirname(ruta_salida), exist_ok=True)
-    df_clases_totales = pd.read_csv("datos/clases.csv")
-    df_aulas = pd.read_csv("datos/aulas.csv")
+    if ruta_salida is None:
+        ruta_salida = BASE_DIR / "memoria" / "benchmark_resultados.csv"
+    else:
+        ruta_path = Path(ruta_salida)
+        ruta_salida = ruta_path if ruta_path.is_absolute() else (BASE_DIR / ruta_path)
+    os.makedirs(ruta_salida.parent, exist_ok=True)
+    ruta_salida = str(ruta_salida)
+
+    df_clases_totales = pd.read_csv(BASE_DIR / "datos" / "clases.csv")
+    df_aulas = pd.read_csv(BASE_DIR / "datos" / "aulas.csv")
 
     res_filas = []
 
@@ -190,18 +204,25 @@ def ejecutar_benchmark_completo(instancias=[(3, 1, 1), (2, 1, 1), (1, 1, 1)], ru
         rows.append("| " + " | ".join(fila) + " |\n")
     resumen_md = header + separator + "".join(rows)
     
-    with open("memoria/tabla_comparativa.md", "w", encoding="utf-8") as f:
+    with open(BASE_DIR / "memoria" / "tabla_comparativa.md", "w", encoding="utf-8") as f:
         f.write("# Tabla Comparativa Experimental: Métodos de Optimización\n\n")
         f.write(resumen_md + "\n")
 
     # Generar gráfica comparativa de barras para la memoria
-    generar_grafica_comparativa(resumen, "memoria/grafica_comparativa_benchmark.png")
+    generar_grafica_comparativa(resumen, str(BASE_DIR / "memoria" / "grafica_comparativa_benchmark.png"))
 
     return df_benchmark, resumen
 
 
-def generar_grafica_comparativa(df_resumen, ruta_guardado="memoria/grafica_comparativa_benchmark.png"):
+def generar_grafica_comparativa(df_resumen, ruta_guardado=None):
     """Crea una figura comparativa de Tiempo de Cómputo y Coste de Huecos."""
+    if ruta_guardado is None:
+        ruta_guardado = BASE_DIR / "memoria" / "grafica_comparativa_benchmark.png"
+    else:
+        ruta_path = Path(ruta_guardado)
+        ruta_guardado = ruta_path if ruta_path.is_absolute() else (BASE_DIR / ruta_path)
+    os.makedirs(ruta_guardado.parent, exist_ok=True)
+    ruta_guardado = str(ruta_guardado)
     instancias = df_resumen["instancia"].unique()
     metodos = ["Búsqueda Aleatoria (Baseline)", "Recocido Simulado (Propio)", "OR-Tools CP-SAT (Exacto)"]
     colores = {"Búsqueda Aleatoria (Baseline)": "#EF5350", "Recocido Simulado (Propio)": "#42A5F5", "OR-Tools CP-SAT (Exacto)": "#66BB6A"}
