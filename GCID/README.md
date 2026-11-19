@@ -66,7 +66,8 @@ El horizonte semanal consta de **30 franjas horarias discretas** (de lunes a vie
 * **Capacidad y tipología de aulas:** Asignación exclusiva a aulas de `Teoria` o `Laboratorio` con aforo suficiente para el número de alumnos matriculados.
 * **Continuidad diaria:** Ninguna sesión puede dividirse entre dos días distintos.
 - **Compactación sin huecos:** El itinerario diario completo de cada subgrupo (`41`–`44`, integrando teoría, prácticas de aula y laboratorios) se agrupa de forma continua sin horas libres intermedias.
-* **Prácticas Externas (3.º GCID — 2.º Semestre):** Jueves y viernes quedan completamente libres de docencia presencial para facilitar las prácticas en empresa.
+- **Equilibrio docente en 1er curso:** Las sesiones teóricas de una misma asignatura (desdobladas en bloques de 1 h) se imparten en días distintos y la carga lectiva diaria de cada subgrupo no supera las 4 horas.
+* **Prácticas Externas (3º GCID — 2do Semestre):** Jueves y viernes quedan completamente libres de docencia presencial para facilitar las prácticas en empresa.
 
 ### Restricciones Blandas (Función Objetivo a Minimizar)
 * **Penalización por viernes a última hora (`+10` pts):** Evita programar inicios de clase en las franjas de `12:30–14:30` del viernes.
@@ -91,14 +92,14 @@ pip install ortools pandas matplotlib
 Optimiza ambos cuatrimestres garantizando el óptimo global y genera los 8 calendarios PNG (`horario_<curso>GCID_<semestre>.png`):
 
 ```bash
-python src/modelo_base.py
+python GCID/src/modelo_base.py
 ```
 
 ### 3. Ejecutar la Metaheurística (Recocido Simulado)
 Ejecuta el algoritmo de *Simulated Annealing* (60.000 iteraciones con enfriamiento geométrico y criterio de Metropolis), exporta los 8 horarios (`horario_SA_<curso>GCID_<semestre>.png`) y genera las curvas de convergencia (`convergencia_SA_1er.png` y `convergencia_SA_2do.png`):
 
 ```bash
-python src/metaheuristica.py
+python GCID/src/metaheuristica.py
 ```
 
 ---
@@ -107,10 +108,10 @@ python src/metaheuristica.py
 
 | Métrica | CP-SAT (1.er Sem.) | Recocido Simulado (1.er Sem.) | CP-SAT (2.º Sem.) | Recocido Simulado (2.º Sem.) |
 | :--- | :---: | :---: | :---: | :---: |
-| **Sesiones planificadas** | 81 | 81 | 59 | 59 |
+| **Sesiones planificadas** | 86 | 86 | 64 | 64 |
 | **Choques duros** | `0` | `0` | `0` | `0` |
 | **Horas libres (huecos)** | `0` | `0` | `0` | `0` |
-| **Penalización blanda** | **85** *(óptimo)* | **125** | **25** *(óptimo)* | **50** |
-| **Tiempo de ejecución** | `3.71 s` | `7.77 s` | `1.55 s` | `5.21 s` |
+| **Penalización blanda** | **85** *(óptimo)* | **160** | **25** *(óptimo)* | **150** |
+| **Tiempo de ejecución** | `10.78 s` | `11.08 s` | `4.77 s` | `9.45 s` |
 
 * **Visualización adaptativa:** `visualizador.py` detecta automáticamente el número de subgrupos activos de cada curso para renderizar 4 carriles paralelos en 1.º y 2.º, 2 carriles en 3.º y tarjetas a ancho completo en 4.º curso.
