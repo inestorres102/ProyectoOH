@@ -65,7 +65,7 @@ El horizonte semanal consta de **30 franjas horarias discretas** (de lunes a vie
 * **No solapamiento de profesorado:** Ningún docente puede impartir dos sesiones simultáneamente.
 * **Capacidad y tipología de aulas:** Asignación exclusiva a aulas de `Teoria` o `Laboratorio` con aforo suficiente para el número de alumnos matriculados.
 * **Continuidad diaria:** Ninguna sesión puede dividirse entre dos días distintos.
-* **Compactación sin huecos:** Los grupos no tienen horas libres intermedias entre clases dentro de una misma jornada.
+- **Compactación sin huecos:** El itinerario diario completo de cada subgrupo (`41`–`44`, integrando teoría, prácticas de aula y laboratorios) se agrupa de forma continua sin horas libres intermedias.
 * **Prácticas Externas (3.º GCID — 2.º Semestre):** Jueves y viernes quedan completamente libres de docencia presencial para facilitar las prácticas en empresa.
 
 ### Restricciones Blandas (Función Objetivo a Minimizar)
@@ -110,7 +110,7 @@ python src/metaheuristica.py
 | **Sesiones planificadas** | 81 | 81 | 59 | 59 |
 | **Choques duros** | `0` | `0` | `0` | `0` |
 | **Horas libres (huecos)** | `0` | `0` | `0` | `0` |
-| **Penalización blanda** | **85** *(óptimo)* | **150** | **25** *(óptimo)* | **50** |
-| **Tiempo de ejecución** | `7.50 s` | `8.12 s` | `1.73 s` | `4.67 s` |
+| **Penalización blanda** | **85** *(óptimo)* | **125** | **25** *(óptimo)* | **50** |
+| **Tiempo de ejecución** | `3.71 s` | `7.77 s` | `1.55 s` | `5.21 s` |
 
 * **Visualización adaptativa:** `visualizador.py` detecta automáticamente el número de subgrupos activos de cada curso para renderizar 4 carriles paralelos en 1.º y 2.º, 2 carriles en 3.º y tarjetas a ancho completo en 4.º curso.
