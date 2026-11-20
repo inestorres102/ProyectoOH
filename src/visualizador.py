@@ -13,7 +13,7 @@ def exportar_horario_png(
     df_resultado,
     ruta_salida="horario_2GIFM_2do.png",
     abrir_al_terminar=True,
-    titulo="CALENDARIO ACADÉMICO — 2º GIFM (2do SEMESTRE)"
+    titulo="CALENDARIO ACADÉMICO — 1º GIFM (1er SEMESTRE)"
 ):
     """
     Exporta el horario a una imagen PNG de alta resolución,
