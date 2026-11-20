@@ -332,7 +332,8 @@ def exportar_horario_png(
 
     try:
         fig.savefig(
-            ruta,
+            str(ruta),
+            format = 'png',
             dpi=300,
             bbox_inches="tight"
         )
