@@ -1,9 +1,9 @@
-id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor
-S01,CC,teoria,17,1,22,Teoria,José Carlos Ruiz Luque
-S02,EB,teoria,17,2,16,Teoria,Francisco José Vázquez Polo
-S03,MSFADE,teoria,17,2,16,Teoria, Juan Miguel Gil de la Fe
-S04,RC,teoria,17,2,24,Teoria,Juan de Dios Hernández
-S05,CC,practica,41,1,22,Laboratorio,Carmelo Cuenca Hernández
-S06,EB,practica,41,2,22,Laboratorio,Simón Rodríguez Santana
-S07,MSFADE,practica,41,1,22,Laboratorio,Juan Miguel Gil de la Fe
-S08,RC,practica,41,2,22,Laboratorio,Juan de Dios Hernández
+id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor,curso,cuatrimestre
+C4Q2_01,CC,teoria,17,1,22,Teoria,José Carlos Ruiz Luque,4,2
+C4Q2_02,EB,teoria,17,2,16,Teoria,Francisco José Vázquez Polo,4,2
+C4Q2_03,MSFADE,teoria,17,2,16,Teoria,Juan Miguel Gil de la Fe,4,2
+C4Q2_04,RC,teoria,17,2,24,Teoria,Juan de Dios Hernández,4,2
+C4Q2_05,CC,practica,41,1,22,Laboratorio,Carmelo Cuenca Hernández,4,2
+C4Q2_06,EB,practica,41,2,22,Laboratorio,Simón Rodríguez Santana,4,2
+C4Q2_07,MSFADE,practica,41,1,22,Laboratorio,Juan Miguel Gil de la Fe,4,2
+C4Q2_08,RC,practica,41,2,22,Laboratorio,Juan de Dios Hernández,4,2

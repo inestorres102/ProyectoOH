@@ -1,8 +1,8 @@
-id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor
-S01,FF1,teoria,17,6,22,Teoria,Jesús Garcia Rubiano
-S02,IFM,teoria,17,2,16,Teoria,Jesús Garcia Rubiano
-S03,FM1,teoria,17,4,24,Teoria,Jackie Jerónimo Harjani Saúco
-S04,AL,teoria,17,4,22,Teoria,Luis González Sánchez/María Belén López Brito
-S05,P1,teoria,17,2,25,Teoria,Daniel ELías Santana Cedrés
-S06,P1,practica,41,2,25,Laboratorio,Mario Carmelo Caballero Benitez
-S07,P1,practica,42,2,25,Laboratorio,Mario Carmelo Caballero Benitez
+id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor,curso,cuatrimestre
+C1Q1_01,FF1,teoria,17,6,22,Teoria,Jesús Garcia Rubiano,1,1
+C1Q1_02,IFM,teoria,17,2,16,Teoria,Jesús Garcia Rubiano,1,1
+C1Q1_03,FM1,teoria,17,4,24,Teoria,Jackie Jerónimo Harjani Saúco,1,1
+C1Q1_04,AL,teoria,17,4,22,Teoria,Luis González Sánchez/María Belén López Brito,1,1
+C1Q1_05,P1,teoria,17,2,25,Teoria,Daniel ELías Santana Cedrés,1,1
+C1Q1_06,P1,practica,41,2,25,Laboratorio,Mario Carmelo Caballero Benitez,1,1
+C1Q1_07,P1,practica,42,2,25,Laboratorio,Mario Carmelo Caballero Benitez,1,1
