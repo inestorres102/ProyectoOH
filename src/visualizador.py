@@ -1,7 +1,9 @@
 
 import os
+import re
 import sys
 import subprocess
+import unicodedata
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -9,348 +11,448 @@ import matplotlib.patches as patches
 import pandas as pd
 
 
-def exportar_horario_png(
-    df_resultado,
-    ruta_salida="horario_2GIFM_2do.png",
-    abrir_al_terminar=True,
-    titulo="CALENDARIO ACADÉMICO — 2º GIFM (2do SEMESTRE)"
-):
-    """
-    Exporta el horario a una imagen PNG de alta resolución,
-    diferenciando por colores teoría y práctica, y puede abrirlo
-    automáticamente al terminar.
-    """
+DIAS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"]
 
-    dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"]
+HORAS = [
+    f"{hora:02d}:30-{hora + 1:02d}:30"
+    for hora in range(8, 20)
+]
 
-    horas = [
-        "08:30-09:30",
-        "09:30-10:30",
-        "10:30-11:30",
-        "11:30-12:30",
-        "12:30-13:30",
-        "13:30-14:30"
+HORAS_POR_DIA = 12
+
+ESTILO_TIPO = {
+    "teoria": {
+        "bg": "#FFF9C4",
+        "border": "#FBC02D",
+        "text": "#E65100"
+    },
+    "practica": {
+        "bg": "#C8E6C9",
+        "border": "#43A047",
+        "text": "#1B5E20"
+    }
+}
+
+
+def normalizar_texto(valor):
+    """Normaliza textos para comparar días y tipos sin tildes."""
+    texto = str(valor).strip().lower()
+    texto = unicodedata.normalize("NFD", texto)
+    return "".join(
+        caracter for caracter in texto
+        if unicodedata.category(caracter) != "Mn"
+    )
+
+
+def obtener_duracion(row):
+    """Obtiene la duración del bloque en horas."""
+    if "Duracion_horas" in row.index and pd.notna(row["Duracion_horas"]):
+        return int(float(row["Duracion_horas"]))
+
+    valor = row.get("Duracion", 1)
+
+    if pd.isna(valor):
+        return 1
+
+    coincidencia = re.search(r"\d+", str(valor))
+
+    if coincidencia:
+        return int(coincidencia.group())
+
+    return 1
+
+
+def obtener_posicion(row):
+    """
+    Obtiene el día y la hora de inicio.
+    Prioriza Slot, que representa la posición absoluta de la semana.
+    """
+    if "Slot" in row.index and pd.notna(row["Slot"]):
+        slot = int(float(row["Slot"]))
+
+        dia_idx = slot // HORAS_POR_DIA
+        hora_idx = slot % HORAS_POR_DIA
+
+        if 0 <= dia_idx < len(DIAS):
+            return dia_idx, hora_idx
+
+    # Alternativa: calcular la posición usando Dia y Hora.
+    dia_texto = normalizar_texto(row.get("Dia", ""))
+
+    nombres_dias = [
+        normalizar_texto(dia) for dia in DIAS
     ]
 
-    # 1. Estilo visual: teoría y práctica
-    estilo_tipo = {
-        "teoria": {
-            "bg": "#FFF9C4",
-            "border": "#FBC02D",
-            "text": "#E65100"
-        },
-        "practica": {
-            "bg": "#C8E6C9",
-            "border": "#43A047",
-            "text": "#1B5E20"
-        }
-    }
+    if dia_texto not in nombres_dias:
+        return None, None
 
-    # 2. Preparar la figura
-    fig, ax = plt.subplots(figsize=(15, 9), dpi=300)
+    dia_idx = nombres_dias.index(dia_texto)
+
+    hora_texto = str(row.get("Hora", ""))
+
+    coincidencia = re.search(r"(\d{1,2}):(\d{2})", hora_texto)
+
+    if not coincidencia:
+        return None, None
+
+    hora = int(coincidencia.group(1))
+    minutos = int(coincidencia.group(2))
+
+    hora_idx = hora - 8
+
+    if minutos > 30:
+        hora_idx += 1
+
+    if not 0 <= hora_idx < HORAS_POR_DIA:
+        return None, None
+
+    return dia_idx, hora_idx
+
+
+def obtener_semanas(row):
+    """Devuelve las semanas activas o indica que están pendientes."""
+    valor = row.get("Semanas_activas", "")
+
+    if pd.isna(valor) or not str(valor).strip():
+        return "Semanas pendientes"
+
+    return f"Semanas: {str(valor).strip()}"
+
+
+def preparar_sesiones(df_resultado):
+    """Prepara las sesiones y calcula sus posiciones en la cuadrícula."""
+    sesiones = []
+
+    for _, row in df_resultado.iterrows():
+        dia_idx, hora_idx = obtener_posicion(row)
+
+        if dia_idx is None or hora_idx is None:
+            print(
+                "AVISO: No se pudo interpretar la posición de esta sesión:",
+                row.get("Asignatura", "Sin asignatura")
+            )
+            continue
+
+        duracion = obtener_duracion(row)
+
+        if duracion <= 0:
+            continue
+
+        if hora_idx + duracion > HORAS_POR_DIA:
+            print(
+                "AVISO: Una sesión supera el horario del día:",
+                row.get("Asignatura", "Sin asignatura")
+            )
+            continue
+
+        tipo = normalizar_texto(row.get("Tipo", ""))
+
+        tipo_clave = (
+            "teoria" if "teor" in tipo else "practica"
+        )
+
+        sesiones.append({
+            "dia": dia_idx,
+            "inicio": hora_idx,
+            "fin": hora_idx + duracion,
+            "duracion": duracion,
+            "asignatura": str(row.get("Asignatura", "")),
+            "tipo": tipo_clave,
+            "grupo": str(row.get("Grupo", "")),
+            "aula": str(row.get("Aula", "")),
+            "semanas": obtener_semanas(row),
+            "profesor": str(row.get("Profesor", "")),
+            "lane": 0
+        })
+
+    return sesiones
+
+
+def asignar_columnas_sesiones(sesiones):
+    """
+    Distribuye horizontalmente las sesiones que coinciden en horario.
+    Así pueden visualizarse actividades de semanas diferentes
+    que reutilizan el mismo día y hora.
+    """
+    max_lanes_por_dia = {}
+
+    for dia_idx in range(len(DIAS)):
+        sesiones_dia = [
+            sesion for sesion in sesiones
+            if sesion["dia"] == dia_idx
+        ]
+
+        sesiones_dia.sort(
+            key=lambda s: (s["inicio"], s["fin"])
+        )
+
+        finales_lanes = []
+
+        for sesion in sesiones_dia:
+            lane_asignado = None
+
+            for lane, hora_final in enumerate(finales_lanes):
+                if hora_final <= sesion["inicio"]:
+                    lane_asignado = lane
+                    break
+
+            if lane_asignado is None:
+                lane_asignado = len(finales_lanes)
+                finales_lanes.append(sesion["fin"])
+            else:
+                finales_lanes[lane_asignado] = sesion["fin"]
+
+            sesion["lane"] = lane_asignado
+
+        max_lanes_por_dia[dia_idx] = max(
+            1, len(finales_lanes)
+        )
+
+    return max_lanes_por_dia
+
+
+def exportar_horario_png(
+    df_resultado,
+    ruta_salida="horario.png",
+    abrir_al_terminar=True,
+    titulo="CALENDARIO ACADÉMICO"
+):
+    """
+    Exporta el horario semanal a PNG.
+
+    - 5 días, de lunes a viernes.
+    - 12 franjas horarias, de 08:30 a 20:30.
+    - Bloques de 1 o 2 horas.
+    - Diferenciación visual entre teoría y práctica.
+    - Muestra las semanas activas de cada actividad.
+    - Permite visualizar actividades coincidentes en semanas distintas.
+    """
+
+    if df_resultado is None or df_resultado.empty:
+        print("No hay sesiones para representar.")
+        return
+
+    sesiones = preparar_sesiones(df_resultado)
+
+    if not sesiones:
+        print("No se encontraron sesiones con posiciones válidas.")
+        return
+
+    max_lanes = asignar_columnas_sesiones(sesiones)
+
+    # Crear figura.
+    fig, ax = plt.subplots(figsize=(19, 14), dpi=200)
 
     ax.set_facecolor("#F8F9FA")
     fig.patch.set_facecolor("#F8F9FA")
 
-    x_offset = 1.8
-    col_width = 2.4
-    y_offset = 0.5
-    row_height = 1.1
+    # Cuadrícula de fondo.
+    for dia_idx in range(len(DIAS)):
+        for hora_idx in range(HORAS_POR_DIA):
+            fondo = patches.FancyBboxPatch(
+                (dia_idx + 0.015, hora_idx + 0.015),
+                0.97,
+                0.97,
+                boxstyle="round,pad=0.01,rounding_size=0.025",
+                facecolor="#FFFFFF",
+                edgecolor="#E0E0E0",
+                linewidth=0.8
+            )
 
-    # 3. Cabecera superior: días
-    for j, dia in enumerate(dias):
-        x = x_offset + j * col_width
+            ax.add_patch(fondo)
 
-        header_box = patches.FancyBboxPatch(
-            (
-                x + 0.05,
-                len(horas) * row_height + y_offset + 0.1
-            ),
-            col_width - 0.1,
-            0.55,
-            boxstyle="round,pad=0.03,rounding_size=0.1",
-            facecolor="#1A237E",
-            edgecolor="none"
-        )
-
-        ax.add_patch(header_box)
-
+    # Etiquetas de días.
+    for dia_idx, dia in enumerate(DIAS):
         ax.text(
-            x + col_width / 2,
-            len(horas) * row_height + y_offset + 0.38,
+            dia_idx + 0.5,
+            -0.45,
             dia.upper(),
             ha="center",
             va="center",
-            color="white",
-            fontsize=11.5,
-            fontweight="bold"
+            fontsize=11,
+            fontweight="bold",
+            color="#1A237E"
         )
 
-    # 4. Cabecera lateral: horas
-    for i, hora in enumerate(horas):
-        y = (len(horas) - 1 - i) * row_height + y_offset
-
-        time_box = patches.FancyBboxPatch(
-            (0.2, y + 0.05),
-            x_offset - 0.3,
-            row_height - 0.1,
-            boxstyle="round,pad=0.03,rounding_size=0.08",
-            facecolor="#E8EAF6",
-            edgecolor="#C5CAE9",
-            linewidth=1.2
-        )
-
-        ax.add_patch(time_box)
-
+    # Etiquetas horarias.
+    for hora_idx, hora in enumerate(HORAS):
         ax.text(
-            0.2 + (x_offset - 0.3) / 2,
-            y + row_height / 2,
+            -0.08,
+            hora_idx + 0.5,
             hora,
-            ha="center",
+            ha="right",
             va="center",
-            color="#283593",
-            fontsize=9.5,
-            fontweight="bold"
+            fontsize=8.5,
+            fontweight="bold",
+            color="#283593"
         )
 
-    # 5. Cuadrícula de fondo
-    for j in range(len(dias)):
-        for i in range(len(horas)):
-            x = x_offset + j * col_width
-            y = (len(horas) - 1 - i) * row_height + y_offset
+    # Dibujar las sesiones.
+    for sesion in sesiones:
+        dia_idx = sesion["dia"]
+        inicio = sesion["inicio"]
+        duracion = sesion["duracion"]
+        lane = sesion["lane"]
 
-            bg_slot = patches.FancyBboxPatch(
-                (x + 0.04, y + 0.04),
-                col_width - 0.08,
-                row_height - 0.08,
-                boxstyle="round,pad=0.02,rounding_size=0.06",
-                facecolor="#FFFFFF",
-                edgecolor="#E0E0E0",
-                linewidth=0.8,
-                linestyle=":"
-            )
+        total_lanes = max_lanes[dia_idx]
 
-            ax.add_patch(bg_slot)
+        ancho_dia = 0.97
+        ancho_lane = ancho_dia / total_lanes
 
-    # 6. Contar sesiones que empiezan el mismo día y a la misma hora
-    dia_hora_count = {}
-
-    for _, row in df_resultado.iterrows():
-        d = row["Dia"]
-        h = row["Hora"]
-
-        dia_hora_count[(d, h)] = (
-            dia_hora_count.get((d, h), 0) + 1
+        x = (
+            dia_idx
+            + 0.015
+            + lane * ancho_lane
         )
 
-    dia_hora_tracker = {}
+        y = inicio + 0.015
 
-    # 7. Dibujar las sesiones
-    for _, row in df_resultado.iterrows():
-        dia = row["Dia"]
-        hora_str = row["Hora"]
+        ancho = ancho_lane - 0.015
+        alto = duracion - 0.03
 
-        duracion = int(
-            str(row["Duracion"]).replace("h", "")
-        )
-
-        asig = row["Asignatura"]
-
-        es_teoria = "teor" in str(row["Tipo"]).lower()
-
-        tipo_clave = "teoria" if es_teoria else "practica"
-        tipo_tag = "T" if es_teoria else "P"
-
-        grupo = f"G{row['Grupo']}"
-        aula = row["Aula"]
-
-        if dia not in dias:
-            print(
-                f"AVISO: Día no reconocido en una sesión: {dia}"
-            )
-            continue
-
-        if hora_str not in horas:
-            print(
-                f"AVISO: Hora de inicio no reconocida: {hora_str}"
-            )
-            continue
-
-        col_idx = dias.index(dia)
-        row_idx = horas.index(hora_str)
-
-        total_en_slot = dia_hora_count.get(
-            (dia, hora_str), 1
-        )
-
-        sub_idx = dia_hora_tracker.get(
-            (dia, hora_str), 0
-        )
-
-        dia_hora_tracker[(dia, hora_str)] = sub_idx + 1
-
-        w_box = (col_width - 0.1) / total_en_slot
-
-        x_box = (
-            x_offset
-            + col_idx * col_width
-            + 0.05
-            + sub_idx * w_box
-        )
-
-        h_box = duracion * row_height - 0.1
-
-        y_box = (
-            (len(horas) - row_idx - duracion)
-            * row_height
-            + y_offset
-            + 0.05
-        )
-
-        estilo = estilo_tipo[tipo_clave]
+        estilo = ESTILO_TIPO[sesion["tipo"]]
 
         tarjeta = patches.FancyBboxPatch(
-            (x_box + 0.02, y_box + 0.02),
-            w_box - 0.04,
-            h_box - 0.04,
-            boxstyle="round,pad=0.03,rounding_size=0.1",
+            (x, y),
+            ancho,
+            alto,
+            boxstyle="round,pad=0.015,rounding_size=0.04",
             facecolor=estilo["bg"],
             edgecolor=estilo["border"],
-            linewidth=1.8
+            linewidth=1.5
         )
 
         ax.add_patch(tarjeta)
 
-        cx = x_box + w_box / 2
-        cy = y_box + h_box / 2
+        tipo_tag = (
+            "TEORÍA"
+            if sesion["tipo"] == "teoria"
+            else "PRÁCTICA"
+        )
+
+        grupo = sesion["grupo"]
+
+        if grupo and grupo.lower() != "nan":
+            grupo_texto = f"Grupo {grupo}"
+        else:
+            grupo_texto = ""
+
+        aula = sesion["aula"]
+
+        if aula.lower() == "nan":
+            aula = "Sin asignar"
+
+        # Información de la tarjeta.
+        lineas = [
+            sesion["asignatura"],
+            f"{tipo_tag} {grupo_texto}".strip(),
+            f"Aula: {aula}",
+            sesion["semanas"]
+        ]
+
+        texto = "\n".join(lineas)
+
+        # Adaptar tamaño del texto al espacio disponible.
+        if total_lanes >= 4:
+            tamano = 5.0
+        elif total_lanes == 3:
+            tamano = 5.8
+        elif total_lanes == 2:
+            tamano = 6.8
+        elif duracion == 1:
+            tamano = 6.8
+        else:
+            tamano = 8.0
 
         ax.text(
-            cx,
-            cy + (0.18 if duracion > 1 else 0.10),
-            f"{asig} ({tipo_tag}-{grupo})",
+            x + ancho / 2,
+            y + alto / 2,
+            texto,
             ha="center",
             va="center",
             color=estilo["text"],
-            fontsize=10.5 if total_en_slot == 1 else 8.5,
+            fontsize=tamano,
             fontweight="bold",
-            wrap=True
+            wrap=True,
+            clip_on=True
         )
 
-        ax.text(
-            cx,
-            cy - (0.12 if duracion > 1 else 0.10),
-            f"Aula: {aula}",
-            ha="center",
-            va="center",
-            color="#37474F",
-            fontsize=9 if total_en_slot == 1 else 7.5,
-            fontweight="bold"
+    # Leyenda.
+    elementos_leyenda = [
+        patches.Patch(
+            facecolor=ESTILO_TIPO["teoria"]["bg"],
+            edgecolor=ESTILO_TIPO["teoria"]["border"],
+            label="TEORÍA"
+        ),
+        patches.Patch(
+            facecolor=ESTILO_TIPO["practica"]["bg"],
+            edgecolor=ESTILO_TIPO["practica"]["border"],
+            label="PRÁCTICA"
         )
+    ]
 
-    # 8. Leyenda
-    leyenda_y = len(horas) * row_height + y_offset + 0.82
-
-    box_t = patches.FancyBboxPatch(
-        (
-            x_offset + 3.0 * col_width,
-            leyenda_y
-        ),
-        1.25,
-        0.38,
-        boxstyle="round,pad=0.02,rounding_size=0.08",
-        facecolor=estilo_tipo["teoria"]["bg"],
-        edgecolor=estilo_tipo["teoria"]["border"],
-        linewidth=1.6
+    ax.legend(
+        handles=elementos_leyenda,
+        loc="upper center",
+        bbox_to_anchor=(0.5, 1.035),
+        ncol=2,
+        frameon=False,
+        fontsize=10
     )
 
-    ax.add_patch(box_t)
-
-    ax.text(
-        x_offset + 3.0 * col_width + 0.625,
-        leyenda_y + 0.19,
-        "TEORÍA",
-        ha="center",
-        va="center",
-        color=estilo_tipo["teoria"]["text"],
-        fontsize=9.5,
-        fontweight="bold"
-    )
-
-    box_p = patches.FancyBboxPatch(
-        (
-            x_offset + 3.7 * col_width,
-            leyenda_y
-        ),
-        1.35,
-        0.38,
-        boxstyle="round,pad=0.02,rounding_size=0.08",
-        facecolor=estilo_tipo["practica"]["bg"],
-        edgecolor=estilo_tipo["practica"]["border"],
-        linewidth=1.6
-    )
-
-    ax.add_patch(box_p)
-
-    ax.text(
-        x_offset + 3.7 * col_width + 0.675,
-        leyenda_y + 0.19,
-        "PRÁCTICA",
-        ha="center",
-        va="center",
-        color=estilo_tipo["practica"]["text"],
-        fontsize=9.5,
-        fontweight="bold"
-    )
-
-    # 9. Ajustar los límites y ocultar los ejes
-    ax.set_xlim(
-        0,
-        x_offset + len(dias) * col_width + 0.3
-    )
-
-    ax.set_ylim(
-        0,
-        len(horas) * row_height + y_offset + 1.4
-    )
-
+    # Límites y formato.
+    ax.set_xlim(-0.85, 5)
+    ax.set_ylim(12.3, -0.85)
     ax.axis("off")
 
-    # 10. Título dinámico según el curso y cuatrimestre
-    ax.set_title(
+    fig.suptitle(
         titulo,
         fontsize=16,
         fontweight="bold",
-        pad=25,
-        color="#1A237E"
+        color="#1A237E",
+        y=0.985
     )
 
-    plt.tight_layout()
+    fig.subplots_adjust(
+        left=0.09,
+        right=0.99,
+        top=0.91,
+        bottom=0.04
+    )
 
-    # 11. Guardar el PNG, creando antes la carpeta si hace falta
+    # Guardar imagen.
     ruta = Path(ruta_salida).resolve()
     ruta.parent.mkdir(parents=True, exist_ok=True)
 
     try:
         fig.savefig(
             str(ruta),
-            format = 'png',
+            format="png",
             dpi=300,
-            bbox_inches="tight"
+            bbox_inches="tight",
+            facecolor=fig.get_facecolor()
         )
+
         print(f"\nImagen guardada con éxito en: {ruta}")
 
     finally:
         plt.close(fig)
 
-    # 12. Abrir automáticamente la imagen generada
+    # Abrir imagen automáticamente si se solicita.
     if abrir_al_terminar:
         try:
             if sys.platform.startswith("win"):
                 os.startfile(str(ruta))
             elif sys.platform.startswith("darwin"):
-                subprocess.run(["open", str(ruta)], check=False)
+                subprocess.run(
+                    ["open", str(ruta)],
+                    check=False
+                )
             else:
-                subprocess.run(["xdg-open", str(ruta)], check=False)
+                subprocess.run(
+                    ["xdg-open", str(ruta)],
+                    check=False
+                )
 
         except Exception as e:
             print(

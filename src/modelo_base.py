@@ -1,4 +1,13 @@
 
+
+"""
+MODELO BASE DE OPTIMIZACIÓN DE HORARIOS
+Grado en Ingeniería en Diseño y Fabricación / GIFM
+
+Genera los horarios de los cuatro cursos y los dos cuatrimestres
+utilizando Google OR-Tools CP-SAT.
+"""
+
 from pathlib import Path
 
 import pandas as pd
@@ -15,35 +24,65 @@ from restricciones import (
 from visualizador import exportar_horario_png
 
 
-def modelo_base(curso=2, cuatrimestre=2):
+# ---------------------------------------------------------
+# CONFIGURACIÓN GENERAL
+# ---------------------------------------------------------
 
-    # 1. Definir el horizonte temporal semanal
-    dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"]
-    horas_por_dia = 6
-    total_slots = len(dias) * horas_por_dia
+RUTA_PROYECTO = Path(__file__).resolve().parent.parent
 
-    horas_etiquetas = [
-        "08:30-09:30",
-        "09:30-10:30",
-        "10:30-11:30",
-        "11:30-12:30",
-        "12:30-13:30",
-        "13:30-14:30"
-    ]
+RUTA_DATOS = RUTA_PROYECTO / "datos"
+RUTA_RESULTADOS = RUTA_PROYECTO / "resultados"
 
-    # 2. Localizar la carpeta raíz
-    raiz = Path(__file__).resolve().parent.parent
+ARCHIVO_CLASES = RUTA_DATOS / "clases.csv"
+ARCHIVO_AULAS = RUTA_DATOS / "aulas.csv"
 
-    # 3. Leer las clases
-    ruta_clases = raiz / "datos" / "clases.csv"
+DIAS = [
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes"
+]
 
-    if not ruta_clases.exists():
-        print(f"ERROR: No se encuentra el archivo {ruta_clases}")
-        return
+HORAS_INICIO = 8
+HORAS_FIN = 20
 
-    df_todas_clases = pd.read_csv(ruta_clases)
+HORAS_POR_DIA = HORAS_FIN - HORAS_INICIO
+NUM_DIAS = len(DIAS)
 
-    columnas_necesarias = {
+TOTAL_SLOTS = NUM_DIAS * HORAS_POR_DIA
+
+TIEMPO_MAXIMO_SOLVER = 30
+
+
+# ---------------------------------------------------------
+# FUNCIONES AUXILIARES
+# ---------------------------------------------------------
+
+def cargar_datos():
+    """Carga los CSV de clases y aulas."""
+
+    if not ARCHIVO_CLASES.exists():
+        raise FileNotFoundError(
+            f"No se encuentra el archivo: {ARCHIVO_CLASES}"
+        )
+
+    if not ARCHIVO_AULAS.exists():
+        raise FileNotFoundError(
+            f"No se encuentra el archivo: {ARCHIVO_AULAS}"
+        )
+
+    df_clases = pd.read_csv(
+        ARCHIVO_CLASES,
+        encoding="utf-8-sig"
+    )
+
+    df_aulas = pd.read_csv(
+        ARCHIVO_AULAS,
+        encoding="utf-8-sig"
+    )
+
+    columnas_obligatorias = [
         "id_sesion",
         "asignatura",
         "tipo",
@@ -54,274 +93,543 @@ def modelo_base(curso=2, cuatrimestre=2):
         "profesor",
         "curso",
         "cuatrimestre"
-    }
+    ]
 
-    faltan = columnas_necesarias - set(df_todas_clases.columns)
+    faltantes = [
+        columna
+        for columna in columnas_obligatorias
+        if columna not in df_clases.columns
+    ]
 
-    if faltan:
-        print(f"ERROR: Faltan columnas en clases.csv: {sorted(faltan)}")
-        return
+    if faltantes:
+        raise ValueError(
+            "Faltan columnas obligatorias en clases.csv: "
+            + ", ".join(faltantes)
+        )
 
-    # 4. Seleccionar curso y cuatrimestre
-    df_clases = df_todas_clases[
-        (df_todas_clases["curso"] == curso)
-        & (df_todas_clases["cuatrimestre"] == cuatrimestre)
-    ].copy()
+    if "semanas_activas" not in df_clases.columns:
+        df_clases["semanas_activas"] = ""
 
-    if df_clases.empty:
-        print("No hay sesiones para el curso y cuatrimestre seleccionados.")
-        return
+    # Convertir columnas numéricas.
+    for columna in [
+        "curso",
+        "cuatrimestre",
+        "duracion_horas",
+        "num_alumnos"
+    ]:
+        df_clases[columna] = pd.to_numeric(
+            df_clases[columna],
+            errors="raise"
+        ).astype(int)
 
-    df_clases["id_sesion"] = (
-        df_clases["id_sesion"].astype(str).str.strip()
-    )
+    if (df_clases["duracion_horas"] <= 0).any():
+        raise ValueError(
+            "Hay sesiones con duración igual o inferior a cero."
+        )
 
-    if df_clases["id_sesion"].duplicated().any():
-        print("ERROR: Hay identificadores de sesión duplicados.")
-        return
+    if (df_clases["num_alumnos"] < 0).any():
+        raise ValueError(
+            "Hay sesiones con número de alumnos negativo."
+        )
 
-    # 5. Dividir las horas semanales en bloques de 1 o 2 horas
-    df_clases["id_sesion_original"] = df_clases["id_sesion"]
+    return df_clases, df_aulas
 
-    clases_divididas = []
 
-    for _, row in df_clases.iterrows():
+def dividir_en_bloques(df_clases):
+    """
+    Divide las horas semanales de cada sesión en bloques
+    de dos horas y, si es necesario, un bloque de una hora.
 
-        horas_restantes = int(row["duracion_horas"])
-        bloques = []
+    Ejemplos:
+        1 hora -> 1
+        2 horas -> 2
+        3 horas -> 2 + 1
+        4 horas -> 2 + 2
+        5 horas -> 2 + 2 + 1
 
-        while horas_restantes > 0:
-            bloque = 2 if horas_restantes >= 2 else 1
-            bloques.append(bloque)
-            horas_restantes -= bloque
+    Cada bloque conserva la información de su sesión original.
+    """
 
-        for i, duracion_bloque in enumerate(bloques, start=1):
+    bloques = []
 
-            nueva_fila = row.copy()
+    for indice_original, fila in df_clases.iterrows():
 
-            nueva_fila["id_sesion"] = (
-                f"{row['id_sesion_original']}_B{i}"
+        duracion_total = int(fila["duracion_horas"])
+
+        duraciones = []
+
+        while duracion_total >= 2:
+            duraciones.append(2)
+            duracion_total -= 2
+
+        if duracion_total == 1:
+            duraciones.append(1)
+
+        for numero_bloque, duracion in enumerate(
+            duraciones,
+            start=1
+        ):
+
+            nuevo_bloque = fila.to_dict()
+
+            nuevo_bloque["duracion_horas"] = duracion
+
+            nuevo_bloque["indice_sesion_original"] = (
+                indice_original
             )
 
-            nueva_fila["duracion_horas"] = duracion_bloque
+            nuevo_bloque["numero_bloque"] = numero_bloque
 
-            clases_divididas.append(nueva_fila)
+            nuevo_bloque["id_bloque"] = (
+                f"{fila['id_sesion']}_B{numero_bloque}"
+                f"_FILA{indice_original}"
+            )
 
-    df_clases = pd.DataFrame(clases_divididas).reset_index(drop=True)
+            bloques.append(nuevo_bloque)
+
+    df_bloques = pd.DataFrame(bloques)
+
+    return df_bloques.reset_index(drop=True)
+
+
+def obtener_hora(slot):
+    """Convierte una posición absoluta en su etiqueta horaria."""
+
+    hora_idx = int(slot) % HORAS_POR_DIA
+
+    hora = HORAS_INICIO + hora_idx
+
+    return f"{hora:02d}:30-{hora + 1:02d}:30"
+
+
+def obtener_dia(slot):
+    """Obtiene el día correspondiente a una posición absoluta."""
+
+    dia_idx = int(slot) // HORAS_POR_DIA
+
+    return DIAS[dia_idx]
+
+
+def obtener_aula_asignada(solver, asignaciones, indice):
+    """Devuelve el aula seleccionada por el solver."""
+
+    for aula_id, variable in asignaciones[indice].items():
+
+        if solver.Value(variable) == 1:
+            return aula_id
+
+    return "Sin asignar"
+
+
+# ---------------------------------------------------------
+# CONSTRUCCIÓN Y RESOLUCIÓN DEL MODELO
+# ---------------------------------------------------------
+
+def generar_horario(curso, cuatrimestre, abrir_imagen=False):
+    """
+    Genera el horario optimizado de un curso y cuatrimestre.
+
+    Parámetros:
+        curso: número del curso (1, 2, 3 o 4).
+        cuatrimestre: 1 o 2.
+        abrir_imagen: indica si se abre el PNG al terminar.
+    """
+
+    print("\n" + "=" * 65)
+    print(
+        f"GENERANDO HORARIO: {curso}º GIFM - "
+        f"{cuatrimestre}º CUATRIMESTRE"
+    )
+    print("=" * 65)
+
+    # 1. Cargar los datos.
+    df_clases, df_aulas = cargar_datos()
+
+    # 2. Filtrar curso y cuatrimestre.
+    df_filtrado = df_clases[
+        (df_clases["curso"] == curso)
+        &
+        (df_clases["cuatrimestre"] == cuatrimestre)
+    ].copy()
+
+    df_filtrado = df_filtrado.reset_index(drop=True)
+
+    if df_filtrado.empty:
+        print(
+            f"No hay sesiones para {curso}º GIFM, "
+            f"{cuatrimestre}º cuatrimestre."
+        )
+        return None
 
     print(
-        f"\nCurso seleccionado: {curso}º GIFM | "
-        f"Cuatrimestre: {cuatrimestre}º"
+        f"Sesiones originales: {len(df_filtrado)}"
     )
-    print(f"Sesiones originales: {len(df_clases['id_sesion_original'].unique())}")
-    print(f"Bloques horarios generados: {len(df_clases)}")
 
-    # 6. Leer aulas
-    ruta_aulas = raiz / "datos" / "aulas.csv"
+    # 3. Dividir las sesiones en bloques.
+    df_bloques = dividir_en_bloques(df_filtrado)
 
-    if not ruta_aulas.exists():
-        print(f"ERROR: No se encuentra el archivo {ruta_aulas}")
-        return
+    df_bloques = df_bloques.reset_index(drop=True)
 
-    df_aulas = pd.read_csv(ruta_aulas)
+    numero_bloques = len(df_bloques)
 
-    print(f"Aulas disponibles: {len(df_aulas)}")
+    print(
+        f"Bloques horarios que se deben colocar: "
+        f"{numero_bloques}"
+    )
 
-    # 7. Crear el modelo
+    # 4. Crear el modelo.
     model = cp_model.CpModel()
 
-    start_vars = {}
-    end_vars = {}
-    interval_vars = {}
+    start_vars = []
+    end_vars = []
+    interval_vars = []
 
-    for _, row in df_clases.iterrows():
+    # 5. Crear variables de inicio, fin e intervalo.
+    for i, fila in df_bloques.iterrows():
 
-        s_id = str(row["id_sesion"]).strip()
-        duracion = int(row["duracion_horas"])
+        duracion = int(fila["duracion_horas"])
 
-        if duracion < 1 or duracion > total_slots:
-            print(f"ERROR: Duración no válida en {s_id}")
-            return
-
-        start = model.NewIntVar(
+        inicio = model.NewIntVar(
             0,
-            total_slots - duracion,
-            f"start_{s_id}"
+            TOTAL_SLOTS - duracion,
+            f"inicio_{i}"
         )
 
-        end = model.NewIntVar(
+        fin = model.NewIntVar(
             duracion,
-            total_slots,
-            f"end_{s_id}"
+            TOTAL_SLOTS,
+            f"fin_{i}"
         )
 
-        interval = model.NewIntervalVar(
-            start,
+        model.Add(fin == inicio + duracion)
+
+        intervalo = model.NewIntervalVar(
+            inicio,
             duracion,
-            end,
-            f"interval_{s_id}"
+            fin,
+            f"intervalo_{i}"
         )
 
-        start_vars[s_id] = start
-        end_vars[s_id] = end
-        interval_vars[s_id] = interval
+        start_vars.append(inicio)
+        end_vars.append(fin)
+        interval_vars.append(intervalo)
 
-    # 8. Restricciones duras
+    # 6. Los bloques de una misma sesión deben estar
+    # en días diferentes.
+    grupos_sesion = df_bloques.groupby(
+        "indice_sesion_original"
+    ).groups
 
-    # Alumnos
-    aplicar_restriccion_estudiantes(
-        model,
-        df_clases,
-        interval_vars
-    )
+    for indice_original, indices in grupos_sesion.items():
 
-    # Evitar que los bloques atraviesen dos días
-    aplicar_restriccion_cambio_dia(
-        model,
-        df_clases,
-        start_vars,
-        end_vars,
-        horas_por_dia
-    )
+        indices = list(indices)
 
-    # Profesores
-    aplicar_restriccion_profesores(
-        model,
-        df_clases,
-        interval_vars
-    )
-
-    # Aulas
-    aula_asignada = aplicar_restriccion_aulas(
-        model,
-        df_clases,
-        df_aulas,
-        start_vars,
-        end_vars
-    )
-
-    # Los bloques de una misma sesión deben ir en días distintos
-    for _, bloques in df_clases.groupby("id_sesion_original"):
-
-        ids = bloques["id_sesion"].astype(str).tolist()
+        if len(indices) <= 1:
+            continue
 
         dias_bloques = []
 
-        for s_id in ids:
+        for indice in indices:
 
-            dia = model.NewIntVar(
+            dia_bloque = model.NewIntVar(
                 0,
-                4,
-                f"dia_{s_id}"
+                NUM_DIAS - 1,
+                f"dia_sesion_{indice_original}_{indice}"
             )
 
             model.AddDivisionEquality(
-                dia,
-                start_vars[s_id],
-                horas_por_dia
+                dia_bloque,
+                start_vars[indice],
+                HORAS_POR_DIA
             )
 
-            dias_bloques.append(dia)
+            dias_bloques.append(dia_bloque)
 
-        if len(dias_bloques) > 1:
-            model.AddAllDifferent(dias_bloques)
+        model.AddAllDifferent(dias_bloques)
 
-    # 9. Restricciones blandas
+    # 7. Aplicar restricciones de estudiantes.
+    print("Aplicando restricciones de estudiantes...")
+
+    aplicar_restriccion_estudiantes(
+        model,
+        df_bloques,
+        interval_vars
+    )
+
+    # 8. Aplicar restricciones de cambio de día.
+    print("Aplicando restricciones de horario diario...")
+
+    aplicar_restriccion_cambio_dia(
+        model,
+        start_vars,
+        end_vars,
+        HORAS_POR_DIA
+    )
+
+    # 9. Aplicar restricciones de profesores.
+    print("Aplicando restricciones de profesores...")
+
+    aplicar_restriccion_profesores(
+        model,
+        df_bloques,
+        interval_vars
+    )
+
+    # 10. Aplicar restricciones de aulas.
+    print("Aplicando restricciones de aulas...")
+
+    aula_asignada = aplicar_restriccion_aulas(
+        model,
+        df_bloques,
+        start_vars,
+        end_vars,
+        df_aulas
+    )
+
+    # 11. Aplicar preferencias blandas.
+    print("Aplicando preferencias de optimización...")
+
     aplicar_restricciones_blandas(
         model,
-        df_clases,
         start_vars,
+        df_bloques,
+        TOTAL_SLOTS,
         aula_asignada,
-        total_slots=total_slots,
         aula_preferida="A3-1"
     )
 
-    # 10. Resolver
+    # 12. Resolver el modelo.
     solver = cp_model.CpSolver()
 
-    solver.parameters.stop_after_first_solution = True
-    solver.parameters.max_time_in_seconds = 10.0
+    solver.parameters.max_time_in_seconds = (
+        TIEMPO_MAXIMO_SOLVER
+    )
 
-    status = solver.Solve(model)
+    solver.parameters.num_search_workers = 8
 
-    # 11. Mostrar resultados
-    if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
+    print("\nBuscando una solución...")
+
+    estado = solver.Solve(model)
+
+    # 13. Comprobar el resultado.
+    if estado not in (
+        cp_model.OPTIMAL,
+        cp_model.FEASIBLE
+    ):
 
         print(
-            f"\nHorario del {curso}º curso, "
-            f"{cuatrimestre}º cuatrimestre:\n"
-        )
-
-        asignaciones = []
-
-        for _, row in df_clases.iterrows():
-
-            s_id = str(row["id_sesion"]).strip()
-
-            slot_inicio = solver.Value(start_vars[s_id])
-
-            dia_idx = slot_inicio // horas_por_dia
-            hora_idx = slot_inicio % horas_por_dia
-
-            aula_elegida = "Sin aula"
-
-            for a_id in df_aulas["id_aula"].astype(str).str.strip():
-
-                var_aula = aula_asignada.get((s_id, a_id))
-
-                if var_aula is not None and solver.Value(var_aula) == 1:
-                    aula_elegida = a_id
-                    break
-
-            asignaciones.append({
-                "Slot": slot_inicio,
-                "Sesion": s_id,
-                "Asignatura": row["asignatura"],
-                "Tipo": row["tipo"],
-                "Grupo": row["grupo"],
-                "Dia": dias[dia_idx],
-                "Hora": horas_etiquetas[hora_idx],
-                "Duracion": f"{row['duracion_horas']}h",
-                "Aula": aula_elegida,
-                "Profesor": row["profesor"]
-            })
-
-        df_resultado = pd.DataFrame(asignaciones).sort_values(
-            by="Slot"
+            "\nNo se ha encontrado una solución factible."
         )
 
         print(
-            df_resultado.drop(columns=["Slot"]).to_string(index=False)
+            "Estado del solver:",
+            solver.StatusName(estado)
         )
 
-        # 12. Exportar horario
-        carpeta_resultados = raiz / "resultados"
-        carpeta_resultados.mkdir(parents=True, exist_ok=True)
+        return None
 
-        ruta_salida = carpeta_resultados / (
-            f"horario_{curso}GIFM_{cuatrimestre}cuatri_nuevo.png"
-        )
+    print("\n¡Horario generado correctamente!")
 
-        titulo = (
-            f"CALENDARIO ACADÉMICO — {curso}º GIFM "
-            f"({cuatrimestre}º CUATRIMESTRE)"
-        )
+    print(
+        "Estado:",
+        solver.StatusName(estado)
+    )
 
-        exportar_horario_png(
-            df_resultado,
-            ruta_salida=str(ruta_salida),
-            abrir_al_terminar=True,
-            titulo=titulo
-        )
+    print(
+        "Tiempo de resolución:",
+        round(solver.WallTime(), 2),
+        "segundos"
+    )
 
-        print(f"\nHorario guardado en: {ruta_salida}")
-
+    if estado == cp_model.OPTIMAL:
+        print("Se ha encontrado una solución óptima.")
     else:
         print(
-            "\nNo se encontró una solución factible. "
-            "Revisa las restricciones y los datos."
+            "Se ha encontrado una solución factible, "
+            "pero no se garantiza que sea óptima."
         )
 
+    # 14. Extraer los resultados.
+    resultados = []
+
+    for i, fila in df_bloques.iterrows():
+
+        slot = solver.Value(start_vars[i])
+
+        duracion = int(fila["duracion_horas"])
+
+        aula = obtener_aula_asignada(
+            solver,
+            aula_asignada,
+            i
+        )
+
+        semanas = fila.get("semanas_activas", "")
+
+        if pd.isna(semanas):
+            semanas = ""
+
+        resultados.append({
+            "Slot": slot,
+            "Sesion": fila["id_bloque"],
+            "Sesion_original": fila["id_sesion"],
+            "Asignatura": fila["asignatura"],
+            "Tipo": fila["tipo"],
+            "Grupo": fila["grupo"],
+            "Dia": obtener_dia(slot),
+            "Hora": obtener_hora(slot),
+            "Duracion": f"{duracion}h",
+            "Duracion_horas": duracion,
+            "Aula": aula,
+            "Profesor": fila["profesor"],
+            "Semanas_activas": str(semanas)
+        })
+
+    df_resultado = pd.DataFrame(resultados)
+
+    df_resultado = df_resultado.sort_values(
+        by=["Slot", "Asignatura"]
+    ).reset_index(drop=True)
+
+    # 15. Mostrar resumen del horario.
+    print("\nResumen del horario:")
+
+    print(
+        df_resultado[
+            [
+                "Asignatura",
+                "Tipo",
+                "Grupo",
+                "Dia",
+                "Hora",
+                "Duracion",
+                "Aula",
+                "Semanas_activas"
+            ]
+        ].to_string(index=False)
+    )
+
+    # 16. Exportar el PNG.
+    RUTA_RESULTADOS.mkdir(
+        parents=True,
+        exist_ok=True
+    )
+
+    nombre_archivo = (
+        f"horario_{curso}GIFM_{cuatrimestre}cuatri.png"
+    )
+
+    ruta_salida = RUTA_RESULTADOS / nombre_archivo
+
+    titulo = (
+        f"CALENDARIO ACADÉMICO — {curso}º GIFM "
+        f"({cuatrimestre}º CUATRIMESTRE)"
+    )
+
+    exportar_horario_png(
+        df_resultado,
+        ruta_salida=str(ruta_salida),
+        abrir_al_terminar=abrir_imagen,
+        titulo=titulo
+    )
+
+    return df_resultado
+
+
+# ---------------------------------------------------------
+# GENERAR LOS OCHO HORARIOS
+# ---------------------------------------------------------
+
+def generar_todos_los_horarios():
+    """
+    Genera los horarios de los cuatro cursos
+    y sus dos cuatrimestres.
+    """
+
+    resultados = {}
+
+    total = 8
+    contador = 0
+
+    for curso in range(1, 5):
+
+        for cuatrimestre in range(1, 3):
+
+            contador += 1
+
+            print(
+                f"\nPROGRESO: {contador}/{total}"
+            )
+
+            try:
+
+                resultado = generar_horario(
+                    curso,
+                    cuatrimestre,
+                    abrir_imagen=False
+                )
+
+                resultados[
+                    (curso, cuatrimestre)
+                ] = resultado
+
+            except Exception as error:
+
+                print(
+                    "\nERROR al generar el horario de "
+                    f"{curso}º GIFM, "
+                    f"{cuatrimestre}º cuatrimestre:"
+                )
+
+                print(error)
+
+                resultados[
+                    (curso, cuatrimestre)
+                ] = None
+
+    # Resumen final.
+    print("\n" + "=" * 65)
+    print("RESUMEN FINAL DE GENERACIÓN")
+    print("=" * 65)
+
+    generados = 0
+    fallidos = 0
+
+    for (curso, cuatrimestre), resultado in resultados.items():
+
+        if resultado is not None:
+
+            print(
+                f"OK: {curso}º GIFM - "
+                f"{cuatrimestre}º cuatrimestre"
+            )
+
+            generados += 1
+
+        else:
+
+            print(
+                f"NO GENERADO: {curso}º GIFM - "
+                f"{cuatrimestre}º cuatrimestre"
+            )
+
+            fallidos += 1
+
+    print("\nHorarios generados:", generados)
+    print("Horarios no generados:", fallidos)
+
+    print(
+        "\nLos resultados se encuentran en:",
+        RUTA_RESULTADOS
+    )
+
+    return resultados
+
+
+# ---------------------------------------------------------
+# EJECUCIÓN PRINCIPAL
+# ---------------------------------------------------------
 
 if __name__ == "__main__":
-    modelo_base(curso=2, cuatrimestre=2)
+
+    generar_todos_los_horarios()

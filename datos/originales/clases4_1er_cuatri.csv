@@ -1,3 +1,4 @@
+id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor,curso,cuatrimestre
 C4Q1_01,MACT,teoria,17,4,22,Teoria,Rafael Rodríguez Pérez,4,1
 C4Q1_02,FESC,teoria,17,3,16,Teoria,Rafael Rodríguez Pérez,4,1
 C4Q1_03,PI,teoria,17,2,16,Teoria,Juan Antonio Guerra Montenegro,4,1
