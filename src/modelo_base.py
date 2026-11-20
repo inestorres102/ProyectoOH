@@ -225,7 +225,7 @@ def modelo_base(curso=1, cuatrimestre=1):
             f"CALENDARIO ACADÉMICO — {curso}º GIFM "
             f"({cuatrimestre}º CUATRIMESTRE)"
         )
-
+     
         exportar_horario_png(
             df_resultado,
             ruta_salida=str(ruta_salida),
