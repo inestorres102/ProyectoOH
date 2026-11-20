@@ -217,9 +217,7 @@ def modelo_base(curso=1, cuatrimestre=1):
         carpeta_resultados = raiz / "resultados"
         carpeta_resultados.mkdir(parents=True, exist_ok=True)
 
-        ruta_salida = carpeta_resultados / (
-            f"horario_{curso}GIFM_{cuatrimestre}cuatri.png"
-        )
+        ruta_salida = carpeta_resultados / "horario_1GIFM_1cuatri_nuevo.png" 
 
         titulo = (
             f"CALENDARIO ACADÉMICO — {curso}º GIFM "
