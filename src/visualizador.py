@@ -18,7 +18,7 @@ HORAS = [
     for hora in range(8, 20)
 ]
 
-HORAS_POR_DIA = 12
+HORAS_POR_DIA = 6
 
 ESTILO_TIPO = {
     "teoria": {
@@ -221,7 +221,7 @@ def exportar_horario_png(
     Exporta el horario semanal a PNG.
 
     - 5 días, de lunes a viernes.
-    - 12 franjas horarias, de 08:30 a 20:30.
+    - 12 franjas horarias, de 08:30 a 14:30.
     - Bloques de 1 o 2 horas.
     - Diferenciación visual entre teoría y práctica.
     - Muestra las semanas activas de cada actividad.
