@@ -16,7 +16,7 @@ from restricciones import (
 from visualizador import exportar_horario_png
 
 
-def modelo_base(curso=1, cuatrimestre=1):
+def modelo_base(curso=1, cuatrimestre=2):
     # 1. Definir el horizonte temporal semanal (30 franjas horarias)
     dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"]
     horas_por_dia = 6  # 6 franjas por día: de 08:30 a 14:30
@@ -218,8 +218,9 @@ def modelo_base(curso=1, cuatrimestre=1):
         carpeta_resultados.mkdir(parents=True, exist_ok=True)
 
         ruta_salida = carpeta_resultados / (
-            f"horario_{curso}GIFM_{cuatrimestre}cuatri.png"
-            )
+            "horario_1GIFM_2cuatri_nuevo.png"
+        )
+            
 
         titulo = (
             f"CALENDARIO ACADÉMICO — {curso}º GIFM "
@@ -245,4 +246,4 @@ def modelo_base(curso=1, cuatrimestre=1):
 
 if __name__ == "__main__":
     # Cambia estos dos valores para elegir el horario que quieres generar.
-    modelo_base(curso=1, cuatrimestre=1)
+    modelo_base(curso=1, cuatrimestre=2)
