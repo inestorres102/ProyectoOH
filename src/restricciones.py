@@ -1,17 +1,4 @@
 
-
-"""
-Restricciones del modelo de planificación de horarios.
-
-Incluye:
-- Restricciones de estudiantes.
-- Restricciones de profesores.
-- Restricciones de aulas y capacidades.
-- Control de semanas activas.
-- Prohibición de bloques que atraviesen días.
-- Preferencias blandas para mejorar los horarios.
-"""
-
 import re
 import unicodedata
 from itertools import combinations
@@ -25,6 +12,7 @@ import pandas as pd
 
 def normalizar_texto(valor):
     """Elimina tildes y normaliza un texto para comparaciones."""
+
     if pd.isna(valor):
         return ""
 
@@ -32,13 +20,15 @@ def normalizar_texto(valor):
     texto = unicodedata.normalize("NFD", texto)
 
     return "".join(
-        caracter for caracter in texto
+        caracter
+        for caracter in texto
         if unicodedata.category(caracter) != "Mn"
     )
 
 
 def obtener_profesores(valor):
-    """Obtiene los profesores de una celda, separados por /."""
+    """Obtiene los profesores de una celda separados por /."""
+
     if pd.isna(valor):
         return set()
 
@@ -51,11 +41,11 @@ def obtener_profesores(valor):
 
 def obtener_semanas(valor):
     """
-    Convierte semanas como:
+    Convierte expresiones como:
         1-5,8,10-12
         1,3,5,7
 
-    en conjuntos de números.
+    en conjuntos de semanas.
 
     Si no hay semanas definidas, devuelve None.
     """
@@ -69,14 +59,19 @@ def obtener_semanas(valor):
     partes = re.split(r"[,;]", texto)
 
     for parte in partes:
+
         parte = parte.strip()
 
         if not parte:
             continue
 
-        rango = re.fullmatch(r"(\d+)\s*-\s*(\d+)", parte)
+        rango = re.fullmatch(
+            r"(\d+)\s*-\s*(\d+)",
+            parte
+        )
 
         if rango:
+
             inicio = int(rango.group(1))
             fin = int(rango.group(2))
 
@@ -85,8 +80,15 @@ def obtener_semanas(valor):
                     f"Rango de semanas incorrecto: {parte}"
                 )
 
+            if inicio < 1:
+                raise ValueError(
+                    f"Las semanas deben empezar en 1: {parte}"
+                )
+
             semanas.update(range(inicio, fin + 1))
+
         else:
+
             numero = re.fullmatch(r"\d+", parte)
 
             if not numero:
@@ -94,14 +96,21 @@ def obtener_semanas(valor):
                     f"Formato de semanas no válido: {valor}"
                 )
 
-            semanas.add(int(parte))
+            semana = int(parte)
+
+            if semana < 1:
+                raise ValueError(
+                    f"Número de semana incorrecto: {parte}"
+                )
+
+            semanas.add(semana)
 
     return semanas if semanas else None
 
 
 def coinciden_semanas(semanas_a, semanas_b):
     """
-    Indica si dos actividades coinciden en alguna semana.
+    Comprueba si dos actividades coinciden en alguna semana.
 
     Si alguna actividad no tiene semanas definidas,
     se considera que puede coincidir con todas.
@@ -113,36 +122,101 @@ def coinciden_semanas(semanas_a, semanas_b):
     return bool(semanas_a.intersection(semanas_b))
 
 
+def obtener_grupos_alumnos(grupo):
+    """
+    Identifica qué alumnado comparte cada actividad.
+
+    Correspondencias:
+        17 -> Toda la clase.
+        41 -> Subgrupo A.
+        42 -> Subgrupo B.
+        18 -> Subgrupo B (si aparece en los datos).
+
+    El grupo 17 comparte alumnado tanto con 41 como con 42.
+
+    Los grupos desconocidos solo coinciden con el mismo
+    identificador.
+    """
+
+    if pd.isna(grupo):
+        return set()
+
+    texto = str(grupo).strip()
+
+    if not texto:
+        return set()
+
+    numeros = re.findall(r"\d+", texto)
+
+    if not numeros:
+        return {normalizar_texto(texto)}
+
+    correspondencias = {
+        "17": "TODOS",
+        "41": "A",
+        "42": "B",
+        "18": "B"
+    }
+
+    resultado = set()
+
+    for numero in numeros:
+
+        if numero in correspondencias:
+            resultado.add(correspondencias[numero])
+        else:
+            resultado.add(f"grupo_{numero}")
+
+    return resultado
+
+
 def misma_clase_alumnos(grupo_a, grupo_b):
     """
-    Determina si dos actividades comparten estudiantes.
+    Comprueba si dos actividades comparten alumnado.
 
-    El grupo 17 se considera el grupo completo.
+    El grupo TODOS coincide con cualquier subgrupo.
     """
 
-    a = normalizar_texto(grupo_a)
-    b = normalizar_texto(grupo_b)
+    grupos_a = obtener_grupos_alumnos(grupo_a)
+    grupos_b = obtener_grupos_alumnos(grupo_b)
 
-    if not a or not b:
+    if not grupos_a or not grupos_b:
         return False
 
-    return a == b or a == "17" or b == "17"
+    if "TODOS" in grupos_a or "TODOS" in grupos_b:
+        return True
+
+    return bool(grupos_a.intersection(grupos_b))
 
 
 def obtener_columna(df, alternativas):
     """Localiza una columna entre varios nombres posibles."""
+
     columnas = {
         normalizar_texto(columna): columna
         for columna in df.columns
     }
 
     for alternativa in alternativas:
+
         clave = normalizar_texto(alternativa)
 
         if clave in columnas:
             return columnas[clave]
 
     return None
+
+
+def obtener_semanas_dataframe(df_clases):
+    """Obtiene las semanas activas de todas las actividades."""
+
+    if "semanas_activas" not in df_clases.columns:
+        return [None] * len(df_clases)
+
+    return [
+        obtener_semanas(valor)
+        for valor in df_clases["semanas_activas"]
+    ]
 
 
 # ---------------------------------------------------------
@@ -157,21 +231,24 @@ def aplicar_restriccion_estudiantes(
     """
     Dos actividades que comparten estudiantes no pueden
     coincidir en horario durante semanas coincidentes.
+
+    El grupo 17 representa a toda la clase y, por tanto,
+    no puede coincidir con los grupos 41 ni 42.
     """
 
-    semanas = [
-        obtener_semanas(valor)
-        for valor in df_clases["semanas_activas"]
+    semanas = obtener_semanas_dataframe(df_clases)
+
+    grupos = [
+        obtener_grupos_alumnos(valor)
+        for valor in df_clases["grupo"]
     ]
 
     for i, j in combinations(range(len(df_clases)), 2):
 
-        clase_i = df_clases.iloc[i]
-        clase_j = df_clases.iloc[j]
-
-        comparten_alumnos = misma_clase_alumnos(
-            clase_i["grupo"],
-            clase_j["grupo"]
+        comparten_alumnos = (
+            "TODOS" in grupos[i]
+            or "TODOS" in grupos[j]
+            or bool(grupos[i].intersection(grupos[j]))
         )
 
         coinciden = coinciden_semanas(
@@ -180,6 +257,7 @@ def aplicar_restriccion_estudiantes(
         )
 
         if comparten_alumnos and coinciden:
+
             model.AddNoOverlap([
                 interval_vars[i],
                 interval_vars[j]
@@ -194,21 +272,34 @@ def aplicar_restriccion_cambio_dia(
     model,
     start_vars,
     end_vars,
-    horas_por_dia=12
+    horas_por_dia=6
 ):
     """
-    Impide que un bloque horario empiece un día
-    y termine en el siguiente.
+    Impide que un bloque empiece un día y termine
+    en el siguiente.
+
+    Funciona con jornadas de 6 o 7 horas, entre otras.
     """
 
-    for inicio, fin in zip(start_vars, end_vars):
+    if horas_por_dia <= 0:
+        raise ValueError(
+            "Las horas por día deben ser mayores que cero."
+        )
+
+    for indice, (inicio, fin) in enumerate(
+        zip(start_vars, end_vars)
+    ):
 
         dia_inicio = model.NewIntVar(
-            0, 4, f"dia_inicio_{inicio.Index()}"
+            0,
+            4,
+            f"dia_inicio_{indice}"
         )
 
         dia_fin = model.NewIntVar(
-            0, 4, f"dia_fin_{inicio.Index()}"
+            0,
+            4,
+            f"dia_fin_{indice}"
         )
 
         model.AddDivisionEquality(
@@ -217,6 +308,9 @@ def aplicar_restriccion_cambio_dia(
             horas_por_dia
         )
 
+        # Se utiliza fin - 1 para que una clase que termine
+        # exactamente al final del día siga perteneciendo
+        # al mismo día en el que comenzó.
         model.AddDivisionEquality(
             dia_fin,
             fin - 1,
@@ -238,12 +332,11 @@ def aplicar_restriccion_profesores(
     """
     Un profesor no puede impartir dos actividades
     simultáneamente durante semanas coincidentes.
+
+    Admite varios profesores separados por /.
     """
 
-    semanas = [
-        obtener_semanas(valor)
-        for valor in df_clases["semanas_activas"]
-    ]
+    semanas = obtener_semanas_dataframe(df_clases)
 
     profesores = [
         obtener_profesores(valor)
@@ -262,6 +355,7 @@ def aplicar_restriccion_profesores(
         )
 
         if comparten_profesor and coinciden:
+
             model.AddNoOverlap([
                 interval_vars[i],
                 interval_vars[j]
@@ -282,11 +376,14 @@ def aplicar_restriccion_aulas(
     """
     Asigna exactamente un aula compatible a cada actividad.
 
-    Dos actividades no pueden utilizar la misma aula
-    simultáneamente si sus semanas coinciden.
+    Comprueba:
+    - Tipo de aula.
+    - Capacidad del aula.
+    - Disponibilidad temporal.
+    - Coincidencia de semanas.
 
-    Si sus semanas son diferentes, pueden reutilizar
-    el mismo espacio horario y la misma aula.
+    Las actividades que no coinciden en semanas pueden
+    reutilizar la misma aula y la misma franja horaria.
     """
 
     columna_id = obtener_columna(
@@ -305,14 +402,40 @@ def aplicar_restriccion_aulas(
     )
 
     if columna_id is None or columna_tipo is None:
+
         raise ValueError(
             "No se encuentran las columnas de identificación "
             "y tipo de aula en datos/aulas.csv."
         )
 
+    # Comprobar que los identificadores de aula son únicos.
+    identificadores = (
+        df_aulas[columna_id]
+        .astype(str)
+        .str.strip()
+    )
+
+    if identificadores.duplicated().any():
+
+        duplicados = identificadores[
+            identificadores.duplicated()
+        ].tolist()
+
+        raise ValueError(
+            "Hay identificadores de aula duplicados: "
+            + ", ".join(duplicados)
+        )
+
+    semanas = obtener_semanas_dataframe(df_clases)
+
     asignaciones = []
 
-    # Crear variables de asignación.
+    intervalos_por_aula = {}
+
+    # -----------------------------------------------------
+    # Crear asignaciones de aulas e intervalos opcionales.
+    # -----------------------------------------------------
+
     for i in range(len(df_clases)):
 
         clase = df_clases.iloc[i]
@@ -323,9 +446,15 @@ def aplicar_restriccion_aulas(
 
         alumnos = int(clase["num_alumnos"])
 
+        duracion = int(clase["duracion_horas"])
+
         aulas_compatibles = []
 
         for _, aula in df_aulas.iterrows():
+
+            aula_id = str(
+                aula[columna_id]
+            ).strip()
 
             tipo_aula = normalizar_texto(
                 aula[columna_tipo]
@@ -334,17 +463,27 @@ def aplicar_restriccion_aulas(
             if tipo_aula != tipo_requerido:
                 continue
 
+            # Comprobar capacidad.
             if columna_capacidad is not None:
+
                 capacidad = pd.to_numeric(
                     aula[columna_capacidad],
                     errors="coerce"
                 )
 
-                if pd.notna(capacidad) and capacidad < alumnos:
-                    continue
+                if pd.notna(capacidad):
 
-            aulas_compatibles.append(
-                str(aula[columna_id])
+                    if capacidad < alumnos:
+                        continue
+
+            aulas_compatibles.append(aula_id)
+
+        if not aulas_compatibles:
+
+            raise ValueError(
+                f"La sesión {clase['id_sesion']} no tiene "
+                f"aulas compatibles. Tipo requerido: "
+                f"{tipo_requerido}; alumnos: {alumnos}."
             )
 
         variables_aula = {}
@@ -357,61 +496,47 @@ def aplicar_restriccion_aulas(
 
             variables_aula[aula_id] = variable
 
-        if not variables_aula:
-            raise ValueError(
-                f"La sesión {clase['id_sesion']} no tiene "
-                f"aulas compatibles. Tipo requerido: "
-                f"{tipo_requerido}; alumnos: {alumnos}."
+            # Intervalo opcional: solo existe si la actividad
+            # tiene asignada esta aula.
+            intervalo_aula = model.NewOptionalIntervalVar(
+                start_vars[i],
+                duracion,
+                end_vars[i],
+                variable,
+                f"intervalo_aula_{i}_{aula_id}"
             )
 
+            if aula_id not in intervalos_por_aula:
+                intervalos_por_aula[aula_id] = []
+
+            intervalos_por_aula[aula_id].append(
+                (intervalo_aula, semanas[i])
+            )
+
+        # Cada actividad debe tener exactamente un aula.
         model.AddExactlyOne(
             list(variables_aula.values())
         )
 
         asignaciones.append(variables_aula)
 
-    # Evitar que dos sesiones coincidentes utilicen
-    # la misma aula en el mismo horario.
-    semanas = [
-        obtener_semanas(valor)
-        for valor in df_clases["semanas_activas"]
-    ]
+    # -----------------------------------------------------
+    # Evitar solapamientos en cada aula.
+    # -----------------------------------------------------
 
-    for i, j in combinations(range(len(df_clases)), 2):
+    for aula_id, intervalos in intervalos_por_aula.items():
 
-        if not coinciden_semanas(semanas[i], semanas[j]):
-            continue
+        for i, j in combinations(range(len(intervalos)), 2):
 
-        aulas_compartidas = (
-            set(asignaciones[i]).intersection(asignaciones[j])
-        )
+            intervalo_i, semanas_i = intervalos[i]
+            intervalo_j, semanas_j = intervalos[j]
 
-        for aula_id in aulas_compartidas:
+            if coinciden_semanas(semanas_i, semanas_j):
 
-            antes = model.NewBoolVar(
-                f"orden_{i}_{j}_{aula_id}"
-            )
-
-            asignacion_i = asignaciones[i][aula_id]
-            asignacion_j = asignaciones[j][aula_id]
-
-            # Si ambas sesiones usan esta aula,
-            # una debe terminar antes de que empiece la otra.
-            model.Add(
-                end_vars[i] <= start_vars[j]
-            ).OnlyEnforceIf([
-                asignacion_i,
-                asignacion_j,
-                antes
-            ])
-
-            model.Add(
-                end_vars[j] <= start_vars[i]
-            ).OnlyEnforceIf([
-                asignacion_i,
-                asignacion_j,
-                antes.Not()
-            ])
+                model.AddNoOverlap([
+                    intervalo_i,
+                    intervalo_j
+                ])
 
     return asignaciones
 
@@ -434,15 +559,24 @@ def aplicar_restricciones_blandas(
 
     - Evitar las últimas horas del viernes.
     - Favorecer el aula preferida para teoría.
+
+    No modifica las duraciones ni las restricciones duras.
     """
 
     penalizaciones = []
 
-    horas_por_dia = 12
+    horas_por_dia = 6
     viernes = 4
 
-    # Penalizar actividades que empiezan en las
-    # dos últimas franjas del viernes.
+    # -----------------------------------------------------
+    # Penalizar clases que comienzan en las dos últimas
+    # franjas del viernes.
+    # -----------------------------------------------------
+
+    inicio_ultima_parte_viernes = (
+        viernes * horas_por_dia + 4
+    )
+
     for i, inicio in enumerate(start_vars):
 
         tarde_viernes = model.NewBoolVar(
@@ -450,16 +584,21 @@ def aplicar_restricciones_blandas(
         )
 
         model.Add(
-            inicio >= viernes * horas_por_dia + 10
+            inicio >= inicio_ultima_parte_viernes
         ).OnlyEnforceIf(tarde_viernes)
 
         model.Add(
-            inicio < viernes * horas_por_dia + 10
+            inicio < inicio_ultima_parte_viernes
         ).OnlyEnforceIf(tarde_viernes.Not())
 
-        penalizaciones.append(tarde_viernes * 10)
+        penalizaciones.append(
+            tarde_viernes * 10
+        )
 
-    # Favorecer el aula preferida para teoría.
+    # -----------------------------------------------------
+    # Favorecer el aula preferida para las clases teóricas.
+    # -----------------------------------------------------
+
     if aula_assign is not None:
 
         for i, variables_aula in enumerate(aula_assign):
