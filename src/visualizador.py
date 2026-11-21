@@ -647,7 +647,7 @@ def exportar_horario_png(
 
         aula = sesion["aula"]
 
-        profesor = sesion["profesor"]
+        
 
         # Información de la tarjeta.
         lineas = [
@@ -657,10 +657,6 @@ def exportar_horario_png(
             sesion["semanas"]
         ]
 
-        if profesor:
-            lineas.append(
-                f"Prof.: {profesor}"
-            )
 
         texto = "\n".join(lineas)
 
