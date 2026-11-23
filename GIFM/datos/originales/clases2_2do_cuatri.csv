@@ -1,0 +1,13 @@
+id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor,curso,cuatrimestre
+C2Q2_01,FEC2,teoria,17,1,22,Teoria,Juan Miguel Gil de la Fe,2,2
+C2Q2_02,FE,teoria,17,3,16,Teoria,Antonio Hernández Ballester,2,2
+C2Q2_03,EOF1,teoria,17,4,16,Teoria,Antonio Hernández Ballester,2,2
+C2Q2_04,AM2,teoria,17,4,24,Teoria,Isaac Alvarez Romero,2,2
+C2Q2_05,G2,teoria,17,2,24,Teoria,Alberto Montoya Soderberg,2,2
+C2Q2_06,P,teoria,17,4,22,Teoria,Juan Miguel Gil de la Fe,2,2
+C2Q2_07,FEC2,practica,41,4,22,Laboratorio,Juan Miguel Gil de la Fe,2,2
+C2Q2_08,FEC2,practica,42,4,22,Laboratorio,Juan Miguel Gil de la Fe,2,2
+C2Q2_09,FE,practica,41,4,22,Laboratorio,Antonio Hernández Ballester,2,2
+C2Q2_10,FE,practica,42,4,22,Laboratorio,Antonio Hernández Ballester,2,2
+C2Q2_11,EOF1,practica,41,2,22,Laboratorio,Antonio Hernández Balleste,2,2
+C2Q2_12,EOF1,practica,42,2,22,Laboratorio,Antonio Hernández Ballester,2,2

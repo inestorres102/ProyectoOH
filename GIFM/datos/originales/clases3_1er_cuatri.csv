@@ -1,0 +1,11 @@
+id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor,curso,cuatrimestre
+C3Q1_01,FMC,teoria,17,5,22,Teoria,Juan Miguel Gil de la Fe,3,2
+C3Q1_02,EOF2,teoria,17,5,16,Teoria,Antonio Alejandro Valido Flores,3,2
+C3Q1_03,MMA2,teoria,17,2,16,Teoria,Albert Oliver Serra,3,2
+C3Q1_04,AM3,teoria,17,6,24,Teoria,Isaac Alvarez Romero,3,2
+C3Q1_05,E,teoria,17,4,24,Teoria,Ángelo Santana Del Pino,3,2
+C3Q1_06,FMC,practica,41,2,22,Laboratorio,Juan Miguel Gil de la Fe,3,2
+C3Q1_07,EOF2,practica,41,4,22,Laboratorio,Antonio Alejandro Valido Flores,3,2
+C3Q1_08,MMA2,practica,41,4,22,Laboratorio,Albert Oliver Serra,3,2
+C3Q1_09,AM3,practica,41,2,22,Laboratorio,Isaac Alvarez Romero,3,2
+C3Q1_10,E,practica,41,2,22,Laboratorio,Angelo Santana del Pino,3,2

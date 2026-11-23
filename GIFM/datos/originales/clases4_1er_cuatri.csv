@@ -1,0 +1,17 @@
+id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor,curso,cuatrimestre
+C4Q1_01,MACT,teoria,17,4,22,Teoria,Rafael Rodríguez Pérez,4,1
+C4Q1_02,FESC,teoria,17,3,16,Teoria,Rafael Rodríguez Pérez,4,1
+C4Q1_03,PI,teoria,17,2,16,Teoria,Juan Antonio Guerra Montenegro,4,1
+C4Q1_04,AM4,teoria,17,3,24,Teoria,Jackie Jerónimo Harjani Saúco,4,1
+C4Q1_05,DGDM,teoria,17,2,24,Teoria,Ángel Rodríguez Santana,4,1
+C4Q1_06,DF,teoria,17,2,22,Teoria,Antonio Hernández Ballester,4,1
+C4Q1_07,FRIAT,teoria,17,2,22,Teoria,Jesús García Rubiano,4,1
+C4Q1_08,MEM,teoria,17,2,22,Teoria,Pedro Saavedra Sanatana,4,1
+C4Q1_09,MACT,practica,41,1,22,Laboratorio,Rafael Rodríguez Pérez,4,1
+C4Q1_10,FESC,practica,41,1,22,Laboratorio,Rafael Rodríguez Pérez,4,1
+C4Q1_11,PI,practica,41,2,22,Laboratorio,Juan Manuel Cerezo Sánchez,4,1
+C4Q1_12,AM4,practica,41,2,22,Laboratorio,Jackie Jerónimo Harjani Saúco,4,1
+C4Q1_13,DGDM,practica,41,1,22,Laboratorio,Ángel Rodríguez Santana,4,1
+C4Q1_14,DF,practica,41,1,22,Laboratorio,Antonio Hernández Ballester,4,1
+C4Q1_15,FRIAT,practica,41,1,22,Laboratorio,Jesús García Rubiano,4,1
+C4Q1_16,MEM,practica,41,2,22,Laboratorio,Ángelo Santana del Pino,4,1

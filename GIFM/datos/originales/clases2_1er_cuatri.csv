@@ -1,0 +1,10 @@
+id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor,curso,cuatrimestre
+C2Q1_01,MAR,teoria,17,4,22,Teoria,Juan Miguel Gil de la Fe,2,1
+C2Q1_02,T,teoria,17,4,16,Teoria,Ángel Rodríguez Santana,2,1
+C2Q1_03,MMA1,teoria,17,4,16,Teoria,Albert Oliver Serra,2,1
+C2Q1_04,AM1,teoria,17,2,24,Teoria,Begoña González Landín,2,1
+C2Q1_05,P2,teoria,17,2,24,Teoria,Daniel Elías Santana Cedrés,2,1
+C2Q1_06,MAR,practica,41,2,22,Laboratorio,Juan Miguel Gil de la Fe,2,1
+C2Q1_07,T,practica,41,2,22,Laboratorio,Ángel Rodríguez Santana,2,1
+C2Q1_08,MMA1,practica,41,2,22,Laboratorio,Albert Oliver González Landín,2,1
+C2Q1_09,P2,practica,41,2,22,Laboratorio,Daniel Elías Santana Cedrés,2,1

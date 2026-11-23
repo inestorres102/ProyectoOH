@@ -1,0 +1,7 @@
+id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor,curso,cuatrimestre
+C1Q2_01,FF2,teoria,17,6,22,Teoria,Jesús Garcia Rubiano/Héctor Eulogio Alonso Hernández,1,2
+C1Q2_02,MNF,teoria,17,2,16,Teoria,Gustavo Montero García,1,2
+C1Q2_03,MNF,practica,41,4,16,Laboratorio,Marcos Javier Hernández Gil,1,2
+C1Q2_04,FEC1,practica,41,4,24,Laboratorio,Aridai Bordón Sánchez,1,2
+C1Q2_05,G1,teoria,17,2,24,Teoria,Luis González Sánchez,1,2
+C1Q2_06,FM2,teoria,17,4,22,Teoria,Josefa Caballero Mena,1,2
