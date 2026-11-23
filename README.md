@@ -20,6 +20,7 @@ ProyectoOH/
 ├── dashboard_data/               # Caché unificada de horarios resueltos (CP-SAT y SA, 3 carreras)
 ├── .streamlit/config.toml        # Configuración visual (tema académico ULPGC)
 ├── requirements.txt              # Dependencias unificadas del proyecto completo
+├── MEMORIA.md                    # Memoria académica unificada del equipo (12 apartados + uso de IA)
 ├── README.md                     # Documentación general del proyecto integrado
 ├── GII/                          # Grado en Ingeniería Informática (4 cursos, mañana y tarde)
 │   ├── datos/                    # clases.csv (364 sesiones) y aulas.csv (27 aulas)
@@ -57,10 +58,18 @@ python -m streamlit run app.py
 
 ### Vistas incluidas en el cuadro de mandos (`app.py`)
 1. **🗓️ Explorador de Horarios:** Cuadrícula interactiva unificada con la paleta oficial EII para `GII`, `GCID` y `GIFM` (alternando entre **CP-SAT**, **Recocido Simulado** y **comparativa directa CP-SAT vs. SA** con buscador/resaltador en vivo), **contraste directo frente a los 3 PDFs oficiales 2026–2027** recortados al semestre exacto, y tabla filtrable con descarga de CSV y láminas PNG (300 DPI).
-2. **🏠 Visión General (EII):** KPIs consolidados de la Escuela (598 sesiones, 1.127 horas semanales, 27 espacios físicos) y gráficas interactivas por titulación, curso y modalidad.
-3. **📊 Resultados y Convergencia:** Benchmark multi-semilla de GII (Random Search vs. CP-SAT vs. SA), resultados globales de GCID con curvas de convergencia y estadísticas de las 8 instancias de GIFM.
-4. **⚡ Simulador en Vivo:** Ejecución real e interactiva de **CP-SAT** o **Recocido Simulado** sobre cualquiera de las tres titulaciones con parámetros ajustables y trazado de la curva de convergencia en directo, ejecutado en subproceso aislado sin alterar los archivos del repositorio.
-5. **📚 Modelo Matemático y Catálogo:** Formulación formal UCTP ($X_{s,t,r}$), catálogo gráfico de aulas y buscador unificado de asignaturas y profesorado en las tres titulaciones.
+2. **👨‍🏫 Horarios por Profesor y Aula:** Calendario semanal individual de cualquier docente o aula física, **mapa de calor de ocupación de espacios EII** y **auditoría automática de acoplamiento inter-titulación**.
+3. **🏠 Visión General (EII):** KPIs consolidados de la Escuela (598 sesiones / 645 bloques, 1.127 horas semanales, 27 espacios físicos) y gráficas interactivas por titulación, curso y modalidad.
+4. **📊 Resultados y Convergencia:** Benchmark multi-semilla de GII (Random Search vs. CP-SAT vs. SA), resultados globales de GCID con curvas de convergencia y estadísticas de las 8 instancias de GIFM.
+5. **⚡ Simulador en Vivo:** Ejecución real e interactiva de **CP-SAT** o **Recocido Simulado** sobre cualquiera de las tres titulaciones con parámetros ajustables y trazado de la curva de convergencia en directo, ejecutado en subproceso aislado sin alterar los archivos del repositorio.
+6. **📚 Modelo Matemático y Catálogo:** Formulación formal UCTP ($X_{s,t,r}$), catálogo gráfico de aulas y buscador unificado de asignaturas y profesorado en las tres titulaciones.
+
+---
+
+## 📖 Memoria Académica Unificada
+
+La memoria grupal completa del proyecto (12 apartados oficiales + declaración del uso de IA con ejemplos de *prompts*, evolución del código, resultados de GII/GCID/GIFM, contraste con horarios oficiales y análisis de acoplamiento inter-titulación) se encuentra en:
+👉 [`MEMORIA.md`](MEMORIA.md)
 
 ---
 
@@ -100,6 +109,6 @@ python GIFM/src/modelo_base.py
 
 ## 👥 Equipo
 
-* **Yone** — GII + Integración y Cuadro de Mandos Unificado
-* **Inés** — GCID + Coordinación y Formulación Común
-* **María** — GIFM
+* **Yone Suárez Viera** — GII + Integración y Cuadro de Mandos Unificado
+* **Inés Torres Sánchez** — GCID + Arquitectura Base y Formulación Común
+* **María Naranjo Peñate** — GIFM + Desglose en Bloques y Pipeline Híbrido CP-SAT → SA

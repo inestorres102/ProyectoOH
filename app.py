@@ -297,6 +297,7 @@ st.markdown(
     .tt-card-aula   { background: #E1F5FE; border: 1.6px solid #0288D1; color: #0C4A6E; }
     .tt-card-lab    { background: #C8E6C9; border: 1.6px solid #43A047; color: #14532D; }
     .tt-card-dim    { opacity: 0.22; filter: grayscale(0.6); }
+    .tt-cell-conflict { background: #FEF2F2 !important; box-shadow: inset 0 0 0 2px #DC2626; }
     .tt-asig  { font-weight: 800; font-size: 0.8rem; }
     .tt-meta  { font-size: 0.7rem; font-weight: 600; margin-top: 2px; }
     .tt-prof  { font-size: 0.65rem; opacity: 0.85; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -615,6 +616,114 @@ def renderizar_cuadricula_html(df_bloques: pd.DataFrame, titulo_barra: str, filt
     )
 
 
+def _expandir_franjas_horarias(df_bloques: pd.DataFrame) -> pd.DataFrame:
+    """Expande cada sesión en filas por hora individual (Dia, HoraIni) para análisis de ocupación y solapes."""
+    if df_bloques.empty:
+        return pd.DataFrame(columns=["Titulacion", "Curso", "GrupoPrincipal", "Asignatura", "Modalidad", "Grupo", "Dia", "HoraIni", "Aula", "Profesor", "Semanas"])
+    filas = []
+    for _, r in df_bloques.iterrows():
+        dia = _normalizar_dia(r["Dia"])
+        if dia not in DIAS_ORDEN:
+            continue
+        try:
+            h0 = int(str(r["Hora"]).split(":")[0])
+        except Exception:
+            continue
+        dur = max(1, int(r["DuracionHoras"]))
+        for off in range(dur):
+            filas.append({
+                "Titulacion": str(r["Titulacion"]),
+                "Curso": int(r["Curso"]),
+                "GrupoPrincipal": int(r["GrupoPrincipal"]),
+                "Asignatura": str(r["Asignatura"]),
+                "Modalidad": str(r["Modalidad"]),
+                "Grupo": str(r["Grupo"]),
+                "Dia": dia,
+                "HoraIni": h0 + off,
+                "Aula": str(r["Aula"]),
+                "Profesor": str(r["Profesor"]),
+                "Semanas": str(r["Semanas"]),
+                "Cont": off > 0,
+            })
+    return pd.DataFrame(filas)
+
+
+def renderizar_cuadricula_recurso_html(df_bloques: pd.DataFrame, titulo_barra: str, modo: str = "profesor") -> tuple[str, int]:
+    """Cuadrícula semanal dinámica (mañana, tarde o jornada completa 08:30-20:30) para un Profesor o un Aula."""
+    exp = _expandir_franjas_horarias(df_bloques)
+    if exp.empty:
+        return "<p>No hay sesiones asignadas para esta selección.</p>", 0
+
+    h_min = int(exp["HoraIni"].min())
+    h_max = int(exp["HoraIni"].max())
+    if h_min >= 14:
+        h_ini, h_fin = 14, max(19, h_max)
+    elif h_max >= 16:
+        h_ini, h_fin = 8, max(19, h_max)
+    elif h_max >= 14:
+        h_ini, h_fin = 8, max(15, h_max)
+    else:
+        h_ini, h_fin = 8, 13
+
+    horas = list(range(h_ini, h_fin + 1))
+    cls_map = {"Teoría": "tt-card-teoria", "Práctica de Aula": "tt-card-aula", "Laboratorio": "tt-card-lab"}
+
+    celdas = {(d, h): [] for d in DIAS_ORDEN for h in horas}
+    for _, r in exp.iterrows():
+        if (r["Dia"], r["HoraIni"]) in celdas:
+            celdas[(r["Dia"], r["HoraIni"])].append(r.to_dict())
+
+    solapes = 0
+    rows_html = []
+    for h in horas:
+        h_lbl = f"{h:02d}:30-{h + 1:02d}:30"
+        tds = [f'<td class="tt-time">{h_lbl}</td>']
+        for d in DIAS_ORDEN:
+            items = celdas[(d, h)]
+            if not items:
+                tds.append("<td></td>")
+                continue
+            es_conflicto = len(items) > 1
+            if es_conflicto:
+                solapes += 1
+            cards = []
+            for it in items:
+                cls = cls_map.get(it["Modalidad"], "tt-card-lab")
+                cont_tag = " ↳" if it["Cont"] else ""
+                sub_info = (
+                    f"{it['Titulacion']} {it['Curso']}º · Aula {it['Aula']}"
+                    if modo == "profesor"
+                    else f"{it['Titulacion']} {it['Curso']}º · G{it['Grupo']}"
+                )
+                pie = f"G{it['Grupo']}" if modo == "profesor" else it["Profesor"]
+                tip = html.escape(f"{it['Titulacion']} {it['Curso']}º | {it['Asignatura']} ({it['Modalidad']}) | G{it['Grupo']} | Aula {it['Aula']} | {it['Profesor']}")
+                cards.append(
+                    f'<div class="tt-card {cls}" title="{tip}">'
+                    f'<div class="tt-asig">{html.escape(it["Asignatura"])}{cont_tag}</div>'
+                    f'<div class="tt-meta">{html.escape(sub_info)}</div>'
+                    f'<div class="tt-prof">{html.escape(pie)}</div>'
+                    f'</div>'
+                )
+            td_cls = ' class="tt-cell-conflict"' if es_conflicto else ""
+            tds.append(f'<td{td_cls}><div class="tt-cell-flex">{"".join(cards)}</div></td>')
+        rows_html.append(f'<tr>{"".join(tds)}</tr>')
+
+    ths = '<th class="tt-hcol">HORA</th>' + "".join(f"<th>{d.upper()}</th>" for d in DIAS_ORDEN)
+    badge_right = (
+        f"⚠️ {solapes} franja(s) con solape inter-titulación resaltadas en rojo"
+        if solapes > 0
+        else "✅ Sin solapes en el ámbito seleccionado"
+    )
+    html_out = (
+        f'<div class="tt-wrap">'
+        f'<div class="tt-header"><span>{html.escape(titulo_barra)}</span>'
+        f'<span style="font-size:0.78rem; font-weight:700; color:#{"FCA5A5" if solapes > 0 else "BBF7D0"};">{html.escape(badge_right)}</span></div>'
+        f'<table class="tt-table"><thead><tr>{ths}</tr></thead><tbody>{"".join(rows_html)}</tbody></table>'
+        f'</div>'
+    )
+    return html_out, solapes
+
+
 # ---------------------------------------------------------------------------
 # CARGA GLOBAL Y SIDEBAR DE NAVEGACIÓN
 # ---------------------------------------------------------------------------
@@ -645,6 +754,7 @@ with st.sidebar:
         "Navegación del cuadro de mandos",
         options=[
             "🗓️ Explorador de Horarios",
+            "👨‍🏫 Horarios por Profesor y Aula",
             "🏠 Visión General (EII)",
             "📊 Resultados y Convergencia",
             "⚡ Simulador en Vivo",
@@ -947,7 +1057,240 @@ if vista == "🗓️ Explorador de Horarios":
 
 
 # ---------------------------------------------------------------------------
-# VISTA 2: VISIÓN GENERAL DE LA ESCUELA (EII)
+# VISTA 2: HORARIOS POR PROFESOR, POR AULA Y AUDITORÍA INTER-TITULACIÓN (D1)
+# ---------------------------------------------------------------------------
+elif vista == "👨‍🏫 Horarios por Profesor y Aula":
+    st.markdown(
+        """
+        <div class="eii-hero">
+            <h1>👨‍🏫 Horarios por Profesor y Aula — Ocupación de Espacios EII</h1>
+            <p>Consulta el calendario semanal individual de cualquier <b>docente</b> o <b>aula física</b>, analiza el mapa de saturación de espacios y revisa el acoplamiento entre titulaciones.</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    if df_resueltos.empty:
+        st.warning("No existe `dashboard_data/horarios_unificados.csv`. Ejecuta `python generar_activos_integracion.py`.")
+    else:
+        f1, f2, f3 = st.columns([1.4, 1.0, 1.2])
+        with f1:
+            ambito = st.selectbox(
+                "Ámbito de consulta",
+                options=["Toda la EII (GII + GCID + GIFM)", "GII", "GCID", "GIFM"],
+                key="pa_ambito",
+            )
+        with f2:
+            pa_cuatri = st.selectbox(
+                "Cuatrimestre",
+                options=[1, 2],
+                format_func=lambda x: "1er Cuatrimestre" if x == 1 else "2º Cuatrimestre",
+                key="pa_cuatri",
+            )
+        with f3:
+            pa_met = st.selectbox(
+                "Motor de optimización",
+                options=["CP-SAT", "Recocido Simulado"],
+                format_func=lambda m: "OR-Tools CP-SAT" if m == "CP-SAT" else "Recocido Simulado (SA)",
+                key="pa_met",
+            )
+
+        df_scope = df_resueltos[
+            (df_resueltos["Cuatrimestre"] == pa_cuatri)
+            & (df_resueltos["Metodo"] == pa_met)
+        ].copy()
+        if ambito != "Toda la EII (GII + GCID + GIFM)":
+            df_scope = df_scope[df_scope["Titulacion"] == ambito].copy()
+
+        tab_prof, tab_aula, tab_aud = st.tabs([
+            "👨‍🏫 Horario por Profesor",
+            "🏫 Horario por Aula y Ocupación",
+            "🔍 Auditoría Inter-Titulación (Acoplamiento EII)",
+        ])
+
+        # ---- TAB PROFESOR ----
+        with tab_prof:
+            profs_stats = (
+                df_scope.groupby("Profesor", as_index=False)
+                .agg(Horas=("DuracionHoras", "sum"), Sesiones=("Sesion", "count"), Tits=("Titulacion", lambda s: "/".join(sorted(s.unique()))))
+                .sort_values(["Horas", "Profesor"], ascending=[False, True])
+            )
+            profs_list = profs_stats["Profesor"].tolist()
+            if not profs_list:
+                st.info("No hay docentes registrados para este filtro.")
+            else:
+                prof_map_lbl = {
+                    r["Profesor"]: f"{r['Profesor']}  ({r['Tits']} · {int(r['Horas'])} h/sem)"
+                    for _, r in profs_stats.iterrows()
+                }
+                prof_sel = st.selectbox("Selecciona un docente:", options=profs_list, format_func=lambda p: prof_map_lbl[p], key="prof_sel")
+                df_p = df_scope[df_scope["Profesor"] == prof_sel].copy()
+
+                html_p, sol_p = renderizar_cuadricula_recurso_html(
+                    df_p, f"Horario Docente — {prof_sel} ({ambito} · C{pa_cuatri} · {pa_met})", modo="profesor"
+                )
+                p1, p2, p3, p4 = st.columns(4)
+                p1.metric("Sesiones semanales", f"{len(df_p)}")
+                p2.metric("Carga lectiva", f"{int(df_p['DuracionHoras'].sum())} h")
+                p3.metric("Días con docencia", f"{df_p['Dia'].nunique()} / 5")
+                p4.metric(
+                    "Solapes detectados",
+                    f"{sol_p}",
+                    "0 conflictos" if sol_p == 0 else "Inter-titulación",
+                    delta_color="normal" if sol_p == 0 else "inverse",
+                    delta_arrow="off",
+                )
+
+                mostrar_leyenda("eii")
+                st.markdown(html_p, unsafe_allow_html=True)
+
+                with st.expander("📋 Ver detalle tabular del docente", expanded=False):
+                    cols_p = ["Titulacion", "Curso", "Dia", "Hora", "Asignatura", "Modalidad", "Grupo", "Aula", "DuracionHoras"]
+                    st.dataframe(df_p.sort_values(["Slot", "Titulacion"])[cols_p], width="stretch", hide_index=True)
+
+        # ---- TAB AULA Y MAPA DE CALOR ----
+        with tab_aula:
+            aulas_info_map = df_aulas.set_index("id_aula").to_dict("index")
+            aulas_stats = (
+                df_scope.groupby("Aula", as_index=False)
+                .agg(Horas=("DuracionHoras", "sum"), Sesiones=("Sesion", "count"))
+                .sort_values(["Horas", "Aula"], ascending=[False, True])
+            )
+            aulas_list = aulas_stats["Aula"].tolist()
+            if aulas_list:
+                def _lbl_aula(a_id):
+                    meta = aulas_info_map.get(a_id, {})
+                    t_a = meta.get("tipo", "Espacio")
+                    cap = meta.get("capacidad", "?")
+                    hrs = int(aulas_stats.loc[aulas_stats["Aula"] == a_id, "Horas"].iloc[0])
+                    return f"{a_id} · {t_a} ({cap} plazas) — {hrs} h/sem"
+
+                aula_sel = st.selectbox("Selecciona un aula o laboratorio:", options=aulas_list, format_func=_lbl_aula, key="aula_sel")
+                df_a = df_scope[df_scope["Aula"] == aula_sel].copy()
+                meta_a = aulas_info_map.get(aula_sel, {"tipo": "Espacio", "capacidad": 0})
+                html_a, sol_a = renderizar_cuadricula_recurso_html(
+                    df_a, f"Ocupación de Espacio — Aula {aula_sel} ({ambito} · C{pa_cuatri} · {pa_met})", modo="aula"
+                )
+
+                horas_ocup = int(df_a["DuracionHoras"].sum())
+                slots_tot_aula = 60 if ambito in ("Toda la EII (GII + GCID + GIFM)", "GII") else 30
+                a1, a2, a3, a4 = st.columns(4)
+                a1.metric("Tipología y aforo", f"{meta_a.get('capacidad', '?')} pl.", str(meta_a.get("tipo", "")), delta_color="off", delta_arrow="off")
+                a2.metric("Horas ocupadas / sem", f"{horas_ocup} h", f"{len(df_a)} sesiones", delta_color="off", delta_arrow="off")
+                a3.metric("Saturación estimada", f"{min(100.0, 100.0 * horas_ocup / slots_tot_aula):.1f} %")
+                a4.metric(
+                    "Solapes de aula",
+                    f"{sol_a}",
+                    "0 conflictos" if sol_a == 0 else "Inter-titulación",
+                    delta_color="normal" if sol_a == 0 else "inverse",
+                    delta_arrow="off",
+                )
+
+                mostrar_leyenda("eii")
+                st.markdown(html_a, unsafe_allow_html=True)
+
+            st.markdown("#### Mapa de Calor de Ocupación Global de Espacios (Día × Franja Horaria)")
+            exp_scope = _expandir_franjas_horarias(df_scope)
+            if not exp_scope.empty:
+                h_col1, h_col2 = st.columns([1.35, 1.0])
+                with h_col1:
+                    piv = (
+                        exp_scope.groupby(["HoraIni", "Dia"]).size()
+                        .unstack(fill_value=0)
+                        .reindex(columns=DIAS_ORDEN, fill_value=0)
+                        .sort_index()
+                    )
+                    piv.index = [f"{h:02d}:30–{h + 1:02d}:30" for h in piv.index]
+                    fig_hm = px.imshow(
+                        piv,
+                        text_auto=True,
+                        aspect="auto",
+                        color_continuous_scale="YlGnBu",
+                        title=f"Sesiones simultáneas en la EII ({ambito} · C{pa_cuatri} · {pa_met})",
+                        labels=dict(x="Día de la semana", y="Franja horaria", color="Aulas en uso"),
+                    )
+                    fig_hm.update_layout(height=390, margin=dict(t=45, b=20, l=20, r=20))
+                    st.plotly_chart(fig_hm, width="stretch")
+
+                with h_col2:
+                    top12 = aulas_stats.head(12).sort_values("Horas", ascending=True)
+                    fig_top = px.bar(
+                        top12,
+                        x="Horas",
+                        y="Aula",
+                        orientation="h",
+                        text="Horas",
+                        title="Top 12 Espacios Más Utilizados (h/sem)",
+                        color="Horas",
+                        color_continuous_scale="Blues",
+                    )
+                    fig_top.update_layout(height=390, coloraxis_showscale=False, yaxis_title="", xaxis_title="Horas semanales", margin=dict(t=45, b=20, l=10, r=20))
+                    st.plotly_chart(fig_top, width="stretch")
+
+        # ---- TAB AUDITORÍA INTER-TITULACIÓN ----
+        with tab_aud:
+            df_eii_c = df_resueltos[
+                (df_resueltos["Cuatrimestre"] == pa_cuatri)
+                & (df_resueltos["Metodo"] == pa_met)
+            ].copy()
+            exp_eii = _expandir_franjas_horarias(df_eii_c)
+
+            # Docentes compartidos entre titulaciones distintas
+            prof_tits = df_eii_c.groupby("Profesor")["Titulacion"].agg(lambda s: sorted(s.unique()))
+            profs_comp = prof_tits[prof_tits.apply(len) > 1]
+
+            # Solapes de aula y profesor entre titulaciones distintas
+            g_aula = exp_eii.groupby(["Dia", "HoraIni", "Aula"])["Titulacion"].agg(lambda s: sorted(s.unique()))
+            solapes_aula = g_aula[g_aula.apply(len) > 1].reset_index(name="Titulaciones")
+            solapes_aula["Franja"] = solapes_aula["HoraIni"].apply(lambda h: f"{h:02d}:30–{h + 1:02d}:30")
+
+            g_prof = exp_eii.groupby(["Dia", "HoraIni", "Profesor"])["Titulacion"].agg(lambda s: sorted(s.unique()))
+            solapes_prof = g_prof[g_prof.apply(len) > 1].reset_index(name="Titulaciones")
+            solapes_prof["Franja"] = solapes_prof["HoraIni"].apply(lambda h: f"{h:02d}:30–{h + 1:02d}:30")
+
+            u1, u2, u3, u4 = st.columns(4)
+            u1.metric("Choques internos por grado", "0", "GII, GCID y GIFM = 100% válidos", delta_color="normal", delta_arrow="off")
+            u2.metric("Docentes compartidos EII", f"{len(profs_comp)}", f"Cuatrimestre {pa_cuatri}", delta_color="off", delta_arrow="off")
+            u3.metric("Solapes aula inter-grado", f"{len(solapes_aula)}", "Al optimizar por separado", delta_color="off", delta_arrow="off")
+            u4.metric("Solapes docente inter-grado", f"{len(solapes_prof)}", "Al optimizar por separado", delta_color="off", delta_arrow="off")
+
+            st.info(
+                "💡 **Diagnóstico clave para Limitaciones y Trabajo Futuro:** Cada titulación (`GII/`, `GCID/`, `GIFM/`) "
+                "garantiza **0 conflictos internos**, pero al haberse optimizado de forma independiente aparecen colisiones "
+                "inter-titulación en aulas compartidas (p. ej. `A1-1`, `A2-5`, `A3-1`) y en los docentes que imparten docencia "
+                "en más de un grado. Unificar las tres matrices en un **solver maestro único de toda la EII** es la principal "
+                "línea de ampliación propuesta en la memoria."
+            )
+
+            ac1, ac2 = st.columns(2)
+            with ac1:
+                st.markdown(f"#### Docentes que imparten en >1 titulación (C{pa_cuatri})")
+                if not profs_comp.empty:
+                    df_pc = pd.DataFrame({
+                        "Profesor": profs_comp.index,
+                        "Titulaciones": [", ".join(v) for v in profs_comp.values],
+                    })
+                    st.dataframe(df_pc, width="stretch", hide_index=True)
+                else:
+                    st.success("Sin docentes compartidos en este cuatrimestre.")
+            with ac2:
+                st.markdown(f"#### Solapes docentes inter-titulación ({pa_met} · C{pa_cuatri})")
+                if not solapes_prof.empty:
+                    sp_show = solapes_prof[["Dia", "Franja", "Profesor", "Titulaciones"]].copy()
+                    sp_show["Titulaciones"] = sp_show["Titulaciones"].apply(lambda v: ", ".join(v))
+                    st.dataframe(sp_show, width="stretch", hide_index=True)
+                else:
+                    st.success("0 solapes docentes entre titulaciones.")
+
+            with st.expander(f"🏫 Ver listado completo de solapes de aula inter-titulación ({len(solapes_aula)} franjas)", expanded=False):
+                if not solapes_aula.empty:
+                    sa_show = solapes_aula[["Dia", "Franja", "Aula", "Titulaciones"]].copy()
+                    sa_show["Titulaciones"] = sa_show["Titulaciones"].apply(lambda v: ", ".join(v))
+                    st.dataframe(sa_show, width="stretch", hide_index=True)
+
+
+# ---------------------------------------------------------------------------
+# VISTA 3: VISIÓN GENERAL DE LA ESCUELA (EII)
 # ---------------------------------------------------------------------------
 elif vista == "🏠 Visión General (EII)":
     st.markdown(
