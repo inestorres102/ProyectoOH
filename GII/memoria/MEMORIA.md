@@ -56,10 +56,10 @@ $$|\Omega| = (T \times R)^S$$
 Para el caso del primer semestre de 2º de GII ($S=31$ sesiones docentes en el turno de mañana, con 30 slots y 27 aulas disponibles), el espacio de soluciones teóricas posibles supera las:
 $$|\Omega| = (30 \times 27)^{31} = 810^{31} \approx 1.83 \times 10^{90} \text{ estados}$$
 
-### 4.2. Estado del Arte en la Literatura
-A lo largo de las últimas tres décadas se han explorado diversas metodologías:
-* **Métodos Exactos y Programación Matemática:** Burke, Kingston y de Werra (2004) sintetizan la formulación mediante Programación Lineal Entera Mixta (MILP) y Programación con Restricciones (CP). Rossi-Doria et al. (2003) destacan que, si bien los métodos exactos como Branch-and-Cut ofrecen garantías de optimalidad global, sufren de explosión combinatoria cuando el número de variables binarias crece o cuando las restricciones de recursos espaciales son muy densas.
-* **Metaheurísticas y Búsquedas Locales:** Lewis (2008) y Schaerf (1999) demuestran que las metaheurísticas basadas en trayectorias, especialmente el **Recocido Simulado** (*Simulated Annealing*), la **Búsqueda Tabú** (*Tabu Search*) y la **Búsqueda de Vecindad Variable** (*Variable Neighborhood Search*, VNS), son extraordinariamente eficaces para sortear mínimos locales y alcanzar soluciones de alta calidad en tiempos de cómputo de pocos segundos. En particular, Kostuch (2005) demostró la superioridad de SA en los benchmarks oficiales de la ITC.
+### 4.2. Enfoques de Resolución
+Para abordar este tipo de problemas se distinguen dos metodologías principales:
+* **Métodos Exactos y Programación Matemática:** Utilizan formulaciones mediante Programación Lineal Entera Mixta (MILP) y Programación con Restricciones (CP). Si bien los métodos exactos ofrecen garantías de optimalidad global, pueden sufrir explosión combinatoria cuando el número de variables binarias crece o cuando las restricciones de recursos espaciales son muy densas.
+* **Metaheurísticas y Búsquedas Locales:** Las metaheurísticas basadas en trayectorias, especialmente el **Recocido Simulado** (*Simulated Annealing*), la **Búsqueda Tabú** (*Tabu Search*) y la **Búsqueda de Vecindad Variable** (*Variable Neighborhood Search*, VNS), resultan muy eficaces para escapar de mínimos locales y alcanzar soluciones de alta calidad en tiempos de cómputo de pocos segundos.
 
 ---
 
@@ -329,18 +329,6 @@ Los horarios resultantes fueron exportados en alta resolución (300 DPI) emuland
 * Integrar un algoritmo híbrido memético (Algoritmo Genético con búsqueda local por Recocido Simulado) para instancias aún mayores a escala de campus universitario completo.
 * Incorporar preferencias docentes individuales (ej. franjas horarias preferidas por el profesorado para actividades de investigación).
 * Desplegar el sistema como una aplicación web interactiva en FastAPI/Streamlit para la secretaría académica de la Escuela.
-
----
-
-## 12. Referencias
-
-1. **Burke, E. K., Kingston, J. H., & de Werra, D. (2004).** *Applications to school, timetable and sports scheduling.* In Handbook of Graph Theory (pp. 520-539). CRC Press.
-2. **Lewis, R. (2008).** *A survey of metaheuristic techniques for course timetabling.* Annals of Operations Research, 159(1), 167-190.
-3. **Schaerf, A. (1999).** *A survey of automated timetabling.* Artificial Intelligence Review, 13(2), 87-127.
-4. **Bettinelli, A., Cordeau, J. F., & Malucelli, F. (2015).** *A branch-and-cut-and-price algorithm for the curriculum-based course timetabling problem.* Computers & Operations Research, 54, 80-92.
-5. **Kirkpatrick, S., Gelatt, C. D., & Vecchi, M. P. (1983).** *Optimization by simulated annealing.* Science, 220(4598), 671-680.
-6. **Perron, L., & Furnon, V. (2024).** *OR-Tools - Google Optimization Tools.* Google LLC. https://developers.google.com/optimization
-7. **Escuela de Ingeniería Informática - ULPGC (2026).** *Calendario, Organización Docente y Asignación de Espacios del Grado en Ingeniería Informática.* Universidad de Las Palmas de Gran Canaria.
 
 ---
 
