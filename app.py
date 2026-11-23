@@ -2,12 +2,14 @@
 Cuadro de Mandos Interactivo — Planificación Automática de Horarios EII (ULPGC)
 Proyecto de Optimización y Heurística (Curso 2026-2027)
 
-Integra en una única aplicación interactiva las tres titulaciones de la Escuela:
+Integra en una interfaz homogénea las tres titulaciones de la Escuela:
 - GII  (Grado en Ingeniería Informática)
 - GCID (Grado en Ciencia e Ingeniería de Datos)
 - GIFM (Grado en Ingeniería Física y Matemática)
 """
 
+import html
+import io
 import json
 import subprocess
 import sys
@@ -22,9 +24,10 @@ import streamlit as st
 
 try:
     import pymupdf
-    HAS_PYMUPDF = True
+    from PIL import Image
+    HAS_PDF_RENDER = True
 except ImportError:
-    HAS_PYMUPDF = False
+    HAS_PDF_RENDER = False
 
 
 REPO_ROOT = Path(__file__).resolve().parent
@@ -42,6 +45,18 @@ TITULACIONES_INFO = {
         ),
         "ruta_clases": REPO_ROOT / "GII" / "datos" / "clases.csv",
         "ruta_aulas": REPO_ROOT / "GII" / "datos" / "aulas.csv",
+        "ruta_pdf": REPO_ROOT / "GII" / "horario_GII_2026_2027.pdf",
+        "pdf_leyenda_idx": 7,
+        "pdf_pages": {
+            (1, 1): (0, "full"),
+            (1, 2): (1, "full"),
+            (2, 1): (2, "full"),
+            (2, 2): (3, "full"),
+            (3, 1): (4, "full"),
+            (3, 2): (5, "full"),
+            (4, 1): (6, "top"),
+            (4, 2): (6, "bottom"),
+        },
     },
     "GCID": {
         "nombre": "Grado en Ciencia e Ingeniería de Datos",
@@ -55,6 +70,18 @@ TITULACIONES_INFO = {
         ),
         "ruta_clases": REPO_ROOT / "GCID" / "datos" / "clases_gcid.csv",
         "ruta_aulas": REPO_ROOT / "GCID" / "datos" / "aulas.csv",
+        "ruta_pdf": REPO_ROOT / "GCID" / "horario_GCID_2026_2027.pdf",
+        "pdf_leyenda_idx": 4,
+        "pdf_pages": {
+            (1, 1): (0, "top"),
+            (1, 2): (0, "bottom"),
+            (2, 1): (1, "top"),
+            (2, 2): (1, "bottom"),
+            (3, 1): (2, "top"),
+            (3, 2): (2, "bottom"),
+            (4, 1): (3, "top"),
+            (4, 2): (3, "bottom"),
+        },
     },
     "GIFM": {
         "nombre": "Grado en Ingeniería Física y Matemática",
@@ -68,28 +95,31 @@ TITULACIONES_INFO = {
         ),
         "ruta_clases": REPO_ROOT / "GIFM" / "datos" / "clases.csv",
         "ruta_aulas": REPO_ROOT / "GIFM" / "datos" / "aulas.csv",
+        "ruta_pdf": REPO_ROOT / "GIFM" / "horario_GIFM_2026_2027.pdf",
+        "pdf_leyenda_idx": 7,
+        "pdf_pages": {
+            (1, 1): (0, "full"),
+            (1, 2): (1, "full"),
+            (2, 1): (2, "top"),
+            (2, 2): (2, "bottom"),
+            (3, 1): (3, "full"),
+            (3, 2): (4, "full"),
+            (4, 1): (5, "full"),
+            (4, 2): (6, "full"),
+        },
     },
-}
-
-GII_PDF_PAGES = {
-    (1, 1): 0,
-    (1, 2): 1,
-    (2, 1): 2,
-    (2, 2): 3,
-    (3, 1): 4,
-    (3, 2): 5,
-    (4, 1): 6,
 }
 
 GCID_CARPETA_CURSO = {1: "primero", 2: "segundo", 3: "tercero", 4: "cuarto"}
 
-# Resultados experimentales oficiales documentados en GCID/README.md
 GCID_BENCHMARK = pd.DataFrame([
     {"Cuatrimestre": "1er Semestre", "Metodo": "OR-Tools CP-SAT", "Sesiones": 86, "Choques": 0, "Huecos": 0, "Penalizacion_Blanda": 85, "Tiempo_s": 10.78},
     {"Cuatrimestre": "1er Semestre", "Metodo": "Recocido Simulado", "Sesiones": 86, "Choques": 0, "Huecos": 0, "Penalizacion_Blanda": 160, "Tiempo_s": 11.08},
     {"Cuatrimestre": "2º Semestre", "Metodo": "OR-Tools CP-SAT", "Sesiones": 64, "Choques": 0, "Huecos": 0, "Penalizacion_Blanda": 25, "Tiempo_s": 4.77},
     {"Cuatrimestre": "2º Semestre", "Metodo": "Recocido Simulado", "Sesiones": 64, "Choques": 0, "Huecos": 0, "Penalizacion_Blanda": 150, "Tiempo_s": 9.45},
 ])
+
+DIAS_ORDEN = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"]
 
 
 # ---------------------------------------------------------------------------
@@ -106,20 +136,20 @@ st.markdown(
     """
     <style>
     .block-container {
-        padding-top: 1.4rem;
+        padding-top: 1.3rem;
         padding-bottom: 2.5rem;
     }
     .eii-hero {
         background: linear-gradient(125deg, #0B1F42 0%, #153A75 58%, #1D4ED8 100%);
         color: #FFFFFF;
-        padding: 1.4rem 1.8rem;
+        padding: 1.35rem 1.75rem;
         border-radius: 14px;
-        margin-bottom: 1.25rem;
+        margin-bottom: 1.2rem;
         box-shadow: 0 8px 24px rgba(15, 41, 82, 0.16);
     }
     .eii-hero h1 {
-        margin: 0 0 0.35rem 0;
-        font-size: 1.75rem;
+        margin: 0 0 0.3rem 0;
+        font-size: 1.7rem;
         font-weight: 800;
         color: #FFFFFF;
         letter-spacing: -0.02em;
@@ -127,21 +157,20 @@ st.markdown(
     .eii-hero p {
         margin: 0;
         color: #DBEAFE;
-        font-size: 0.96rem;
+        font-size: 0.94rem;
     }
     .badge-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-top: 0.85rem;
+        gap: 0.45rem;
+        margin-top: 0.8rem;
     }
     .pill {
         display: inline-flex;
         align-items: center;
-        gap: 0.35rem;
-        padding: 0.25rem 0.7rem;
+        padding: 0.22rem 0.68rem;
         border-radius: 999px;
-        font-size: 0.78rem;
+        font-size: 0.77rem;
         font-weight: 700;
         border: 1px solid rgba(255,255,255,0.22);
         background: rgba(255,255,255,0.12);
@@ -150,22 +179,22 @@ st.markdown(
     .legend-bar {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.6rem;
+        gap: 0.55rem;
         align-items: center;
-        margin: 0.4rem 0 0.9rem 0;
+        margin: 0.35rem 0 0.8rem 0;
     }
     .leg-item {
         display: inline-flex;
         align-items: center;
-        gap: 0.4rem;
-        padding: 0.22rem 0.68rem;
+        padding: 0.2rem 0.65rem;
         border-radius: 8px;
-        font-size: 0.8rem;
+        font-size: 0.79rem;
         font-weight: 700;
     }
     .leg-teoria { background: #FFF9C4; color: #E65100; border: 1.5px solid #FBC02D; }
     .leg-aula   { background: #E1F5FE; color: #01579B; border: 1.5px solid #0288D1; }
     .leg-lab    { background: #C8E6C9; color: #1B5E20; border: 1.5px solid #43A047; }
+    .leg-morado { background: #D1C4E9; color: #4527A0; border: 1.5px solid #7E57C2; }
     .info-card {
         background: #FFFFFF;
         border: 1px solid #E2E8F0;
@@ -174,24 +203,103 @@ st.markdown(
         box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
         height: 100%;
     }
-    .info-card h4 {
-        margin: 0 0 0.45rem 0;
-        color: #0F2952;
-        font-size: 1.02rem;
-    }
-    .info-card p {
-        margin: 0.25rem 0;
-        font-size: 0.88rem;
-        color: #334155;
-        line-height: 1.45;
-    }
+    .info-card h4 { margin: 0 0 0.4rem 0; color: #0F2952; font-size: 1.02rem; }
+    .info-card p  { margin: 0.25rem 0; font-size: 0.88rem; color: #334155; line-height: 1.45; }
     div[data-testid="stMetric"] {
         background: #FFFFFF;
         border: 1px solid #E2E8F0;
         border-radius: 12px;
-        padding: 0.85rem 1rem;
+        padding: 0.8rem 1rem;
         box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
     }
+    /* Cuadrícula HTML interactiva unificada EII */
+    .tt-wrap {
+        background: #FFFFFF;
+        border: 1px solid #CBD5E1;
+        border-radius: 12px;
+        overflow-x: auto;
+        box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+        margin-bottom: 1rem;
+    }
+    .tt-header {
+        background: #0F2952;
+        color: #FFFFFF;
+        padding: 0.65rem 1rem;
+        font-weight: 800;
+        font-size: 0.94rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .tt-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        min-width: 780px;
+    }
+    .tt-table th {
+        background: #1A237E;
+        color: #FFFFFF;
+        font-size: 0.82rem;
+        font-weight: 700;
+        padding: 0.55rem 0.4rem;
+        border: 1px solid #334155;
+        text-align: center;
+        letter-spacing: 0.03em;
+    }
+    .tt-table th.tt-hcol {
+        width: 108px;
+        background: #0F2952;
+    }
+    .tt-table td {
+        border: 1px solid #E2E8F0;
+        vertical-align: top;
+        padding: 4px;
+        height: 68px;
+        background: #FCFDFE;
+    }
+    .tt-table td.tt-time {
+        background: #EEF2FF;
+        color: #1E293B;
+        font-weight: 700;
+        font-size: 0.78rem;
+        text-align: center;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+    .tt-cell-flex {
+        display: flex;
+        gap: 4px;
+        height: 100%;
+        align-items: stretch;
+    }
+    .tt-card {
+        flex: 1 1 0;
+        min-width: 0;
+        border-radius: 7px;
+        padding: 5px 6px;
+        font-size: 0.74rem;
+        line-height: 1.25;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        transition: transform 0.12s ease, box-shadow 0.12s ease;
+        overflow: hidden;
+    }
+    .tt-card:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 3px 10px rgba(15, 23, 42, 0.14);
+    }
+    .tt-card-teoria { background: #FFF9C4; border: 1.6px solid #FBC02D; color: #7C2D12; }
+    .tt-card-aula   { background: #E1F5FE; border: 1.6px solid #0288D1; color: #0C4A6E; }
+    .tt-card-lab    { background: #C8E6C9; border: 1.6px solid #43A047; color: #14532D; }
+    .tt-card-dim    { opacity: 0.22; filter: grayscale(0.6); }
+    .tt-asig  { font-weight: 800; font-size: 0.8rem; }
+    .tt-meta  { font-size: 0.7rem; font-weight: 600; margin-top: 2px; }
+    .tt-prof  { font-size: 0.65rem; opacity: 0.85; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     </style>
     """,
     unsafe_allow_html=True,
@@ -208,6 +316,21 @@ def _normalizar_tipo(valor: str) -> str:
     if "aula" in t or "problem" in t:
         return "Práctica de Aula"
     return "Laboratorio"
+
+
+def _normalizar_dia(valor: str) -> str:
+    d = str(valor).strip().lower()
+    if "lun" in d:
+        return "Lunes"
+    if "mar" in d:
+        return "Martes"
+    if "mi" in d:
+        return "Miércoles"
+    if "jue" in d:
+        return "Jueves"
+    if "vie" in d:
+        return "Viernes"
+    return str(valor).strip()
 
 
 @st.cache_data(show_spinner=False)
@@ -242,6 +365,20 @@ def cargar_catalogo_unificado() -> pd.DataFrame:
 
 
 @st.cache_data(show_spinner=False)
+def cargar_horarios_resueltos() -> pd.DataFrame:
+    p = REPO_ROOT / "dashboard_data" / "horarios_unificados.csv"
+    if not p.exists():
+        return pd.DataFrame()
+    df = pd.read_csv(p, encoding="utf-8-sig")
+    df["Dia"] = df["Dia"].apply(_normalizar_dia)
+    df["Grupo"] = df["Grupo"].astype(str).str.strip()
+    df["Aula"] = df["Aula"].astype(str).str.strip()
+    df["Profesor"] = df["Profesor"].astype(str).str.strip()
+    df["Semanas"] = df["Semanas"].fillna("1-15").astype(str).str.strip()
+    return df
+
+
+@st.cache_data(show_spinner=False)
 def cargar_aulas() -> pd.DataFrame:
     df = pd.read_csv(REPO_ROOT / "GII" / "datos" / "aulas.csv", encoding="utf-8-sig")
     df.columns = df.columns.str.strip()
@@ -261,9 +398,7 @@ def cargar_benchmark_gii() -> pd.DataFrame:
 @st.cache_data(show_spinner=False)
 def cargar_estadisticas_gifm() -> pd.DataFrame:
     carpeta = REPO_ROOT / "GIFM" / "resultados"
-    filas = []
-    for f in sorted(carpeta.glob("estadisticas_recocido_*.csv")):
-        filas.append(pd.read_csv(f, encoding="utf-8-sig"))
+    filas = [pd.read_csv(f, encoding="utf-8-sig") for f in sorted(carpeta.glob("estadisticas_recocido_*.csv"))]
     if not filas:
         return pd.DataFrame()
     df = pd.concat(filas, ignore_index=True)
@@ -272,9 +407,9 @@ def cargar_estadisticas_gifm() -> pd.DataFrame:
 
 
 @st.cache_data(show_spinner=False)
-def renderizar_pagina_pdf_gii(page_idx: int, zoom: float = 2.0) -> bytes | None:
-    pdf_path = REPO_ROOT / "GII" / "horario_GII_2026_2027.pdf"
-    if not HAS_PYMUPDF or not pdf_path.exists():
+def renderizar_pagina_pdf(tit: str, page_idx: int, crop_mode: str = "full", zoom: float = 2.0) -> bytes | None:
+    pdf_path = TITULACIONES_INFO[tit]["ruta_pdf"]
+    if not HAS_PDF_RENDER or not pdf_path.exists():
         return None
     doc = pymupdf.open(str(pdf_path))
     if page_idx < 0 or page_idx >= len(doc):
@@ -282,76 +417,222 @@ def renderizar_pagina_pdf_gii(page_idx: int, zoom: float = 2.0) -> bytes | None:
         return None
     page = doc.load_page(page_idx)
     pix = page.get_pixmap(matrix=pymupdf.Matrix(zoom, zoom), alpha=False)
-    img_bytes = pix.tobytes("png")
+    img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+
+    if crop_mode in ("top", "bottom"):
+        # Calcular el punto exacto de corte vertical usando la caja de "Segundo Semestre"
+        w, h = img.size
+        split_ratio = 0.425
+        hits = page.search_for("Segundo Semestre")
+        if hits:
+            # Convertir coordenadas del PDF a coordenadas visuales rotadas
+            r_vis = hits[0] * page.rotation_matrix
+            pr = page.rect
+            cand = (r_vis.y0 - pr.y0) / max(pr.height, 1.0)
+            if 0.28 <= cand <= 0.65:
+                split_ratio = max(0.28, cand - 0.012)
+        y_cut = int(h * split_ratio)
+        if crop_mode == "top":
+            img = img.crop((0, int(h * 0.04), w, y_cut))
+        else:
+            img = img.crop((0, y_cut, w, int(h * 0.94)))
+
     doc.close()
-    return img_bytes
+    buf = io.BytesIO()
+    img.save(buf, format="PNG")
+    return buf.getvalue()
 
 
-def obtener_opciones_gii(curso: int, cuatrimestre: int) -> dict[str, Path]:
+def obtener_opciones_gii(curso: int, cuatrimestre: int) -> list[dict]:
+    """Devuelve opciones homogéneas (label, grupo_principal o None, ruta CP-SAT, ruta SA)."""
     sem_dir = "1er_Semestre" if cuatrimestre == 1 else "2do_Semestre"
-    carpeta = REPO_ROOT / "GII" / "horarios" / f"{curso}GII" / sem_dir
-    opciones = {}
-    orden = [
-        ("Vista Conjunta (Mañana: G1 + G2)", "horario_conjunto.png"),
-        ("Grupo 1 (Mañana)", "horario_Grupo_1.png"),
-        ("Grupo 2 (Mañana)", "horario_Grupo_2.png"),
-        ("Grupo 3 (Turno de Tarde)", "horario_Grupo_3.png"),
+    carpeta_cp = REPO_ROOT / "GII" / "horarios" / f"{curso}GII" / sem_dir
+    carpeta_sa = REPO_ROOT / "GII" / "horarios_SA" / f"{curso}GII" / sem_dir
+
+    conj_label = (
+        "Vista Conjunta (G1 + G2 + G3 Tarde)"
+        if curso == 1
+        else "Vista Conjunta (Mañana: G1 + G2)"
+    )
+    especificaciones = [
+        (conj_label, None, "horario_conjunto.png"),
+        ("Grupo 1 (Mañana)", 1, "horario_Grupo_1.png"),
+        ("Grupo 2 (Mañana)", 2, "horario_Grupo_2.png"),
+        ("Grupo 3 (Turno de Tarde)", 3, "horario_Grupo_3.png"),
     ]
-    for label, fname in orden:
-        p = carpeta / fname
-        if p.exists():
-            opciones[label] = p
+    opciones = []
+    for label, gp, fname in especificaciones:
+        p_cp = carpeta_cp / fname
+        p_sa = carpeta_sa / fname
+        if p_cp.exists() or p_sa.exists():
+            opciones.append({"label": label, "gp": gp, "cp": p_cp, "sa": p_sa})
     return opciones
 
 
-def obtener_rutas_gcid(curso: int, cuatrimestre: int) -> tuple[Path, Path]:
-    c_dir = GCID_CARPETA_CURSO[curso]
-    sem = "1er" if cuatrimestre == 1 else "2do"
-    p_cp = REPO_ROOT / "GCID" / "horarios_CP-SAT" / c_dir / f"horario_{curso}GCID_{sem}.png"
-    p_sa = REPO_ROOT / "GCID" / "horarios_metaheuristica" / c_dir / f"horario_SA_{curso}GCID_{sem}.png"
-    return p_cp, p_sa
-
-
-def obtener_rutas_gifm(curso: int, cuatrimestre: int) -> tuple[Path, Path, Path, Path]:
+def obtener_rutas_png(tit: str, curso: int, cuatrimestre: int, gii_opt: dict | None = None) -> tuple[Path | None, Path | None]:
+    if tit == "GII":
+        if gii_opt is None:
+            return None, None
+        return gii_opt["cp"], gii_opt["sa"]
+    if tit == "GCID":
+        c_dir = GCID_CARPETA_CURSO[curso]
+        sem = "1er" if cuatrimestre == 1 else "2do"
+        return (
+            REPO_ROOT / "GCID" / "horarios_CP-SAT" / c_dir / f"horario_{curso}GCID_{sem}.png",
+            REPO_ROOT / "GCID" / "horarios_metaheuristica" / c_dir / f"horario_SA_{curso}GCID_{sem}.png",
+        )
     base = REPO_ROOT / "GIFM" / "resultados"
-    p_cp = base / f"horario_{curso}GIFM_{cuatrimestre}cuatri.png"
-    p_sa = base / f"horario_{curso}GIFM_{cuatrimestre}cuatri_recocido.png"
-    p_csv = base / f"horario_{curso}GIFM_{cuatrimestre}cuatri_recocido.csv"
-    p_stats = base / f"estadisticas_recocido_{curso}GIFM_{cuatrimestre}cuatri.csv"
-    return p_cp, p_sa, p_csv, p_stats
+    return (
+        base / f"horario_{curso}GIFM_{cuatrimestre}cuatri.png",
+        base / f"horario_{curso}GIFM_{cuatrimestre}cuatri_recocido.png",
+    )
 
 
-def mostrar_leyenda_colores():
-    st.markdown(
-        """
-        <div class="legend-bar">
-            <span style="font-size:0.82rem; font-weight:700; color:#475569;">Código visual EII:</span>
-            <span class="leg-item leg-teoria">Teoría</span>
-            <span class="leg-item leg-aula">Práctica de Aula / Problemas</span>
-            <span class="leg-item leg-lab">Práctica de Laboratorio</span>
-        </div>
-        """,
-        unsafe_allow_html=True,
+def mostrar_leyenda(paleta: str = "eii"):
+    if paleta == "gifm_orig":
+        st.markdown(
+            """
+            <div class="legend-bar">
+                <span style="font-size:0.81rem; font-weight:700; color:#475569;">Leyenda original PNG de GIFM:</span>
+                <span class="leg-item leg-teoria">Teoría</span>
+                <span class="leg-item leg-morado">Práctica / Laboratorio (GIFM)</span>
+                <span style="font-size:0.78rem; color:#64748B;">(En la pestaña <b>Vista Interactiva Unificada</b> se muestran con la paleta oficial EII).</span>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    else:
+        st.markdown(
+            """
+            <div class="legend-bar">
+                <span style="font-size:0.81rem; font-weight:700; color:#475569;">Paleta oficial EII unificada:</span>
+                <span class="leg-item leg-teoria">Teoría</span>
+                <span class="leg-item leg-aula">Práctica de Aula / Problemas</span>
+                <span class="leg-item leg-lab">Práctica de Laboratorio</span>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+
+def renderizar_cuadricula_html(df_bloques: pd.DataFrame, titulo_barra: str, filtro_texto: str = "") -> str:
+    """Genera una cuadrícula semanal HTML limpia y 100% uniforme en las 3 titulaciones."""
+    if df_bloques.empty:
+        return "<p>No hay sesiones resueltas para mostrar.</p>"
+
+    # Detectar horas de inicio (mañana 08:30, tarde 14:30, o ampliada 08:30-16:30)
+    slots_min = int(df_bloques["Slot"].min())
+    es_tarde = any(str(h).startswith(("14:30", "15:30", "16:30", "17:30", "18:30", "19:30")) for h in df_bloques["Hora"]) and not any(
+        str(h).startswith(("08:30", "09:30", "10:30", "11:30")) for h in df_bloques["Hora"]
+    )
+
+    if es_tarde:
+        h_ini, n_horas = 14, 6
+    else:
+        # Comprobar si hay horario ampliado hasta las 16:30 (3º GIFM C2)
+        necesita_8 = any(str(h).endswith(("15:30", "16:30")) or str(h).startswith(("14:30", "15:30")) for h in df_bloques["Hora"])
+        h_ini, n_horas = 8, (8 if necesita_8 else 6)
+
+    horas_labels = [f"{h_ini + i:02d}:30-{h_ini + i + 1:02d}:30" for i in range(n_horas)]
+
+    # Colocar cada bloque en su celda (dia, hora_idx) con rowspan = duracion
+    # Si hay varios bloques solapados en un mismo día/hora (subgrupos distintos), los agrupamos en la celda de inicio
+    # Para que las tablas HTML nunca se rompan con rowspans cruzados entre subgrupos, renderizamos por hora con tarjetas limpias
+    celdas: dict[tuple[str, int], list[dict]] = {(d, h): [] for d in DIAS_ORDEN for h in range(n_horas)}
+
+    q = filtro_texto.strip().lower()
+    for _, r in df_bloques.iterrows():
+        dia = _normalizar_dia(r["Dia"])
+        if dia not in DIAS_ORDEN:
+            continue
+        hora_str = str(r["Hora"]).strip()
+        try:
+            h_start = int(hora_str.split(":")[0])
+            h_idx = h_start - h_ini
+        except Exception:
+            h_idx = int(r["Slot"]) % n_horas
+        dur = max(1, int(r["DuracionHoras"]))
+
+        coincide = True
+        if q:
+            blob = f"{r['Asignatura']} {r['Profesor']} {r['Aula']} {r['Grupo']} {r['Modalidad']}".lower()
+            coincide = q in blob
+
+        for offset in range(dur):
+            idx = h_idx + offset
+            if 0 <= idx < n_horas:
+                celdas[(dia, idx)].append({
+                    "asig": str(r["Asignatura"]),
+                    "mod": str(r["Modalidad"]),
+                    "grupo": str(r["Grupo"]),
+                    "aula": str(r["Aula"]),
+                    "prof": str(r["Profesor"]),
+                    "sem": str(r["Semanas"]),
+                    "dur": dur,
+                    "cont": offset > 0,
+                    "match": coincide,
+                })
+
+    cls_map = {
+        "Teoría": "tt-card-teoria",
+        "Práctica de Aula": "tt-card-aula",
+        "Laboratorio": "tt-card-lab",
+    }
+
+    rows_html = []
+    for h_idx, h_lbl in enumerate(horas_labels):
+        tds = [f'<td class="tt-time">{h_lbl}</td>']
+        for d in DIAS_ORDEN:
+            items = sorted(celdas[(d, h_idx)], key=lambda x: (x["mod"] != "Teoría", x["grupo"], x["asig"]))
+            if not items:
+                tds.append("<td></td>")
+                continue
+            cards = []
+            for it in items:
+                cls = cls_map.get(it["mod"], "tt-card-lab")
+                if not it["match"]:
+                    cls += " tt-card-dim"
+                sem_tag = f" · Sem. {html.escape(it['sem'])}" if it["sem"] not in ("", "1-15", "nan") else ""
+                cont_tag = " ↳" if it["cont"] else ""
+                tip = html.escape(f"{it['asig']} ({it['mod']}) | Grupo {it['grupo']} | Aula {it['aula']} | {it['prof']} | Semanas: {it['sem']}")
+                cards.append(
+                    f'<div class="tt-card {cls}" title="{tip}">'
+                    f'<div class="tt-asig">{html.escape(it["asig"])}{cont_tag} <span style="font-weight:600;opacity:0.85;">(G{html.escape(it["grupo"])})</span></div>'
+                    f'<div class="tt-meta">{html.escape(it["aula"])}{sem_tag}</div>'
+                    f'<div class="tt-prof">{html.escape(it["prof"])}</div>'
+                    f'</div>'
+                )
+            tds.append(f'<td><div class="tt-cell-flex">{"".join(cards)}</div></td>')
+        rows_html.append(f'<tr>{"".join(tds)}</tr>')
+
+    ths = '<th class="tt-hcol">HORA</th>' + "".join(f"<th>{d.upper()}</th>" for d in DIAS_ORDEN)
+    return (
+        f'<div class="tt-wrap">'
+        f'<div class="tt-header"><span>{html.escape(titulo_barra)}</span>'
+        f'<span style="font-size:0.78rem; font-weight:600; color:#BFDBFE;">Pasa el ratón por cualquier tarjeta para ver el detalle completo</span></div>'
+        f'<table class="tt-table"><thead><tr>{ths}</tr></thead><tbody>{"".join(rows_html)}</tbody></table>'
+        f'</div>'
     )
 
 
 # ---------------------------------------------------------------------------
-# SIDEBAR DE NAVEGACIÓN
+# CARGA GLOBAL Y SIDEBAR DE NAVEGACIÓN
 # ---------------------------------------------------------------------------
 df_catalogo = cargar_catalogo_unificado()
+df_resueltos = cargar_horarios_resueltos()
 df_aulas = cargar_aulas()
 
 with st.sidebar:
     st.markdown(
         """
-        <div style="padding:0.4rem 0 0.8rem 0;">
-            <div style="font-size:0.75rem; font-weight:800; letter-spacing:0.08em; color:#64748B; text-transform:uppercase;">
+        <div style="padding:0.35rem 0 0.75rem 0;">
+            <div style="font-size:0.74rem; font-weight:800; letter-spacing:0.08em; color:#64748B; text-transform:uppercase;">
                 ULPGC · Escuela de Ingeniería Informática
             </div>
-            <div style="font-size:1.3rem; font-weight:800; color:#0F2952; margin-top:0.15rem;">
+            <div style="font-size:1.28rem; font-weight:800; color:#0F2952; margin-top:0.15rem;">
                 Planificador OH
             </div>
-            <div style="font-size:0.82rem; color:#475569; margin-top:0.1rem;">
+            <div style="font-size:0.81rem; color:#475569; margin-top:0.1rem;">
                 Curso Académico 2026–2027
             </div>
         </div>
@@ -376,9 +657,9 @@ with st.sidebar:
     st.markdown("**Resumen integrado**")
     st.caption(
         f"• **3 titulaciones:** GII, GCID y GIFM\n"
-        f"• **12 cursos** (1º a 4º · 2 cuatrimestres)\n"
+        f"• **24 calendarios** (1º–4º · S1 y S2)\n"
         f"• **{len(df_catalogo)} sesiones** ({int(df_catalogo['Horas'].sum())} h semanales)\n"
-        f"• **{len(df_aulas)} espacios físicos** EII\n"
+        f"• **3 PDFs oficiales EII** integrados\n"
         f"• **Motores:** CP-SAT + Recocido Simulado"
     )
     st.divider()
@@ -386,25 +667,26 @@ with st.sidebar:
 
 
 # ---------------------------------------------------------------------------
-# VISTA 1 (PORTADA INTERACTIVA): EXPLORADOR DE HORARIOS
+# VISTA 1 (PORTADA INTERACTIVA): EXPLORADOR DE HORARIOS HOMOGÉNEO
 # ---------------------------------------------------------------------------
 if vista == "🗓️ Explorador de Horarios":
     st.markdown(
         """
         <div class="eii-hero">
             <h1>🗓️ Explorador Interactivo de Horarios — EII ULPGC</h1>
-            <p>Navega los calendarios optimizados de <b>GII</b>, <b>GCID</b> y <b>GIFM</b>, compara <b>OR-Tools CP-SAT</b> frente a <b>Recocido Simulado</b> y contrasta con el horario oficial de la Escuela.</p>
+            <p>Experiencia unificada para <b>GII</b>, <b>GCID</b> y <b>GIFM</b>: cuadrícula interactiva con paleta oficial EII, comparativa <b>CP-SAT vs. Recocido Simulado</b> y contraste directo frente a los <b>PDFs oficiales 2026–2027</b>.</p>
             <div class="badge-row">
-                <span class="pill">GII · 4 Cursos (Mañana y Tarde)</span>
-                <span class="pill">GCID · 4 Cursos (CP-SAT vs SA)</span>
-                <span class="pill">GIFM · 4 Cursos (Híbrido CP-SAT → SA)</span>
+                <span class="pill">GII · Mañana y Tarde + PDF Oficial</span>
+                <span class="pill">GCID · CP-SAT vs SA + PDF Oficial</span>
+                <span class="pill">GIFM · Híbrido CP-SAT → SA + PDF Oficial</span>
             </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    c1, c2, c3, c4 = st.columns([1.4, 1.0, 1.1, 1.5])
+    # Controles superiores idénticos en las 3 titulaciones
+    c1, c2, c3 = st.columns([1.8, 1.0, 1.1])
     with c1:
         tit = st.selectbox(
             "Titulación",
@@ -420,190 +702,250 @@ if vista == "🗓️ Explorador de Horarios":
             format_func=lambda x: "1er Cuatrimestre" if x == 1 else "2º Cuatrimestre",
         )
 
-    df_sel = df_catalogo[
+    # Selector de Grupo/Turno solo cuando la titulación tiene múltiples grupos principales (GII 1º y 2º)
+    gii_opt_sel = None
+    gp_filtro = None
+    if tit == "GII":
+        opciones_gii = obtener_opciones_gii(curso, cuatri)
+        if len(opciones_gii) > 1:
+            lbls = [o["label"] for o in opciones_gii]
+            lbl_sel = st.radio("Grupo / Turno a inspeccionar:", options=lbls, horizontal=True)
+            gii_opt_sel = next(o for o in opciones_gii if o["label"] == lbl_sel)
+            gp_filtro = gii_opt_sel["gp"]
+        elif opciones_gii:
+            gii_opt_sel = opciones_gii[0]
+            gp_filtro = gii_opt_sel["gp"]
+
+    # Filtrado exacto de catálogo y de horario resuelto (KPIs 100% coherentes con lo mostrado)
+    df_cat_sel = df_catalogo[
         (df_catalogo["Titulación"] == tit)
         & (df_catalogo["Curso"] == curso)
         & (df_catalogo["Cuatrimestre"] == cuatri)
     ].copy()
+    if gp_filtro is not None:
+        df_cat_sel = df_cat_sel[df_cat_sel["Grupo_Principal"] == gp_filtro].copy()
 
-    # Selector de modo según titulación
-    with c4:
-        if tit == "GII":
-            modo_gii = st.selectbox(
-                "Modo de visualización",
-                options=[
-                    "Horario Optimizado (CP-SAT)",
-                    "Comparativa: Optimizado vs. Oficial EII (PDF)",
-                ],
-            )
-        else:
-            modo_comp = st.selectbox(
-                "Modo de visualización",
-                options=[
-                    "Comparativa lado a lado (CP-SAT vs. Recocido Simulado)",
-                    "Solo OR-Tools CP-SAT",
-                    "Solo Recocido Simulado (SA)",
-                ],
-            )
+    df_res_sel_all = pd.DataFrame()
+    if not df_resueltos.empty:
+        df_res_sel_all = df_resueltos[
+            (df_resueltos["Titulacion"] == tit)
+            & (df_resueltos["Curso"] == curso)
+            & (df_resueltos["Cuatrimestre"] == cuatri)
+        ].copy()
+        if gp_filtro is not None:
+            df_res_sel_all = df_res_sel_all[df_res_sel_all["GrupoPrincipal"] == gp_filtro].copy()
 
-    # KPIs rápidos de la selección
+    df_res_cp = df_res_sel_all[df_res_sel_all["Metodo"] == "CP-SAT"].copy() if not df_res_sel_all.empty else pd.DataFrame()
+    df_res_sa = df_res_sel_all[df_res_sel_all["Metodo"] == "Recocido Simulado"].copy() if not df_res_sel_all.empty else pd.DataFrame()
+
+    # KPIs consistentes y reactivos
+    n_bloques = len(df_res_cp) if not df_res_cp.empty else len(df_cat_sel)
+    horas_sem = int(df_res_cp["DuracionHoras"].sum()) if not df_res_cp.empty else int(df_cat_sel["Horas"].sum())
     k1, k2, k3, k4 = st.columns(4)
-    k1.metric("Sesiones programadas", f"{len(df_sel)}")
-    k2.metric("Horas semanales", f"{int(df_sel['Horas'].sum())} h")
-    k3.metric("Asignaturas", f"{df_sel['Asignatura'].nunique()}")
-    k4.metric("Docentes implicados", f"{df_sel['Profesor'].nunique()}")
+    if tit == "GIFM" and n_bloques != len(df_cat_sel):
+        k1.metric("Bloques en horario", f"{n_bloques}", f"{len(df_cat_sel)} sesiones base CSV")
+    else:
+        sub_lbl = gii_opt_sel["label"] if (tit == "GII" and gii_opt_sel) else f"{curso}º {tit} · C{cuatri}"
+        k1.metric("Sesiones en horario", f"{n_bloques}", sub_lbl)
+    k2.metric("Horas semanales", f"{horas_sem} h")
+    k3.metric("Asignaturas", f"{df_cat_sel['Asignatura'].nunique()}")
+    k4.metric("Docentes implicados", f"{df_cat_sel['Profesor'].nunique()}")
 
-    mostrar_leyenda_colores()
+    # Notas específicas útiles del grado
+    if tit == "GCID" and curso == 3 and cuatri == 2:
+        st.info("📌 **3º GCID (2º Cuatri):** Jueves y viernes se mantienen 100% libres para las **Prácticas Externas** en empresa.")
+    elif tit == "GCID" and curso == 1:
+        st.info("📌 **1º GCID:** Teorías de una misma asignatura en días distintos, máximo 4 h/día por subgrupo y **0 huecos**.")
+    elif tit == "GIFM" and curso == 3 and cuatri == 2:
+        st.info("📌 **3º GIFM (2º Cuatri):** Alta carga de bloques → activación automática de **jornada ampliada (08:30–16:30)**.")
 
-    # Renderizado del horario según titulación
-    if tit == "GII":
-        opciones_gii = obtener_opciones_gii(curso, cuatri)
-        if not opciones_gii:
-            st.warning("No se encontraron imágenes generadas para esta selección de GII.")
-        else:
-            label_sel = st.radio(
-                "Grupo / Turno a visualizar:",
-                options=list(opciones_gii.keys()),
+    # 4 PESTAÑAS 100% HOMOGÉNEAS PARA LAS 3 TITULACIONES
+    tab_int, tab_png, tab_pdf, tab_tab = st.tabs([
+        "✨ Vista Interactiva Unificada (EII)",
+        "⚖️ Comparativa PNGs (CP-SAT vs. SA)",
+        "📄 Contraste vs. Horario Oficial EII (PDF)",
+        "📋 Tabla Detallada e Inspector",
+    ])
+
+    # ---- PESTAÑA 1: CUADRÍCULA INTERACTIVA UNIFICADA ----
+    with tab_int:
+        mostrar_leyenda("eii")
+        col_m, col_q = st.columns([1.1, 1.9])
+        with col_m:
+            met_int = st.radio(
+                "Algoritmo a visualizar",
+                options=["OR-Tools CP-SAT", "Recocido Simulado"],
                 horizontal=True,
+                key="met_int",
             )
-            ruta_img = opciones_gii[label_sel]
-
-            if modo_gii == "Horario Optimizado (CP-SAT)":
-                st.image(str(ruta_img), caption=f"{curso}º GII · {cuatri}º Semestre — {label_sel}", width="stretch")
-                with open(ruta_img, "rb") as f_bin:
-                    st.download_button(
-                        "⬇️ Descargar horario en PNG (300 DPI)",
-                        data=f_bin.read(),
-                        file_name=f"{curso}GII_S{cuatri}_{ruta_img.name}",
-                        mime="image/png",
-                    )
-            else:
-                col_opt, col_ofi = st.columns(2)
-                with col_opt:
-                    st.subheader("Propuesta Optimizada (Proyecto OH)")
-                    st.image(str(ruta_img), caption=f"Optimizado · {curso}º GII ({label_sel})", width="stretch")
-                with col_ofi:
-                    st.subheader("Horario Oficial EII 2026–2027 (PDF)")
-                    page_idx = GII_PDF_PAGES.get((curso, cuatri))
-                    if page_idx is not None:
-                        img_pdf = renderizar_pagina_pdf_gii(page_idx, zoom=2.0)
-                        if img_pdf:
-                            st.image(
-                                img_pdf,
-                                caption=f"PDF Oficial EII — Página {page_idx + 1} ({curso}º GII · {cuatri}º Sem.)",
-                                width="stretch",
-                            )
-                        else:
-                            st.info("Instala `pymupdf` para previsualizar el PDF oficial dentro de la app.")
-                    else:
-                        st.info(
-                            "El PDF oficial de GII (`horario_GII_2026_2027.pdf`) incluye páginas 1–7 "
-                            "(1º a 4º S1); la página 8 corresponde a la leyenda general de siglas de asignaturas."
-                        )
-                        img_ley = renderizar_pagina_pdf_gii(7, zoom=1.8)
-                        if img_ley:
-                            st.image(img_ley, caption="PDF Oficial EII — Página 8 (Leyenda de siglas)", width="stretch")
-
-    elif tit == "GCID":
-        p_cp, p_sa = obtener_rutas_gcid(curso, cuatri)
-        if curso == 3 and cuatri == 2:
-            st.info(
-                "📌 **Particularidad 3º GCID (2º Cuatrimestre):** Jueves y viernes se mantienen "
-                "100% libres de docencia presencial para facilitar las **Prácticas Externas** en empresa."
-            )
-        elif curso == 1:
-            st.info(
-                "📌 **Particularidad 1º GCID:** Las sesiones de teoría de una misma asignatura se reparten "
-                "en días distintos y la carga lectiva diaria de cada subgrupo no supera las 4 horas (0 huecos)."
+        with col_q:
+            q_hl = st.text_input(
+                "Resaltar asignatura, profesor, aula o subgrupo",
+                placeholder="Ej. A2-1, L1-2, Quevedo, G41, FP1...",
+                key="q_hl",
             )
 
-        if modo_comp.startswith("Comparativa"):
-            c_left, c_right = st.columns(2)
-            with c_left:
-                st.subheader("OR-Tools CP-SAT (Óptimo Exacto)")
-                if p_cp.exists():
-                    st.image(str(p_cp), width="stretch")
-                    with open(p_cp, "rb") as fb:
-                        st.download_button("⬇️ Descargar CP-SAT PNG", fb.read(), file_name=p_cp.name, mime="image/png")
-            with c_right:
-                st.subheader("Recocido Simulado (Metaheurística)")
-                if p_sa.exists():
-                    st.image(str(p_sa), width="stretch")
-                    with open(p_sa, "rb") as fb:
-                        st.download_button("⬇️ Descargar SA PNG", fb.read(), file_name=p_sa.name, mime="image/png")
-        elif "CP-SAT" in modo_comp:
-            st.image(str(p_cp), caption=f"{curso}º GCID · {cuatri}º Cuatrimestre (CP-SAT)", width="stretch")
-            with open(p_cp, "rb") as fb:
-                st.download_button("⬇️ Descargar CP-SAT PNG", fb.read(), file_name=p_cp.name, mime="image/png")
+        df_grid = df_res_cp if met_int == "OR-Tools CP-SAT" else df_res_sa
+        if df_grid.empty:
+            st.warning("No hay caché resuelta disponible para esta combinación. Ejecuta `python generar_activos_integracion.py`.")
         else:
-            st.image(str(p_sa), caption=f"{curso}º GCID · {cuatri}º Cuatrimestre (Recocido Simulado)", width="stretch")
-            with open(p_sa, "rb") as fb:
-                st.download_button("⬇️ Descargar SA PNG", fb.read(), file_name=p_sa.name, mime="image/png")
+            grupos_grid = sorted(df_grid["GrupoPrincipal"].unique().tolist())
+            for gp_val in grupos_grid:
+                sub_g = df_grid[df_grid["GrupoPrincipal"] == gp_val].copy()
+                if tit == "GII":
+                    gp_txt = f"Grupo {gp_val} (Turno de Tarde)" if gp_val == 3 else f"Grupo {gp_val} (Mañana)"
+                    t_barra = f"{curso}º GII · {cuatri}º Cuatrimestre · {gp_txt} — {met_int}"
+                else:
+                    t_barra = f"{curso}º {tit} · {cuatri}º Cuatrimestre — {met_int}"
+                st.markdown(renderizar_cuadricula_html(sub_g, t_barra, filtro_texto=q_hl), unsafe_allow_html=True)
 
-    else:  # GIFM
-        p_cp, p_sa, p_csv, p_stats = obtener_rutas_gifm(curso, cuatri)
-        if curso == 3 and cuatri == 2:
-            st.info(
-                "📌 **Particularidad 3º GIFM (2º Cuatrimestre):** Debido a la alta densidad de asignaturas y "
-                "bloques semanales, el solver activa automáticamente la **jornada ampliada (08:30–16:30)**."
-            )
+    # ---- PESTAÑA 2: COMPARATIVA PNGs CP-SAT vs RECOCIDO SIMULADO ----
+    with tab_png:
+        p_cp, p_sa = obtener_rutas_png(tit, curso, cuatri, gii_opt_sel)
+        mostrar_leyenda("gifm_orig" if tit == "GIFM" else "eii")
 
-        if p_stats.exists():
-            st_row = pd.read_csv(p_stats, encoding="utf-8-sig").iloc[0]
-            s1, s2, s3, s4 = st.columns(4)
-            s1.metric("Coste inicial → final (SA)", f"{int(st_row['Coste_inicial'])} → {int(st_row['Mejor_coste'])}")
-            s2.metric("Tiempo SA", f"{float(st_row['Tiempo_segundos']):.2f} s")
-            s3.metric("Movimientos aceptados", f"{int(st_row['Aceptados'])} / {int(st_row['Iteraciones'])}")
-            s4.metric("Horario válido", "100% Factible" if bool(st_row["Horario_valido"]) else "Revisar")
-
-        if modo_comp.startswith("Comparativa"):
-            c_left, c_right = st.columns(2)
-            with c_left:
-                st.subheader("OR-Tools CP-SAT (Solución Inicial)")
-                if p_cp.exists():
-                    st.image(str(p_cp), width="stretch")
-                    with open(p_cp, "rb") as fb:
-                        st.download_button("⬇️ Descargar CP-SAT PNG", fb.read(), file_name=p_cp.name, mime="image/png")
-            with c_right:
-                st.subheader("Recocido Simulado (Refinamiento SA)")
-                if p_sa.exists():
-                    st.image(str(p_sa), width="stretch")
-                    with open(p_sa, "rb") as fb:
-                        st.download_button("⬇️ Descargar SA PNG", fb.read(), file_name=p_sa.name, mime="image/png")
-        elif "CP-SAT" in modo_comp:
-            st.image(str(p_cp), caption=f"{curso}º GIFM · {cuatri}º Cuatrimestre (CP-SAT)", width="stretch")
-        else:
-            st.image(str(p_sa), caption=f"{curso}º GIFM · {cuatri}º Cuatrimestre (Recocido Simulado)", width="stretch")
-
-        if p_csv.exists():
-            with st.expander("📋 Ver horario resuelto detallado de GIFM (tabla filtrable por día/asignatura)", expanded=False):
-                df_gifm_res = pd.read_csv(p_csv, encoding="utf-8-sig")
-                f_dia = st.multiselect(
-                    "Filtrar por día",
-                    options=df_gifm_res["Dia"].unique().tolist(),
-                    default=df_gifm_res["Dia"].unique().tolist(),
-                )
-                df_show = df_gifm_res[df_gifm_res["Dia"].isin(f_dia)]
-                cols_show = [c for c in ["Dia", "Hora", "Asignatura", "Tipo", "Grupo", "Aula", "Profesor", "Semanas_activas"] if c in df_show.columns]
-                st.dataframe(df_show[cols_show], width="stretch", hide_index=True)
-
-    # Inspector de sesiones de entrada de la selección
-    with st.expander(f"🔎 Inspector de sesiones de entrada ({tit} · {curso}º Curso · {cuatri}º Cuatrimestre)", expanded=False):
-        q = st.text_input("Buscar asignatura, profesor o grupo", key="busq_exp")
-        df_disp = df_sel.copy()
-        if q.strip():
-            mask = (
-                df_disp["Asignatura"].str.contains(q, case=False, na=False)
-                | df_disp["Profesor"].str.contains(q, case=False, na=False)
-                | df_disp["Grupo"].str.contains(q, case=False, na=False)
-            )
-            df_disp = df_disp[mask]
-        cols_cat = ["ID", "Asignatura", "Modalidad", "Grupo", "Horas", "Alumnos", "Tipo_Aula", "Profesor"]
         if tit == "GIFM":
-            cols_cat.append("Semanas")
-        if tit == "GII":
-            cols_cat.insert(4, "Grupo_Principal")
-        st.dataframe(df_disp[cols_cat], width="stretch", hide_index=True)
+            p_st = REPO_ROOT / "GIFM" / "resultados" / f"estadisticas_recocido_{curso}GIFM_{cuatri}cuatri.csv"
+            if p_st.exists():
+                r_st = pd.read_csv(p_st, encoding="utf-8-sig").iloc[0]
+                s1, s2, s3, s4 = st.columns(4)
+                s1.metric("Coste inicial → final (SA)", f"{int(r_st['Coste_inicial'])} → {int(r_st['Mejor_coste'])}")
+                s2.metric("Tiempo SA", f"{float(r_st['Tiempo_segundos']):.2f} s")
+                s3.metric("Vecinos válidos aceptados", f"{int(r_st['Aceptados'])} / {int(r_st['Iteraciones'])}")
+                s4.metric("Validación", "100% Factible" if bool(r_st["Horario_valido"]) else "Revisar")
+                if int(r_st["Mejoras"]) == 0:
+                    st.info(
+                        "ℹ️ **Por qué ambos horarios coinciden en GIFM:** El enfoque de GIFM es **híbrido (CP-SAT → SA)**. "
+                        f"CP-SAT ya alcanzó coste `{int(r_st['Coste_inicial'])}` sin violaciones; el Recocido Simulado "
+                        f"exploró `{int(r_st['Iteraciones'])}` vecinos (aceptando `{int(r_st['Aceptados'])}` permutaciones válidas) "
+                        "confirmando que no existía un estado de menor coste."
+                    )
+
+        disp_png = st.radio(
+            "Disposición de pantalla:",
+            options=["Lado a lado (comparativa simultánea)", "Ancho completo (máxima legibilidad)"],
+            horizontal=True,
+            key="disp_png",
+        )
+
+        if disp_png.startswith("Lado a lado"):
+            cl, cr = st.columns(2)
+            with cl:
+                st.subheader("OR-Tools CP-SAT (Método Exacto)")
+                if p_cp and p_cp.exists():
+                    st.image(str(p_cp), width="stretch")
+                    st.download_button("⬇️ Descargar PNG (CP-SAT)", p_cp.read_bytes(), file_name=p_cp.name, mime="image/png", key="dl_cp_1")
+                else:
+                    st.warning("PNG de CP-SAT no encontrado.")
+            with cr:
+                st.subheader("Recocido Simulado (Metaheurística)")
+                if p_sa and p_sa.exists():
+                    st.image(str(p_sa), width="stretch")
+                    st.download_button("⬇️ Descargar PNG (SA)", p_sa.read_bytes(), file_name=p_sa.name, mime="image/png", key="dl_sa_1")
+                else:
+                    st.warning("PNG de Recocido Simulado no encontrado.")
+        else:
+            sub_cp, sub_sa = st.tabs(["🔵 OR-Tools CP-SAT (Ancho completo)", "🟠 Recocido Simulado (Ancho completo)"])
+            with sub_cp:
+                if p_cp and p_cp.exists():
+                    st.image(str(p_cp), width="stretch")
+                    st.download_button("⬇️ Descargar PNG (CP-SAT)", p_cp.read_bytes(), file_name=p_cp.name, mime="image/png", key="dl_cp_2")
+            with sub_sa:
+                if p_sa and p_sa.exists():
+                    st.image(str(p_sa), width="stretch")
+                    st.download_button("⬇️ Descargar PNG (SA)", p_sa.read_bytes(), file_name=p_sa.name, mime="image/png", key="dl_sa_2")
+
+    # ---- PESTAÑA 3: CONTRASTE VS HORARIO OFICIAL EII (PDF 2026-2027) ----
+    with tab_pdf:
+        p_cp, p_sa = obtener_rutas_png(tit, curso, cuatri, gii_opt_sel)
+        ctrl1, ctrl2, ctrl3 = st.columns([1.2, 1.3, 1.1])
+        with ctrl1:
+            met_pdf = st.radio("Propuesta a contrastar:", ["CP-SAT", "Recocido Simulado"], horizontal=True, key="met_pdf")
+        with ctrl2:
+            disp_pdf = st.radio("Disposición:", ["Lado a lado", "Ancho completo"], horizontal=True, key="disp_pdf")
+        with ctrl3:
+            ver_full_pdf = st.checkbox("Mostrar página entera del PDF (sin recortar semestre)", value=False, key="ver_full_pdf")
+
+        ruta_prop = p_cp if met_pdf == "CP-SAT" else p_sa
+        page_idx, default_crop = TITULACIONES_INFO[tit]["pdf_pages"][(curso, cuatri)]
+        crop_to_use = "full" if ver_full_pdf else default_crop
+        img_pdf = renderizar_pagina_pdf(tit, page_idx, crop_mode=crop_to_use, zoom=2.1)
+
+        if disp_pdf == "Lado a lado":
+            co1, co2 = st.columns(2)
+            with co1:
+                st.subheader(f"Propuesta Optimizada ({met_pdf})")
+                if ruta_prop and ruta_prop.exists():
+                    st.image(str(ruta_prop), caption=f"{curso}º {tit} · C{cuatri} ({met_pdf})", width="stretch")
+            with co2:
+                st.subheader(f"Horario Oficial EII 2026–2027 ({tit})")
+                if img_pdf:
+                    st.image(
+                        img_pdf,
+                        caption=f"PDF Oficial EII ({TITULACIONES_INFO[tit]['ruta_pdf'].name}) — Página {page_idx + 1}",
+                        width="stretch",
+                    )
+                else:
+                    st.warning("No se pudo renderizar el PDF oficial.")
+        else:
+            st_p1, st_p2 = st.tabs([f"✨ Propuesta Optimizada ({met_pdf})", f"📄 Horario Oficial EII ({tit})"])
+            with st_p1:
+                if ruta_prop and ruta_prop.exists():
+                    st.image(str(ruta_prop), width="stretch")
+            with st_p2:
+                if img_pdf:
+                    st.image(img_pdf, caption=f"PDF Oficial EII — Página {page_idx + 1}", width="stretch")
+
+        with st.expander(f"📖 Ver página oficial de leyenda de siglas ({tit})", expanded=False):
+            ley_idx = TITULACIONES_INFO[tit]["pdf_leyenda_idx"]
+            img_ley = renderizar_pagina_pdf(tit, ley_idx, crop_mode="full", zoom=1.8)
+            if img_ley:
+                st.image(img_ley, caption=f"Leyenda oficial de asignaturas — {tit} (Página {ley_idx + 1})", width="stretch")
+
+    # ---- PESTAÑA 4: TABLA DETALLADA E INSPECTOR ----
+    with tab_tab:
+        t_met = st.radio("Tabla resuelta del método:", ["OR-Tools CP-SAT", "Recocido Simulado"], horizontal=True, key="t_met")
+        df_t = (df_res_cp if t_met == "OR-Tools CP-SAT" else df_res_sa).copy()
+
+        if not df_t.empty:
+            ft1, ft2, ft3 = st.columns([1.4, 1.2, 1.4])
+            with ft1:
+                f_dias = st.multiselect("Día", options=DIAS_ORDEN, default=DIAS_ORDEN, key="t_dias")
+            with ft2:
+                mods_disp = sorted(df_t["Modalidad"].unique().tolist())
+                f_mods = st.multiselect("Modalidad", options=mods_disp, default=mods_disp, key="t_mods")
+            with ft3:
+                f_q = st.text_input("Buscar asignatura, aula o docente", key="t_q")
+
+            df_t = df_t[df_t["Dia"].isin(f_dias) & df_t["Modalidad"].isin(f_mods)]
+            if f_q.strip():
+                mask = (
+                    df_t["Asignatura"].str.contains(f_q, case=False, na=False)
+                    | df_t["Profesor"].str.contains(f_q, case=False, na=False)
+                    | df_t["Aula"].str.contains(f_q, case=False, na=False)
+                    | df_t["Grupo"].str.contains(f_q, case=False, na=False)
+                )
+                df_t = df_t[mask]
+
+            df_t = df_t.sort_values(by=["GrupoPrincipal", "Slot", "Asignatura"])
+            cols_t = ["Dia", "Hora", "Asignatura", "Modalidad", "Grupo", "Aula", "DuracionHoras", "Profesor", "Semanas"]
+            if tit == "GII":
+                cols_t.insert(0, "GrupoPrincipal")
+            st.dataframe(df_t[cols_t], width="stretch", hide_index=True)
+            st.download_button(
+                "⬇️ Descargar horario resuelto en CSV",
+                data=df_t[cols_t].to_csv(index=False).encode("utf-8-sig"),
+                file_name=f"horario_{tit}_{curso}_C{cuatri}_{t_met.replace(' ', '_')}.csv",
+                mime="text/csv",
+            )
+
+        with st.expander(f"📦 Catálogo bruto de sesiones de entrada ({tit} · {curso}º · C{cuatri})", expanded=False):
+            cols_cat = ["ID", "Asignatura", "Modalidad", "Grupo", "Horas", "Alumnos", "Tipo_Aula", "Profesor"]
+            if tit == "GIFM":
+                cols_cat.append("Semanas")
+            if tit == "GII":
+                cols_cat.insert(4, "Grupo_Principal")
+            st.dataframe(df_cat_sel[cols_cat], width="stretch", hide_index=True)
 
 
 # ---------------------------------------------------------------------------
@@ -698,11 +1040,12 @@ elif vista == "🏠 Visión General (EII)":
         {
             "Titulación": f"{deg} ({TITULACIONES_INFO[deg]['nombre']})",
             "Cursos": "1º – 4º (S1 y S2)",
-            "Sesiones": int((df_catalogo["Titulación"] == deg).sum()),
-            "Horas": int(df_catalogo.loc[df_catalogo["Titulación"] == deg, "Horas"].sum()),
+            "Sesiones CSV": int((df_catalogo["Titulación"] == deg).sum()),
+            "Bloques Horario": int(((df_resueltos["Titulacion"] == deg) & (df_resueltos["Metodo"] == "CP-SAT")).sum()) if not df_resueltos.empty else "-",
+            "Horas/Sem": int(df_catalogo.loc[df_catalogo["Titulación"] == deg, "Horas"].sum()),
             "Asignaturas": int(df_catalogo.loc[df_catalogo["Titulación"] == deg, "Asignatura"].nunique()),
             "Docentes": int(df_catalogo.loc[df_catalogo["Titulación"] == deg, "Profesor"].nunique()),
-            "Horarios PNG": "18 (CP-SAT, Mañana y Tarde)" if deg == "GII" else "16 (8 CP-SAT + 8 SA)",
+            "Cobertura Visual": "CP-SAT + SA + PDF Oficial",
             "Factibilidad": "100%",
         }
         for deg in ["GII", "GCID", "GIFM"]
@@ -731,7 +1074,6 @@ elif vista == "📊 Resultados y Convergencia":
         "⚖️ Síntesis Comparativa Global",
     ])
 
-    # ---- TAB GII ----
     with tab_gii:
         df_b = cargar_benchmark_gii()
         if not df_b.empty:
@@ -812,7 +1154,6 @@ elif vista == "📊 Resultados y Convergencia":
         if p_conv_gii.exists():
             st.image(str(p_conv_gii), caption="Evolución de Energía, Temperatura y Tasa de Aceptación (3º GII · 24.300 iteraciones)", width="stretch")
 
-    # ---- TAB GCID ----
     with tab_gcid:
         k1, k2, k3, k4 = st.columns(4)
         k1.metric("Sesiones globales optimizadas", "150", "86 en S1 · 64 en S2")
@@ -862,7 +1203,6 @@ elif vista == "📊 Resultados y Convergencia":
             if p_c2.exists():
                 st.image(str(p_c2), caption="GCID — Convergencia 2º Semestre", width="stretch")
 
-    # ---- TAB GIFM ----
     with tab_gifm:
         df_gifm = cargar_estadisticas_gifm()
         if not df_gifm.empty:
@@ -913,7 +1253,6 @@ elif vista == "📊 Resultados y Convergencia":
                 hide_index=True,
             )
 
-    # ---- TAB SÍNTESIS COMPARATIVA ----
     with tab_comp:
         st.markdown("#### Comparativa Arquitectónica de los Motores de Optimización")
         df_arch = pd.DataFrame([
@@ -995,8 +1334,7 @@ elif vista == "⚡ Simulador en Vivo":
         elif gps_disp:
             sim_gp = int(gps_disp[0])
 
-    # Hiperparámetros ajustables cuando se elige Recocido Simulado
-    t_inicial, alpha, iter_por_temp, max_iter, semilla = 120.0, 0.985, 140, 20000, 42
+    t_inicial, alpha, iter_por_temp, max_iter, semilla = 120.0, 0.985, 140, 60000, 42
     if sim_metodo == "SA":
         with st.expander("🎛️ Parámetros del Recocido Simulado (ajustables para la demo)", expanded=True):
             p1, p2, p3, p4 = st.columns(4)
@@ -1010,7 +1348,7 @@ elif vista == "⚡ Simulador en Vivo":
                 semilla = int(p2.number_input("Semilla aleatoria", min_value=1, max_value=9999, value=42, step=1))
                 p3.info("T₀ = 5000 → T_f = 0.1 (enfriamiento geométrico)")
                 p4.info("Optimiza los 4 cursos del cuatrimestre a la vez.")
-            else:  # GIFM
+            else:
                 t_inicial = p1.slider("Temperatura inicial (T₀)", 5.0, 50.0, 10.0, 5.0)
                 alpha = p2.slider("Factor enfriamiento (α)", 0.950, 0.999, 0.995, 0.005, format="%.3f")
                 max_iter = p3.slider("Iteraciones SA", 200, 2000, 1000, 200)
@@ -1070,7 +1408,6 @@ elif vista == "⚡ Simulador en Vivo":
         k3.metric("Coste blando / Energía", f"{s['coste_blando']:.1f}")
         k4.metric("Sesiones ubicadas", f"{s['sesiones']}")
 
-        # Curva interactiva de convergencia en directo si existe historial
         hist = s.get("historial") or []
         if hist:
             df_h = pd.DataFrame(hist)

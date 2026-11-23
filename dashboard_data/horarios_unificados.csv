@@ -1,0 +1,1291 @@
+﻿Titulacion,Metodo,Curso,Cuatrimestre,GrupoPrincipal,Sesion,Asignatura,Modalidad,TipoOriginal,Grupo,Dia,Hora,Slot,DuracionHoras,Aula,Profesor,Semanas
+GII,CP-SAT,1,1,1,S170,AG,Teoría,teoria,1,Viernes,11:30-12:30,27,1,A3-4,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,1,1,1,S171,AG,Teoría,teoria,1,Jueves,09:30-10:30,19,1,A1-1,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,1,1,1,S172,AG,Práctica de Aula,problemas,17,Lunes,12:30-13:30,4,2,A1-2,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,1,1,1,S173,AG,Práctica de Aula,problemas,18,Martes,12:30-13:30,10,2,A1-2,Pedro Saavedra Santana,1-15
+GII,CP-SAT,1,1,1,S174,FC,Teoría,teoria,1,Jueves,08:30-09:30,18,1,A2-3,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,1,1,1,S175,FC,Teoría,teoria,1,Lunes,11:30-12:30,3,1,A2-6,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,1,1,1,S176,FC,Laboratorio,practica,41,Jueves,11:30-12:30,21,2,LF-4,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,1,1,1,S177,FC,Laboratorio,practica,42,Martes,12:30-13:30,10,2,L3-5,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,1,1,1,S178,FC,Laboratorio,practica,43,Lunes,12:30-13:30,4,2,L2-5,Javier Sanchez Perez,1-15
+GII,CP-SAT,1,1,1,S179,FC,Laboratorio,practica,44,Martes,10:30-11:30,8,2,L2-4,Javier Sanchez Perez,1-15
+GII,CP-SAT,1,1,1,S180,MD,Teoría,teoria,1,Jueves,10:30-11:30,20,1,A2-1,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,1,1,S181,MD,Teoría,teoria,1,Lunes,10:30-11:30,2,1,A2-5,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,1,1,S182,MD,Práctica de Aula,problemas,17,Martes,10:30-11:30,8,2,A2-2,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,1,1,S183,MD,Práctica de Aula,problemas,18,Miercoles,10:30-11:30,14,2,A1-1,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,1,1,S184,HPI,Teoría,teoria,1,Miercoles,08:30-09:30,12,1,A2-5,Alexis Quesada Arencibia,1-15
+GII,CP-SAT,1,1,1,S185,HPI,Teoría,teoria,1,Martes,09:30-10:30,7,1,A3-4,Alexis Quesada Arencibia,1-15
+GII,CP-SAT,1,1,1,S186,HPI,Práctica de Aula,problemas,17,Lunes,08:30-09:30,0,2,A2-6,Alexis Quesada Arencibia,1-15
+GII,CP-SAT,1,1,1,S187,HPI,Práctica de Aula,problemas,18,Lunes,08:30-09:30,0,2,A2-3,Mario Hernandez Tejera,1-15
+GII,CP-SAT,1,1,1,S188,FP1,Teoría,teoria,1,Martes,08:30-09:30,6,1,A3-4,Modesto Castrillon Santana,1-15
+GII,CP-SAT,1,1,1,S189,FP1,Teoría,teoria,1,Miercoles,09:30-10:30,13,1,A3-1,Modesto Castrillon Santana,1-15
+GII,CP-SAT,1,1,1,S190,FP1,Laboratorio,practica,41,Martes,12:30-13:30,10,2,L3-1,Daniel Hernandez Sosa,1-15
+GII,CP-SAT,1,1,1,S191,FP1,Laboratorio,practica,42,Miercoles,10:30-11:30,14,2,LF-4,Daniel Hernandez Sosa,1-15
+GII,CP-SAT,1,1,1,S192,FP1,Laboratorio,practica,43,Martes,10:30-11:30,8,2,L2-5,Modesto Castrillon Santana,1-15
+GII,CP-SAT,1,1,1,S193,FP1,Laboratorio,practica,44,Lunes,12:30-13:30,4,2,L3-4,Modesto Castrillon Santana,1-15
+GII,CP-SAT,1,1,2,S194,AG,Teoría,teoria,2,Viernes,10:30-11:30,26,1,A2-1,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,1,1,2,S195,AG,Teoría,teoria,2,Jueves,12:30-13:30,22,1,A2-4,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,1,1,2,S196,AG,Práctica de Aula,problemas,19,Martes,10:30-11:30,8,2,A3-4,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,1,1,2,S197,AG,Práctica de Aula,problemas,20,Lunes,12:30-13:30,4,2,A2-2,Pedro Saavedra Santana,1-15
+GII,CP-SAT,1,1,2,S198,FC,Teoría,teoria,2,Miercoles,11:30-12:30,15,1,A2-3,Javier Sanchez Perez,1-15
+GII,CP-SAT,1,1,2,S199,FC,Teoría,teoria,2,Viernes,11:30-12:30,27,1,A2-3,Javier Sanchez Perez,1-15
+GII,CP-SAT,1,1,2,S200,FC,Laboratorio,practica,45,Lunes,08:30-09:30,0,2,L2-3,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,1,1,2,S201,FC,Laboratorio,practica,46,Martes,08:30-09:30,6,2,LF-4,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,1,1,2,S202,FC,Laboratorio,practica,47,Lunes,08:30-09:30,0,2,L1-2,Javier Sanchez Perez,1-15
+GII,CP-SAT,1,1,2,S203,FC,Laboratorio,practica,48,Lunes,10:30-11:30,2,2,L3-2,Javier Sanchez Perez,1-15
+GII,CP-SAT,1,1,2,S204,MD,Teoría,teoria,2,Jueves,13:30-14:30,23,1,A3-4,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,1,2,S205,MD,Teoría,teoria,2,Viernes,09:30-10:30,25,1,A2-5,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,1,2,S206,MD,Práctica de Aula,problemas,19,Lunes,12:30-13:30,4,2,A2-4,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,1,2,S207,MD,Práctica de Aula,problemas,20,Martes,08:30-09:30,6,2,A3-1,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,1,2,S208,HPI,Teoría,teoria,2,Martes,12:30-13:30,10,1,A3-1,Mario Hernandez Tejera,1-15
+GII,CP-SAT,1,1,2,S209,HPI,Teoría,teoria,2,Miercoles,09:30-10:30,13,1,A3-3,Mario Hernandez Tejera,1-15
+GII,CP-SAT,1,1,2,S210,HPI,Práctica de Aula,problemas,19,Lunes,10:30-11:30,2,2,A3-1,Mario Hernandez Tejera,1-15
+GII,CP-SAT,1,1,2,S211,HPI,Práctica de Aula,problemas,20,Martes,10:30-11:30,8,2,A3-3,Alexis Quesada Arencibia,1-15
+GII,CP-SAT,1,1,2,S212,FP1,Teoría,teoria,2,Miercoles,10:30-11:30,14,1,A3-4,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,1,1,2,S213,FP1,Teoría,teoria,2,Jueves,11:30-12:30,21,1,A1-1,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,1,1,2,S214,FP1,Laboratorio,practica,45,Martes,08:30-09:30,6,2,L3-1,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,1,1,2,S215,FP1,Laboratorio,practica,46,Lunes,08:30-09:30,0,2,L3-4,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,1,1,2,S216,FP1,Laboratorio,practica,47,Lunes,10:30-11:30,2,2,L2-2,Cayetano Guerra Artal,1-15
+GII,CP-SAT,1,1,2,S217,FP1,Laboratorio,practica,48,Lunes,08:30-09:30,0,2,L3-5,Cayetano Guerra Artal,1-15
+GII,CP-SAT,1,1,3,S218,AG,Teoría,teoria,3,Jueves,19:30-20:30,23,1,A3-4,Pedro Saavedra Santana,1-15
+GII,CP-SAT,1,1,3,S219,AG,Teoría,teoria,3,Miercoles,18:30-19:30,16,1,A1-1,Pedro Saavedra Santana,1-15
+GII,CP-SAT,1,1,3,S220,AG,Práctica de Aula,problemas,21,Martes,16:30-17:30,8,2,A3-1,Pedro Saavedra Santana,1-15
+GII,CP-SAT,1,1,3,S221,AG,Práctica de Aula,problemas,22,Martes,16:30-17:30,8,2,A2-3,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,1,1,3,S222,FC,Teoría,teoria,3,Miercoles,19:30-20:30,17,1,A3-1,Zenon Hernandez Figueroa,1-15
+GII,CP-SAT,1,1,3,S223,FC,Teoría,teoria,3,Jueves,14:30-15:30,18,1,A1-1,Zenon Hernandez Figueroa,1-15
+GII,CP-SAT,1,1,3,S224,FC,Laboratorio,practica,49,Lunes,14:30-15:30,0,2,LF-4,Zenon Hernandez Figueroa,1-15
+GII,CP-SAT,1,1,3,S225,FC,Laboratorio,practica,50,Lunes,16:30-17:30,2,2,L3-4,Zenon Hernandez Figueroa,1-15
+GII,CP-SAT,1,1,3,S226,FC,Laboratorio,practica,51,Lunes,14:30-15:30,0,2,L3-2,Javier Sanchez Perez,1-15
+GII,CP-SAT,1,1,3,S227,FC,Laboratorio,practica,52,Lunes,18:30-19:30,4,2,L3-1,Javier Sanchez Perez,1-15
+GII,CP-SAT,1,1,3,S228,MD,Teoría,teoria,3,Jueves,18:30-19:30,22,1,A1-1,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,1,3,S229,MD,Teoría,teoria,3,Miercoles,16:30-17:30,14,1,A2-1,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,1,3,S230,MD,Práctica de Aula,problemas,21,Martes,14:30-15:30,6,2,A2-6,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,1,3,S231,MD,Práctica de Aula,problemas,22,Martes,18:30-19:30,10,2,A3-4,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,1,3,S232,HPI,Teoría,teoria,3,Jueves,15:30-16:30,19,1,A1-1,Alexis Quesada Arencibia,1-15
+GII,CP-SAT,1,1,3,S233,HPI,Teoría,teoria,3,Jueves,17:30-18:30,21,1,A3-4,Alexis Quesada Arencibia,1-15
+GII,CP-SAT,1,1,3,S234,HPI,Práctica de Aula,problemas,21,Lunes,18:30-19:30,4,2,A3-1,Alexis Quesada Arencibia,1-15
+GII,CP-SAT,1,1,3,S235,HPI,Práctica de Aula,problemas,22,Miercoles,14:30-15:30,12,2,A3-2,Mario Hernandez Tejera,1-15
+GII,CP-SAT,1,1,3,S236,FP1,Teoría,teoria,3,Jueves,16:30-17:30,20,1,A2-4,Modesto Castrillon Santana,1-15
+GII,CP-SAT,1,1,3,S237,FP1,Teoría,teoria,3,Miercoles,17:30-18:30,15,1,A3-4,Modesto Castrillon Santana,1-15
+GII,CP-SAT,1,1,3,S238,FP1,Laboratorio,practica,49,Lunes,16:30-17:30,2,2,L3-3,Modesto Castrillon Santana,1-15
+GII,CP-SAT,1,1,3,S239,FP1,Laboratorio,practica,50,Lunes,14:30-15:30,0,2,L3-5,Modesto Castrillon Santana,1-15
+GII,CP-SAT,1,1,3,S240,FP1,Laboratorio,practica,51,Martes,14:30-15:30,6,2,L3-1,Daniel Hernandez Sosa,1-15
+GII,CP-SAT,1,1,3,S241,FP1,Laboratorio,practica,52,Lunes,16:30-17:30,2,2,L3-5,Daniel Hernandez Sosa,1-15
+GII,Recocido Simulado,1,1,1,S171,AG,Teoría,teoria,1,Lunes,08:30-09:30,0,1,A1-1,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,1,1,1,S181,MD,Teoría,teoria,1,Lunes,09:30-10:30,1,1,A2-5,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,1,2,S201,FC,Laboratorio,practica,46,Lunes,09:30-10:30,1,2,L2-4,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,1,1,2,S203,FC,Laboratorio,practica,48,Lunes,09:30-10:30,1,2,L1-3,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,1,1,2,S216,FP1,Laboratorio,practica,47,Lunes,09:30-10:30,1,2,L3-5,Cayetano Guerra Artal,1-15
+GII,Recocido Simulado,1,1,2,S214,FP1,Laboratorio,practica,45,Lunes,09:30-10:30,1,2,LF-4,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,1,1,1,S187,HPI,Práctica de Aula,problemas,18,Lunes,10:30-11:30,2,2,A2-3,Mario Hernandez Tejera,1-15
+GII,Recocido Simulado,1,1,1,S172,AG,Práctica de Aula,problemas,17,Lunes,10:30-11:30,2,2,A1-2,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,1,1,2,S207,MD,Práctica de Aula,problemas,20,Lunes,11:30-12:30,3,2,A2-2,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,1,2,S200,FC,Laboratorio,practica,45,Lunes,11:30-12:30,3,2,L3-4,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,1,1,2,S215,FP1,Laboratorio,practica,46,Lunes,11:30-12:30,3,2,L2-2,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,1,1,1,S185,HPI,Teoría,teoria,1,Lunes,12:30-13:30,4,1,A2-5,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,1,1,2,S198,FC,Teoría,teoria,2,Lunes,13:30-14:30,5,1,A2-5,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,1,1,1,S184,HPI,Teoría,teoria,1,Lunes,13:30-14:30,5,1,A3-3,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,1,1,1,S188,FP1,Teoría,teoria,1,Martes,08:30-09:30,6,1,A2-1,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,1,1,1,S175,FC,Teoría,teoria,1,Martes,09:30-10:30,7,1,A2-3,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,1,1,1,S183,MD,Práctica de Aula,problemas,18,Martes,10:30-11:30,8,2,A2-6,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,1,1,S176,FC,Laboratorio,practica,41,Martes,10:30-11:30,8,2,L3-3,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,1,1,2,S213,FP1,Teoría,teoria,2,Martes,10:30-11:30,8,1,A3-4,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,1,1,1,S191,FP1,Laboratorio,practica,42,Martes,10:30-11:30,8,2,L2-1,Daniel Hernandez Sosa,1-15
+GII,Recocido Simulado,1,1,2,S196,AG,Práctica de Aula,problemas,19,Martes,11:30-12:30,9,2,A3-3,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,1,1,2,S197,AG,Práctica de Aula,problemas,20,Martes,11:30-12:30,9,2,A2-5,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,1,1,1,S193,FP1,Laboratorio,practica,44,Martes,12:30-13:30,10,2,L3-1,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,1,1,1,S182,MD,Práctica de Aula,problemas,17,Martes,12:30-13:30,10,2,A3-4,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,1,2,S194,AG,Teoría,teoria,2,Martes,13:30-14:30,11,1,A2-5,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,1,1,2,S208,HPI,Teoría,teoria,2,Miercoles,08:30-09:30,12,1,A3-4,Mario Hernandez Tejera,1-15
+GII,Recocido Simulado,1,1,2,S210,HPI,Práctica de Aula,problemas,19,Miercoles,09:30-10:30,13,2,A3-3,Mario Hernandez Tejera,1-15
+GII,Recocido Simulado,1,1,2,S211,HPI,Práctica de Aula,problemas,20,Miercoles,09:30-10:30,13,2,A2-4,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,1,1,1,S178,FC,Laboratorio,practica,43,Miercoles,10:30-11:30,14,2,L2-1,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,1,1,2,S209,HPI,Teoría,teoria,2,Miercoles,11:30-12:30,15,1,A3-1,Mario Hernandez Tejera,1-15
+GII,Recocido Simulado,1,1,2,S199,FC,Teoría,teoria,2,Miercoles,12:30-13:30,16,1,A2-6,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,1,1,1,S170,AG,Teoría,teoria,1,Miercoles,12:30-13:30,16,1,A3-4,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,1,1,1,S174,FC,Teoría,teoria,1,Miercoles,13:30-14:30,17,1,A2-3,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,1,1,1,S189,FP1,Teoría,teoria,1,Jueves,08:30-09:30,18,1,A1-1,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,1,1,2,S204,MD,Teoría,teoria,2,Jueves,08:30-09:30,18,1,A2-3,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,1,2,S212,FP1,Teoría,teoria,2,Jueves,09:30-10:30,19,1,A1-1,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,1,1,1,S180,MD,Teoría,teoria,1,Jueves,09:30-10:30,19,1,A2-6,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,1,1,S179,FC,Laboratorio,practica,44,Jueves,10:30-11:30,20,2,L1-3,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,1,1,1,S190,FP1,Laboratorio,practica,41,Jueves,10:30-11:30,20,2,LF-4,Daniel Hernandez Sosa,1-15
+GII,Recocido Simulado,1,1,1,S177,FC,Laboratorio,practica,42,Jueves,10:30-11:30,20,2,L2-2,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,1,1,2,S205,MD,Teoría,teoria,2,Jueves,10:30-11:30,20,1,A2-5,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,1,1,S192,FP1,Laboratorio,practica,43,Jueves,10:30-11:30,20,2,L3-2,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,1,1,2,S195,AG,Teoría,teoria,2,Jueves,11:30-12:30,21,1,A2-4,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,1,1,1,S173,AG,Práctica de Aula,problemas,18,Jueves,12:30-13:30,22,2,A3-1,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,1,1,1,S186,HPI,Práctica de Aula,problemas,17,Jueves,12:30-13:30,22,2,A3-2,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,1,1,2,S202,FC,Laboratorio,practica,47,Jueves,12:30-13:30,22,2,L1-1,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,1,1,2,S206,MD,Práctica de Aula,problemas,19,Jueves,12:30-13:30,22,2,A3-4,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,1,2,S217,FP1,Laboratorio,practica,48,Jueves,12:30-13:30,22,2,L3-2,Cayetano Guerra Artal,1-15
+GII,Recocido Simulado,1,1,3,S226,FC,Laboratorio,practica,51,Lunes,14:30-15:30,0,2,L3-4,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,1,1,3,S234,HPI,Práctica de Aula,problemas,21,Lunes,14:30-15:30,0,2,A2-5,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,1,1,3,S236,FP1,Teoría,teoria,3,Lunes,16:30-17:30,2,1,A3-4,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,1,1,3,S230,MD,Práctica de Aula,problemas,21,Lunes,17:30-18:30,3,2,A3-3,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,1,3,S235,HPI,Práctica de Aula,problemas,22,Lunes,17:30-18:30,3,2,A1-1,Mario Hernandez Tejera,1-15
+GII,Recocido Simulado,1,1,3,S229,MD,Teoría,teoria,3,Lunes,19:30-20:30,5,1,A1-1,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,1,3,S239,FP1,Laboratorio,practica,50,Martes,14:30-15:30,6,2,L1-3,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,1,1,3,S224,FC,Laboratorio,practica,49,Martes,14:30-15:30,6,2,L2-4,Zenon Hernandez Figueroa,1-15
+GII,Recocido Simulado,1,1,3,S228,MD,Teoría,teoria,3,Martes,16:30-17:30,8,1,A2-1,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,1,3,S232,HPI,Teoría,teoria,3,Martes,17:30-18:30,9,1,A3-1,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,1,1,3,S221,AG,Práctica de Aula,problemas,22,Martes,18:30-19:30,10,2,A2-4,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,1,1,3,S223,FC,Teoría,teoria,3,Miercoles,14:30-15:30,12,1,A2-3,Zenon Hernandez Figueroa,1-15
+GII,Recocido Simulado,1,1,3,S237,FP1,Teoría,teoria,3,Miercoles,15:30-16:30,13,1,A2-6,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,1,1,3,S220,AG,Práctica de Aula,problemas,21,Miercoles,16:30-17:30,14,2,A2-4,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,1,1,3,S240,FP1,Laboratorio,practica,51,Miercoles,16:30-17:30,14,2,L2-2,Daniel Hernandez Sosa,1-15
+GII,Recocido Simulado,1,1,3,S227,FC,Laboratorio,practica,52,Miercoles,16:30-17:30,14,2,L2-1,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,1,1,3,S238,FP1,Laboratorio,practica,49,Miercoles,18:30-19:30,16,2,L3-5,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,1,1,3,S225,FC,Laboratorio,practica,50,Miercoles,18:30-19:30,16,2,L3-3,Zenon Hernandez Figueroa,1-15
+GII,Recocido Simulado,1,1,3,S241,FP1,Laboratorio,practica,52,Miercoles,18:30-19:30,16,2,L2-3,Daniel Hernandez Sosa,1-15
+GII,Recocido Simulado,1,1,3,S219,AG,Teoría,teoria,3,Jueves,14:30-15:30,18,1,A2-4,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,1,1,3,S218,AG,Teoría,teoria,3,Jueves,15:30-16:30,19,1,A2-4,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,1,1,3,S222,FC,Teoría,teoria,3,Jueves,16:30-17:30,20,1,A3-3,Zenon Hernandez Figueroa,1-15
+GII,Recocido Simulado,1,1,3,S233,HPI,Teoría,teoria,3,Jueves,17:30-18:30,21,1,A3-4,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,1,1,3,S231,MD,Práctica de Aula,problemas,22,Jueves,18:30-19:30,22,2,A2-5,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,2,1,S242,FP2,Teoría,teoria,1,Miercoles,11:30-12:30,15,1,A2-1,Modesto Castrillon Santana,1-15
+GII,CP-SAT,1,2,1,S243,FP2,Teoría,teoria,1,Lunes,09:30-10:30,1,1,A2-4,Modesto Castrillon Santana,1-15
+GII,CP-SAT,1,2,1,S244,FP2,Laboratorio,practica,41,Lunes,10:30-11:30,2,2,LF-4,Daniel Hernandez Sosa,1-15
+GII,CP-SAT,1,2,1,S245,FP2,Laboratorio,practica,42,Jueves,10:30-11:30,20,2,LF-4,Daniel Hernandez Sosa,1-15
+GII,CP-SAT,1,2,1,S246,FP2,Laboratorio,practica,43,Lunes,10:30-11:30,2,2,L1-3,Modesto Castrillon Santana,1-15
+GII,CP-SAT,1,2,1,S247,FP2,Laboratorio,practica,44,Martes,12:30-13:30,10,2,L3-4,Modesto Castrillon Santana,1-15
+GII,CP-SAT,1,2,1,S248,EC,Teoría,teoria,1,Martes,08:30-09:30,6,1,A2-3,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,1,2,1,S249,EC,Teoría,teoria,1,Martes,09:30-10:30,7,1,A2-3,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,1,2,1,S250,EC,Laboratorio,practica,41,Viernes,08:30-09:30,24,2,L1-1,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,1,2,1,S251,EC,Laboratorio,practica,42,Miercoles,08:30-09:30,12,2,L3-4,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,1,2,1,S252,EC,Laboratorio,practica,43,Jueves,12:30-13:30,22,2,L1-1,Javier Sanchez Perez,1-15
+GII,CP-SAT,1,2,1,S253,EC,Laboratorio,practica,44,Jueves,08:30-09:30,18,2,L3-1,Javier Sanchez Perez,1-15
+GII,CP-SAT,1,2,1,S254,FFI,Teoría,teoria,1,Martes,11:30-12:30,9,1,A2-1,Jose Maria Miranda Pantoja,1-15
+GII,CP-SAT,1,2,1,S255,FFI,Teoría,teoria,1,Miercoles,10:30-11:30,14,1,A2-1,Jose Maria Miranda Pantoja,1-15
+GII,CP-SAT,1,2,1,S256,FFI,Teoría,teoria,1,Martes,10:30-11:30,8,1,A2-1,Jose Maria Miranda Pantoja,1-15
+GII,CP-SAT,1,2,1,S257,FFI,Laboratorio,practica,41,Jueves,10:30-11:30,20,2,L1-2,Jose Maria Miranda Pantoja,1-15
+GII,CP-SAT,1,2,1,S258,FFI,Laboratorio,practica,42,Viernes,08:30-09:30,24,2,L3-3,Jose Maria Miranda Pantoja,1-15
+GII,CP-SAT,1,2,1,S259,FFI,Laboratorio,practica,43,Jueves,08:30-09:30,18,2,L1-1,Jesus Garcia-Rubio,1-15
+GII,CP-SAT,1,2,1,S260,FFI,Laboratorio,practica,44,Jueves,12:30-13:30,22,2,L2-5,Jesus Garcia-Rubio,1-15
+GII,CP-SAT,1,2,1,S261,EP,Teoría,teoria,1,Viernes,11:30-12:30,27,1,A2-1,Pedro Saavedra Santana,1-15
+GII,CP-SAT,1,2,1,S262,EP,Teoría,teoria,1,Viernes,10:30-11:30,26,1,A2-1,Pedro Saavedra Santana,1-15
+GII,CP-SAT,1,2,1,S263,EP,Práctica de Aula,problemas,17,Jueves,12:30-13:30,22,2,A1-2,Pedro Saavedra Santana,1-15
+GII,CP-SAT,1,2,1,S264,EP,Práctica de Aula,problemas,18,Viernes,08:30-09:30,24,2,A2-1,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,1,2,1,S265,MC,Teoría,teoria,1,Miercoles,12:30-13:30,16,1,A1-1,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,2,1,S266,MC,Teoría,teoria,1,Miercoles,13:30-14:30,17,1,A1-1,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,2,1,S267,MC,Práctica de Aula,problemas,17,Jueves,08:30-09:30,18,2,A1-2,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,2,1,S268,MC,Práctica de Aula,problemas,18,Jueves,10:30-11:30,20,2,A2-1,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,2,2,S269,FP2,Teoría,teoria,2,Miercoles,11:30-12:30,15,1,A1-1,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,1,2,2,S270,FP2,Teoría,teoria,2,Jueves,13:30-14:30,23,1,A1-1,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,1,2,2,S271,FP2,Laboratorio,practica,45,Martes,08:30-09:30,6,2,L1-2,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,1,2,2,S272,FP2,Laboratorio,practica,46,Lunes,11:30-12:30,3,2,L2-2,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,1,2,2,S273,FP2,Laboratorio,practica,47,Lunes,11:30-12:30,3,2,L1-1,Cayetano Guerra Artal,1-15
+GII,CP-SAT,1,2,2,S274,FP2,Laboratorio,practica,48,Martes,08:30-09:30,6,2,L2-1,Cayetano Guerra Artal,1-15
+GII,CP-SAT,1,2,2,S275,EC,Teoría,teoria,2,Martes,10:30-11:30,8,1,A1-1,Javier Sanchez Perez,1-15
+GII,CP-SAT,1,2,2,S276,EC,Teoría,teoria,2,Miercoles,08:30-09:30,12,1,A2-1,Javier Sanchez Perez,1-15
+GII,CP-SAT,1,2,2,S277,EC,Laboratorio,practica,45,Miercoles,12:30-13:30,16,2,L1-3,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,1,2,2,S278,EC,Laboratorio,practica,46,Martes,12:30-13:30,10,2,L1-3,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,1,2,2,S279,EC,Laboratorio,practica,47,Jueves,10:30-11:30,20,2,L1-1,Javier Sanchez Perez,1-15
+GII,CP-SAT,1,2,2,S280,EC,Laboratorio,practica,48,Miercoles,12:30-13:30,16,2,L2-4,Javier Sanchez Perez,1-15
+GII,CP-SAT,1,2,2,S281,FFI,Teoría,teoria,2,Miercoles,10:30-11:30,14,1,A1-1,Jesus Garcia-Rubio,1-15
+GII,CP-SAT,1,2,2,S282,FFI,Teoría,teoria,2,Lunes,13:30-14:30,5,1,A1-1,Jesus Garcia-Rubio,1-15
+GII,CP-SAT,1,2,2,S283,FFI,Teoría,teoria,2,Miercoles,09:30-10:30,13,1,A1-1,Jesus Garcia-Rubio,1-15
+GII,CP-SAT,1,2,2,S284,FFI,Laboratorio,practica,45,Martes,12:30-13:30,10,2,L1-1,Jose Maria Miranda Pantoja,1-15
+GII,CP-SAT,1,2,2,S285,FFI,Laboratorio,practica,46,Miercoles,12:30-13:30,16,2,L1-2,Jose Maria Miranda Pantoja,1-15
+GII,CP-SAT,1,2,2,S286,FFI,Laboratorio,practica,47,Miercoles,12:30-13:30,16,2,L1-1,Jesus Garcia-Rubio,1-15
+GII,CP-SAT,1,2,2,S287,FFI,Laboratorio,practica,48,Jueves,10:30-11:30,20,2,L2-3,Jesus Garcia-Rubio,1-15
+GII,CP-SAT,1,2,2,S288,EP,Teoría,teoria,2,Jueves,08:30-09:30,18,1,A1-1,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,1,2,2,S289,EP,Teoría,teoria,2,Jueves,09:30-10:30,19,1,A1-1,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,1,2,2,S290,EP,Práctica de Aula,problemas,19,Jueves,10:30-11:30,20,2,A1-1,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,1,2,2,S291,EP,Práctica de Aula,problemas,20,Viernes,08:30-09:30,24,2,A1-2,Pedro Saavedra Santana,1-15
+GII,CP-SAT,1,2,2,S292,MC,Teoría,teoria,2,Martes,11:30-12:30,9,1,A1-1,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,2,2,S293,MC,Teoría,teoria,2,Jueves,12:30-13:30,22,1,A2-3,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,2,2,S294,MC,Práctica de Aula,problemas,19,Viernes,08:30-09:30,24,2,A1-1,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,2,2,S295,MC,Práctica de Aula,problemas,20,Viernes,10:30-11:30,26,2,A1-1,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,2,3,S296,FP2,Teoría,teoria,3,Lunes,18:30-19:30,4,1,A3-4,Modesto Castrillon Santana,1-15
+GII,CP-SAT,1,2,3,S297,FP2,Teoría,teoria,3,Lunes,19:30-20:30,5,1,A2-6,Modesto Castrillon Santana,1-15
+GII,CP-SAT,1,2,3,S298,FP2,Laboratorio,practica,49,Lunes,16:30-17:30,2,2,LF-4,Modesto Castrillon Santana,1-15
+GII,CP-SAT,1,2,3,S299,FP2,Laboratorio,practica,50,Martes,16:30-17:30,8,2,L3-3,Modesto Castrillon Santana,1-15
+GII,CP-SAT,1,2,3,S300,FP2,Laboratorio,practica,51,Jueves,17:30-18:30,21,2,L3-5,Daniel Hernandez Sosa,1-15
+GII,CP-SAT,1,2,3,S301,FP2,Laboratorio,practica,52,Miercoles,16:30-17:30,14,2,L2-3,Daniel Hernandez Sosa,1-15
+GII,CP-SAT,1,2,3,S302,EC,Teoría,teoria,3,Martes,18:30-19:30,10,1,A1-1,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,1,2,3,S303,EC,Teoría,teoria,3,Martes,19:30-20:30,11,1,A2-5,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,1,2,3,S304,EC,Laboratorio,practica,49,Miercoles,18:30-19:30,16,2,L3-1,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,1,2,3,S305,EC,Laboratorio,practica,50,Miercoles,16:30-17:30,14,2,L3-3,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,1,2,3,S306,EC,Laboratorio,practica,51,Miercoles,16:30-17:30,14,2,L2-2,Javier Sanchez Perez,1-15
+GII,CP-SAT,1,2,3,S307,EC,Laboratorio,practica,52,Miercoles,18:30-19:30,16,2,L1-3,Javier Sanchez Perez,1-15
+GII,CP-SAT,1,2,3,S308,FFI,Teoría,teoria,3,Miercoles,14:30-15:30,12,1,A1-1,Jose Maria Miranda Pantoja,1-15
+GII,CP-SAT,1,2,3,S309,FFI,Teoría,teoria,3,Miercoles,15:30-16:30,13,1,A1-1,Jose Maria Miranda Pantoja,1-15
+GII,CP-SAT,1,2,3,S310,FFI,Teoría,teoria,3,Jueves,14:30-15:30,18,1,A2-3,Jose Maria Miranda Pantoja,1-15
+GII,CP-SAT,1,2,3,S311,FFI,Laboratorio,practica,49,Miercoles,16:30-17:30,14,2,L2-5,Jose Maria Miranda Pantoja,1-15
+GII,CP-SAT,1,2,3,S312,FFI,Laboratorio,practica,50,Miercoles,18:30-19:30,16,2,L3-5,Jose Maria Miranda Pantoja,1-15
+GII,CP-SAT,1,2,3,S313,FFI,Laboratorio,practica,51,Miercoles,18:30-19:30,16,2,L2-2,Jesus Garcia-Rubio,1-15
+GII,CP-SAT,1,2,3,S314,FFI,Laboratorio,practica,52,Jueves,17:30-18:30,21,2,LF-4,Jesus Garcia-Rubio,1-15
+GII,CP-SAT,1,2,3,S315,EP,Teoría,teoria,3,Jueves,15:30-16:30,19,1,A2-3,Pedro Saavedra Santana,1-15
+GII,CP-SAT,1,2,3,S316,EP,Teoría,teoria,3,Jueves,16:30-17:30,20,1,A3-4,Pedro Saavedra Santana,1-15
+GII,CP-SAT,1,2,3,S317,EP,Práctica de Aula,problemas,21,Jueves,17:30-18:30,21,2,A3-1,Pedro Saavedra Santana,1-15
+GII,CP-SAT,1,2,3,S318,EP,Práctica de Aula,problemas,22,Viernes,15:30-16:30,25,2,A2-2,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,1,2,3,S319,MC,Teoría,teoria,3,Jueves,19:30-20:30,23,1,A1-1,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,2,3,S320,MC,Teoría,teoria,3,Viernes,14:30-15:30,24,1,A1-1,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,2,3,S321,MC,Práctica de Aula,problemas,21,Viernes,15:30-16:30,25,2,A1-2,Domingo Hernandez Abreu,1-15
+GII,CP-SAT,1,2,3,S322,MC,Práctica de Aula,problemas,22,Viernes,17:30-18:30,27,2,A1-2,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,2,1,S262,EP,Teoría,teoria,1,Lunes,08:30-09:30,0,1,A3-3,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,1,2,2,S287,FFI,Laboratorio,practica,48,Lunes,08:30-09:30,0,2,L3-1,Jesus Garcia-Rubio,1-15
+GII,Recocido Simulado,1,2,2,S284,FFI,Laboratorio,practica,45,Lunes,08:30-09:30,0,2,L2-1,Jose Maria Miranda Pantoja,1-15
+GII,Recocido Simulado,1,2,2,S278,EC,Laboratorio,practica,46,Lunes,08:30-09:30,0,2,L1-3,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,1,2,1,S266,MC,Teoría,teoria,1,Lunes,09:30-10:30,1,1,A3-4,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,2,2,S274,FP2,Laboratorio,practica,48,Lunes,10:30-11:30,2,2,L3-3,Cayetano Guerra Artal,1-15
+GII,Recocido Simulado,1,2,1,S243,FP2,Teoría,teoria,1,Lunes,10:30-11:30,2,1,A2-5,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,1,2,2,S279,EC,Laboratorio,practica,47,Lunes,10:30-11:30,2,2,L2-2,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,1,2,2,S294,MC,Práctica de Aula,problemas,19,Lunes,10:30-11:30,2,2,A2-6,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,2,1,S258,FFI,Laboratorio,practica,42,Lunes,11:30-12:30,3,2,L3-2,Jose Maria Miranda Pantoja,1-15
+GII,Recocido Simulado,1,2,1,S247,FP2,Laboratorio,practica,44,Lunes,11:30-12:30,3,2,L1-1,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,1,2,1,S244,FP2,Laboratorio,practica,41,Lunes,11:30-12:30,3,2,L1-2,Daniel Hernandez Sosa,1-15
+GII,Recocido Simulado,1,2,2,S281,FFI,Teoría,teoria,2,Lunes,12:30-13:30,4,1,A1-1,Jesus Garcia-Rubio,1-15
+GII,Recocido Simulado,1,2,2,S293,MC,Teoría,teoria,2,Lunes,13:30-14:30,5,1,A2-6,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,2,1,S260,FFI,Laboratorio,practica,44,Martes,08:30-09:30,6,2,L3-3,Jesus Garcia-Rubio,1-15
+GII,Recocido Simulado,1,2,1,S246,FP2,Laboratorio,practica,43,Martes,08:30-09:30,6,2,L1-1,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,1,2,2,S273,FP2,Laboratorio,practica,47,Martes,08:30-09:30,6,2,L3-2,Cayetano Guerra Artal,1-15
+GII,Recocido Simulado,1,2,1,S265,MC,Teoría,teoria,1,Martes,10:30-11:30,8,1,A3-4,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,2,2,S291,EP,Práctica de Aula,problemas,20,Martes,10:30-11:30,8,2,A3-1,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,1,2,2,S277,EC,Laboratorio,practica,45,Martes,10:30-11:30,8,2,L3-5,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,1,2,1,S255,FFI,Teoría,teoria,1,Martes,11:30-12:30,9,1,A1-1,Jose Maria Miranda Pantoja,1-15
+GII,Recocido Simulado,1,2,2,S283,FFI,Teoría,teoria,2,Martes,12:30-13:30,10,1,A3-3,Jesus Garcia-Rubio,1-15
+GII,Recocido Simulado,1,2,1,S252,EC,Laboratorio,practica,43,Martes,12:30-13:30,10,2,L3-3,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,1,2,1,S267,MC,Práctica de Aula,problemas,17,Martes,12:30-13:30,10,2,A3-2,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,2,2,S282,FFI,Teoría,teoria,2,Martes,13:30-14:30,11,1,A2-6,Jesus Garcia-Rubio,1-15
+GII,Recocido Simulado,1,2,1,S259,FFI,Laboratorio,practica,43,Miercoles,08:30-09:30,12,2,L3-2,Jesus Garcia-Rubio,1-15
+GII,Recocido Simulado,1,2,1,S251,EC,Laboratorio,practica,42,Miercoles,08:30-09:30,12,2,L3-3,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,1,2,2,S295,MC,Práctica de Aula,problemas,20,Miercoles,08:30-09:30,12,2,A3-3,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,2,2,S272,FP2,Laboratorio,practica,46,Miercoles,08:30-09:30,12,2,L2-5,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,1,2,1,S257,FFI,Laboratorio,practica,41,Miercoles,08:30-09:30,12,2,L3-4,Jose Maria Miranda Pantoja,1-15
+GII,Recocido Simulado,1,2,1,S253,EC,Laboratorio,practica,44,Miercoles,08:30-09:30,12,2,L2-4,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,1,2,1,S263,EP,Práctica de Aula,problemas,17,Miercoles,10:30-11:30,14,2,A2-5,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,1,2,1,S268,MC,Práctica de Aula,problemas,18,Miercoles,10:30-11:30,14,2,A2-6,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,2,2,S289,EP,Teoría,teoria,2,Miercoles,10:30-11:30,14,1,A2-3,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,1,2,2,S280,EC,Laboratorio,practica,48,Miercoles,11:30-12:30,15,2,L2-3,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,1,2,2,S290,EP,Práctica de Aula,problemas,19,Miercoles,11:30-12:30,15,2,A2-3,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,1,2,1,S261,EP,Teoría,teoria,1,Miercoles,12:30-13:30,16,1,A2-5,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,1,2,2,S269,FP2,Teoría,teoria,2,Miercoles,13:30-14:30,17,1,A3-4,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,1,2,1,S248,EC,Teoría,teoria,1,Miercoles,13:30-14:30,17,1,A2-5,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,1,2,2,S275,EC,Teoría,teoria,2,Jueves,08:30-09:30,18,1,A2-5,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,1,2,1,S256,FFI,Teoría,teoria,1,Jueves,08:30-09:30,18,1,A3-3,Jose Maria Miranda Pantoja,1-15
+GII,Recocido Simulado,1,2,2,S288,EP,Teoría,teoria,2,Jueves,09:30-10:30,19,1,A2-6,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,1,2,1,S254,FFI,Teoría,teoria,1,Jueves,09:30-10:30,19,1,A2-3,Jose Maria Miranda Pantoja,1-15
+GII,Recocido Simulado,1,2,1,S264,EP,Práctica de Aula,problemas,18,Jueves,10:30-11:30,20,2,A3-2,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,1,2,1,S245,FP2,Laboratorio,practica,42,Jueves,10:30-11:30,20,2,L1-2,Daniel Hernandez Sosa,1-15
+GII,Recocido Simulado,1,2,1,S250,EC,Laboratorio,practica,41,Jueves,10:30-11:30,20,2,L3-1,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,1,2,2,S270,FP2,Teoría,teoria,2,Jueves,10:30-11:30,20,1,A3-4,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,1,2,2,S292,MC,Teoría,teoria,2,Jueves,11:30-12:30,21,1,A2-5,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,2,2,S286,FFI,Laboratorio,practica,47,Jueves,12:30-13:30,22,2,L2-1,Jesus Garcia-Rubio,1-15
+GII,Recocido Simulado,1,2,2,S271,FP2,Laboratorio,practica,45,Jueves,12:30-13:30,22,2,L2-4,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,1,2,1,S242,FP2,Teoría,teoria,1,Jueves,12:30-13:30,22,1,A3-4,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,1,2,2,S285,FFI,Laboratorio,practica,46,Jueves,12:30-13:30,22,2,L2-5,Jose Maria Miranda Pantoja,1-15
+GII,Recocido Simulado,1,2,1,S249,EC,Teoría,teoria,1,Jueves,13:30-14:30,23,1,A2-6,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,1,2,2,S276,EC,Teoría,teoria,2,Viernes,10:30-11:30,26,1,A2-6,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,1,2,3,S298,FP2,Laboratorio,practica,49,Lunes,14:30-15:30,0,2,L3-3,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,1,2,3,S312,FFI,Laboratorio,practica,50,Lunes,14:30-15:30,0,2,L2-3,Jose Maria Miranda Pantoja,1-15
+GII,Recocido Simulado,1,2,3,S314,FFI,Laboratorio,practica,52,Lunes,14:30-15:30,0,2,L3-5,Jesus Garcia-Rubio,1-15
+GII,Recocido Simulado,1,2,3,S299,FP2,Laboratorio,practica,50,Lunes,16:30-17:30,2,2,L2-1,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,1,2,3,S304,EC,Laboratorio,practica,49,Lunes,16:30-17:30,2,2,L2-2,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,1,2,3,S318,EP,Práctica de Aula,problemas,22,Lunes,16:30-17:30,2,2,A3-4,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,1,2,3,S315,EP,Teoría,teoria,3,Lunes,18:30-19:30,4,1,A3-3,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,1,2,3,S308,FFI,Teoría,teoria,3,Lunes,19:30-20:30,5,1,A3-4,Jose Maria Miranda Pantoja,1-15
+GII,Recocido Simulado,1,2,3,S320,MC,Teoría,teoria,3,Martes,14:30-15:30,6,1,A2-5,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,2,3,S316,EP,Teoría,teoria,3,Martes,15:30-16:30,7,1,A1-1,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,1,2,3,S301,FP2,Laboratorio,practica,52,Martes,16:30-17:30,8,2,L2-4,Daniel Hernandez Sosa,1-15
+GII,Recocido Simulado,1,2,3,S321,MC,Práctica de Aula,problemas,21,Martes,16:30-17:30,8,2,A1-2,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,2,3,S306,EC,Laboratorio,practica,51,Martes,16:30-17:30,8,2,L3-4,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,1,2,3,S309,FFI,Teoría,teoria,3,Martes,18:30-19:30,10,1,A2-3,Jose Maria Miranda Pantoja,1-15
+GII,Recocido Simulado,1,2,3,S303,EC,Teoría,teoria,3,Martes,19:30-20:30,11,1,A2-6,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,1,2,3,S296,FP2,Teoría,teoria,3,Miercoles,14:30-15:30,12,1,A2-5,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,1,2,3,S319,MC,Teoría,teoria,3,Miercoles,15:30-16:30,13,1,A2-1,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,2,3,S302,EC,Teoría,teoria,3,Miercoles,16:30-17:30,14,1,A1-1,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,1,2,3,S297,FP2,Teoría,teoria,3,Miercoles,17:30-18:30,15,1,A2-4,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,1,2,3,S322,MC,Práctica de Aula,problemas,22,Miercoles,18:30-19:30,16,2,A1-1,Domingo Hernandez Abreu,1-15
+GII,Recocido Simulado,1,2,3,S305,EC,Laboratorio,practica,50,Miercoles,18:30-19:30,16,2,L1-2,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,1,2,3,S310,FFI,Teoría,teoria,3,Jueves,15:30-16:30,19,1,A2-3,Jose Maria Miranda Pantoja,1-15
+GII,Recocido Simulado,1,2,3,S307,EC,Laboratorio,practica,52,Jueves,16:30-17:30,20,2,L3-5,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,1,2,3,S313,FFI,Laboratorio,practica,51,Jueves,16:30-17:30,20,2,L1-3,Jesus Garcia-Rubio,1-15
+GII,Recocido Simulado,1,2,3,S317,EP,Práctica de Aula,problemas,21,Jueves,16:30-17:30,20,2,A1-2,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,1,2,3,S300,FP2,Laboratorio,practica,51,Jueves,18:30-19:30,22,2,L3-5,Daniel Hernandez Sosa,1-15
+GII,Recocido Simulado,1,2,3,S311,FFI,Laboratorio,practica,49,Jueves,18:30-19:30,22,2,L2-2,Jose Maria Miranda Pantoja,1-15
+GII,CP-SAT,2,1,2,S55,AP,Teoría,teoria,2,Lunes,10:30-11:30,2,2,A3-4,Zenon Hernandez Figueroa,1-15
+GII,CP-SAT,2,1,2,S56,AP,Práctica de Aula,problemas,19,Jueves,13:30-14:30,23,1,A2-2,Zenon Hernandez Figueroa,1-15
+GII,CP-SAT,2,1,2,S57,AP,Práctica de Aula,problemas,20,Viernes,11:30-12:30,27,1,A1-2,Zenon Hernandez Figueroa,1-15
+GII,CP-SAT,2,1,2,S58,AP,Laboratorio,practica,45,Jueves,11:30-12:30,21,2,LF-4,Zenon Hernandez Figueroa,1-15
+GII,CP-SAT,2,1,2,S59,AP,Laboratorio,practica,46,Jueves,09:30-10:30,19,2,L2-5,Zenon Hernandez Figueroa,1-15
+GII,CP-SAT,2,1,2,S60,AP,Laboratorio,practica,47,Miercoles,08:30-09:30,12,2,L2-1,Javier Sanchez Perez,1-15
+GII,CP-SAT,2,1,2,S61,AP,Laboratorio,practica,48,Jueves,09:30-10:30,19,2,L2-1,Javier Sanchez Perez,1-15
+GII,CP-SAT,2,1,2,S62,IS1,Teoría,teoria,2,Miercoles,12:30-13:30,16,2,A3-1,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,2,1,2,S63,IS1,Laboratorio,practica,45,Martes,09:30-10:30,7,2,L2-4,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,2,1,2,S64,IS1,Laboratorio,practica,46,Lunes,08:30-09:30,0,2,L3-1,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,2,1,2,S65,IS1,Laboratorio,practica,47,Martes,09:30-10:30,7,2,L2-3,Jose Juan Hernandez Cabrera,1-15
+GII,CP-SAT,2,1,2,S66,IS1,Laboratorio,practica,48,Lunes,08:30-09:30,0,2,L2-2,Jose Juan Hernandez Cabrera,1-15
+GII,CP-SAT,2,1,2,S67,ME,Teoría,teoria,2,Martes,11:30-12:30,9,2,A1-1,Pedro Saavedra Santana,1-15
+GII,CP-SAT,2,1,2,S68,ME,Práctica de Aula,problemas,19,Martes,13:30-14:30,11,1,A1-2,Pedro Saavedra Santana,1-15
+GII,CP-SAT,2,1,2,S69,ME,Práctica de Aula,problemas,20,Jueves,13:30-14:30,23,1,A1-2,Pedro Saavedra Santana,1-15
+GII,CP-SAT,2,1,2,S70,ME,Laboratorio,practica,45,Viernes,09:30-10:30,25,2,L2-2,Pedro Saavedra Santana,1-15
+GII,CP-SAT,2,1,2,S71,ME,Laboratorio,practica,46,Martes,09:30-10:30,7,2,L2-2,Pedro Saavedra Santana,1-15
+GII,CP-SAT,2,1,2,S72,ME,Laboratorio,practica,47,Viernes,09:30-10:30,25,2,L2-1,Juan Manuel Deniz Deniz,1-15
+GII,CP-SAT,2,1,2,S73,ME,Laboratorio,practica,48,Jueves,11:30-12:30,21,2,L2-2,Juan Manuel Deniz Deniz,1-15
+GII,CP-SAT,2,1,2,S74,PI,Teoría,teoria,2,Lunes,12:30-13:30,4,2,A1-1,Modesto Castrillon Santana,1-15
+GII,CP-SAT,2,1,2,S75,PI,Laboratorio,practica,45,Lunes,08:30-09:30,0,2,L2-1,Modesto Castrillon Santana,1-15
+GII,CP-SAT,2,1,2,S76,PI,Laboratorio,practica,46,Viernes,08:30-09:30,24,2,L2-3,Modesto Castrillon Santana,1-15
+GII,CP-SAT,2,1,2,S77,PI,Laboratorio,practica,47,Lunes,08:30-09:30,0,2,L1-3,Daniel Hernandez Sosa,1-15
+GII,CP-SAT,2,1,2,S78,PI,Laboratorio,practica,48,Miercoles,08:30-09:30,12,2,L1-2,Daniel Hernandez Sosa,1-15
+GII,CP-SAT,2,1,2,S79,TP,Teoría,teoria,2,Miercoles,10:30-11:30,14,2,A1-1,Mario Hernandez Tejera,1-15
+GII,CP-SAT,2,1,2,S80,TP,Práctica de Aula,problemas,19,Miercoles,09:30-10:30,13,1,A1-1,Mario Hernandez Tejera,1-15
+GII,CP-SAT,2,1,2,S81,TP,Práctica de Aula,problemas,20,Martes,13:30-14:30,11,1,A1-1,Mario Hernandez Tejera,1-15
+GII,CP-SAT,2,1,2,S82,TP,Laboratorio,practica,45,Viernes,11:30-12:30,27,2,L2-2,Mario Hernandez Tejera,1-15
+GII,CP-SAT,2,1,2,S83,TP,Laboratorio,practica,46,Jueves,11:30-12:30,21,2,L3-1,Mario Hernandez Tejera,1-15
+GII,CP-SAT,2,1,2,S84,TP,Laboratorio,practica,47,Jueves,11:30-12:30,21,2,L3-3,Alexis Quesada Arencibia,1-15
+GII,CP-SAT,2,1,2,S85,TP,Laboratorio,practica,48,Viernes,09:30-10:30,25,2,L2-4,Alexis Quesada Arencibia,1-15
+GII,CP-SAT,2,1,1,S139,AP,Teoría,teoria,1,Martes,10:30-11:30,8,2,A2-1,Zenon Hernandez Figueroa,1-15
+GII,CP-SAT,2,1,1,S140,AP,Práctica de Aula,problemas,17,Jueves,08:30-09:30,18,1,A1-1,Zenon Hernandez Figueroa,1-15
+GII,CP-SAT,2,1,1,S141,AP,Práctica de Aula,problemas,18,Lunes,08:30-09:30,0,1,A1-1,Zenon Hernandez Figueroa,1-15
+GII,CP-SAT,2,1,1,S142,AP,Laboratorio,practica,41,Lunes,12:30-13:30,4,2,L1-1,Zenon Hernandez Figueroa,1-15
+GII,CP-SAT,2,1,1,S143,AP,Laboratorio,practica,42,Viernes,08:30-09:30,24,2,L3-2,Zenon Hernandez Figueroa,1-15
+GII,CP-SAT,2,1,1,S144,AP,Laboratorio,practica,43,Viernes,08:30-09:30,24,2,L1-2,Javier Sanchez Perez,1-15
+GII,CP-SAT,2,1,1,S145,AP,Laboratorio,practica,44,Martes,08:30-09:30,6,2,L2-1,Javier Sanchez Perez,1-15
+GII,CP-SAT,2,1,1,S146,IS1,Teoría,teoria,1,Martes,12:30-13:30,10,2,A3-4,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,2,1,1,S147,IS1,Laboratorio,practica,41,Viernes,08:30-09:30,24,2,L1-3,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,2,1,1,S148,IS1,Laboratorio,practica,42,Jueves,11:30-12:30,21,2,L2-1,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,2,1,1,S149,IS1,Laboratorio,practica,43,Miercoles,10:30-11:30,14,2,L3-2,Jose Juan Hernandez Cabrera,1-15
+GII,CP-SAT,2,1,1,S150,IS1,Laboratorio,practica,44,Jueves,10:30-11:30,20,2,L2-3,Jose Juan Hernandez Cabrera,1-15
+GII,CP-SAT,2,1,1,S151,ME,Teoría,teoria,1,Miercoles,08:30-09:30,12,2,A3-1,Pedro Saavedra Santana,1-15
+GII,CP-SAT,2,1,1,S152,ME,Práctica de Aula,problemas,17,Martes,08:30-09:30,6,1,A1-2,Pedro Saavedra Santana,1-15
+GII,CP-SAT,2,1,1,S153,ME,Práctica de Aula,problemas,18,Jueves,12:30-13:30,22,1,A1-2,Pedro Saavedra Santana,1-15
+GII,CP-SAT,2,1,1,S154,ME,Laboratorio,practica,41,Jueves,09:30-10:30,19,2,L2-2,Pedro Saavedra Santana,1-15
+GII,CP-SAT,2,1,1,S155,ME,Laboratorio,practica,42,Miercoles,10:30-11:30,14,2,L2-2,Pedro Saavedra Santana,1-15
+GII,CP-SAT,2,1,1,S156,ME,Laboratorio,practica,43,Jueves,08:30-09:30,18,2,L1-1,Juan Manuel Deniz Deniz,1-15
+GII,CP-SAT,2,1,1,S157,ME,Laboratorio,practica,44,Lunes,09:30-10:30,1,2,L1-2,Juan Manuel Deniz Deniz,1-15
+GII,CP-SAT,2,1,1,S158,PI,Teoría,teoria,1,Viernes,10:30-11:30,26,2,A1-1,Modesto Castrillon Santana,1-15
+GII,CP-SAT,2,1,1,S159,PI,Laboratorio,practica,41,Miercoles,10:30-11:30,14,2,L1-3,Modesto Castrillon Santana,1-15
+GII,CP-SAT,2,1,1,S160,PI,Laboratorio,practica,42,Lunes,10:30-11:30,2,2,LF-4,Modesto Castrillon Santana,1-15
+GII,CP-SAT,2,1,1,S161,PI,Laboratorio,practica,43,Jueves,10:30-11:30,20,2,L1-2,Daniel Hernandez Sosa,1-15
+GII,CP-SAT,2,1,1,S162,PI,Laboratorio,practica,44,Miercoles,10:30-11:30,14,2,L1-2,Daniel Hernandez Sosa,1-15
+GII,CP-SAT,2,1,1,S163,TP,Teoría,teoria,1,Miercoles,12:30-13:30,16,2,A1-1,Mario Hernandez Tejera,1-15
+GII,CP-SAT,2,1,1,S164,TP,Práctica de Aula,problemas,17,Martes,09:30-10:30,7,1,A1-1,Mario Hernandez Tejera,1-15
+GII,CP-SAT,2,1,1,S165,TP,Práctica de Aula,problemas,18,Jueves,13:30-14:30,23,1,A1-1,Mario Hernandez Tejera,1-15
+GII,CP-SAT,2,1,1,S166,TP,Laboratorio,practica,41,Lunes,10:30-11:30,2,2,L1-1,Mario Hernandez Tejera,1-15
+GII,CP-SAT,2,1,1,S167,TP,Laboratorio,practica,42,Jueves,09:30-10:30,19,2,L3-4,Mario Hernandez Tejera,1-15
+GII,CP-SAT,2,1,1,S168,TP,Laboratorio,practica,43,Martes,08:30-09:30,6,2,L1-1,Alexis Quesada Arencibia,1-15
+GII,CP-SAT,2,1,1,S169,TP,Laboratorio,practica,44,Lunes,11:30-12:30,3,2,L3-3,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,2,1,2,S82,TP,Laboratorio,practica,45,Lunes,08:30-09:30,0,2,L2-1,Mario Hernandez Tejera,1-15
+GII,Recocido Simulado,2,1,2,S76,PI,Laboratorio,practica,46,Lunes,08:30-09:30,0,2,L2-3,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,2,1,1,S156,ME,Laboratorio,practica,43,Lunes,08:30-09:30,0,2,L1-3,Juan Manuel Deniz Deniz,1-15
+GII,Recocido Simulado,2,1,1,S150,IS1,Laboratorio,practica,44,Lunes,08:30-09:30,0,2,L3-1,Jose Juan Hernandez Cabrera,1-15
+GII,Recocido Simulado,2,1,2,S57,AP,Práctica de Aula,problemas,20,Lunes,09:30-10:30,1,1,A2-4,Zenon Hernandez Figueroa,1-15
+GII,Recocido Simulado,2,1,1,S161,PI,Laboratorio,practica,43,Lunes,10:30-11:30,2,2,L2-5,Daniel Hernandez Sosa,1-15
+GII,Recocido Simulado,2,1,1,S145,AP,Laboratorio,practica,44,Lunes,10:30-11:30,2,2,L1-2,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,2,1,2,S56,AP,Práctica de Aula,problemas,19,Lunes,10:30-11:30,2,1,A2-3,Zenon Hernandez Figueroa,1-15
+GII,Recocido Simulado,2,1,2,S68,ME,Práctica de Aula,problemas,19,Lunes,11:30-12:30,3,1,A3-1,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,2,1,2,S81,TP,Práctica de Aula,problemas,20,Lunes,11:30-12:30,3,1,A3-4,Mario Hernandez Tejera,1-15
+GII,Recocido Simulado,2,1,1,S160,PI,Laboratorio,practica,42,Lunes,11:30-12:30,3,2,L2-2,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,2,1,1,S147,IS1,Laboratorio,practica,41,Lunes,11:30-12:30,3,2,LF-4,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,2,1,2,S85,TP,Laboratorio,practica,48,Lunes,12:30-13:30,4,2,L3-2,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,2,1,1,S141,AP,Práctica de Aula,problemas,18,Lunes,12:30-13:30,4,1,A3-4,Zenon Hernandez Figueroa,1-15
+GII,Recocido Simulado,2,1,2,S80,TP,Práctica de Aula,problemas,19,Lunes,12:30-13:30,4,1,A1-1,Mario Hernandez Tejera,1-15
+GII,Recocido Simulado,2,1,2,S60,AP,Laboratorio,practica,47,Lunes,12:30-13:30,4,2,L3-5,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,2,1,1,S164,TP,Práctica de Aula,problemas,17,Lunes,13:30-14:30,5,1,A2-1,Mario Hernandez Tejera,1-15
+GII,Recocido Simulado,2,1,2,S63,IS1,Laboratorio,practica,45,Martes,08:30-09:30,6,2,L1-1,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,2,1,2,S69,ME,Práctica de Aula,problemas,20,Martes,08:30-09:30,6,1,A3-4,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,2,1,1,S140,AP,Práctica de Aula,problemas,17,Martes,08:30-09:30,6,1,A3-2,Zenon Hernandez Figueroa,1-15
+GII,Recocido Simulado,2,1,1,S163,TP,Teoría,teoria,1,Martes,09:30-10:30,7,2,A3-1,Mario Hernandez Tejera,1-15
+GII,Recocido Simulado,2,1,2,S73,ME,Laboratorio,practica,48,Martes,09:30-10:30,7,2,L1-3,Juan Manuel Deniz Deniz,1-15
+GII,Recocido Simulado,2,1,2,S77,PI,Laboratorio,practica,47,Martes,10:30-11:30,8,2,LF-4,Daniel Hernandez Sosa,1-15
+GII,Recocido Simulado,2,1,2,S75,PI,Laboratorio,practica,45,Martes,10:30-11:30,8,2,L2-2,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,2,1,2,S59,AP,Laboratorio,practica,46,Martes,10:30-11:30,8,2,L3-3,Zenon Hernandez Figueroa,1-15
+GII,Recocido Simulado,2,1,1,S165,TP,Práctica de Aula,problemas,18,Martes,11:30-12:30,9,1,A3-1,Mario Hernandez Tejera,1-15
+GII,Recocido Simulado,2,1,1,S152,ME,Práctica de Aula,problemas,17,Martes,11:30-12:30,9,1,A1-2,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,2,1,2,S66,IS1,Laboratorio,practica,48,Martes,11:30-12:30,9,2,L3-2,Jose Juan Hernandez Cabrera,1-15
+GII,Recocido Simulado,2,1,2,S83,TP,Laboratorio,practica,46,Martes,12:30-13:30,10,2,L2-2,Mario Hernandez Tejera,1-15
+GII,Recocido Simulado,2,1,2,S72,ME,Laboratorio,practica,47,Martes,12:30-13:30,10,2,L3-1,Juan Manuel Deniz Deniz,1-15
+GII,Recocido Simulado,2,1,2,S58,AP,Laboratorio,practica,45,Martes,12:30-13:30,10,2,L3-5,Zenon Hernandez Figueroa,1-15
+GII,Recocido Simulado,2,1,1,S146,IS1,Teoría,teoria,1,Martes,12:30-13:30,10,2,A2-1,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,2,1,2,S65,IS1,Laboratorio,practica,47,Miercoles,08:30-09:30,12,2,L2-4,Jose Juan Hernandez Cabrera,1-15
+GII,Recocido Simulado,2,1,2,S70,ME,Laboratorio,practica,45,Miercoles,08:30-09:30,12,2,L2-3,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,2,1,2,S61,AP,Laboratorio,practica,48,Miercoles,08:30-09:30,12,2,L3-3,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,2,1,2,S64,IS1,Laboratorio,practica,46,Miercoles,08:30-09:30,12,2,L2-1,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,2,1,1,S158,PI,Teoría,teoria,1,Miercoles,08:30-09:30,12,2,A3-4,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,2,1,1,S167,TP,Laboratorio,practica,42,Miercoles,10:30-11:30,14,2,L2-3,Mario Hernandez Tejera,1-15
+GII,Recocido Simulado,2,1,1,S157,ME,Laboratorio,practica,44,Miercoles,10:30-11:30,14,2,L2-2,Juan Manuel Deniz Deniz,1-15
+GII,Recocido Simulado,2,1,1,S142,AP,Laboratorio,practica,41,Miercoles,10:30-11:30,14,2,L2-4,Zenon Hernandez Figueroa,1-15
+GII,Recocido Simulado,2,1,2,S62,IS1,Teoría,teoria,2,Miercoles,10:30-11:30,14,2,A3-1,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,2,1,1,S168,TP,Laboratorio,practica,43,Miercoles,10:30-11:30,14,2,L3-5,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,2,1,1,S166,TP,Laboratorio,practica,41,Miercoles,12:30-13:30,16,2,L3-2,Mario Hernandez Tejera,1-15
+GII,Recocido Simulado,2,1,2,S71,ME,Laboratorio,practica,46,Miercoles,12:30-13:30,16,2,L2-3,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,2,1,2,S84,TP,Laboratorio,practica,47,Miercoles,12:30-13:30,16,2,L1-3,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,2,1,1,S139,AP,Teoría,teoria,1,Jueves,08:30-09:30,18,2,A1-1,Zenon Hernandez Figueroa,1-15
+GII,Recocido Simulado,2,1,2,S67,ME,Teoría,teoria,2,Jueves,08:30-09:30,18,2,A2-1,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,2,1,2,S79,TP,Teoría,teoria,2,Jueves,10:30-11:30,20,2,A2-3,Mario Hernandez Tejera,1-15
+GII,Recocido Simulado,2,1,1,S162,PI,Laboratorio,practica,44,Jueves,10:30-11:30,20,2,L3-2,Daniel Hernandez Sosa,1-15
+GII,Recocido Simulado,2,1,1,S155,ME,Laboratorio,practica,42,Jueves,10:30-11:30,20,2,LF-4,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,2,1,1,S144,AP,Laboratorio,practica,43,Jueves,10:30-11:30,20,2,L2-5,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,2,1,1,S159,PI,Laboratorio,practica,41,Jueves,10:30-11:30,20,2,L2-1,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,2,1,1,S148,IS1,Laboratorio,practica,42,Jueves,12:30-13:30,22,2,L1-2,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,2,1,1,S169,TP,Laboratorio,practica,44,Jueves,12:30-13:30,22,2,L2-1,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,2,1,2,S55,AP,Teoría,teoria,2,Jueves,12:30-13:30,22,2,A3-1,Zenon Hernandez Figueroa,1-15
+GII,Recocido Simulado,2,1,1,S154,ME,Laboratorio,practica,41,Jueves,12:30-13:30,22,2,L2-5,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,2,1,1,S149,IS1,Laboratorio,practica,43,Jueves,12:30-13:30,22,2,L3-2,Jose Juan Hernandez Cabrera,1-15
+GII,Recocido Simulado,2,1,2,S78,PI,Laboratorio,practica,48,Viernes,08:30-09:30,24,2,L2-2,Daniel Hernandez Sosa,1-15
+GII,Recocido Simulado,2,1,1,S151,ME,Teoría,teoria,1,Viernes,08:30-09:30,24,2,A3-3,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,2,1,2,S74,PI,Teoría,teoria,2,Viernes,10:30-11:30,26,2,A2-3,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,2,1,1,S153,ME,Práctica de Aula,problemas,18,Viernes,10:30-11:30,26,1,A3-1,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,2,1,1,S143,AP,Laboratorio,practica,42,Viernes,10:30-11:30,26,2,L3-4,Zenon Hernandez Figueroa,1-15
+GII,CP-SAT,2,2,1,S86,AC,Teoría,teoria,1,Lunes,08:30-09:30,0,1,A3-4,Jose Carlos Ruiz Luque,1-15
+GII,CP-SAT,2,2,1,S87,AC,Teoría,teoria,1,Lunes,10:30-11:30,2,1,A2-1,Jose Carlos Ruiz Luque,1-15
+GII,CP-SAT,2,2,1,S88,BD1,Teoría,teoria,1,Lunes,11:30-12:30,3,2,A3-3,Octavio Mayor Gonzalez,1-15
+GII,CP-SAT,2,2,1,S89,EDP,Teoría,teoria,1,Lunes,13:30-14:30,5,1,A2-1,Juan Carlos Rodriguez del Pino,1-15
+GII,CP-SAT,2,2,1,S90,EDP,Teoría,teoria,1,Lunes,09:30-10:30,1,1,A3-4,Juan Carlos Rodriguez del Pino,1-15
+GII,CP-SAT,2,2,1,S91,FSO,Teoría,teoria,1,Viernes,11:30-12:30,27,1,A2-1,Jose Miguel Santos Espino,1-15
+GII,CP-SAT,2,2,1,S92,FSO,Teoría,teoria,1,Viernes,10:30-11:30,26,1,A3-4,Jose Miguel Santos Espino,1-15
+GII,CP-SAT,2,2,1,S93,MN,Teoría,teoria,1,Martes,13:30-14:30,11,1,A2-3,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,2,2,1,S94,MN,Teoría,teoria,1,Martes,12:30-13:30,10,1,A3-3,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,2,2,1,S95,AC,Laboratorio,practica,41,Martes,10:30-11:30,8,2,LF-4,Jose Carlos Ruiz Luque,1-15
+GII,CP-SAT,2,2,1,S96,AC,Laboratorio,practica,42,Miercoles,12:30-13:30,16,2,L2-2,Jose Carlos Ruiz Luque,1-15
+GII,CP-SAT,2,2,1,S97,AC,Laboratorio,practica,43,Jueves,12:30-13:30,22,2,L2-4,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,2,2,1,S98,AC,Laboratorio,practica,44,Martes,10:30-11:30,8,2,L1-1,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,2,2,1,S99,BD1,Laboratorio,practica,41,Viernes,08:30-09:30,24,2,L2-3,Octavio Mayor Gonzalez,1-15
+GII,CP-SAT,2,2,1,S100,BD1,Laboratorio,practica,42,Jueves,10:30-11:30,20,2,LF-4,Octavio Mayor Gonzalez,1-15
+GII,CP-SAT,2,2,1,S101,BD1,Laboratorio,practica,43,Viernes,08:30-09:30,24,2,L2-4,Adrian Penate Sanchez,1-15
+GII,CP-SAT,2,2,1,S102,BD1,Laboratorio,practica,44,Miercoles,12:30-13:30,16,2,L2-3,Adrian Penate Sanchez,1-15
+GII,CP-SAT,2,2,1,S103,EDP,Laboratorio,practica,41,Martes,08:30-09:30,6,2,L1-1,Juan Carlos Rodriguez del Pino,1-15
+GII,CP-SAT,2,2,1,S104,EDP,Laboratorio,practica,42,Martes,10:30-11:30,8,2,L3-2,Juan Carlos Rodriguez del Pino,1-15
+GII,CP-SAT,2,2,1,S105,EDP,Laboratorio,practica,43,Miercoles,12:30-13:30,16,2,L1-3,Juan Carlos Rodriguez del Pino,1-15
+GII,CP-SAT,2,2,1,S106,EDP,Laboratorio,practica,44,Viernes,08:30-09:30,24,2,LF-4,Juan Carlos Rodriguez del Pino,1-15
+GII,CP-SAT,2,2,1,S107,FSO,Laboratorio,practica,41,Miercoles,12:30-13:30,16,2,L2-1,Jose Miguel Santos Espino,1-15
+GII,CP-SAT,2,2,1,S108,FSO,Laboratorio,practica,42,Jueves,12:30-13:30,22,2,L2-1,Jose Miguel Santos Espino,1-15
+GII,CP-SAT,2,2,1,S109,FSO,Laboratorio,practica,43,Jueves,08:30-09:30,18,2,LF-4,Alexis Quesada Arencibia,1-15
+GII,CP-SAT,2,2,1,S110,FSO,Laboratorio,practica,44,Jueves,10:30-11:30,20,2,L1-3,Alexis Quesada Arencibia,1-15
+GII,CP-SAT,2,2,1,S111,MN,Laboratorio,practica,41,Jueves,12:30-13:30,22,2,L1-2,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,2,2,1,S112,MN,Laboratorio,practica,42,Viernes,08:30-09:30,24,2,L2-1,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,2,2,1,S113,MN,Laboratorio,practica,43,Jueves,10:30-11:30,20,2,L1-2,Pedro Saavedra Santana,1-15
+GII,CP-SAT,2,2,1,S114,MN,Laboratorio,practica,44,Jueves,12:30-13:30,22,2,L1-3,Pedro Saavedra Santana,1-15
+GII,CP-SAT,2,2,2,S115,AC,Teoría,teoria,2,Martes,08:30-09:30,6,1,A1-1,Jose Carlos Ruiz Luque,1-15
+GII,CP-SAT,2,2,2,S116,AC,Teoría,teoria,2,Martes,09:30-10:30,7,1,A1-1,Jose Carlos Ruiz Luque,1-15
+GII,CP-SAT,2,2,2,S117,BD1,Teoría,teoria,2,Martes,10:30-11:30,8,2,A3-1,Adrian Penate Sanchez,1-15
+GII,CP-SAT,2,2,2,S118,EDP,Teoría,teoria,2,Martes,12:30-13:30,10,1,A2-1,Juan Carlos Rodriguez del Pino,1-15
+GII,CP-SAT,2,2,2,S119,EDP,Teoría,teoria,2,Martes,13:30-14:30,11,1,A2-4,Juan Carlos Rodriguez del Pino,1-15
+GII,CP-SAT,2,2,2,S120,FSO,Teoría,teoria,2,Miercoles,08:30-09:30,12,1,A1-1,Jose Miguel Santos Espino,1-15
+GII,CP-SAT,2,2,2,S121,FSO,Teoría,teoria,2,Miercoles,09:30-10:30,13,1,A2-5,Jose Miguel Santos Espino,1-15
+GII,CP-SAT,2,2,2,S122,MN,Teoría,teoria,2,Miercoles,10:30-11:30,14,1,A1-1,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,2,2,2,S123,MN,Teoría,teoria,2,Miercoles,11:30-12:30,15,1,A1-1,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,2,2,2,S124,AC,Laboratorio,practica,45,Jueves,10:30-11:30,20,2,L1-1,Jose Carlos Ruiz Luque,1-15
+GII,CP-SAT,2,2,2,S125,AC,Laboratorio,practica,46,Miercoles,12:30-13:30,16,2,L1-1,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,2,2,2,S126,AC,Laboratorio,practica,47,Jueves,08:30-09:30,18,2,L1-2,Antonio Carlos Dominguez Brito,1-15
+GII,CP-SAT,2,2,2,S127,BD1,Laboratorio,practica,45,Jueves,12:30-13:30,22,2,L3-1,Octavio Mayor Gonzalez,1-15
+GII,CP-SAT,2,2,2,S128,BD1,Laboratorio,practica,46,Jueves,08:30-09:30,18,2,L1-1,Adrian Penate Sanchez,1-15
+GII,CP-SAT,2,2,2,S129,BD1,Laboratorio,practica,47,Jueves,10:30-11:30,20,2,L3-3,Adrian Penate Sanchez,1-15
+GII,CP-SAT,2,2,2,S130,EDP,Laboratorio,practica,45,Jueves,08:30-09:30,18,2,L2-4,Juan Carlos Rodriguez del Pino,1-15
+GII,CP-SAT,2,2,2,S131,EDP,Laboratorio,practica,46,Jueves,10:30-11:30,20,2,L3-2,Juan Carlos Rodriguez del Pino,1-15
+GII,CP-SAT,2,2,2,S132,EDP,Laboratorio,practica,47,Jueves,12:30-13:30,22,2,L2-2,Juan Carlos Rodriguez del Pino,1-15
+GII,CP-SAT,2,2,2,S133,FSO,Laboratorio,practica,45,Viernes,08:30-09:30,24,2,L1-3,Jose Miguel Santos Espino,1-15
+GII,CP-SAT,2,2,2,S134,FSO,Laboratorio,practica,46,Jueves,12:30-13:30,22,2,L1-1,Alexis Quesada Arencibia,1-15
+GII,CP-SAT,2,2,2,S135,FSO,Laboratorio,practica,47,Viernes,09:30-10:30,25,2,L1-2,Alexis Quesada Arencibia,1-15
+GII,CP-SAT,2,2,2,S136,MN,Laboratorio,practica,45,Viernes,10:30-11:30,26,2,L3-2,Angel Manuel Ramos del Rosario,1-15
+GII,CP-SAT,2,2,2,S137,MN,Laboratorio,practica,46,Viernes,09:30-10:30,25,2,L1-1,Pedro Saavedra Santana,1-15
+GII,CP-SAT,2,2,2,S138,MN,Laboratorio,practica,47,Viernes,11:30-12:30,27,2,L1-2,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,2,2,2,S117,BD1,Teoría,teoria,2,Lunes,08:30-09:30,0,2,A2-3,Adrian Penate Sanchez,1-15
+GII,Recocido Simulado,2,2,1,S99,BD1,Laboratorio,practica,41,Lunes,09:30-10:30,1,2,L1-2,Octavio Mayor Gonzalez,1-15
+GII,Recocido Simulado,2,2,1,S106,EDP,Laboratorio,practica,44,Lunes,09:30-10:30,1,2,L3-4,Juan Carlos Rodriguez del Pino,1-15
+GII,Recocido Simulado,2,2,2,S116,AC,Teoría,teoria,2,Lunes,10:30-11:30,2,1,A2-6,Jose Carlos Ruiz Luque,1-15
+GII,Recocido Simulado,2,2,1,S90,EDP,Teoría,teoria,1,Lunes,11:30-12:30,3,1,A2-3,Juan Carlos Rodriguez del Pino,1-15
+GII,Recocido Simulado,2,2,2,S121,FSO,Teoría,teoria,2,Lunes,11:30-12:30,3,1,A1-1,Jose Miguel Santos Espino,1-15
+GII,Recocido Simulado,2,2,2,S130,EDP,Laboratorio,practica,45,Lunes,12:30-13:30,4,2,L2-2,Juan Carlos Rodriguez del Pino,1-15
+GII,Recocido Simulado,2,2,1,S92,FSO,Teoría,teoria,1,Lunes,12:30-13:30,4,1,A3-4,Jose Miguel Santos Espino,1-15
+GII,Recocido Simulado,2,2,1,S91,FSO,Teoría,teoria,1,Lunes,13:30-14:30,5,1,A2-4,Jose Miguel Santos Espino,1-15
+GII,Recocido Simulado,2,2,1,S110,FSO,Laboratorio,practica,44,Martes,08:30-09:30,6,2,L2-4,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,2,2,1,S104,EDP,Laboratorio,practica,42,Martes,08:30-09:30,6,2,L3-1,Juan Carlos Rodriguez del Pino,1-15
+GII,Recocido Simulado,2,2,1,S101,BD1,Laboratorio,practica,43,Martes,08:30-09:30,6,2,L2-1,Adrian Penate Sanchez,1-15
+GII,Recocido Simulado,2,2,2,S115,AC,Teoría,teoria,2,Martes,09:30-10:30,7,1,A2-3,Jose Carlos Ruiz Luque,1-15
+GII,Recocido Simulado,2,2,2,S131,EDP,Laboratorio,practica,46,Martes,10:30-11:30,8,2,L2-3,Juan Carlos Rodriguez del Pino,1-15
+GII,Recocido Simulado,2,2,2,S133,FSO,Laboratorio,practica,45,Martes,10:30-11:30,8,2,L3-1,Jose Miguel Santos Espino,1-15
+GII,Recocido Simulado,2,2,1,S88,BD1,Teoría,teoria,1,Martes,10:30-11:30,8,2,A1-1,Octavio Mayor Gonzalez,1-15
+GII,Recocido Simulado,2,2,2,S135,FSO,Laboratorio,practica,47,Martes,10:30-11:30,8,2,L3-3,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,2,2,2,S127,BD1,Laboratorio,practica,45,Martes,12:30-13:30,10,2,L3-3,Octavio Mayor Gonzalez,1-15
+GII,Recocido Simulado,2,2,2,S126,AC,Laboratorio,practica,47,Martes,12:30-13:30,10,2,L2-5,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,2,2,2,S128,BD1,Laboratorio,practica,46,Martes,12:30-13:30,10,2,L1-3,Adrian Penate Sanchez,1-15
+GII,Recocido Simulado,2,2,1,S94,MN,Teoría,teoria,1,Martes,12:30-13:30,10,1,A2-6,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,2,2,1,S93,MN,Teoría,teoria,1,Martes,13:30-14:30,11,1,A2-6,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,2,2,1,S95,AC,Laboratorio,practica,41,Miercoles,08:30-09:30,12,2,L3-4,Jose Carlos Ruiz Luque,1-15
+GII,Recocido Simulado,2,2,2,S134,FSO,Laboratorio,practica,46,Miercoles,08:30-09:30,12,2,LF-4,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,2,2,1,S114,MN,Laboratorio,practica,44,Miercoles,08:30-09:30,12,2,L1-2,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,2,2,1,S109,FSO,Laboratorio,practica,43,Miercoles,10:30-11:30,14,2,L1-3,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,2,2,1,S98,AC,Laboratorio,practica,44,Miercoles,10:30-11:30,14,2,L2-5,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,2,2,1,S111,MN,Laboratorio,practica,41,Miercoles,10:30-11:30,14,2,L1-2,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,2,2,2,S137,MN,Laboratorio,practica,46,Miercoles,10:30-11:30,14,2,L2-2,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,2,2,2,S129,BD1,Laboratorio,practica,47,Miercoles,10:30-11:30,14,2,L3-1,Adrian Penate Sanchez,1-15
+GII,Recocido Simulado,2,2,1,S108,FSO,Laboratorio,practica,42,Miercoles,10:30-11:30,14,2,LF-4,Jose Miguel Santos Espino,1-15
+GII,Recocido Simulado,2,2,1,S87,AC,Teoría,teoria,1,Miercoles,12:30-13:30,16,1,A3-1,Jose Carlos Ruiz Luque,1-15
+GII,Recocido Simulado,2,2,2,S136,MN,Laboratorio,practica,45,Miercoles,12:30-13:30,16,2,LF-4,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,2,2,2,S132,EDP,Laboratorio,practica,47,Miercoles,12:30-13:30,16,2,L3-1,Juan Carlos Rodriguez del Pino,1-15
+GII,Recocido Simulado,2,2,2,S125,AC,Laboratorio,practica,46,Miercoles,12:30-13:30,16,2,L1-3,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,2,2,1,S96,AC,Laboratorio,practica,42,Jueves,08:30-09:30,18,2,L3-3,Jose Carlos Ruiz Luque,1-15
+GII,Recocido Simulado,2,2,1,S97,AC,Laboratorio,practica,43,Jueves,08:30-09:30,18,2,L1-1,Antonio Carlos Dominguez Brito,1-15
+GII,Recocido Simulado,2,2,1,S107,FSO,Laboratorio,practica,41,Jueves,08:30-09:30,18,2,L2-1,Jose Miguel Santos Espino,1-15
+GII,Recocido Simulado,2,2,2,S118,EDP,Teoría,teoria,2,Jueves,08:30-09:30,18,1,A3-3,Juan Carlos Rodriguez del Pino,1-15
+GII,Recocido Simulado,2,2,1,S102,BD1,Laboratorio,practica,44,Jueves,08:30-09:30,18,2,L2-5,Adrian Penate Sanchez,1-15
+GII,Recocido Simulado,2,2,2,S122,MN,Teoría,teoria,2,Jueves,09:30-10:30,19,1,A3-1,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,2,2,2,S120,FSO,Teoría,teoria,2,Jueves,10:30-11:30,20,1,A2-5,Jose Miguel Santos Espino,1-15
+GII,Recocido Simulado,2,2,1,S113,MN,Laboratorio,practica,43,Jueves,10:30-11:30,20,2,L2-3,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,2,2,1,S100,BD1,Laboratorio,practica,42,Jueves,10:30-11:30,20,2,L2-1,Octavio Mayor Gonzalez,1-15
+GII,Recocido Simulado,2,2,1,S103,EDP,Laboratorio,practica,41,Jueves,10:30-11:30,20,2,L2-4,Juan Carlos Rodriguez del Pino,1-15
+GII,Recocido Simulado,2,2,2,S123,MN,Teoría,teoria,2,Jueves,11:30-12:30,21,1,A2-6,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,2,2,1,S112,MN,Laboratorio,practica,42,Jueves,12:30-13:30,22,2,L3-3,Angel Manuel Ramos del Rosario,1-15
+GII,Recocido Simulado,2,2,1,S105,EDP,Laboratorio,practica,43,Jueves,12:30-13:30,22,2,L1-2,Juan Carlos Rodriguez del Pino,1-15
+GII,Recocido Simulado,2,2,2,S124,AC,Laboratorio,practica,45,Jueves,12:30-13:30,22,2,L2-4,Jose Carlos Ruiz Luque,1-15
+GII,Recocido Simulado,2,2,1,S89,EDP,Teoría,teoria,1,Viernes,08:30-09:30,24,1,A3-3,Juan Carlos Rodriguez del Pino,1-15
+GII,Recocido Simulado,2,2,2,S138,MN,Laboratorio,practica,47,Viernes,08:30-09:30,24,2,L3-2,Pedro Saavedra Santana,1-15
+GII,Recocido Simulado,2,2,1,S86,AC,Teoría,teoria,1,Viernes,09:30-10:30,25,1,A3-1,Jose Carlos Ruiz Luque,1-15
+GII,Recocido Simulado,2,2,2,S119,EDP,Teoría,teoria,2,Viernes,10:30-11:30,26,1,A2-6,Juan Carlos Rodriguez del Pino,1-15
+GII,CP-SAT,3,1,1,S01,RC,Laboratorio,practica,41,Lunes,12:30-13:30,4,2,LF-4,Juan Carlos Quevedo Losada,1-15
+GII,CP-SAT,3,1,1,S02,RC,Laboratorio,practica,42,Martes,10:30-11:30,8,2,L1-2,Juan Carlos Quevedo Losada,1-15
+GII,CP-SAT,3,1,1,S03,RC,Laboratorio,practica,43,Martes,08:30-09:30,6,2,L1-1,Juan Carlos Quevedo Losada,1-15
+GII,CP-SAT,3,1,1,S04,RC,Laboratorio,practica,44,Miercoles,08:30-09:30,12,2,L2-1,Juan Carlos Quevedo Losada,1-15
+GII,CP-SAT,3,1,1,S05,RC,Laboratorio,practica,45,Martes,12:30-13:30,10,2,L2-2,Juan Carlos Quevedo Losada,1-15
+GII,CP-SAT,3,1,1,S06,ASO,Laboratorio,practica,41,Jueves,08:30-09:30,18,2,L1-3,Carmelo Ruben Garcia Rodriguez,1-15
+GII,CP-SAT,3,1,1,S07,ASO,Laboratorio,practica,42,Miercoles,10:30-11:30,14,2,L1-3,Carmelo Ruben Garcia Rodriguez,1-15
+GII,CP-SAT,3,1,1,S08,ASO,Laboratorio,practica,43,Martes,10:30-11:30,8,2,L1-1,Carmelo Ruben Garcia Rodriguez,1-15
+GII,CP-SAT,3,1,1,S09,ASO,Laboratorio,practica,44,Martes,12:30-13:30,10,2,L2-3,Carmelo Ruben Garcia Rodriguez,1-15
+GII,CP-SAT,3,1,1,S10,ASO,Laboratorio,practica,45,Miercoles,08:30-09:30,12,2,LF-4,Carmelo Ruben Garcia Rodriguez,1-15
+GII,CP-SAT,3,1,1,S11,BD2,Laboratorio,practica,41,Miercoles,12:30-13:30,16,2,L1-3,Octavio Mayor,1-15
+GII,CP-SAT,3,1,1,S12,BD2,Laboratorio,practica,42,Jueves,08:30-09:30,18,2,L1-2,Octavio Mayor,1-15
+GII,CP-SAT,3,1,1,S13,BD2,Laboratorio,practica,43,Miercoles,10:30-11:30,14,2,L1-2,Juan de Dios Duque Oliva,1-15
+GII,CP-SAT,3,1,1,S14,BD2,Laboratorio,practica,44,Miercoles,12:30-13:30,16,2,L2-4,Juan de Dios Duque Oliva,1-15
+GII,CP-SAT,3,1,1,S15,BD2,Laboratorio,practica,45,Miercoles,10:30-11:30,14,2,L3-2,Octavio Mayor,1-15
+GII,CP-SAT,3,1,1,S16,IS2,Laboratorio,practica,41,Martes,12:30-13:30,10,2,L1-3,Jose Juan Hernandez Cabrera,1-15
+GII,CP-SAT,3,1,1,S17,IS2,Laboratorio,practica,42,Miercoles,08:30-09:30,12,2,L1-1,Jose Juan Hernandez Cabrera,1-15
+GII,CP-SAT,3,1,1,S18,IS2,Laboratorio,practica,43,Jueves,08:30-09:30,18,2,L1-1,Jose Juan Hernandez Cabrera,1-15
+GII,CP-SAT,3,1,1,S19,IS2,Laboratorio,practica,44,Miercoles,10:30-11:30,14,2,L2-5,Jose Juan Hernandez Cabrera,1-15
+GII,CP-SAT,3,1,1,S20,IS2,Laboratorio,practica,45,Miercoles,12:30-13:30,16,2,L3-4,Jose Juan Hernandez Cabrera,1-15
+GII,CP-SAT,3,1,1,S21,FSI,Laboratorio,practica,41,Miercoles,10:30-11:30,14,2,L1-1,Cayetano Guerra Artal,1-15
+GII,CP-SAT,3,1,1,S22,FSI,Laboratorio,practica,42,Miercoles,12:30-13:30,16,2,L1-2,Cayetano Guerra Artal,1-15
+GII,CP-SAT,3,1,1,S23,FSI,Laboratorio,practica,43,Miercoles,12:30-13:30,16,2,L1-1,Jose Daniel Hernandez Sosa,1-15
+GII,CP-SAT,3,1,1,S24,FSI,Laboratorio,practica,44,Jueves,08:30-09:30,18,2,L3-3,Jose Daniel Hernandez Sosa,1-15
+GII,CP-SAT,3,1,1,S25,FSI,Laboratorio,practica,45,Jueves,08:30-09:30,18,2,L3-1,Cayetano Guerra Artal,1-15
+GII,CP-SAT,3,1,1,S26,RC,Teoría,teoria,1,Jueves,10:30-11:30,20,2,A3-4,Juan Carlos Quevedo Losada,1-15
+GII,CP-SAT,3,1,1,S27,ASO,Teoría,teoria,1,Viernes,08:30-09:30,24,1,A3-4,Carmelo Ruben Garcia Rodriguez,1-15
+GII,CP-SAT,3,1,1,S28,BD2,Teoría,teoria,1,Jueves,12:30-13:30,22,2,A2-5,Juan de Dios Duque Oliva,1-15
+GII,CP-SAT,3,1,1,S29,IS2,Teoría,teoria,1,Viernes,09:30-10:30,25,2,A2-6,Jose Juan Hernandez Cabrera,1-15
+GII,CP-SAT,3,1,1,S30,FSI,Teoría,teoria,1,Viernes,11:30-12:30,27,2,A3-1,Cayetano Guerra Artal,1-15
+GII,Recocido Simulado,3,1,1,S06,ASO,Laboratorio,practica,41,Lunes,08:30-09:30,0,2,L2-3,Carmelo Ruben Garcia Rodriguez,1-15
+GII,Recocido Simulado,3,1,1,S15,BD2,Laboratorio,practica,45,Lunes,08:30-09:30,0,2,L2-5,Octavio Mayor,1-15
+GII,Recocido Simulado,3,1,1,S01,RC,Laboratorio,practica,41,Lunes,10:30-11:30,2,2,L1-2,Juan Carlos Quevedo Losada,1-15
+GII,Recocido Simulado,3,1,1,S20,IS2,Laboratorio,practica,45,Lunes,10:30-11:30,2,2,L2-1,Jose Juan Hernandez Cabrera,1-15
+GII,Recocido Simulado,3,1,1,S23,FSI,Laboratorio,practica,43,Lunes,10:30-11:30,2,2,L2-4,Jose Daniel Hernandez Sosa,1-15
+GII,Recocido Simulado,3,1,1,S22,FSI,Laboratorio,practica,42,Lunes,12:30-13:30,4,2,LF-4,Cayetano Guerra Artal,1-15
+GII,Recocido Simulado,3,1,1,S24,FSI,Laboratorio,practica,44,Lunes,12:30-13:30,4,2,L2-5,Jose Daniel Hernandez Sosa,1-15
+GII,Recocido Simulado,3,1,1,S16,IS2,Laboratorio,practica,41,Lunes,12:30-13:30,4,2,L3-2,Jose Juan Hernandez Cabrera,1-15
+GII,Recocido Simulado,3,1,1,S05,RC,Laboratorio,practica,45,Martes,08:30-09:30,6,2,LF-4,Juan Carlos Quevedo Losada,1-15
+GII,Recocido Simulado,3,1,1,S07,ASO,Laboratorio,practica,42,Martes,08:30-09:30,6,2,L2-5,Carmelo Ruben Garcia Rodriguez,1-15
+GII,Recocido Simulado,3,1,1,S21,FSI,Laboratorio,practica,41,Martes,08:30-09:30,6,2,L3-5,Cayetano Guerra Artal,1-15
+GII,Recocido Simulado,3,1,1,S19,IS2,Laboratorio,practica,44,Martes,08:30-09:30,6,2,L2-2,Jose Juan Hernandez Cabrera,1-15
+GII,Recocido Simulado,3,1,1,S29,IS2,Teoría,teoria,1,Martes,10:30-11:30,8,2,A1-1,Jose Juan Hernandez Cabrera,1-15
+GII,Recocido Simulado,3,1,1,S26,RC,Teoría,teoria,1,Martes,12:30-13:30,10,2,A1-1,Juan Carlos Quevedo Losada,1-15
+GII,Recocido Simulado,3,1,1,S08,ASO,Laboratorio,practica,43,Miercoles,09:30-10:30,13,2,L2-3,Carmelo Ruben Garcia Rodriguez,1-15
+GII,Recocido Simulado,3,1,1,S12,BD2,Laboratorio,practica,42,Miercoles,09:30-10:30,13,2,L3-2,Octavio Mayor,1-15
+GII,Recocido Simulado,3,1,1,S27,ASO,Teoría,teoria,1,Miercoles,11:30-12:30,15,1,A3-1,Carmelo Ruben Garcia Rodriguez,1-15
+GII,Recocido Simulado,3,1,1,S18,IS2,Laboratorio,practica,43,Miercoles,12:30-13:30,16,2,L3-4,Jose Juan Hernandez Cabrera,1-15
+GII,Recocido Simulado,3,1,1,S25,FSI,Laboratorio,practica,45,Miercoles,12:30-13:30,16,2,L3-3,Cayetano Guerra Artal,1-15
+GII,Recocido Simulado,3,1,1,S11,BD2,Laboratorio,practica,41,Miercoles,12:30-13:30,16,2,L3-5,Octavio Mayor,1-15
+GII,Recocido Simulado,3,1,1,S09,ASO,Laboratorio,practica,44,Miercoles,12:30-13:30,16,2,L2-1,Carmelo Ruben Garcia Rodriguez,1-15
+GII,Recocido Simulado,3,1,1,S02,RC,Laboratorio,practica,42,Miercoles,12:30-13:30,16,2,L3-2,Juan Carlos Quevedo Losada,1-15
+GII,Recocido Simulado,3,1,1,S30,FSI,Teoría,teoria,1,Jueves,08:30-09:30,18,2,A2-5,Cayetano Guerra Artal,1-15
+GII,Recocido Simulado,3,1,1,S03,RC,Laboratorio,practica,43,Jueves,10:30-11:30,20,2,L3-2,Juan Carlos Quevedo Losada,1-15
+GII,Recocido Simulado,3,1,1,S10,ASO,Laboratorio,practica,45,Jueves,10:30-11:30,20,2,L2-5,Carmelo Ruben Garcia Rodriguez,1-15
+GII,Recocido Simulado,3,1,1,S14,BD2,Laboratorio,practica,44,Jueves,10:30-11:30,20,2,L1-2,Juan de Dios Duque Oliva,1-15
+GII,Recocido Simulado,3,1,1,S17,IS2,Laboratorio,practica,42,Jueves,11:30-12:30,21,2,LF-4,Jose Juan Hernandez Cabrera,1-15
+GII,Recocido Simulado,3,1,1,S04,RC,Laboratorio,practica,44,Jueves,12:30-13:30,22,2,L3-3,Juan Carlos Quevedo Losada,1-15
+GII,Recocido Simulado,3,1,1,S13,BD2,Laboratorio,practica,43,Jueves,12:30-13:30,22,2,L3-1,Juan de Dios Duque Oliva,1-15
+GII,Recocido Simulado,3,1,1,S28,BD2,Teoría,teoria,1,Viernes,08:30-09:30,24,2,A3-4,Juan de Dios Duque Oliva,1-15
+GII,CP-SAT,3,2,1,S31,ASR,Laboratorio,practica,41,Martes,10:30-11:30,8,2,LF-4,Humberto Javier Alamo Deniz,1-15
+GII,CP-SAT,3,2,1,S32,ASR,Laboratorio,practica,42,Miercoles,12:30-13:30,16,2,L3-1,Humberto Javier Alamo Deniz,1-15
+GII,CP-SAT,3,2,1,S33,ASR,Laboratorio,practica,43,Miercoles,10:30-11:30,14,2,L2-2,Humberto Javier Alamo Deniz,1-15
+GII,CP-SAT,3,2,1,S34,ASR,Laboratorio,practica,44,Jueves,08:30-09:30,18,2,L1-2,Humberto Javier Alamo Deniz,1-15
+GII,CP-SAT,3,2,1,S35,ASR,Laboratorio,practica,45,Martes,12:30-13:30,10,2,L3-3,Humberto Javier Alamo Deniz,1-15
+GII,CP-SAT,3,2,1,S36,VPD,Laboratorio,practica,41,Miercoles,08:30-09:30,12,2,L3-2,Francisco Alexis Quesada Arencibia,1-15
+GII,CP-SAT,3,2,1,S37,VPD,Laboratorio,practica,42,Miercoles,10:30-11:30,14,2,L2-4,Francisco Alexis Quesada Arencibia,1-15
+GII,CP-SAT,3,2,1,S38,VPD,Laboratorio,practica,43,Miercoles,12:30-13:30,16,2,L2-1,Francisco Alexis Quesada Arencibia,1-15
+GII,CP-SAT,3,2,1,S39,VPD,Laboratorio,practica,44,Martes,12:30-13:30,10,2,L1-2,Francisco Alexis Quesada Arencibia,1-15
+GII,CP-SAT,3,2,1,S40,VPD,Laboratorio,practica,45,Jueves,08:30-09:30,18,2,L3-4,Francisco Alexis Quesada Arencibia,1-15
+GII,CP-SAT,3,2,1,S41,PWM,Laboratorio,practica,41,Lunes,08:30-09:30,0,3,L1-1,Luis M. Hernandez Acosta,1-15
+GII,CP-SAT,3,2,1,S42,PWM,Laboratorio,practica,42,Martes,11:30-12:30,9,3,L1-1,Luis M. Hernandez Acosta,1-15
+GII,CP-SAT,3,2,1,S43,PWM,Laboratorio,practica,43,Martes,08:30-09:30,6,3,L1-1,Luis M. Hernandez Acosta,1-15
+GII,CP-SAT,3,2,1,S44,PWM,Laboratorio,practica,44,Miercoles,11:30-12:30,15,3,L1-1,Luis M. Hernandez Acosta,1-15
+GII,CP-SAT,3,2,1,S45,PWM,Laboratorio,practica,45,Miercoles,08:30-09:30,12,3,L1-2,Luis M. Hernandez Acosta,1-15
+GII,CP-SAT,3,2,1,S46,PS,Laboratorio,practica,41,Lunes,11:30-12:30,3,3,L3-1,Nelson Monzon Lopez,1-15
+GII,CP-SAT,3,2,1,S47,PS,Laboratorio,practica,42,Martes,08:30-09:30,6,3,L2-3,Nelson Monzon Lopez,1-15
+GII,CP-SAT,3,2,1,S48,PS,Laboratorio,practica,43,Martes,11:30-12:30,9,3,L1-3,Nelson Monzon Lopez,1-15
+GII,CP-SAT,3,2,1,S49,PS,Laboratorio,practica,44,Miercoles,08:30-09:30,12,3,L1-1,Nelson Monzon Lopez,1-15
+GII,CP-SAT,3,2,1,S50,PS,Laboratorio,practica,45,Miercoles,11:30-12:30,15,3,LF-4,Nelson Monzon Lopez,1-15
+GII,CP-SAT,3,2,1,S51,ASR,Teoría,teoria,1,Jueves,10:30-11:30,20,2,A3-4,Humberto Javier Alamo Deniz,1-15
+GII,CP-SAT,3,2,1,S52,VPD,Teoría,teoria,1,Jueves,12:30-13:30,22,2,A3-4,Francisco Alexis Quesada Arencibia,1-15
+GII,CP-SAT,3,2,1,S53,PWM,Teoría,teoria,1,Viernes,08:30-09:30,24,3,A3-1,Luis M. Hernandez Acosta,1-15
+GII,CP-SAT,3,2,1,S54,PS,Teoría,teoria,1,Viernes,11:30-12:30,27,3,A2-6,Nelson Monzon Lopez,1-15
+GII,Recocido Simulado,3,2,1,S43,PWM,Laboratorio,practica,43,Lunes,08:30-09:30,0,3,L1-2,Luis M. Hernandez Acosta,1-15
+GII,Recocido Simulado,3,2,1,S49,PS,Laboratorio,practica,44,Lunes,08:30-09:30,0,3,L2-2,Nelson Monzon Lopez,1-15
+GII,Recocido Simulado,3,2,1,S40,VPD,Laboratorio,practica,45,Lunes,09:30-10:30,1,2,L2-1,Francisco Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,3,2,1,S32,ASR,Laboratorio,practica,42,Lunes,10:30-11:30,2,2,L2-4,Humberto Javier Alamo Deniz,1-15
+GII,Recocido Simulado,3,2,1,S46,PS,Laboratorio,practica,41,Lunes,11:30-12:30,3,3,L2-5,Nelson Monzon Lopez,1-15
+GII,Recocido Simulado,3,2,1,S44,PWM,Laboratorio,practica,44,Lunes,11:30-12:30,3,3,L2-3,Luis M. Hernandez Acosta,1-15
+GII,Recocido Simulado,3,2,1,S33,ASR,Laboratorio,practica,43,Lunes,12:30-13:30,4,2,L2-1,Humberto Javier Alamo Deniz,1-15
+GII,Recocido Simulado,3,2,1,S52,VPD,Teoría,teoria,1,Martes,08:30-09:30,6,2,A3-3,Francisco Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,3,2,1,S31,ASR,Laboratorio,practica,41,Martes,10:30-11:30,8,2,LF-4,Humberto Javier Alamo Deniz,1-15
+GII,Recocido Simulado,3,2,1,S47,PS,Laboratorio,practica,42,Martes,10:30-11:30,8,3,L2-1,Nelson Monzon Lopez,1-15
+GII,Recocido Simulado,3,2,1,S39,VPD,Laboratorio,practica,44,Martes,10:30-11:30,8,2,L2-3,Francisco Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,3,2,1,S45,PWM,Laboratorio,practica,45,Martes,11:30-12:30,9,3,L3-3,Luis M. Hernandez Acosta,1-15
+GII,Recocido Simulado,3,2,1,S36,VPD,Laboratorio,practica,41,Martes,12:30-13:30,10,2,L1-2,Francisco Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,3,2,1,S50,PS,Laboratorio,practica,45,Miercoles,08:30-09:30,12,3,L3-3,Nelson Monzon Lopez,1-15
+GII,Recocido Simulado,3,2,1,S42,PWM,Laboratorio,practica,42,Miercoles,08:30-09:30,12,3,L1-2,Luis M. Hernandez Acosta,1-15
+GII,Recocido Simulado,3,2,1,S34,ASR,Laboratorio,practica,44,Miercoles,09:30-10:30,13,2,L1-1,Humberto Javier Alamo Deniz,1-15
+GII,Recocido Simulado,3,2,1,S38,VPD,Laboratorio,practica,43,Miercoles,09:30-10:30,13,2,L2-5,Francisco Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,3,2,1,S53,PWM,Teoría,teoria,1,Miercoles,11:30-12:30,15,3,A3-4,Luis M. Hernandez Acosta,1-15
+GII,Recocido Simulado,3,2,1,S54,PS,Teoría,teoria,1,Jueves,08:30-09:30,18,3,A2-6,Nelson Monzon Lopez,1-15
+GII,Recocido Simulado,3,2,1,S41,PWM,Laboratorio,practica,41,Jueves,11:30-12:30,21,3,L1-2,Luis M. Hernandez Acosta,1-15
+GII,Recocido Simulado,3,2,1,S48,PS,Laboratorio,practica,43,Jueves,11:30-12:30,21,3,L2-4,Nelson Monzon Lopez,1-15
+GII,Recocido Simulado,3,2,1,S37,VPD,Laboratorio,practica,42,Jueves,12:30-13:30,22,2,L1-1,Francisco Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,3,2,1,S35,ASR,Laboratorio,practica,45,Jueves,12:30-13:30,22,2,L2-3,Humberto Javier Alamo Deniz,1-15
+GII,Recocido Simulado,3,2,1,S51,ASR,Teoría,teoria,1,Viernes,08:30-09:30,24,2,A2-3,Humberto Javier Alamo Deniz,1-15
+GII,CP-SAT,4,1,1,S323,ECEBT,Teoría,teoria,1,Viernes,08:30-09:30,24,2,A3-4,Javier Sanchez Perez,1-15
+GII,CP-SAT,4,1,1,S324,ECEBT,Práctica de Aula,problemas,1,Lunes,11:30-12:30,3,1,A3-1,Javier Sanchez Perez,1-15
+GII,CP-SAT,4,1,1,S325,ECEBT,Práctica de Aula,problemas,41,Miercoles,10:30-11:30,14,1,A2-2,Javier Sanchez Perez,1-15
+GII,CP-SAT,4,1,1,S326,ECEBT,Práctica de Aula,problemas,42,Miercoles,08:30-09:30,12,1,A2-2,Javier Sanchez Perez,1-15
+GII,CP-SAT,4,1,1,S327,VC,Teoría,teoria,1,Jueves,08:30-09:30,18,1,A2-3,Modesto Castrillon Santana,1-15
+GII,CP-SAT,4,1,1,S328,VC,Teoría,teoria,1,Jueves,10:30-11:30,20,1,A3-1,Modesto Castrillon Santana,1-15
+GII,CP-SAT,4,1,1,S329,VC,Laboratorio,practica,41,Viernes,12:30-13:30,28,2,LF-4,Daniel Hernandez Sosa,1-15
+GII,CP-SAT,4,1,1,S330,VC,Laboratorio,practica,43,Martes,09:30-10:30,7,2,L3-5,Daniel Hernandez Sosa,1-15
+GII,CP-SAT,4,1,1,S331,IG,Teoría,teoria,1,Miercoles,13:30-14:30,17,1,A3-1,Cayetano Guerra Artal,1-15
+GII,CP-SAT,4,1,1,S332,IG,Teoría,teoria,1,Martes,13:30-14:30,11,1,A3-1,Cayetano Guerra Artal,1-15
+GII,CP-SAT,4,1,1,S333,IG,Laboratorio,practica,41,Miercoles,08:30-09:30,12,2,L1-1,Cayetano Guerra Artal,1-15
+GII,CP-SAT,4,1,1,S334,IG,Laboratorio,practica,42,Viernes,10:30-11:30,26,2,L2-1,Cayetano Guerra Artal,1-15
+GII,CP-SAT,4,1,1,S335,CN,Teoría,teoria,1,Miercoles,11:30-12:30,15,2,A3-4,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,4,1,1,S336,CN,Laboratorio,practica,41,Jueves,12:30-13:30,22,2,L3-5,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,4,1,1,S337,CN,Laboratorio,practica,42,Miercoles,09:30-10:30,13,2,L3-5,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,4,1,1,S338,CN,Laboratorio,practica,43,Lunes,10:30-11:30,2,2,L3-5,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,4,1,1,S339,PAMN,Teoría,teoria,1,Martes,11:30-12:30,9,2,A2-5,Jose Juan Hernandez Cabrera,1-15
+GII,CP-SAT,4,1,1,S340,PAMN,Laboratorio,practica,41,Viernes,10:30-11:30,26,2,L3-5,Jose Juan Hernandez Cabrera,1-15
+GII,CP-SAT,4,1,1,S341,PAMN,Laboratorio,practica,42,Martes,09:30-10:30,7,2,LF-4,Jose Juan Hernandez Cabrera,1-15
+GII,CP-SAT,4,1,1,S342,SRA,Teoría,teoria,1,Jueves,09:30-10:30,19,1,A2-6,Alexis Quesada Arencibia,1-15
+GII,CP-SAT,4,1,1,S343,SRA,Teoría,teoria,1,Lunes,13:30-14:30,5,1,A2-6,Alexis Quesada Arencibia,1-15
+GII,CP-SAT,4,1,1,S344,SRA,Laboratorio,practica,41,Martes,09:30-10:30,7,2,L3-2,Alexis Quesada Arencibia,1-15
+GII,CP-SAT,4,1,1,S345,SRA,Laboratorio,practica,42,Lunes,10:30-11:30,2,2,L3-3,Alexis Quesada Arencibia,1-15
+GII,CP-SAT,4,1,1,S346,IC,Teoría,teoria,1,Martes,08:30-09:30,6,1,A1-1,Jose Carlos Ruiz Luque,1-15
+GII,CP-SAT,4,1,1,S347,IC,Teoría,teoria,1,Lunes,12:30-13:30,4,1,A2-6,Jose Carlos Ruiz Luque,1-15
+GII,CP-SAT,4,1,1,S348,IC,Laboratorio,practica,41,Lunes,08:30-09:30,0,2,LF-4,Jose Carlos Ruiz Luque,1-15
+GII,CP-SAT,4,1,1,S349,SIO,Teoría,teoria,1,Jueves,11:30-12:30,21,1,A2-3,Carmelo Ruben Garcia Rodriguez,1-15
+GII,CP-SAT,4,1,1,S350,SIO,Práctica de Aula,problemas,1,Viernes,11:30-12:30,27,1,A2-6,Carmelo Ruben Garcia Rodriguez,1-15
+GII,CP-SAT,4,1,1,S351,SIO,Laboratorio,practica,41,Lunes,10:30-11:30,2,2,L3-4,Carmelo Ruben Garcia Rodriguez,1-15
+GII,CP-SAT,4,1,1,S352,SIO,Laboratorio,practica,42,Lunes,08:30-09:30,0,2,L2-2,Carmelo Ruben Garcia Rodriguez,1-15
+GII,Recocido Simulado,4,1,1,S324,ECEBT,Práctica de Aula,problemas,1,Lunes,08:30-09:30,0,1,A2-6,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,4,1,1,S329,VC,Laboratorio,practica,41,Lunes,08:30-09:30,0,2,LF-4,Daniel Hernandez Sosa,1-15
+GII,Recocido Simulado,4,1,1,S338,CN,Laboratorio,practica,43,Lunes,08:30-09:30,0,2,L2-5,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,4,1,1,S326,ECEBT,Práctica de Aula,problemas,42,Lunes,09:30-10:30,1,1,A3-2,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,4,1,1,S349,SIO,Teoría,teoria,1,Lunes,10:30-11:30,2,1,A1-1,Carmelo Ruben Garcia Rodriguez,1-15
+GII,Recocido Simulado,4,1,1,S342,SRA,Teoría,teoria,1,Lunes,11:30-12:30,3,1,A2-3,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,4,1,1,S336,CN,Laboratorio,practica,41,Lunes,12:30-13:30,4,2,L2-4,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,4,1,1,S352,SIO,Laboratorio,practica,42,Lunes,12:30-13:30,4,2,L3-3,Carmelo Ruben Garcia Rodriguez,1-15
+GII,Recocido Simulado,4,1,1,S346,IC,Teoría,teoria,1,Martes,08:30-09:30,6,1,A2-3,Jose Carlos Ruiz Luque,1-15
+GII,Recocido Simulado,4,1,1,S343,SRA,Teoría,teoria,1,Martes,09:30-10:30,7,1,A3-3,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,4,1,1,S335,CN,Teoría,teoria,1,Martes,10:30-11:30,8,2,A3-4,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,4,1,1,S341,PAMN,Laboratorio,practica,42,Martes,12:30-13:30,10,2,L2-2,Jose Juan Hernandez Cabrera,1-15
+GII,Recocido Simulado,4,1,1,S344,SRA,Laboratorio,practica,41,Martes,12:30-13:30,10,2,L2-4,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,4,1,1,S347,IC,Teoría,teoria,1,Miercoles,08:30-09:30,12,1,A3-3,Jose Carlos Ruiz Luque,1-15
+GII,Recocido Simulado,4,1,1,S334,IG,Laboratorio,practica,42,Miercoles,09:30-10:30,13,2,L2-2,Cayetano Guerra Artal,1-15
+GII,Recocido Simulado,4,1,1,S325,ECEBT,Práctica de Aula,problemas,41,Miercoles,09:30-10:30,13,1,A2-5,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,4,1,1,S340,PAMN,Laboratorio,practica,41,Miercoles,10:30-11:30,14,2,L3-1,Jose Juan Hernandez Cabrera,1-15
+GII,Recocido Simulado,4,1,1,S337,CN,Laboratorio,practica,42,Miercoles,11:30-12:30,15,2,L2-5,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,4,1,1,S348,IC,Laboratorio,practica,41,Miercoles,12:30-13:30,16,2,L3-1,Jose Carlos Ruiz Luque,1-15
+GII,Recocido Simulado,4,1,1,S350,SIO,Práctica de Aula,problemas,1,Miercoles,13:30-14:30,17,1,A1-1,Carmelo Ruben Garcia Rodriguez,1-15
+GII,Recocido Simulado,4,1,1,S333,IG,Laboratorio,practica,41,Jueves,08:30-09:30,18,2,L3-2,Cayetano Guerra Artal,1-15
+GII,Recocido Simulado,4,1,1,S330,VC,Laboratorio,practica,43,Jueves,08:30-09:30,18,2,L3-1,Daniel Hernandez Sosa,1-15
+GII,Recocido Simulado,4,1,1,S345,SRA,Laboratorio,practica,42,Jueves,08:30-09:30,18,2,L2-1,Alexis Quesada Arencibia,1-15
+GII,Recocido Simulado,4,1,1,S332,IG,Teoría,teoria,1,Jueves,10:30-11:30,20,1,A2-6,Cayetano Guerra Artal,1-15
+GII,Recocido Simulado,4,1,1,S339,PAMN,Teoría,teoria,1,Jueves,11:30-12:30,21,2,A2-5,Jose Juan Hernandez Cabrera,1-15
+GII,Recocido Simulado,4,1,1,S327,VC,Teoría,teoria,1,Jueves,13:30-14:30,23,1,A1-1,Modesto Castrillon Santana,1-15
+GII,Recocido Simulado,4,1,1,S351,SIO,Laboratorio,practica,41,Viernes,08:30-09:30,24,2,L3-3,Carmelo Ruben Garcia Rodriguez,1-15
+GII,Recocido Simulado,4,1,1,S323,ECEBT,Teoría,teoria,1,Viernes,10:30-11:30,26,2,A2-5,Javier Sanchez Perez,1-15
+GII,Recocido Simulado,4,1,1,S331,IG,Teoría,teoria,1,Viernes,12:30-13:30,28,1,A2-4,Cayetano Guerra Artal,1-15
+GII,Recocido Simulado,4,1,1,S328,VC,Teoría,teoria,1,Viernes,13:30-14:30,29,1,A3-4,Modesto Castrillon Santana,1-15
+GII,CP-SAT,4,2,1,S353,PDIGS,Teoría,teoria,1,Viernes,10:30-11:30,26,1,A3-4,Jose Juan Hernandez Cabrera,1-15
+GII,CP-SAT,4,2,1,S354,PDIGS,Práctica de Aula,problemas,1,Lunes,13:30-14:30,5,1,A2-6,Jose Juan Hernandez Cabrera,1-15
+GII,CP-SAT,4,2,1,S355,PDIGS,Práctica de Aula,problemas,1,Viernes,11:30-12:30,27,1,A3-4,Jose Juan Hernandez Cabrera,1-15
+GII,CP-SAT,4,2,1,S356,PDIGS,Laboratorio,practica,41,Jueves,12:30-13:30,22,1,LF-4,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,4,2,1,S357,PDIGS,Laboratorio,practica,42,Jueves,13:30-14:30,23,1,L3-5,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,4,2,1,S358,PDIGS,Laboratorio,practica,42,Martes,08:30-09:30,6,1,L3-5,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,4,2,1,S359,PDIGS,Laboratorio,practica,43,Viernes,11:30-12:30,27,2,LF-4,Carlos Javier Rivero Rodriguez,1-15
+GII,CP-SAT,4,2,1,S360,SI,Teoría,teoria,1,Viernes,08:30-09:30,24,2,A3-3,Carmelo Ruben Garcia Rodriguez,1-15
+GII,CP-SAT,4,2,1,S361,SI,Laboratorio,practica,41,Jueves,13:30-14:30,23,1,L2-5,Carmelo Ruben Garcia Rodriguez,1-15
+GII,CP-SAT,4,2,1,S362,SI,Laboratorio,practica,41,Lunes,09:30-10:30,1,1,LF-4,Carmelo Ruben Garcia Rodriguez,1-15
+GII,CP-SAT,4,2,1,S363,SI,Laboratorio,practica,42,Viernes,11:30-12:30,27,1,L2-4,Carmelo Ruben Garcia Rodriguez,1-15
+GII,CP-SAT,4,2,1,S364,SI,Laboratorio,practica,42,Miercoles,13:30-14:30,17,1,L3-2,Carmelo Ruben Garcia Rodriguez,1-15
+GII,Recocido Simulado,4,2,1,S361,SI,Laboratorio,practica,41,Lunes,11:30-12:30,3,1,L3-4,Carmelo Ruben Garcia Rodriguez,1-15
+GII,Recocido Simulado,4,2,1,S360,SI,Teoría,teoria,1,Lunes,12:30-13:30,4,2,A2-6,Carmelo Ruben Garcia Rodriguez,1-15
+GII,Recocido Simulado,4,2,1,S354,PDIGS,Práctica de Aula,problemas,1,Martes,08:30-09:30,6,1,A3-4,Jose Juan Hernandez Cabrera,1-15
+GII,Recocido Simulado,4,2,1,S356,PDIGS,Laboratorio,practica,41,Martes,09:30-10:30,7,1,LF-4,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,4,2,1,S358,PDIGS,Laboratorio,practica,42,Martes,11:30-12:30,9,1,L2-2,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,4,2,1,S363,SI,Laboratorio,practica,42,Miercoles,10:30-11:30,14,1,L3-5,Carmelo Ruben Garcia Rodriguez,1-15
+GII,Recocido Simulado,4,2,1,S364,SI,Laboratorio,practica,42,Miercoles,11:30-12:30,15,1,L1-1,Carmelo Ruben Garcia Rodriguez,1-15
+GII,Recocido Simulado,4,2,1,S353,PDIGS,Teoría,teoria,1,Miercoles,12:30-13:30,16,1,A2-3,Jose Juan Hernandez Cabrera,1-15
+GII,Recocido Simulado,4,2,1,S357,PDIGS,Laboratorio,practica,42,Jueves,08:30-09:30,18,1,L2-5,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,4,2,1,S359,PDIGS,Laboratorio,practica,43,Jueves,11:30-12:30,21,2,L1-1,Carlos Javier Rivero Rodriguez,1-15
+GII,Recocido Simulado,4,2,1,S362,SI,Laboratorio,practica,41,Jueves,11:30-12:30,21,1,L3-2,Carmelo Ruben Garcia Rodriguez,1-15
+GII,Recocido Simulado,4,2,1,S355,PDIGS,Práctica de Aula,problemas,1,Jueves,12:30-13:30,22,1,A1-1,Jose Juan Hernandez Cabrera,1-15
+GCID,CP-SAT,1,1,1,S101a,IC1,Teoría,teoria,17,Viernes,09:30-10:30,25,1,A2-5,Jose Carlos Ruiz Luque,1-15
+GCID,CP-SAT,1,1,1,S101b,IC1,Teoría,teoria,17,Lunes,12:30-13:30,4,1,A2-5,Jose Carlos Ruiz Luque,1-15
+GCID,CP-SAT,1,1,1,S102,IC1,Laboratorio,practica,41,Lunes,10:30-11:30,2,2,L3-5,Jose Carlos Ruiz Luque,1-15
+GCID,CP-SAT,1,1,1,S103,IC1,Laboratorio,practica,42,Viernes,11:30-12:30,27,2,L1-3,Francisca Candelaria Quintana Dominguez,1-15
+GCID,CP-SAT,1,1,1,S104,IC1,Laboratorio,practica,43,Jueves,09:30-10:30,19,2,L1-2,Jose Carlos Ruiz Luque,1-15
+GCID,CP-SAT,1,1,1,S105,IC1,Laboratorio,practica,44,Martes,08:30-09:30,6,2,L2-3,Francisca Candelaria Quintana Dominguez,1-15
+GCID,CP-SAT,1,1,1,S106a,MD,Teoría,teoria,17,Viernes,10:30-11:30,26,1,A2-5,Carmen Paz Suarez Araujo,1-15
+GCID,CP-SAT,1,1,1,S106b,MD,Teoría,teoria,17,Miercoles,12:30-13:30,16,1,A2-5,Carmen Paz Suarez Araujo,1-15
+GCID,CP-SAT,1,1,1,S107,MD,Práctica de Aula,practica_aula,17,Miercoles,10:30-11:30,14,2,A1-2,Javier Jesus Sanchez Medina,1-15
+GCID,CP-SAT,1,1,1,S108,MD,Práctica de Aula,practica_aula,18,Viernes,11:30-12:30,27,2,A1-1,Javier Jesus Sanchez Medina,1-15
+GCID,CP-SAT,1,1,1,S111a,AG,Teoría,teoria,17,Jueves,12:30-13:30,22,1,A2-5,Gabriele Salvatore De Blasio,1-15
+GCID,CP-SAT,1,1,1,S111b,AG,Teoría,teoria,17,Miercoles,13:30-14:30,17,1,A2-5,Gabriele Salvatore De Blasio,1-15
+GCID,CP-SAT,1,1,1,S112,AG,Práctica de Aula,practica_aula,17,Jueves,09:30-10:30,19,2,A2-2,Gabriele Salvatore De Blasio,1-15
+GCID,CP-SAT,1,1,1,S113,AG,Práctica de Aula,practica_aula,18,Miercoles,10:30-11:30,14,2,A2-1,Gabriele Salvatore De Blasio,1-15
+GCID,CP-SAT,1,1,1,S114a,FP1,Teoría,teoria,17,Martes,11:30-12:30,9,1,A2-5,Miguel Angel Perez Aguiar,1-15
+GCID,CP-SAT,1,1,1,S114b,FP1,Teoría,teoria,17,Lunes,13:30-14:30,5,1,A2-5,Miguel Angel Perez Aguiar,1-15
+GCID,CP-SAT,1,1,1,S115,FP1,Laboratorio,practica,41,Viernes,11:30-12:30,27,2,L1-1,Francisco Javier Carreras Riudavets,1-15
+GCID,CP-SAT,1,1,1,S116,FP1,Laboratorio,practica,42,Martes,12:30-13:30,10,2,L2-1,Jose Daniel Gonzalez Dominguez,1-15
+GCID,CP-SAT,1,1,1,S117,FP1,Laboratorio,practica,43,Lunes,10:30-11:30,2,2,L1-2,Francisco Javier Carreras Riudavets,1-15
+GCID,CP-SAT,1,1,1,S118,FP1,Laboratorio,practica,44,Lunes,10:30-11:30,2,2,L3-1,Jose Daniel Gonzalez Dominguez,1-15
+GCID,CP-SAT,1,1,1,S119a,ME1,Teoría,teoria,17,Jueves,11:30-12:30,21,1,A2-5,Francisco Jose Vazquez Polo,1-15
+GCID,CP-SAT,1,1,1,S119b,ME1,Teoría,teoria,17,Martes,10:30-11:30,8,1,A2-5,Francisco Jose Vazquez Polo,1-15
+GCID,CP-SAT,1,1,1,S120,ME1,Laboratorio,practica,41,Martes,08:30-09:30,6,2,L1-3,Francisco Jose Vazquez Polo,1-15
+GCID,CP-SAT,1,1,1,S121,ME1,Laboratorio,practica,42,Lunes,10:30-11:30,2,2,L1-1,Francisco Jose Vazquez Polo,1-15
+GCID,CP-SAT,1,1,1,S122,ME1,Laboratorio,practica,43,Martes,12:30-13:30,10,2,L1-3,Francisco Jose Vazquez Polo,1-15
+GCID,CP-SAT,1,1,1,S123,ME1,Laboratorio,practica,44,Jueves,09:30-10:30,19,2,L2-3,Francisco Jose Vazquez Polo,1-15
+GCID,CP-SAT,2,1,1,S301,FSI,Teoría,teoria,17,Viernes,11:30-12:30,27,2,A2-5,Francisco Mario Hernandez Tejera,1-15
+GCID,CP-SAT,2,1,1,S302,FSI,Práctica de Aula,practica_aula,17,Jueves,10:30-11:30,20,2,A1-2,Jose Daniel Hernandez Jose,1-15
+GCID,CP-SAT,2,1,1,S303,FSI,Práctica de Aula,practica_aula,18,Lunes,08:30-09:30,0,2,A2-1,Jose Daniel Hernandez Jose,1-15
+GCID,CP-SAT,2,1,1,S304,FSI,Laboratorio,practica,41,Martes,10:30-11:30,8,2,L1-3,Cayetano Guerra Artal,1-15
+GCID,CP-SAT,2,1,1,S305,FSI,Laboratorio,practica,42,Martes,08:30-09:30,6,2,L3-4,Cayetano Guerra Artal,1-15
+GCID,CP-SAT,2,1,1,S306,FSI,Laboratorio,practica,43,Martes,12:30-13:30,10,2,L1-2,Cayetano Guerra Artal,1-15
+GCID,CP-SAT,2,1,1,S307,AEDV,Teoría,teoria,17,Jueves,08:30-09:30,18,2,A2-5,Luis Miguel Álvarez León,1-15
+GCID,CP-SAT,2,1,1,S308,AEDV,Laboratorio,practica,41,Lunes,12:30-13:30,4,2,L1-3,Luis Miguel Álvarez León,1-15
+GCID,CP-SAT,2,1,1,S309,AEDV,Laboratorio,practica,42,Lunes,08:30-09:30,0,2,L1-1,Luis Miguel Álvarez León,1-15
+GCID,CP-SAT,2,1,1,S310,AEDV,Laboratorio,practica,43,Martes,10:30-11:30,8,2,L1-2,Luis Miguel Álvarez León,1-15
+GCID,CP-SAT,2,1,1,S311,HPI,Teoría,teoria,17,Miercoles,08:30-09:30,12,2,A1-1,Jose Evora Gomez,1-15
+GCID,CP-SAT,2,1,1,S312,HPI,Laboratorio,practica,41,Lunes,08:30-09:30,0,2,L1-3,Jose Evora Gomez,1-15
+GCID,CP-SAT,2,1,1,S313,HPI,Laboratorio,practica,42,Martes,10:30-11:30,8,2,L3-5,Jose Evora Gomez,1-15
+GCID,CP-SAT,2,1,1,S314,HPI,Laboratorio,practica,43,Jueves,10:30-11:30,20,2,L1-3,Jose Evora Gomez,1-15
+GCID,CP-SAT,2,1,1,S315,IS,Teoría,teoria,17,Miercoles,10:30-11:30,14,2,A2-5,Ana Maria Placido,1-15
+GCID,CP-SAT,2,1,1,S316,IS,Laboratorio,practica,41,Martes,08:30-09:30,6,2,L1-2,Ana Maria Placido,1-15
+GCID,CP-SAT,2,1,1,S317,IS,Laboratorio,practica,42,Lunes,12:30-13:30,4,2,L1-2,Octavio Roncal Andres,1-15
+GCID,CP-SAT,2,1,1,S318,IS,Laboratorio,practica,43,Martes,08:30-09:30,6,2,L2-2,Mario Carmelo Caballero Ramírez,1-15
+GCID,CP-SAT,2,1,1,S319,FMCC,Teoría,teoria,17,Lunes,10:30-11:30,2,2,A2-5,Manuel,1-15
+GCID,CP-SAT,2,1,1,S320,FMCC,Práctica de Aula,practica_aula,17,Martes,12:30-13:30,10,2,A1-1,Manuel,1-15
+GCID,CP-SAT,2,1,1,S321,FMCC,Práctica de Aula,practica_aula,18,Lunes,12:30-13:30,4,2,A1-2,Manuel,1-15
+GCID,CP-SAT,3,1,1,S501,OH,Laboratorio,practica,41,Martes,11:30-12:30,9,3,L3-3,Javier Sanchez Perez,1-15
+GCID,CP-SAT,3,1,1,S502,OH,Laboratorio,practica,42,Jueves,08:30-09:30,18,3,L2-5,Javier Sanchez Perez,1-15
+GCID,CP-SAT,3,1,1,S503,AA2,Laboratorio,practica,41,Viernes,11:30-12:30,27,2,L2-2,Jose Javier Lorenzo Navarro,1-15
+GCID,CP-SAT,3,1,1,S504,AA2,Laboratorio,practica,42,Miercoles,10:30-11:30,14,2,L1-2,Jose Javier Lorenzo Navarro,1-15
+GCID,CP-SAT,3,1,1,S505,ASO,Laboratorio,practica,41,Miercoles,10:30-11:30,14,2,L3-3,Carmelo Ruben Garcia Rodriguez,1-15
+GCID,CP-SAT,3,1,1,S506,ASO,Laboratorio,practica,42,Miercoles,12:30-13:30,16,2,L1-3,Carmelo Ruben Garcia Rodriguez,1-15
+GCID,CP-SAT,3,1,1,S507,BD,Laboratorio,practica,41,Miercoles,12:30-13:30,16,2,L2-4,Maria Dolores Afonso,1-15
+GCID,CP-SAT,3,1,1,S508,BD,Laboratorio,practica,42,Lunes,12:30-13:30,4,2,L1-1,Maria Dolores Afonso,1-15
+GCID,CP-SAT,3,1,1,S509,BD2,Laboratorio,practica,41,Jueves,08:30-09:30,18,2,L1-1,Octavio Mayor,1-15
+GCID,CP-SAT,3,1,1,S510,BD2,Laboratorio,practica,42,Martes,11:30-12:30,9,2,L1-1,Juan de Dios Duque Oliva,1-15
+GCID,CP-SAT,3,1,1,S511,OH,Teoría,teoria,17,Lunes,09:30-10:30,1,1,A2-5,Javier Sanchez Perez,1-15
+GCID,CP-SAT,3,1,1,S512,AA2,Teoría,teoria,17,Lunes,10:30-11:30,2,2,A2-3,Francisco Mario Hernandez Tejera,1-15
+GCID,CP-SAT,3,1,1,S513,BD2,Teoría,teoria,17,Martes,09:30-10:30,7,2,A1-1,Juan de Dios Duque Oliva,1-15
+GCID,CP-SAT,3,1,1,S514,ASO,Teoría,teoria,17,Viernes,13:30-14:30,29,1,A2-5,Carmelo Ruben Garcia Rodriguez,1-15
+GCID,CP-SAT,3,1,1,S515,BD,Teoría,teoria,17,Miercoles,08:30-09:30,12,2,A2-5,Maria Dolores Afonso,1-15
+GCID,CP-SAT,4,1,1,S701,PLN,Teoría,teoria,17,Lunes,08:30-09:30,0,1,A2-5,Cayetano Guerra Artal,1-15
+GCID,CP-SAT,4,1,1,S702,PLN,Práctica de Aula,practica_aula,17,Jueves,12:30-13:30,22,1,A1-2,Cayetano Guerra Artal,1-15
+GCID,CP-SAT,4,1,1,S703,PLN,Laboratorio,practica,41,Miercoles,08:30-09:30,12,2,L1-1,Maria Cristina Carmona Duarte,1-15
+GCID,CP-SAT,4,1,1,S704,SACSE,Teoría,teoria,17,Martes,13:30-14:30,11,1,A2-5,Juan Maria Hernandez Guerra,1-15
+GCID,CP-SAT,4,1,1,S705,SACSE,Práctica de Aula,practica_aula,17,Lunes,13:30-14:30,5,1,A1-1,Juan Maria Hernandez Guerra,1-15
+GCID,CP-SAT,4,1,1,S706,SACSE,Laboratorio,practica,41,Lunes,09:30-10:30,1,2,L2-2,Juan Maria Hernandez Guerra,1-15
+GCID,CP-SAT,4,1,1,S707,PIAV,Teoría,teoria,17,Martes,08:30-09:30,6,1,A2-5,Francisco Mario Hernandez,1-15
+GCID,CP-SAT,4,1,1,S708,PIAV,Práctica de Aula,practica_aula,17,Lunes,11:30-12:30,3,1,A1-1,Jose Carlos Rodriguez Rodriguez,1-15
+GCID,CP-SAT,4,1,1,S709,PIAV,Laboratorio,practica,41,Viernes,09:30-10:30,25,2,L1-3,Maria Cristina Carmona Duarte,1-15
+GCID,CP-SAT,4,1,1,S710,CDDE,Teoría,teoria,17,Martes,12:30-13:30,10,1,A2-5,Maria Teresa Garcia Rodriguez,1-15
+GCID,CP-SAT,4,1,1,S711,CDDE,Práctica de Aula,practica_aula,17,Martes,11:30-12:30,9,1,A1-2,Maria Teresa Garcia Rodriguez,1-15
+GCID,CP-SAT,4,1,1,S712,CDDE,Laboratorio,practica,41,Jueves,09:30-10:30,19,1,L3-3,Maria Teresa Garcia Rodriguez,1-15
+GCID,CP-SAT,4,1,1,S713,CDT,Teoría,teoria,17,Martes,09:30-10:30,7,1,A2-5,Juan Maria Hernandez Guerra,1-15
+GCID,CP-SAT,4,1,1,S714,CDT,Práctica de Aula,practica_aula,17,Lunes,12:30-13:30,4,1,A1-1,Juan Maria Hernandez Guerra,1-15
+GCID,CP-SAT,4,1,1,S715,CDT,Laboratorio,practica,41,Martes,10:30-11:30,8,1,L1-1,Rafael Ricardo Suarez Vega,1-15
+GCID,CP-SAT,4,1,1,S716,TSCD,Teoría,teoria,17,Jueves,10:30-11:30,20,1,A2-5,Jose Juan Hernandez Cabrera,1-15
+GCID,CP-SAT,4,1,1,S717,TSCD,Práctica de Aula,practica_aula,17,Miercoles,13:30-14:30,17,1,A1-2,Jose Juan Hernandez Cabrera,1-15
+GCID,CP-SAT,4,1,1,S718,TSCD,Laboratorio,practica,41,Jueves,11:30-12:30,21,1,L1-1,Jose Juan Hernandez Cabrera,1-15
+GCID,CP-SAT,4,1,1,S719,MIPD,Teoría,teoria,17,Viernes,08:30-09:30,24,1,A2-5,Carlos Cristian Diaz Santamaria,1-15
+GCID,CP-SAT,4,1,1,S720,MIPD,Práctica de Aula,practica_aula,17,Miercoles,11:30-12:30,15,1,A1-1,Carlos Cristian Diaz Santamaria,1-15
+GCID,CP-SAT,4,1,1,S721,MIPD,Laboratorio,practica,41,Jueves,08:30-09:30,18,1,L1-2,Carlos Cristian Diaz Santamaria,1-15
+GCID,CP-SAT,4,1,1,S722,BIO,Teoría,teoria,17,Jueves,13:30-14:30,23,1,A2-5,Maria Dolores Afonso Suarez,1-15
+GCID,CP-SAT,4,1,1,S723,BIO,Práctica de Aula,practica_aula,17,Miercoles,12:30-13:30,16,1,A1-2,Maria Dolores Afonso Suarez,1-15
+GCID,CP-SAT,4,1,1,S724,BIO,Laboratorio,practica,41,Miercoles,10:30-11:30,14,1,L3-2,Jose Carlos Rodriguez Rodriguez,1-15
+GCID,Recocido Simulado,1,1,1,S101a,IC1,Teoría,teoria,17,Jueves,08:30-09:30,18,1,A2-5,Jose Carlos Ruiz Luque,1-15
+GCID,Recocido Simulado,1,1,1,S101b,IC1,Teoría,teoria,17,Viernes,10:30-11:30,26,1,A2-5,Jose Carlos Ruiz Luque,1-15
+GCID,Recocido Simulado,1,1,1,S102,IC1,Laboratorio,practica,41,Miercoles,09:30-10:30,13,2,L3-5,Jose Carlos Ruiz Luque,1-15
+GCID,Recocido Simulado,1,1,1,S103,IC1,Laboratorio,practica,42,Jueves,10:30-11:30,20,2,L2-5,Francisca Candelaria Quintana Dominguez,1-15
+GCID,Recocido Simulado,1,1,1,S104,IC1,Laboratorio,practica,43,Martes,09:30-10:30,7,2,L1-2,Jose Carlos Ruiz Luque,1-15
+GCID,Recocido Simulado,1,1,1,S105,IC1,Laboratorio,practica,44,Lunes,10:30-11:30,2,2,L2-3,Francisca Candelaria Quintana Dominguez,1-15
+GCID,Recocido Simulado,1,1,1,S106a,MD,Teoría,teoria,17,Viernes,11:30-12:30,27,1,A2-5,Carmen Paz Suarez Araujo,1-15
+GCID,Recocido Simulado,1,1,1,S106b,MD,Teoría,teoria,17,Jueves,09:30-10:30,19,1,A2-5,Carmen Paz Suarez Araujo,1-15
+GCID,Recocido Simulado,1,1,1,S107,MD,Práctica de Aula,practica_aula,17,Lunes,10:30-11:30,2,2,A1-1,Javier Jesus Sanchez Medina,1-15
+GCID,Recocido Simulado,1,1,1,S108,MD,Práctica de Aula,practica_aula,18,Viernes,08:30-09:30,24,2,A3-2,Javier Jesus Sanchez Medina,1-15
+GCID,Recocido Simulado,1,1,1,S111a,AG,Teoría,teoria,17,Lunes,12:30-13:30,4,1,A3-3,Gabriele Salvatore De Blasio,1-15
+GCID,Recocido Simulado,1,1,1,S111b,AG,Teoría,teoria,17,Martes,08:30-09:30,6,1,A2-5,Gabriele Salvatore De Blasio,1-15
+GCID,Recocido Simulado,1,1,1,S112,AG,Práctica de Aula,practica_aula,17,Viernes,08:30-09:30,24,2,A3-1,Gabriele Salvatore De Blasio,1-15
+GCID,Recocido Simulado,1,1,1,S113,AG,Práctica de Aula,practica_aula,18,Miercoles,09:30-10:30,13,2,A3-3,Gabriele Salvatore De Blasio,1-15
+GCID,Recocido Simulado,1,1,1,S114a,FP1,Teoría,teoria,17,Lunes,13:30-14:30,5,1,A2-5,Miguel Angel Perez Aguiar,1-15
+GCID,Recocido Simulado,1,1,1,S114b,FP1,Teoría,teoria,17,Miercoles,08:30-09:30,12,1,A2-5,Miguel Angel Perez Aguiar,1-15
+GCID,Recocido Simulado,1,1,1,S115,FP1,Laboratorio,practica,41,Martes,09:30-10:30,7,2,L2-2,Francisco Javier Carreras Riudavets,1-15
+GCID,Recocido Simulado,1,1,1,S116,FP1,Laboratorio,practica,42,Martes,09:30-10:30,7,2,L3-3,Jose Daniel Gonzalez Dominguez,1-15
+GCID,Recocido Simulado,1,1,1,S117,FP1,Laboratorio,practica,43,Jueves,10:30-11:30,20,2,L1-2,Francisco Javier Carreras Riudavets,1-15
+GCID,Recocido Simulado,1,1,1,S118,FP1,Laboratorio,practica,44,Jueves,10:30-11:30,20,2,L3-2,Jose Daniel Gonzalez Dominguez,1-15
+GCID,Recocido Simulado,1,1,1,S119a,ME1,Teoría,teoria,17,Martes,11:30-12:30,9,1,A2-5,Francisco Jose Vazquez Polo,1-15
+GCID,Recocido Simulado,1,1,1,S119b,ME1,Teoría,teoria,17,Miercoles,11:30-12:30,15,1,A2-5,Francisco Jose Vazquez Polo,1-15
+GCID,Recocido Simulado,1,1,1,S120,ME1,Laboratorio,practica,41,Jueves,10:30-11:30,20,2,L3-1,Francisco Jose Vazquez Polo,1-15
+GCID,Recocido Simulado,1,1,1,S121,ME1,Laboratorio,practica,42,Miercoles,09:30-10:30,13,2,L1-3,Francisco Jose Vazquez Polo,1-15
+GCID,Recocido Simulado,1,1,1,S122,ME1,Laboratorio,practica,43,Lunes,10:30-11:30,2,2,L1-3,Francisco Jose Vazquez Polo,1-15
+GCID,Recocido Simulado,1,1,1,S123,ME1,Laboratorio,practica,44,Martes,09:30-10:30,7,2,L2-5,Francisco Jose Vazquez Polo,1-15
+GCID,Recocido Simulado,2,1,1,S301,FSI,Teoría,teoria,17,Miercoles,10:30-11:30,14,2,A2-6,Francisco Mario Hernandez Tejera,1-15
+GCID,Recocido Simulado,2,1,1,S302,FSI,Práctica de Aula,practica_aula,17,Miercoles,08:30-09:30,12,2,A2-4,Jose Daniel Hernandez Jose,1-15
+GCID,Recocido Simulado,2,1,1,S303,FSI,Práctica de Aula,practica_aula,18,Jueves,11:30-12:30,21,2,A2-3,Jose Daniel Hernandez Jose,1-15
+GCID,Recocido Simulado,2,1,1,S304,FSI,Laboratorio,practica,41,Viernes,08:30-09:30,24,2,L3-4,Cayetano Guerra Artal,1-15
+GCID,Recocido Simulado,2,1,1,S305,FSI,Laboratorio,practica,42,Martes,10:30-11:30,8,2,L3-2,Cayetano Guerra Artal,1-15
+GCID,Recocido Simulado,2,1,1,S306,FSI,Laboratorio,practica,43,Miercoles,08:30-09:30,12,2,L3-4,Cayetano Guerra Artal,1-15
+GCID,Recocido Simulado,2,1,1,S307,AEDV,Teoría,teoria,17,Viernes,12:30-13:30,28,2,A2-5,Luis Miguel Álvarez León,1-15
+GCID,Recocido Simulado,2,1,1,S308,AEDV,Laboratorio,practica,41,Martes,10:30-11:30,8,2,L3-4,Luis Miguel Álvarez León,1-15
+GCID,Recocido Simulado,2,1,1,S309,AEDV,Laboratorio,practica,42,Jueves,10:30-11:30,20,2,L2-3,Luis Miguel Álvarez León,1-15
+GCID,Recocido Simulado,2,1,1,S310,AEDV,Laboratorio,practica,43,Martes,08:30-09:30,6,2,L1-3,Luis Miguel Álvarez León,1-15
+GCID,Recocido Simulado,2,1,1,S311,HPI,Teoría,teoria,17,Viernes,10:30-11:30,26,2,A3-4,Jose Evora Gomez,1-15
+GCID,Recocido Simulado,2,1,1,S312,HPI,Laboratorio,practica,41,Lunes,10:30-11:30,2,2,L3-4,Jose Evora Gomez,1-15
+GCID,Recocido Simulado,2,1,1,S313,HPI,Laboratorio,practica,42,Jueves,08:30-09:30,18,2,L2-3,Jose Evora Gomez,1-15
+GCID,Recocido Simulado,2,1,1,S314,HPI,Laboratorio,practica,43,Martes,12:30-13:30,10,2,L1-1,Jose Evora Gomez,1-15
+GCID,Recocido Simulado,2,1,1,S315,IS,Teoría,teoria,17,Lunes,12:30-13:30,4,2,A2-4,Ana Maria Placido,1-15
+GCID,Recocido Simulado,2,1,1,S316,IS,Laboratorio,practica,41,Jueves,12:30-13:30,22,2,L2-4,Ana Maria Placido,1-15
+GCID,Recocido Simulado,2,1,1,S317,IS,Laboratorio,practica,42,Viernes,08:30-09:30,24,2,L2-2,Octavio Roncal Andres,1-15
+GCID,Recocido Simulado,2,1,1,S318,IS,Laboratorio,practica,43,Martes,10:30-11:30,8,2,L2-1,Mario Carmelo Caballero Ramírez,1-15
+GCID,Recocido Simulado,2,1,1,S319,FMCC,Teoría,teoria,17,Miercoles,12:30-13:30,16,2,A2-5,Manuel,1-15
+GCID,Recocido Simulado,2,1,1,S320,FMCC,Práctica de Aula,practica_aula,17,Martes,08:30-09:30,6,2,A3-3,Manuel,1-15
+GCID,Recocido Simulado,2,1,1,S321,FMCC,Práctica de Aula,practica_aula,18,Viernes,08:30-09:30,24,2,A2-6,Manuel,1-15
+GCID,Recocido Simulado,3,1,1,S501,OH,Laboratorio,practica,41,Miercoles,09:30-10:30,13,3,L2-1,Javier Sanchez Perez,1-15
+GCID,Recocido Simulado,3,1,1,S502,OH,Laboratorio,practica,42,Martes,11:30-12:30,9,3,L1-3,Javier Sanchez Perez,1-15
+GCID,Recocido Simulado,3,1,1,S503,AA2,Laboratorio,practica,41,Jueves,12:30-13:30,22,2,L3-2,Jose Javier Lorenzo Navarro,1-15
+GCID,Recocido Simulado,3,1,1,S504,AA2,Laboratorio,practica,42,Jueves,08:30-09:30,18,2,L3-2,Jose Javier Lorenzo Navarro,1-15
+GCID,Recocido Simulado,3,1,1,S505,ASO,Laboratorio,practica,41,Jueves,08:30-09:30,18,2,L3-5,Carmelo Ruben Garcia Rodriguez,1-15
+GCID,Recocido Simulado,3,1,1,S506,ASO,Laboratorio,practica,42,Miercoles,10:30-11:30,14,2,L3-2,Carmelo Ruben Garcia Rodriguez,1-15
+GCID,Recocido Simulado,3,1,1,S507,BD,Laboratorio,practica,41,Viernes,09:30-10:30,25,2,L2-6,Maria Dolores Afonso,1-15
+GCID,Recocido Simulado,3,1,1,S508,BD,Laboratorio,practica,42,Martes,08:30-09:30,6,2,L3-1,Maria Dolores Afonso,1-15
+GCID,Recocido Simulado,3,1,1,S509,BD2,Laboratorio,practica,41,Jueves,10:30-11:30,20,2,L2-2,Octavio Mayor,1-15
+GCID,Recocido Simulado,3,1,1,S510,BD2,Laboratorio,practica,42,Viernes,09:30-10:30,25,2,L3-3,Juan de Dios Duque Oliva,1-15
+GCID,Recocido Simulado,3,1,1,S511,OH,Teoría,teoria,17,Martes,10:30-11:30,8,1,A2-5,Javier Sanchez Perez,1-15
+GCID,Recocido Simulado,3,1,1,S512,AA2,Teoría,teoria,17,Lunes,09:30-10:30,1,2,A3-4,Francisco Mario Hernandez Tejera,1-15
+GCID,Recocido Simulado,3,1,1,S513,BD2,Teoría,teoria,17,Viernes,11:30-12:30,27,2,A1-1,Juan de Dios Duque Oliva,1-15
+GCID,Recocido Simulado,3,1,1,S514,ASO,Teoría,teoria,17,Viernes,08:30-09:30,24,1,A2-5,Carmelo Ruben Garcia Rodriguez,1-15
+GCID,Recocido Simulado,3,1,1,S515,BD,Teoría,teoria,17,Lunes,11:30-12:30,3,2,A2-5,Maria Dolores Afonso,1-15
+GCID,Recocido Simulado,4,1,1,S701,PLN,Teoría,teoria,17,Jueves,10:30-11:30,20,1,A2-5,Cayetano Guerra Artal,1-15
+GCID,Recocido Simulado,4,1,1,S702,PLN,Práctica de Aula,practica_aula,17,Viernes,10:30-11:30,26,1,A2-4,Cayetano Guerra Artal,1-15
+GCID,Recocido Simulado,4,1,1,S703,PLN,Laboratorio,practica,41,Viernes,11:30-12:30,27,2,L3-5,Maria Cristina Carmona Duarte,1-15
+GCID,Recocido Simulado,4,1,1,S704,SACSE,Teoría,teoria,17,Jueves,11:30-12:30,21,1,A2-5,Juan Maria Hernandez Guerra,1-15
+GCID,Recocido Simulado,4,1,1,S705,SACSE,Práctica de Aula,practica_aula,17,Viernes,08:30-09:30,24,1,A3-3,Juan Maria Hernandez Guerra,1-15
+GCID,Recocido Simulado,4,1,1,S706,SACSE,Laboratorio,practica,41,Lunes,11:30-12:30,3,2,L2-4,Juan Maria Hernandez Guerra,1-15
+GCID,Recocido Simulado,4,1,1,S707,PIAV,Teoría,teoria,17,Martes,13:30-14:30,11,1,A2-5,Francisco Mario Hernandez,1-15
+GCID,Recocido Simulado,4,1,1,S708,PIAV,Práctica de Aula,practica_aula,17,Miercoles,11:30-12:30,15,1,A2-4,Jose Carlos Rodriguez Rodriguez,1-15
+GCID,Recocido Simulado,4,1,1,S709,PIAV,Laboratorio,practica,41,Martes,10:30-11:30,8,2,L2-4,Maria Cristina Carmona Duarte,1-15
+GCID,Recocido Simulado,4,1,1,S710,CDDE,Teoría,teoria,17,Jueves,12:30-13:30,22,1,A2-5,Maria Teresa Garcia Rodriguez,1-15
+GCID,Recocido Simulado,4,1,1,S711,CDDE,Práctica de Aula,practica_aula,17,Martes,12:30-13:30,10,1,A2-1,Maria Teresa Garcia Rodriguez,1-15
+GCID,Recocido Simulado,4,1,1,S712,CDDE,Laboratorio,practica,41,Miercoles,12:30-13:30,16,1,L1-3,Maria Teresa Garcia Rodriguez,1-15
+GCID,Recocido Simulado,4,1,1,S713,CDT,Teoría,teoria,17,Lunes,09:30-10:30,1,1,A2-5,Juan Maria Hernandez Guerra,1-15
+GCID,Recocido Simulado,4,1,1,S714,CDT,Práctica de Aula,practica_aula,17,Martes,09:30-10:30,7,1,A1-2,Juan Maria Hernandez Guerra,1-15
+GCID,Recocido Simulado,4,1,1,S715,CDT,Laboratorio,practica,41,Jueves,09:30-10:30,19,1,L3-3,Rafael Ricardo Suarez Vega,1-15
+GCID,Recocido Simulado,4,1,1,S716,TSCD,Teoría,teoria,17,Lunes,10:30-11:30,2,1,A2-5,Jose Juan Hernandez Cabrera,1-15
+GCID,Recocido Simulado,4,1,1,S717,TSCD,Práctica de Aula,practica_aula,17,Jueves,08:30-09:30,18,1,A3-1,Jose Juan Hernandez Cabrera,1-15
+GCID,Recocido Simulado,4,1,1,S718,TSCD,Laboratorio,practica,41,Miercoles,08:30-09:30,12,1,L3-2,Jose Juan Hernandez Cabrera,1-15
+GCID,Recocido Simulado,4,1,1,S719,MIPD,Teoría,teoria,17,Viernes,09:30-10:30,25,1,A2-5,Carlos Cristian Diaz Santamaria,1-15
+GCID,Recocido Simulado,4,1,1,S720,MIPD,Práctica de Aula,practica_aula,17,Jueves,13:30-14:30,23,1,A1-1,Carlos Cristian Diaz Santamaria,1-15
+GCID,Recocido Simulado,4,1,1,S721,MIPD,Laboratorio,practica,41,Martes,08:30-09:30,6,1,L2-4,Carlos Cristian Diaz Santamaria,1-15
+GCID,Recocido Simulado,4,1,1,S722,BIO,Teoría,teoria,17,Miercoles,09:30-10:30,13,1,A2-5,Maria Dolores Afonso Suarez,1-15
+GCID,Recocido Simulado,4,1,1,S723,BIO,Práctica de Aula,practica_aula,17,Miercoles,10:30-11:30,14,1,A2-4,Maria Dolores Afonso Suarez,1-15
+GCID,Recocido Simulado,4,1,1,S724,BIO,Laboratorio,practica,41,Lunes,13:30-14:30,5,1,L3-2,Jose Carlos Rodriguez Rodriguez,1-15
+GCID,CP-SAT,1,2,1,S201a,IC2,Teoría,teoria,17,Lunes,10:30-11:30,2,1,A2-5,Maria Cristina Carmona Duarte,1-15
+GCID,CP-SAT,1,2,1,S201b,IC2,Teoría,teoria,17,Martes,10:30-11:30,8,1,A2-5,Maria Cristina Carmona Duarte,1-15
+GCID,CP-SAT,1,2,1,S202,IC2,Laboratorio,practica,41,Jueves,10:30-11:30,20,2,L3-5,Maria Cristina Carmona Duarte,1-15
+GCID,CP-SAT,1,2,1,S203,IC2,Laboratorio,practica,42,Miercoles,11:30-12:30,15,2,L3-4,Maria Cristina Carmona Duarte,1-15
+GCID,CP-SAT,1,2,1,S204,IC2,Laboratorio,practica,43,Viernes,08:30-09:30,24,2,L2-2,Maria Cristina Carmona Duarte,1-15
+GCID,CP-SAT,1,2,1,S205,IC2,Laboratorio,practica,44,Lunes,08:30-09:30,0,2,L1-2,Maria Cristina Carmona Duarte,1-15
+GCID,CP-SAT,1,2,1,S206a,FP2,Teoría,teoria,17,Lunes,11:30-12:30,3,1,A2-5,Miguel Angel Perez Aguiar,1-15
+GCID,CP-SAT,1,2,1,S206b,FP2,Teoría,teoria,17,Miercoles,10:30-11:30,14,1,A2-5,Miguel Angel Perez Aguiar,1-15
+GCID,CP-SAT,1,2,1,S207,FP2,Laboratorio,practica,41,Lunes,12:30-13:30,4,2,L1-2,Jose Evora Gomez,1-15
+GCID,CP-SAT,1,2,1,S208,FP2,Laboratorio,practica,42,Lunes,08:30-09:30,0,2,L2-3,Jose Daniel Gonzalez Dominguez,1-15
+GCID,CP-SAT,1,2,1,S209,FP2,Laboratorio,practica,43,Martes,11:30-12:30,9,2,L3-1,Miguel Angel Perez Aguiar,1-15
+GCID,CP-SAT,1,2,1,S210,FP2,Laboratorio,practica,44,Martes,11:30-12:30,9,2,L3-5,Jose Evora Gomez,1-15
+GCID,CP-SAT,1,2,1,S211a,MC,Teoría,teoria,17,Miercoles,13:30-14:30,17,1,A2-5,Maximo,1-15
+GCID,CP-SAT,1,2,1,S211b,MC,Teoría,teoria,17,Martes,13:30-14:30,11,1,A2-5,Maximo,1-15
+GCID,CP-SAT,1,2,1,S212,MC,Práctica de Aula,practica_aula,17,Viernes,08:30-09:30,24,2,A1-1,Maximo,1-15
+GCID,CP-SAT,1,2,1,S213,MC,Práctica de Aula,practica_aula,18,Jueves,10:30-11:30,20,2,A1-1,Maximo,1-15
+GCID,CP-SAT,1,2,1,S214a,EP,Teoría,teoria,17,Jueves,08:30-09:30,18,1,A2-5,Julia Nieves Rodriguez,1-15
+GCID,CP-SAT,1,2,1,S214b,EP,Teoría,teoria,17,Viernes,11:30-12:30,27,1,A2-5,Julia Nieves Rodriguez,1-15
+GCID,CP-SAT,1,2,1,S215,EP,Práctica de Aula,practica_aula,17,Martes,11:30-12:30,9,2,A1-1,Julia Nieves Rodriguez,1-15
+GCID,CP-SAT,1,2,1,S216,EP,Práctica de Aula,practica_aula,18,Miercoles,11:30-12:30,15,2,A2-6,Julia Nieves Rodriguez,1-15
+GCID,CP-SAT,1,2,1,S217a,ME2,Teoría,teoria,17,Jueves,09:30-10:30,19,1,A2-5,Jose Vazquez Polo,1-15
+GCID,CP-SAT,1,2,1,S217b,ME2,Teoría,teoria,17,Viernes,10:30-11:30,26,1,A2-5,Jose Vazquez Polo,1-15
+GCID,CP-SAT,1,2,1,S218,ME2,Laboratorio,practica,41,Miercoles,11:30-12:30,15,2,L2-2,Jose Vazquez Polo,1-15
+GCID,CP-SAT,1,2,1,S219,ME2,Laboratorio,practica,42,Jueves,10:30-11:30,20,2,L2-2,Jose Vazquez Polo,1-15
+GCID,CP-SAT,1,2,1,S220,ME2,Laboratorio,practica,43,Lunes,08:30-09:30,0,2,L2-5,Jose Vazquez Polo,1-15
+GCID,CP-SAT,1,2,1,S221,ME2,Laboratorio,practica,44,Viernes,08:30-09:30,24,2,L1-1,Jose Vazquez Polo,1-15
+GCID,CP-SAT,2,2,1,S401,BD1,Teoría,teoria,17,Martes,11:30-12:30,9,2,A2-5,Octavio Mayor,1-15
+GCID,CP-SAT,2,2,1,S402,BD1,Laboratorio,practica,41,Martes,09:30-10:30,7,2,L1-3,Octavio Mayor,1-15
+GCID,CP-SAT,2,2,1,S403,BD1,Laboratorio,practica,42,Lunes,10:30-11:30,2,2,L3-4,Octavio Mayor,1-15
+GCID,CP-SAT,2,2,1,S404,BD1,Laboratorio,practica,43,Miercoles,09:30-10:30,13,2,L2-3,Octavio Mayor,1-15
+GCID,CP-SAT,2,2,1,S405,BD1,Laboratorio,practica,44,Viernes,10:30-11:30,26,2,L1-3,Octavio Mayor,1-15
+GCID,CP-SAT,2,2,1,S406,CDEF,Teoría,teoria,17,Miercoles,11:30-12:30,15,2,A2-5,Rodrigo Naumchick,1-15
+GCID,CP-SAT,2,2,1,S407,CDEF,Laboratorio,practica,41,Jueves,08:30-09:30,18,2,L2-1,Rodrigo Naumchick,1-15
+GCID,CP-SAT,2,2,1,S408,CDEF,Laboratorio,practica,42,Lunes,12:30-13:30,4,2,L1-1,Rodrigo Naumchick,1-15
+GCID,CP-SAT,2,2,1,S409,CDEF,Laboratorio,practica,43,Viernes,10:30-11:30,26,2,L2-4,Rodrigo Naumchick,1-15
+GCID,CP-SAT,2,2,1,S410,CDEF,Laboratorio,practica,44,Miercoles,09:30-10:30,13,2,L1-3,Rodrigo Naumchick,1-15
+GCID,CP-SAT,2,2,1,S411,AA1,Teoría,teoria,17,Viernes,08:30-09:30,24,2,A2-5,Francisco Mario Hernandez Tejera,1-15
+GCID,CP-SAT,2,2,1,S412,AA1,Laboratorio,practica,41,Lunes,08:30-09:30,0,2,L3-4,Jose Javier Lorenzo Navarro,1-15
+GCID,CP-SAT,2,2,1,S413,AA1,Laboratorio,practica,42,Viernes,10:30-11:30,26,2,L3-3,Jose Javier Lorenzo Navarro,1-15
+GCID,CP-SAT,2,2,1,S414,AA1,Laboratorio,practica,43,Lunes,10:30-11:30,2,2,L3-1,Jose Javier Lorenzo Navarro,1-15
+GCID,CP-SAT,2,2,1,S415,AA1,Laboratorio,practica,44,Jueves,08:30-09:30,18,2,L1-3,Jose Javier Lorenzo Navarro,1-15
+GCID,CP-SAT,2,2,1,S416,IACD,Teoría,teoria,17,Jueves,12:30-13:30,22,2,A2-5,Pablo Carmelo,1-15
+GCID,CP-SAT,2,2,1,S417,IACD,Laboratorio,practica,41,Viernes,10:30-11:30,26,2,L2-2,Pablo Carmelo,1-15
+GCID,CP-SAT,2,2,1,S418,IACD,Laboratorio,practica,42,Martes,09:30-10:30,7,2,L2-1,Pablo Carmelo,1-15
+GCID,CP-SAT,2,2,1,S419,IACD,Laboratorio,practica,43,Jueves,08:30-09:30,18,2,L1-2,Pablo Carmelo,1-15
+GCID,CP-SAT,2,2,1,S420,IACD,Laboratorio,practica,44,Lunes,10:30-11:30,2,2,L1-2,Pablo Carmelo,1-15
+GCID,CP-SAT,2,2,1,S421,DACD,Teoría,teoria,17,Jueves,10:30-11:30,20,2,A2-5,Octavio Roncal Andres,1-15
+GCID,CP-SAT,2,2,1,S422,DACD,Laboratorio,practica,41,Miercoles,09:30-10:30,13,2,L1-2,Octavio Roncal Andres,1-15
+GCID,CP-SAT,2,2,1,S423,DACD,Laboratorio,practica,42,Jueves,08:30-09:30,18,2,L1-1,Octavio Roncal Andres,1-15
+GCID,CP-SAT,2,2,1,S424,DACD,Laboratorio,practica,43,Martes,09:30-10:30,7,2,L1-1,Octavio Roncal Andres,1-15
+GCID,CP-SAT,2,2,1,S425,DACD,Laboratorio,practica,44,Lunes,08:30-09:30,0,2,L2-4,Octavio Roncal Andres,1-15
+GCID,CP-SAT,3,2,1,S601,ASR,Laboratorio,practica,41,Miercoles,10:30-11:30,14,2,L2-1,Humberto Javier Alamo Deniz,1-15
+GCID,CP-SAT,3,2,1,S602,ASR,Laboratorio,practica,42,Lunes,10:30-11:30,2,2,L2-2,Humberto Javier Alamo Deniz,1-15
+GCID,CP-SAT,3,2,1,S603,BDNR,Laboratorio,practica,41,Lunes,10:30-11:30,2,2,L1-1,Gabino Padron Morales,1-15
+GCID,CP-SAT,3,2,1,S604,BDNR,Laboratorio,practica,42,Miercoles,10:30-11:30,14,2,L1-1,Gabino Padron Morales,1-15
+GCID,CP-SAT,3,2,1,S605,VPD,Laboratorio,practica,41,Miercoles,12:30-13:30,16,2,L1-1,Carmelo Ruben Garcia Rodriguez,1-15
+GCID,CP-SAT,3,2,1,S606,VPD,Laboratorio,practica,42,Miercoles,08:30-09:30,12,2,L3-2,Carmelo Ruben Garcia Rodriguez,1-15
+GCID,CP-SAT,3,2,1,S607,ASR,Teoría,teoria,17,Lunes,12:30-13:30,4,2,A2-5,Humberto Javier Alamo Deniz,1-15
+GCID,CP-SAT,3,2,1,S608,BDNR,Teoría,teoria,17,Lunes,08:30-09:30,0,2,A2-5,Gabino Padron Morales,1-15
+GCID,CP-SAT,3,2,1,S609,VPD,Teoría,teoria,17,Martes,08:30-09:30,6,2,A2-5,Carmelo Ruben Garcia Rodriguez,1-15
+GCID,CP-SAT,4,2,1,S801,SI,Teoría,teoria,17,Miercoles,09:30-10:30,13,1,A2-5,Antonio Andres Ocon Carreras,1-15
+GCID,CP-SAT,4,2,1,S802,SI,Práctica de Aula,practica_aula,17,Jueves,09:30-10:30,19,1,A1-2,Antonio Andres Ocon Carreras,1-15
+GCID,CP-SAT,4,2,1,S803,SI,Laboratorio,practica,41,Jueves,08:30-09:30,18,1,L3-5,Antonio Andres Ocon Carreras,1-15
+GCID,CP-SAT,4,2,1,S804,TFG,Teoría,teoria,17,Viernes,08:30-09:30,24,6,L2-6,Jose Daniel Hernandez Sosa,1-15
+GCID,Recocido Simulado,1,2,1,S201a,IC2,Teoría,teoria,17,Jueves,09:30-10:30,19,1,A1-1,Maria Cristina Carmona Duarte,1-15
+GCID,Recocido Simulado,1,2,1,S201b,IC2,Teoría,teoria,17,Lunes,13:30-14:30,5,1,A2-5,Maria Cristina Carmona Duarte,1-15
+GCID,Recocido Simulado,1,2,1,S202,IC2,Laboratorio,practica,41,Martes,10:30-11:30,8,2,L2-1,Maria Cristina Carmona Duarte,1-15
+GCID,Recocido Simulado,1,2,1,S203,IC2,Laboratorio,practica,42,Jueves,11:30-12:30,21,2,L1-2,Maria Cristina Carmona Duarte,1-15
+GCID,Recocido Simulado,1,2,1,S204,IC2,Laboratorio,practica,43,Lunes,11:30-12:30,3,2,L2-2,Maria Cristina Carmona Duarte,1-15
+GCID,Recocido Simulado,1,2,1,S205,IC2,Laboratorio,practica,44,Viernes,11:30-12:30,27,2,L1-2,Maria Cristina Carmona Duarte,1-15
+GCID,Recocido Simulado,1,2,1,S206a,FP2,Teoría,teoria,17,Miercoles,11:30-12:30,15,1,A2-5,Miguel Angel Perez Aguiar,1-15
+GCID,Recocido Simulado,1,2,1,S206b,FP2,Teoría,teoria,17,Martes,12:30-13:30,10,1,A2-5,Miguel Angel Perez Aguiar,1-15
+GCID,Recocido Simulado,1,2,1,S207,FP2,Laboratorio,practica,41,Miercoles,08:30-09:30,12,2,L2-3,Jose Evora Gomez,1-15
+GCID,Recocido Simulado,1,2,1,S208,FP2,Laboratorio,practica,42,Miercoles,12:30-13:30,16,2,L1-1,Jose Daniel Gonzalez Dominguez,1-15
+GCID,Recocido Simulado,1,2,1,S209,FP2,Laboratorio,practica,43,Viernes,11:30-12:30,27,2,L2-3,Miguel Angel Perez Aguiar,1-15
+GCID,Recocido Simulado,1,2,1,S210,FP2,Laboratorio,practica,44,Miercoles,12:30-13:30,16,2,L3-3,Jose Evora Gomez,1-15
+GCID,Recocido Simulado,1,2,1,S211a,MC,Teoría,teoria,17,Viernes,09:30-10:30,25,1,A2-5,Maximo,1-15
+GCID,Recocido Simulado,1,2,1,S211b,MC,Teoría,teoria,17,Lunes,10:30-11:30,2,1,A2-3,Maximo,1-15
+GCID,Recocido Simulado,1,2,1,S212,MC,Práctica de Aula,practica_aula,17,Viernes,11:30-12:30,27,2,A3-3,Maximo,1-15
+GCID,Recocido Simulado,1,2,1,S213,MC,Práctica de Aula,practica_aula,18,Martes,10:30-11:30,8,2,A3-3,Maximo,1-15
+GCID,Recocido Simulado,1,2,1,S214a,EP,Teoría,teoria,17,Viernes,10:30-11:30,26,1,A3-4,Julia Nieves Rodriguez,1-15
+GCID,Recocido Simulado,1,2,1,S214b,EP,Teoría,teoria,17,Jueves,10:30-11:30,20,1,A3-4,Julia Nieves Rodriguez,1-15
+GCID,Recocido Simulado,1,2,1,S215,EP,Práctica de Aula,practica_aula,17,Lunes,11:30-12:30,3,2,A3-4,Julia Nieves Rodriguez,1-15
+GCID,Recocido Simulado,1,2,1,S216,EP,Práctica de Aula,practica_aula,18,Jueves,11:30-12:30,21,2,A2-4,Julia Nieves Rodriguez,1-15
+GCID,Recocido Simulado,1,2,1,S217a,ME2,Teoría,teoria,17,Miercoles,10:30-11:30,14,1,A2-5,Jose Vazquez Polo,1-15
+GCID,Recocido Simulado,1,2,1,S217b,ME2,Teoría,teoria,17,Martes,09:30-10:30,7,1,A2-5,Jose Vazquez Polo,1-15
+GCID,Recocido Simulado,1,2,1,S218,ME2,Laboratorio,practica,41,Jueves,11:30-12:30,21,2,L1-1,Jose Vazquez Polo,1-15
+GCID,Recocido Simulado,1,2,1,S219,ME2,Laboratorio,practica,42,Martes,10:30-11:30,8,2,L1-1,Jose Vazquez Polo,1-15
+GCID,Recocido Simulado,1,2,1,S220,ME2,Laboratorio,practica,43,Miercoles,08:30-09:30,12,2,L2-4,Jose Vazquez Polo,1-15
+GCID,Recocido Simulado,1,2,1,S221,ME2,Laboratorio,practica,44,Lunes,11:30-12:30,3,2,L1-2,Jose Vazquez Polo,1-15
+GCID,Recocido Simulado,2,2,1,S401,BD1,Teoría,teoria,17,Miercoles,10:30-11:30,14,2,A3-4,Octavio Mayor,1-15
+GCID,Recocido Simulado,2,2,1,S402,BD1,Laboratorio,practica,41,Jueves,12:30-13:30,22,2,L1-3,Octavio Mayor,1-15
+GCID,Recocido Simulado,2,2,1,S403,BD1,Laboratorio,practica,42,Martes,08:30-09:30,6,2,L1-1,Octavio Mayor,1-15
+GCID,Recocido Simulado,2,2,1,S404,BD1,Laboratorio,practica,43,Lunes,12:30-13:30,4,2,L2-3,Octavio Mayor,1-15
+GCID,Recocido Simulado,2,2,1,S405,BD1,Laboratorio,practica,44,Viernes,08:30-09:30,24,2,L3-3,Octavio Mayor,1-15
+GCID,Recocido Simulado,2,2,1,S406,CDEF,Teoría,teoria,17,Lunes,08:30-09:30,0,2,A2-5,Rodrigo Naumchick,1-15
+GCID,Recocido Simulado,2,2,1,S407,CDEF,Laboratorio,practica,41,Jueves,10:30-11:30,20,2,L3-4,Rodrigo Naumchick,1-15
+GCID,Recocido Simulado,2,2,1,S408,CDEF,Laboratorio,practica,42,Jueves,12:30-13:30,22,2,L3-4,Rodrigo Naumchick,1-15
+GCID,Recocido Simulado,2,2,1,S409,CDEF,Laboratorio,practica,43,Miercoles,08:30-09:30,12,2,L2-1,Rodrigo Naumchick,1-15
+GCID,Recocido Simulado,2,2,1,S410,CDEF,Laboratorio,practica,44,Lunes,12:30-13:30,4,2,L3-4,Rodrigo Naumchick,1-15
+GCID,Recocido Simulado,2,2,1,S411,AA1,Teoría,teoria,17,Viernes,10:30-11:30,26,2,A2-5,Francisco Mario Hernandez Tejera,1-15
+GCID,Recocido Simulado,2,2,1,S412,AA1,Laboratorio,practica,41,Lunes,12:30-13:30,4,2,L3-5,Jose Javier Lorenzo Navarro,1-15
+GCID,Recocido Simulado,2,2,1,S413,AA1,Laboratorio,practica,42,Jueves,10:30-11:30,20,2,L2-3,Jose Javier Lorenzo Navarro,1-15
+GCID,Recocido Simulado,2,2,1,S414,AA1,Laboratorio,practica,43,Martes,08:30-09:30,6,2,L3-5,Jose Javier Lorenzo Navarro,1-15
+GCID,Recocido Simulado,2,2,1,S415,AA1,Laboratorio,practica,44,Miercoles,08:30-09:30,12,2,L1-3,Jose Javier Lorenzo Navarro,1-15
+GCID,Recocido Simulado,2,2,1,S416,IACD,Teoría,teoria,17,Miercoles,12:30-13:30,16,2,A2-5,Pablo Carmelo,1-15
+GCID,Recocido Simulado,2,2,1,S417,IACD,Laboratorio,practica,41,Miercoles,08:30-09:30,12,2,L2-2,Pablo Carmelo,1-15
+GCID,Recocido Simulado,2,2,1,S418,IACD,Laboratorio,practica,42,Jueves,08:30-09:30,18,2,L2-3,Pablo Carmelo,1-15
+GCID,Recocido Simulado,2,2,1,S419,IACD,Laboratorio,practica,43,Viernes,08:30-09:30,24,2,L1-1,Pablo Carmelo,1-15
+GCID,Recocido Simulado,2,2,1,S420,IACD,Laboratorio,practica,44,Jueves,10:30-11:30,20,2,L3-5,Pablo Carmelo,1-15
+GCID,Recocido Simulado,2,2,1,S421,DACD,Teoría,teoria,17,Lunes,10:30-11:30,2,2,A2-5,Octavio Roncal Andres,1-15
+GCID,Recocido Simulado,2,2,1,S422,DACD,Laboratorio,practica,41,Viernes,08:30-09:30,24,2,L3-4,Octavio Roncal Andres,1-15
+GCID,Recocido Simulado,2,2,1,S423,DACD,Laboratorio,practica,42,Lunes,12:30-13:30,4,2,L2-1,Octavio Roncal Andres,1-15
+GCID,Recocido Simulado,2,2,1,S424,DACD,Laboratorio,practica,43,Jueves,08:30-09:30,18,2,L1-2,Octavio Roncal Andres,1-15
+GCID,Recocido Simulado,2,2,1,S425,DACD,Laboratorio,practica,44,Martes,09:30-10:30,7,2,L3-4,Octavio Roncal Andres,1-15
+GCID,Recocido Simulado,3,2,1,S601,ASR,Laboratorio,practica,41,Martes,08:30-09:30,6,2,L3-2,Humberto Javier Alamo Deniz,1-15
+GCID,Recocido Simulado,3,2,1,S602,ASR,Laboratorio,practica,42,Lunes,10:30-11:30,2,2,L3-3,Humberto Javier Alamo Deniz,1-15
+GCID,Recocido Simulado,3,2,1,S603,BDNR,Laboratorio,practica,41,Martes,12:30-13:30,10,2,L3-2,Gabino Padron Morales,1-15
+GCID,Recocido Simulado,3,2,1,S604,BDNR,Laboratorio,practica,42,Miercoles,12:30-13:30,16,2,L2-2,Gabino Padron Morales,1-15
+GCID,Recocido Simulado,3,2,1,S605,VPD,Laboratorio,practica,41,Lunes,11:30-12:30,3,2,L3-1,Carmelo Ruben Garcia Rodriguez,1-15
+GCID,Recocido Simulado,3,2,1,S606,VPD,Laboratorio,practica,42,Martes,08:30-09:30,6,2,L1-3,Carmelo Ruben Garcia Rodriguez,1-15
+GCID,Recocido Simulado,3,2,1,S607,ASR,Teoría,teoria,17,Miercoles,08:30-09:30,12,2,A2-5,Humberto Javier Alamo Deniz,1-15
+GCID,Recocido Simulado,3,2,1,S608,BDNR,Teoría,teoria,17,Martes,10:30-11:30,8,2,A2-5,Gabino Padron Morales,1-15
+GCID,Recocido Simulado,3,2,1,S609,VPD,Teoría,teoria,17,Miercoles,10:30-11:30,14,2,A3-3,Carmelo Ruben Garcia Rodriguez,1-15
+GCID,Recocido Simulado,4,2,1,S801,SI,Teoría,teoria,17,Martes,13:30-14:30,11,1,A2-5,Antonio Andres Ocon Carreras,1-15
+GCID,Recocido Simulado,4,2,1,S802,SI,Práctica de Aula,practica_aula,17,Martes,12:30-13:30,10,1,A2-1,Antonio Andres Ocon Carreras,1-15
+GCID,Recocido Simulado,4,2,1,S803,SI,Laboratorio,practica,41,Lunes,12:30-13:30,4,1,L2-4,Antonio Andres Ocon Carreras,1-15
+GCID,Recocido Simulado,4,2,1,S804,TFG,Teoría,teoria,17,Jueves,08:30-09:30,18,6,A2-5,Jose Daniel Hernandez Sosa,1-15
+GIFM,Recocido Simulado,1,1,1,C1Q1_07_B1_FILA6,P1,Laboratorio,practica,42,Lunes,08:30-10:30,0,2,L3-5,Mario Carmelo Caballero Benitez,1-15
+GIFM,Recocido Simulado,1,1,1,C1Q1_06_B1_FILA5,P1,Laboratorio,practica,41,Lunes,10:30-12:30,2,2,LF-4,Mario Carmelo Caballero Benitez,1-15
+GIFM,Recocido Simulado,1,1,1,C1Q1_05_B1_FILA4,P1,Teoría,teoria,17,Lunes,12:30-14:30,4,2,A3-1,Daniel ELías Santana Cedrés,1-15
+GIFM,Recocido Simulado,1,1,1,C1Q1_01_B2_FILA0,FF1,Teoría,teoria,17,Martes,08:30-10:30,6,2,A3-1,Jesús Garcia Rubiano,1-15
+GIFM,Recocido Simulado,1,1,1,C1Q1_02_B1_FILA1,IFM,Teoría,teoria,17,Martes,10:30-12:30,8,2,A3-1,Jesús Garcia Rubiano,1-15
+GIFM,Recocido Simulado,1,1,1,C1Q1_01_B1_FILA0,FF1,Teoría,teoria,17,Miércoles,08:30-10:30,12,2,A3-1,Jesús Garcia Rubiano,1-15
+GIFM,Recocido Simulado,1,1,1,C1Q1_03_B2_FILA2,FM1,Teoría,teoria,17,Jueves,08:30-10:30,18,2,A3-1,Jackie Jerónimo Harjani Saúco,1-15
+GIFM,Recocido Simulado,1,1,1,C1Q1_04_B2_FILA3,AL,Teoría,teoria,17,Jueves,10:30-12:30,20,2,A3-1,Luis González Sánchez/María Belén López Brito,1-15
+GIFM,Recocido Simulado,1,1,1,C1Q1_01_B3_FILA0,FF1,Teoría,teoria,17,Jueves,12:30-14:30,22,2,A3-1,Jesús Garcia Rubiano,1-15
+GIFM,Recocido Simulado,1,1,1,C1Q1_03_B1_FILA2,FM1,Teoría,teoria,17,Viernes,08:30-10:30,24,2,A3-1,Jackie Jerónimo Harjani Saúco,1-15
+GIFM,Recocido Simulado,1,1,1,C1Q1_04_B1_FILA3,AL,Teoría,teoria,17,Viernes,10:30-12:30,26,2,A3-1,Luis González Sánchez/María Belén López Brito,1-15
+GIFM,CP-SAT,1,1,1,C1Q1_01_B1_FILA0,FF1,Teoría,teoria,17,Miércoles,08:30-10:30,12,2,A3-1,Jesús Garcia Rubiano,1-15
+GIFM,CP-SAT,1,1,1,C1Q1_01_B2_FILA0,FF1,Teoría,teoria,17,Martes,10:30-12:30,8,2,A3-1,Jesús Garcia Rubiano,1-15
+GIFM,CP-SAT,1,1,1,C1Q1_01_B3_FILA0,FF1,Teoría,teoria,17,Lunes,12:30-14:30,4,2,A3-1,Jesús Garcia Rubiano,1-15
+GIFM,CP-SAT,1,1,1,C1Q1_02_B1_FILA1,IFM,Teoría,teoria,17,Jueves,08:30-10:30,18,2,A3-1,Jesús Garcia Rubiano,1-15
+GIFM,CP-SAT,1,1,1,C1Q1_03_B1_FILA2,FM1,Teoría,teoria,17,Martes,12:30-14:30,10,2,A3-1,Jackie Jerónimo Harjani Saúco,1-15
+GIFM,CP-SAT,1,1,1,C1Q1_03_B2_FILA2,FM1,Teoría,teoria,17,Lunes,10:30-12:30,2,2,A3-1,Jackie Jerónimo Harjani Saúco,1-15
+GIFM,CP-SAT,1,1,1,C1Q1_04_B1_FILA3,AL,Teoría,teoria,17,Martes,08:30-10:30,6,2,A3-1,Luis González Sánchez/María Belén López Brito,1-15
+GIFM,CP-SAT,1,1,1,C1Q1_04_B2_FILA3,AL,Teoría,teoria,17,Lunes,08:30-10:30,0,2,A3-1,Luis González Sánchez/María Belén López Brito,1-15
+GIFM,CP-SAT,1,1,1,C1Q1_05_B1_FILA4,P1,Teoría,teoria,17,Jueves,10:30-12:30,20,2,A3-1,Daniel ELías Santana Cedrés,1-15
+GIFM,CP-SAT,1,1,1,C1Q1_06_B1_FILA5,P1,Laboratorio,practica,41,Miércoles,12:30-14:30,16,2,LF-4,Mario Carmelo Caballero Benitez,1-15
+GIFM,CP-SAT,1,1,1,C1Q1_07_B1_FILA6,P1,Laboratorio,practica,42,Miércoles,10:30-12:30,14,2,L3-5,Mario Carmelo Caballero Benitez,1-15
+GIFM,Recocido Simulado,1,2,1,C1Q2_03_B2_FILA2,MNF,Laboratorio,practica,41,Lunes,08:30-10:30,0,2,L2-6,Marcos Javier Hernández Gil,1-15
+GIFM,Recocido Simulado,1,2,1,C1Q2_06_B2_FILA5,FM2,Teoría,teoria,17,Lunes,10:30-12:30,2,2,A3-1,Josefa Caballero Mena,1-15
+GIFM,Recocido Simulado,1,2,1,C1Q2_04_B2_FILA3,FEC1,Laboratorio,practica,41,Lunes,12:30-14:30,4,2,L3-4,Aridai Bordón Sánchez,1-15
+GIFM,Recocido Simulado,1,2,1,C1Q2_06_B1_FILA5,FM2,Teoría,teoria,17,Martes,08:30-10:30,6,2,A3-1,Josefa Caballero Mena,1-15
+GIFM,Recocido Simulado,1,2,1,C1Q2_03_B1_FILA2,MNF,Laboratorio,practica,41,Martes,10:30-12:30,8,2,LF-4,Marcos Javier Hernández Gil,1-15
+GIFM,Recocido Simulado,1,2,1,C1Q2_04_B1_FILA3,FEC1,Laboratorio,practica,41,Martes,12:30-14:30,10,2,L3-3,Aridai Bordón Sánchez,1-15
+GIFM,Recocido Simulado,1,2,1,C1Q2_01_B3_FILA0,FF2,Teoría,teoria,17,Miércoles,08:30-10:30,12,2,A3-1,Jesús Garcia Rubiano/Héctor Eulogio Alonso Hernández,1-15
+GIFM,Recocido Simulado,1,2,1,C1Q2_05_B1_FILA4,G1,Teoría,teoria,17,Miércoles,10:30-12:30,14,2,A3-1,Luis González Sánchez,1-15
+GIFM,Recocido Simulado,1,2,1,C1Q2_02_B1_FILA1,MNF,Teoría,teoria,17,Miércoles,12:30-14:30,16,2,A3-1,Gustavo Montero García,1-15
+GIFM,Recocido Simulado,1,2,1,C1Q2_01_B2_FILA0,FF2,Teoría,teoria,17,Jueves,08:30-10:30,18,2,A3-1,Jesús Garcia Rubiano/Héctor Eulogio Alonso Hernández,1-15
+GIFM,Recocido Simulado,1,2,1,C1Q2_01_B1_FILA0,FF2,Teoría,teoria,17,Viernes,08:30-10:30,24,2,A3-1,Jesús Garcia Rubiano/Héctor Eulogio Alonso Hernández,1-15
+GIFM,CP-SAT,1,2,1,C1Q2_01_B1_FILA0,FF2,Teoría,teoria,17,Viernes,08:30-10:30,24,2,A3-1,Jesús Garcia Rubiano/Héctor Eulogio Alonso Hernández,1-15
+GIFM,CP-SAT,1,2,1,C1Q2_01_B2_FILA0,FF2,Teoría,teoria,17,Jueves,08:30-10:30,18,2,A3-1,Jesús Garcia Rubiano/Héctor Eulogio Alonso Hernández,1-15
+GIFM,CP-SAT,1,2,1,C1Q2_01_B3_FILA0,FF2,Teoría,teoria,17,Miércoles,08:30-10:30,12,2,A3-1,Jesús Garcia Rubiano/Héctor Eulogio Alonso Hernández,1-15
+GIFM,CP-SAT,1,2,1,C1Q2_02_B1_FILA1,MNF,Teoría,teoria,17,Miércoles,12:30-14:30,16,2,A3-1,Gustavo Montero García,1-15
+GIFM,CP-SAT,1,2,1,C1Q2_03_B1_FILA2,MNF,Laboratorio,practica,41,Martes,10:30-12:30,8,2,LF-4,Marcos Javier Hernández Gil,1-15
+GIFM,CP-SAT,1,2,1,C1Q2_03_B2_FILA2,MNF,Laboratorio,practica,41,Lunes,08:30-10:30,0,2,L2-6,Marcos Javier Hernández Gil,1-15
+GIFM,CP-SAT,1,2,1,C1Q2_04_B1_FILA3,FEC1,Laboratorio,practica,41,Martes,12:30-14:30,10,2,L3-3,Aridai Bordón Sánchez,1-15
+GIFM,CP-SAT,1,2,1,C1Q2_04_B2_FILA3,FEC1,Laboratorio,practica,41,Lunes,12:30-14:30,4,2,L3-4,Aridai Bordón Sánchez,1-15
+GIFM,CP-SAT,1,2,1,C1Q2_05_B1_FILA4,G1,Teoría,teoria,17,Miércoles,10:30-12:30,14,2,A3-1,Luis González Sánchez,1-15
+GIFM,CP-SAT,1,2,1,C1Q2_06_B1_FILA5,FM2,Teoría,teoria,17,Martes,08:30-10:30,6,2,A3-1,Josefa Caballero Mena,1-15
+GIFM,CP-SAT,1,2,1,C1Q2_06_B2_FILA5,FM2,Teoría,teoria,17,Lunes,10:30-12:30,2,2,A3-1,Josefa Caballero Mena,1-15
+GIFM,Recocido Simulado,2,1,1,C2Q1_01_B2_FILA0,MAR,Teoría,teoria,17,Lunes,08:30-10:30,0,2,A3-1,Juan Miguel Gil de la Fe,1-15
+GIFM,Recocido Simulado,2,1,1,C2Q1_03_B2_FILA2,MMA1,Teoría,teoria,17,Lunes,10:30-12:30,2,2,A3-1,Albert Oliver Serra,1-15
+GIFM,Recocido Simulado,2,1,1,C2Q1_02_B2_FILA1,T,Teoría,teoria,17,Lunes,12:30-14:30,4,2,A3-1,Ángel Rodríguez Santana,1-15
+GIFM,Recocido Simulado,2,1,1,C2Q1_03_B1_FILA2,MMA1,Teoría,teoria,17,Martes,08:30-10:30,6,2,A3-1,Albert Oliver Serra,1-15
+GIFM,Recocido Simulado,2,1,1,C2Q1_01_B1_FILA0,MAR,Teoría,teoria,17,Martes,10:30-12:30,8,2,A3-1,Juan Miguel Gil de la Fe,1-15
+GIFM,Recocido Simulado,2,1,1,C2Q1_02_B1_FILA1,T,Teoría,teoria,17,Martes,12:30-14:30,10,2,A3-1,Ángel Rodríguez Santana,1-15
+GIFM,Recocido Simulado,2,1,1,C2Q1_04_B1_FILA3,AM1,Teoría,teoria,17,Miércoles,08:30-10:30,12,2,A3-1,Begoña González Landín,1-15
+GIFM,Recocido Simulado,2,1,1,C2Q1_06_B1_FILA5,MAR,Laboratorio,practica,41,Miércoles,10:30-12:30,14,2,LF-4,Juan Miguel Gil de la Fe,1-15
+GIFM,Recocido Simulado,2,1,1,C2Q1_09_B1_FILA8,P2,Laboratorio,practica,41,Miércoles,12:30-14:30,16,2,LF-4,Daniel Elías Santana Cedrés,1-15
+GIFM,Recocido Simulado,2,1,1,C2Q1_05_B1_FILA4,P2,Teoría,teoria,17,Jueves,08:30-10:30,18,2,A3-1,Daniel Elías Santana Cedrés,1-15
+GIFM,Recocido Simulado,2,1,1,C2Q1_08_B1_FILA7,MMA1,Laboratorio,practica,41,Jueves,10:30-12:30,20,2,L3-3,Albert Oliver González Landín,1-11
+GIFM,Recocido Simulado,2,1,1,C2Q1_07_B1_FILA6,T,Laboratorio,practica,41,Jueves,12:30-14:30,22,2,L3-4,Ángel Rodríguez Santana,1-11
+GIFM,CP-SAT,2,1,1,C2Q1_01_B1_FILA0,MAR,Teoría,teoria,17,Martes,10:30-12:30,8,2,A3-1,Juan Miguel Gil de la Fe,1-15
+GIFM,CP-SAT,2,1,1,C2Q1_01_B2_FILA0,MAR,Teoría,teoria,17,Lunes,08:30-10:30,0,2,A3-1,Juan Miguel Gil de la Fe,1-15
+GIFM,CP-SAT,2,1,1,C2Q1_02_B1_FILA1,T,Teoría,teoria,17,Martes,12:30-14:30,10,2,A3-1,Ángel Rodríguez Santana,1-15
+GIFM,CP-SAT,2,1,1,C2Q1_02_B2_FILA1,T,Teoría,teoria,17,Lunes,12:30-14:30,4,2,A3-1,Ángel Rodríguez Santana,1-15
+GIFM,CP-SAT,2,1,1,C2Q1_03_B1_FILA2,MMA1,Teoría,teoria,17,Martes,08:30-10:30,6,2,A3-1,Albert Oliver Serra,1-15
+GIFM,CP-SAT,2,1,1,C2Q1_03_B2_FILA2,MMA1,Teoría,teoria,17,Lunes,10:30-12:30,2,2,A3-1,Albert Oliver Serra,1-15
+GIFM,CP-SAT,2,1,1,C2Q1_04_B1_FILA3,AM1,Teoría,teoria,17,Miércoles,08:30-10:30,12,2,A3-1,Begoña González Landín,1-15
+GIFM,CP-SAT,2,1,1,C2Q1_05_B1_FILA4,P2,Teoría,teoria,17,Jueves,08:30-10:30,18,2,A3-1,Daniel Elías Santana Cedrés,1-15
+GIFM,CP-SAT,2,1,1,C2Q1_06_B1_FILA5,MAR,Laboratorio,practica,41,Miércoles,10:30-12:30,14,2,LF-4,Juan Miguel Gil de la Fe,1-15
+GIFM,CP-SAT,2,1,1,C2Q1_07_B1_FILA6,T,Laboratorio,practica,41,Jueves,12:30-14:30,22,2,L3-4,Ángel Rodríguez Santana,1-11
+GIFM,CP-SAT,2,1,1,C2Q1_08_B1_FILA7,MMA1,Laboratorio,practica,41,Jueves,10:30-12:30,20,2,L3-3,Albert Oliver González Landín,1-11
+GIFM,CP-SAT,2,1,1,C2Q1_09_B1_FILA8,P2,Laboratorio,practica,41,Miércoles,12:30-14:30,16,2,LF-4,Daniel Elías Santana Cedrés,1-15
+GIFM,Recocido Simulado,2,2,1,C2Q2_10_B2_FILA9,FE,Laboratorio,practica,42,Lunes,08:30-10:30,0,2,L2-5,Antonio Hernández Ballester,1-14
+GIFM,Recocido Simulado,2,2,1,C2Q2_07_B2_FILA6,FEC2,Laboratorio,practica,41,Lunes,08:30-10:30,0,2,LF-4,Juan Miguel Gil de la Fe,1-15
+GIFM,Recocido Simulado,2,2,1,C2Q2_09_B2_FILA8,FE,Laboratorio,practica,41,Lunes,10:30-12:30,2,2,L3-3,Antonio Hernández Ballester,1-14
+GIFM,Recocido Simulado,2,2,1,C2Q2_08_B2_FILA7,FEC2,Laboratorio,practica,42,Lunes,10:30-12:30,2,2,L3-1,Juan Miguel Gil de la Fe,1-15
+GIFM,Recocido Simulado,2,2,1,C2Q2_06_B2_FILA5,P,Teoría,teoria,17,Lunes,12:30-14:30,4,2,A3-1,Juan Miguel Gil de la Fe,1-15
+GIFM,Recocido Simulado,2,2,1,C2Q2_10_B1_FILA9,FE,Laboratorio,practica,42,Martes,08:30-10:30,6,2,L2-2,Antonio Hernández Ballester,1-14
+GIFM,Recocido Simulado,2,2,1,C2Q2_07_B1_FILA6,FEC2,Laboratorio,practica,41,Martes,08:30-10:30,6,2,LF-4,Juan Miguel Gil de la Fe,1-15
+GIFM,Recocido Simulado,2,2,1,C2Q2_09_B1_FILA8,FE,Laboratorio,practica,41,Martes,10:30-12:30,8,2,L2-3,Antonio Hernández Ballester,1-14
+GIFM,Recocido Simulado,2,2,1,C2Q2_08_B1_FILA7,FEC2,Laboratorio,practica,42,Martes,10:30-12:30,8,2,L2-4,Juan Miguel Gil de la Fe,1-15
+GIFM,Recocido Simulado,2,2,1,C2Q2_06_B1_FILA5,P,Teoría,teoria,17,Martes,12:30-14:30,10,2,A3-1,Juan Miguel Gil de la Fe,1-15
+GIFM,Recocido Simulado,2,2,1,C2Q2_02_B2_FILA1,FE,Teoría,teoria,17,Miércoles,08:30-09:30,12,1,A3-1,Antonio Hernández Ballester,1-15
+GIFM,Recocido Simulado,2,2,1,C2Q2_01_B1_FILA0,FEC2,Teoría,teoria,17,Miércoles,09:30-10:30,13,1,A3-1,Juan Miguel Gil de la Fe,1-15
+GIFM,Recocido Simulado,2,2,1,C2Q2_03_B2_FILA2,EOF1,Teoría,teoria,17,Miércoles,10:30-12:30,14,2,A3-1,Antonio Hernández Ballester,1-12
+GIFM,Recocido Simulado,2,2,1,C2Q2_11_B1_FILA10,EOF1,Laboratorio,practica,41,Miércoles,10:30-12:30,14,2,L3-2,Antonio Hernández Balleste,13-15
+GIFM,Recocido Simulado,2,2,1,C2Q2_12_B1_FILA11,EOF1,Laboratorio,practica,42,Miércoles,10:30-12:30,14,2,L3-4,Antonio Hernández Ballester,13-15
+GIFM,Recocido Simulado,2,2,1,C2Q2_04_B2_FILA3,AM2,Teoría,teoria,17,Miércoles,12:30-14:30,16,2,A3-1,Isaac Alvarez Romero,1-15
+GIFM,Recocido Simulado,2,2,1,C2Q2_03_B1_FILA2,EOF1,Teoría,teoria,17,Jueves,08:30-10:30,18,2,A3-1,Antonio Hernández Ballester,1-12
+GIFM,Recocido Simulado,2,2,1,C2Q2_02_B1_FILA1,FE,Teoría,teoria,17,Jueves,10:30-12:30,20,2,A3-1,Antonio Hernández Ballester,1-15
+GIFM,Recocido Simulado,2,2,1,C2Q2_04_B1_FILA3,AM2,Teoría,teoria,17,Jueves,12:30-14:30,22,2,A3-1,Isaac Alvarez Romero,1-15
+GIFM,Recocido Simulado,2,2,1,C2Q2_05_B1_FILA4,G2,Teoría,teoria,17,Viernes,08:30-10:30,24,2,A3-1,Alberto Montoya Soderberg,1-15
+GIFM,CP-SAT,2,2,1,C2Q2_01_B1_FILA0,FEC2,Teoría,teoria,17,Miércoles,09:30-10:30,13,1,A3-1,Juan Miguel Gil de la Fe,1-15
+GIFM,CP-SAT,2,2,1,C2Q2_02_B1_FILA1,FE,Teoría,teoria,17,Jueves,10:30-12:30,20,2,A3-1,Antonio Hernández Ballester,1-15
+GIFM,CP-SAT,2,2,1,C2Q2_02_B2_FILA1,FE,Teoría,teoria,17,Miércoles,08:30-09:30,12,1,A3-1,Antonio Hernández Ballester,1-15
+GIFM,CP-SAT,2,2,1,C2Q2_03_B1_FILA2,EOF1,Teoría,teoria,17,Jueves,08:30-10:30,18,2,A3-1,Antonio Hernández Ballester,1-12
+GIFM,CP-SAT,2,2,1,C2Q2_03_B2_FILA2,EOF1,Teoría,teoria,17,Miércoles,10:30-12:30,14,2,A3-1,Antonio Hernández Ballester,1-12
+GIFM,CP-SAT,2,2,1,C2Q2_04_B1_FILA3,AM2,Teoría,teoria,17,Jueves,12:30-14:30,22,2,A3-1,Isaac Alvarez Romero,1-15
+GIFM,CP-SAT,2,2,1,C2Q2_04_B2_FILA3,AM2,Teoría,teoria,17,Miércoles,12:30-14:30,16,2,A3-1,Isaac Alvarez Romero,1-15
+GIFM,CP-SAT,2,2,1,C2Q2_05_B1_FILA4,G2,Teoría,teoria,17,Viernes,08:30-10:30,24,2,A3-1,Alberto Montoya Soderberg,1-15
+GIFM,CP-SAT,2,2,1,C2Q2_06_B1_FILA5,P,Teoría,teoria,17,Martes,12:30-14:30,10,2,A3-1,Juan Miguel Gil de la Fe,1-15
+GIFM,CP-SAT,2,2,1,C2Q2_06_B2_FILA5,P,Teoría,teoria,17,Lunes,12:30-14:30,4,2,A3-1,Juan Miguel Gil de la Fe,1-15
+GIFM,CP-SAT,2,2,1,C2Q2_07_B1_FILA6,FEC2,Laboratorio,practica,41,Martes,08:30-10:30,6,2,LF-4,Juan Miguel Gil de la Fe,1-15
+GIFM,CP-SAT,2,2,1,C2Q2_07_B2_FILA6,FEC2,Laboratorio,practica,41,Lunes,08:30-10:30,0,2,LF-4,Juan Miguel Gil de la Fe,1-15
+GIFM,CP-SAT,2,2,1,C2Q2_08_B1_FILA7,FEC2,Laboratorio,practica,42,Martes,10:30-12:30,8,2,L2-4,Juan Miguel Gil de la Fe,1-15
+GIFM,CP-SAT,2,2,1,C2Q2_08_B2_FILA7,FEC2,Laboratorio,practica,42,Lunes,10:30-12:30,2,2,L3-1,Juan Miguel Gil de la Fe,1-15
+GIFM,CP-SAT,2,2,1,C2Q2_09_B1_FILA8,FE,Laboratorio,practica,41,Martes,10:30-12:30,8,2,L2-3,Antonio Hernández Ballester,1-14
+GIFM,CP-SAT,2,2,1,C2Q2_09_B2_FILA8,FE,Laboratorio,practica,41,Lunes,10:30-12:30,2,2,L3-3,Antonio Hernández Ballester,1-14
+GIFM,CP-SAT,2,2,1,C2Q2_10_B1_FILA9,FE,Laboratorio,practica,42,Martes,08:30-10:30,6,2,L2-2,Antonio Hernández Ballester,1-14
+GIFM,CP-SAT,2,2,1,C2Q2_10_B2_FILA9,FE,Laboratorio,practica,42,Lunes,08:30-10:30,0,2,L2-5,Antonio Hernández Ballester,1-14
+GIFM,CP-SAT,2,2,1,C2Q2_11_B1_FILA10,EOF1,Laboratorio,practica,41,Miércoles,10:30-12:30,14,2,L3-2,Antonio Hernández Balleste,13-15
+GIFM,CP-SAT,2,2,1,C2Q2_12_B1_FILA11,EOF1,Laboratorio,practica,42,Miércoles,10:30-12:30,14,2,L3-4,Antonio Hernández Ballester,13-15
+GIFM,Recocido Simulado,3,1,1,C3Q1_01_B1_FILA0,FMC,Teoría,teoria,17,Lunes,08:30-10:30,0,2,A3-1,Juan Miguel Gil de la Fe,1-9
+GIFM,Recocido Simulado,3,1,1,C3Q1_06_B1_FILA5,FMC,Laboratorio,practica,41,Lunes,08:30-10:30,0,2,LF-4,Juan Miguel Gil de la Fe,13-15
+GIFM,Recocido Simulado,3,1,1,C3Q1_04_B1_FILA3,AM3,Teoría,teoria,17,Lunes,10:30-12:30,2,2,A3-1,Isaac Alvarez Romero,1-10
+GIFM,Recocido Simulado,3,1,1,C3Q1_09_B1_FILA8,AM3,Laboratorio,practica,41,Lunes,10:30-12:30,2,2,L3-2,Isaac Alvarez Romero,11-15
+GIFM,Recocido Simulado,3,1,1,C3Q1_02_B1_FILA1,EOF2,Teoría,teoria,17,Lunes,12:30-14:30,4,2,A3-1,Antonio Alejandro Valido Flores,1-11
+GIFM,Recocido Simulado,3,1,1,C3Q1_03_B1_FILA2,MMA2,Teoría,teoria,17,Martes,08:30-10:30,6,2,A3-1,Albert Oliver Serra,1-11
+GIFM,Recocido Simulado,3,1,1,C3Q1_10_B1_FILA9,E,Laboratorio,practica,41,Martes,10:30-12:30,8,2,LF-4,Angelo Santana del Pino,6-15
+GIFM,Recocido Simulado,3,1,1,C3Q1_01_B2_FILA0,FMC,Teoría,teoria,17,Miércoles,08:30-10:30,12,2,A3-1,Juan Miguel Gil de la Fe,1-9
+GIFM,Recocido Simulado,3,1,1,C3Q1_02_B2_FILA1,EOF2,Teoría,teoria,17,Miércoles,10:30-12:30,14,2,A3-1,Antonio Alejandro Valido Flores,1-11
+GIFM,Recocido Simulado,3,1,1,C3Q1_04_B3_FILA3,AM3,Teoría,teoria,17,Jueves,08:30-10:30,18,2,A3-1,Isaac Alvarez Romero,1-10
+GIFM,Recocido Simulado,3,1,1,C3Q1_07_B2_FILA6,EOF2,Laboratorio,practica,41,Jueves,08:30-10:30,18,2,L3-4,Antonio Alejandro Valido Flores,11-15
+GIFM,Recocido Simulado,3,1,1,C3Q1_02_B3_FILA1,EOF2,Teoría,teoria,17,Jueves,10:30-11:30,20,1,A3-1,Antonio Alejandro Valido Flores,1-11
+GIFM,Recocido Simulado,3,1,1,C3Q1_08_B2_FILA7,MMA2,Laboratorio,practica,41,Jueves,10:30-12:30,20,2,L3-3,Albert Oliver Serra,12-15
+GIFM,Recocido Simulado,3,1,1,C3Q1_01_B3_FILA0,FMC,Teoría,teoria,17,Jueves,11:30-12:30,21,1,A3-1,Juan Miguel Gil de la Fe,1-9
+GIFM,Recocido Simulado,3,1,1,C3Q1_05_B2_FILA4,E,Teoría,teoria,17,Jueves,12:30-14:30,22,2,A3-1,Ángelo Santana Del Pino,1-5
+GIFM,Recocido Simulado,3,1,1,C3Q1_05_B1_FILA4,E,Teoría,teoria,17,Viernes,08:30-10:30,24,2,A3-1,Ángelo Santana Del Pino,1-5
+GIFM,Recocido Simulado,3,1,1,C3Q1_08_B1_FILA7,MMA2,Laboratorio,practica,41,Viernes,08:30-10:30,24,2,L2-5,Albert Oliver Serra,12-15
+GIFM,Recocido Simulado,3,1,1,C3Q1_04_B2_FILA3,AM3,Teoría,teoria,17,Viernes,10:30-12:30,26,2,A3-1,Isaac Alvarez Romero,1-10
+GIFM,Recocido Simulado,3,1,1,C3Q1_07_B1_FILA6,EOF2,Laboratorio,practica,41,Viernes,10:30-12:30,26,2,L3-1,Antonio Alejandro Valido Flores,11-15
+GIFM,CP-SAT,3,1,1,C3Q1_01_B1_FILA0,FMC,Teoría,teoria,17,Lunes,08:30-10:30,0,2,A3-1,Juan Miguel Gil de la Fe,1-9
+GIFM,CP-SAT,3,1,1,C3Q1_01_B2_FILA0,FMC,Teoría,teoria,17,Miércoles,10:30-12:30,14,2,A3-1,Juan Miguel Gil de la Fe,1-9
+GIFM,CP-SAT,3,1,1,C3Q1_01_B3_FILA0,FMC,Teoría,teoria,17,Jueves,09:30-10:30,19,1,A3-1,Juan Miguel Gil de la Fe,1-9
+GIFM,CP-SAT,3,1,1,C3Q1_02_B1_FILA1,EOF2,Teoría,teoria,17,Lunes,12:30-14:30,4,2,A3-1,Antonio Alejandro Valido Flores,1-11
+GIFM,CP-SAT,3,1,1,C3Q1_02_B2_FILA1,EOF2,Teoría,teoria,17,Miércoles,08:30-10:30,12,2,A3-1,Antonio Alejandro Valido Flores,1-11
+GIFM,CP-SAT,3,1,1,C3Q1_02_B3_FILA1,EOF2,Teoría,teoria,17,Jueves,08:30-09:30,18,1,A3-1,Antonio Alejandro Valido Flores,1-11
+GIFM,CP-SAT,3,1,1,C3Q1_03_B1_FILA2,MMA2,Teoría,teoria,17,Martes,08:30-10:30,6,2,A3-1,Albert Oliver Serra,1-11
+GIFM,CP-SAT,3,1,1,C3Q1_04_B1_FILA3,AM3,Teoría,teoria,17,Lunes,10:30-12:30,2,2,A3-1,Isaac Alvarez Romero,1-10
+GIFM,CP-SAT,3,1,1,C3Q1_04_B2_FILA3,AM3,Teoría,teoria,17,Viernes,10:30-12:30,26,2,A3-1,Isaac Alvarez Romero,1-10
+GIFM,CP-SAT,3,1,1,C3Q1_04_B3_FILA3,AM3,Teoría,teoria,17,Jueves,12:30-14:30,22,2,A3-1,Isaac Alvarez Romero,1-10
+GIFM,CP-SAT,3,1,1,C3Q1_05_B1_FILA4,E,Teoría,teoria,17,Viernes,08:30-10:30,24,2,A3-1,Ángelo Santana Del Pino,1-5
+GIFM,CP-SAT,3,1,1,C3Q1_05_B2_FILA4,E,Teoría,teoria,17,Jueves,10:30-12:30,20,2,A3-1,Ángelo Santana Del Pino,1-5
+GIFM,CP-SAT,3,1,1,C3Q1_06_B1_FILA5,FMC,Laboratorio,practica,41,Lunes,08:30-10:30,0,2,LF-4,Juan Miguel Gil de la Fe,13-15
+GIFM,CP-SAT,3,1,1,C3Q1_07_B1_FILA6,EOF2,Laboratorio,practica,41,Viernes,08:30-10:30,24,2,L3-1,Antonio Alejandro Valido Flores,11-15
+GIFM,CP-SAT,3,1,1,C3Q1_07_B2_FILA6,EOF2,Laboratorio,practica,41,Jueves,10:30-12:30,20,2,L3-4,Antonio Alejandro Valido Flores,11-15
+GIFM,CP-SAT,3,1,1,C3Q1_08_B1_FILA7,MMA2,Laboratorio,practica,41,Viernes,10:30-12:30,26,2,L2-5,Albert Oliver Serra,12-15
+GIFM,CP-SAT,3,1,1,C3Q1_08_B2_FILA7,MMA2,Laboratorio,practica,41,Jueves,08:30-10:30,18,2,L3-3,Albert Oliver Serra,12-15
+GIFM,CP-SAT,3,1,1,C3Q1_09_B1_FILA8,AM3,Laboratorio,practica,41,Lunes,10:30-12:30,2,2,L3-2,Isaac Alvarez Romero,11-15
+GIFM,CP-SAT,3,1,1,C3Q1_10_B1_FILA9,E,Laboratorio,practica,41,Martes,10:30-12:30,8,2,LF-4,Angelo Santana del Pino,6-15
+GIFM,Recocido Simulado,3,2,1,C3Q2_11_B2_FILA10,IM,Laboratorio,practica,41,Lunes,08:30-10:30,0,2,L2-2,Juan Montiel Caminos,"1,9-15"
+GIFM,Recocido Simulado,3,2,1,C3Q2_01_B1_FILA0,FFFT,Teoría,teoria,17,Lunes,10:30-12:30,2,2,A3-1,María de los Ángeles Marrero Diaz,1-11
+GIFM,Recocido Simulado,3,2,1,C3Q2_13_B1_FILA12,FPAT,Laboratorio,practica,41,Lunes,10:30-12:30,2,2,L3-1,Juan Miguel Gil de la Fe,14-15
+GIFM,Recocido Simulado,3,2,1,C3Q2_08_B1_FILA7,IE,Teoría,teoria,17,Lunes,12:30-14:30,4,2,A3-1,Francisco José Vázquez Polo,1-10
+GIFM,Recocido Simulado,3,2,1,C3Q2_16_B1_FILA15,IE,Laboratorio,practica,41,Lunes,12:30-14:30,4,2,L1-1,Simón Rodríguez Santana,11-15
+GIFM,Recocido Simulado,3,2,1,C3Q2_10_B3_FILA9,ESM,Laboratorio,practica,41,Lunes,14:30-16:30,6,2,L3-3,Antonio Alejandro Valido Flores,7-15
+GIFM,Recocido Simulado,3,2,1,C3Q2_07_B2_FILA6,AP,Teoría,teoria,17,Martes,08:30-09:30,8,1,A3-1,Francisco Mario Hernández Tejera,1-8
+GIFM,Recocido Simulado,3,2,1,C3Q2_09_B1_FILA8,FFFT,Laboratorio,practica,41,Martes,08:30-10:30,8,2,LF-4,Ángel Rodríguez Santana,11-15
+GIFM,Recocido Simulado,3,2,1,C3Q2_04_B1_FILA3,MMA3,Teoría,teoria,17,Martes,09:30-11:30,9,2,A3-1,Begoña González Landín,1-7
+GIFM,Recocido Simulado,3,2,1,C3Q2_01_B2_FILA0,FFFT,Teoría,teoria,17,Martes,11:30-13:30,11,2,A3-1,María de los Ángeles Marrero Diaz,1-11
+GIFM,Recocido Simulado,3,2,1,C3Q2_10_B4_FILA9,ESM,Laboratorio,practica,41,Martes,13:30-14:30,13,1,L3-5,Antonio Alejandro Valido Flores,7-15
+GIFM,Recocido Simulado,3,2,1,C3Q2_15_B1_FILA14,AP,Laboratorio,practica,41,Martes,14:30-16:30,14,2,L2-1,Jose Carlos Rodríguez Rodríguez,8-15
+GIFM,Recocido Simulado,3,2,1,C3Q2_02_B1_FILA1,ESM,Teoría,teoria,17,Martes,14:30-16:30,14,2,A3-1,Antonio Alejandro Valido Flores,1-7
+GIFM,Recocido Simulado,3,2,1,C3Q2_09_B2_FILA8,FFFT,Laboratorio,practica,41,Miércoles,08:30-10:30,16,2,L1-3,Ángel Rodríguez Santana,11-15
+GIFM,Recocido Simulado,3,2,1,C3Q2_06_B1_FILA5,FO,Teoría,teoria,17,Miércoles,08:30-10:30,16,2,A3-1,Alonso Hernández Guerra,1-10
+GIFM,Recocido Simulado,3,2,1,C3Q2_15_B2_FILA14,AP,Laboratorio,practica,41,Miércoles,10:30-11:30,18,1,L3-2,Jose Carlos Rodríguez Rodríguez,8-15
+GIFM,Recocido Simulado,3,2,1,C3Q2_02_B3_FILA1,ESM,Teoría,teoria,17,Miércoles,10:30-11:30,18,1,A3-1,Antonio Alejandro Valido Flores,1-7
+GIFM,Recocido Simulado,3,2,1,C3Q2_04_B2_FILA3,MMA3,Teoría,teoria,17,Miércoles,11:30-13:30,19,2,A3-1,Begoña González Landín,1-7
+GIFM,Recocido Simulado,3,2,1,C3Q2_12_B2_FILA11,MMA3,Laboratorio,practica,41,Miércoles,11:30-13:30,19,2,L2-5,Begoña González Landín,8-15
+GIFM,Recocido Simulado,3,2,1,C3Q2_01_B3_FILA0,FFFT,Teoría,teoria,17,Miércoles,13:30-14:30,21,1,A3-1,María de los Ángeles Marrero Diaz,1-11
+GIFM,Recocido Simulado,3,2,1,C3Q2_14_B1_FILA13,FO,Laboratorio,practica,41,Miércoles,14:30-16:30,22,2,L3-4,Alonso Hernández Guerra,11-15
+GIFM,Recocido Simulado,3,2,1,C3Q2_02_B2_FILA1,ESM,Teoría,teoria,17,Jueves,08:30-10:30,24,2,A3-1,Antonio Alejandro Valido Flores,1-7
+GIFM,Recocido Simulado,3,2,1,C3Q2_12_B1_FILA11,MMA3,Laboratorio,practica,41,Jueves,08:30-10:30,24,2,L1-1,Begoña González Landín,8-15
+GIFM,Recocido Simulado,3,2,1,C3Q2_11_B3_FILA10,IM,Laboratorio,practica,41,Jueves,10:30-11:30,26,1,L2-3,Juan Montiel Caminos,"1,9-15"
+GIFM,Recocido Simulado,3,2,1,C3Q2_07_B1_FILA6,AP,Teoría,teoria,17,Jueves,11:30-13:30,27,2,A3-1,Francisco Mario Hernández Tejera,1-8
+GIFM,Recocido Simulado,3,2,1,C3Q2_16_B2_FILA15,IE,Laboratorio,practica,41,Jueves,11:30-13:30,27,2,L2-4,Simón Rodríguez Santana,11-15
+GIFM,Recocido Simulado,3,2,1,C3Q2_10_B2_FILA9,ESM,Laboratorio,practica,41,Jueves,13:30-15:30,29,2,L1-1,Antonio Alejandro Valido Flores,7-15
+GIFM,Recocido Simulado,3,2,1,C3Q2_03_B1_FILA2,IM,Teoría,teoria,17,Viernes,08:30-10:30,32,2,A3-1,Juan Antonio Montiel Nelson,1-13
+GIFM,Recocido Simulado,3,2,1,C3Q2_11_B1_FILA10,IM,Laboratorio,practica,41,Viernes,10:30-12:30,34,2,L1-1,Juan Montiel Caminos,"1,9-15"
+GIFM,Recocido Simulado,3,2,1,C3Q2_10_B1_FILA9,ESM,Laboratorio,practica,41,Viernes,12:30-14:30,36,2,L1-2,Antonio Alejandro Valido Flores,7-15
+GIFM,Recocido Simulado,3,2,1,C3Q2_05_B1_FILA4,FPAT,Teoría,teoria,17,Viernes,14:30-16:30,38,2,A3-1,Rafael Rodríguez Pérez,1-13
+GIFM,CP-SAT,3,2,1,C3Q2_01_B1_FILA0,FFFT,Teoría,teoria,17,Miércoles,10:30-12:30,18,2,A3-1,María de los Ángeles Marrero Diaz,1-11
+GIFM,CP-SAT,3,2,1,C3Q2_01_B2_FILA0,FFFT,Teoría,teoria,17,Viernes,10:30-12:30,34,2,A3-1,María de los Ángeles Marrero Diaz,1-11
+GIFM,CP-SAT,3,2,1,C3Q2_01_B3_FILA0,FFFT,Teoría,teoria,17,Lunes,13:30-14:30,5,1,A3-1,María de los Ángeles Marrero Diaz,1-11
+GIFM,CP-SAT,3,2,1,C3Q2_02_B1_FILA1,ESM,Teoría,teoria,17,Lunes,14:30-16:30,6,2,A3-1,Antonio Alejandro Valido Flores,1-7
+GIFM,CP-SAT,3,2,1,C3Q2_02_B2_FILA1,ESM,Teoría,teoria,17,Martes,08:30-10:30,8,2,A3-1,Antonio Alejandro Valido Flores,1-7
+GIFM,CP-SAT,3,2,1,C3Q2_02_B3_FILA1,ESM,Teoría,teoria,17,Jueves,08:30-09:30,24,1,A3-1,Antonio Alejandro Valido Flores,1-7
+GIFM,CP-SAT,3,2,1,C3Q2_03_B1_FILA2,IM,Teoría,teoria,17,Jueves,14:30-16:30,30,2,A3-1,Juan Antonio Montiel Nelson,1-13
+GIFM,CP-SAT,3,2,1,C3Q2_04_B1_FILA3,MMA3,Teoría,teoria,17,Jueves,11:30-13:30,27,2,A3-1,Begoña González Landín,1-7
+GIFM,CP-SAT,3,2,1,C3Q2_04_B2_FILA3,MMA3,Teoría,teoria,17,Lunes,08:30-10:30,0,2,A3-1,Begoña González Landín,1-7
+GIFM,CP-SAT,3,2,1,C3Q2_05_B1_FILA4,FPAT,Teoría,teoria,17,Viernes,08:30-10:30,32,2,A3-1,Rafael Rodríguez Pérez,1-13
+GIFM,CP-SAT,3,2,1,C3Q2_06_B1_FILA5,FO,Teoría,teoria,17,Miércoles,08:30-10:30,16,2,A3-1,Alonso Hernández Guerra,1-10
+GIFM,CP-SAT,3,2,1,C3Q2_07_B1_FILA6,AP,Teoría,teoria,17,Martes,10:30-12:30,10,2,A3-1,Francisco Mario Hernández Tejera,1-8
+GIFM,CP-SAT,3,2,1,C3Q2_07_B2_FILA6,AP,Teoría,teoria,17,Lunes,11:30-12:30,3,1,A3-1,Francisco Mario Hernández Tejera,1-8
+GIFM,CP-SAT,3,2,1,C3Q2_08_B1_FILA7,IE,Teoría,teoria,17,Miércoles,12:30-14:30,20,2,A3-1,Francisco José Vázquez Polo,1-10
+GIFM,CP-SAT,3,2,1,C3Q2_09_B1_FILA8,FFFT,Laboratorio,practica,41,Miércoles,08:30-10:30,16,2,LF-4,Ángel Rodríguez Santana,11-15
+GIFM,CP-SAT,3,2,1,C3Q2_09_B2_FILA8,FFFT,Laboratorio,practica,41,Lunes,14:30-16:30,6,2,L2-2,Ángel Rodríguez Santana,11-15
+GIFM,CP-SAT,3,2,1,C3Q2_10_B1_FILA9,ESM,Laboratorio,practica,41,Jueves,09:30-11:30,25,2,L1-2,Antonio Alejandro Valido Flores,7-15
+GIFM,CP-SAT,3,2,1,C3Q2_10_B2_FILA9,ESM,Laboratorio,practica,41,Miércoles,14:30-16:30,22,2,L1-1,Antonio Alejandro Valido Flores,7-15
+GIFM,CP-SAT,3,2,1,C3Q2_10_B3_FILA9,ESM,Laboratorio,practica,41,Martes,14:30-16:30,14,2,L3-3,Antonio Alejandro Valido Flores,7-15
+GIFM,CP-SAT,3,2,1,C3Q2_10_B4_FILA9,ESM,Laboratorio,practica,41,Lunes,12:30-13:30,4,1,LF-4,Antonio Alejandro Valido Flores,7-15
+GIFM,CP-SAT,3,2,1,C3Q2_11_B1_FILA10,IM,Laboratorio,practica,41,Martes,12:30-14:30,12,2,L1-1,Juan Montiel Caminos,"1,9-15"
+GIFM,CP-SAT,3,2,1,C3Q2_11_B2_FILA10,IM,Laboratorio,practica,41,Viernes,12:30-14:30,36,2,L2-2,Juan Montiel Caminos,"1,9-15"
+GIFM,CP-SAT,3,2,1,C3Q2_11_B3_FILA10,IM,Laboratorio,practica,41,Jueves,13:30-14:30,29,1,L2-3,Juan Montiel Caminos,"1,9-15"
+GIFM,CP-SAT,3,2,1,C3Q2_12_B1_FILA11,MMA3,Laboratorio,practica,41,Jueves,11:30-13:30,27,2,L1-2,Begoña González Landín,8-15
+GIFM,CP-SAT,3,2,1,C3Q2_12_B2_FILA11,MMA3,Laboratorio,practica,41,Lunes,08:30-10:30,0,2,L2-5,Begoña González Landín,8-15
+GIFM,CP-SAT,3,2,1,C3Q2_13_B1_FILA12,FPAT,Laboratorio,practica,41,Miércoles,10:30-12:30,18,2,L3-1,Juan Miguel Gil de la Fe,14-15
+GIFM,CP-SAT,3,2,1,C3Q2_14_B1_FILA13,FO,Laboratorio,practica,41,Martes,10:30-12:30,10,2,L3-4,Alonso Hernández Guerra,11-15
+GIFM,CP-SAT,3,2,1,C3Q2_15_B1_FILA14,AP,Laboratorio,practica,41,Martes,08:30-10:30,8,2,L2-1,Jose Carlos Rodríguez Rodríguez,8-15
+GIFM,CP-SAT,3,2,1,C3Q2_15_B2_FILA14,AP,Laboratorio,practica,41,Jueves,08:30-09:30,24,1,L3-2,Jose Carlos Rodríguez Rodríguez,8-15
+GIFM,CP-SAT,3,2,1,C3Q2_16_B1_FILA15,IE,Laboratorio,practica,41,Miércoles,12:30-14:30,20,2,L1-1,Simón Rodríguez Santana,11-15
+GIFM,CP-SAT,3,2,1,C3Q2_16_B2_FILA15,IE,Laboratorio,practica,41,Lunes,10:30-12:30,2,2,L2-4,Simón Rodríguez Santana,11-15
+GIFM,Recocido Simulado,4,1,1,C4Q1_15_B1_FILA14,FRIAT,Laboratorio,practica,41,Lunes,08:30-09:30,0,1,LF-4,Jesús García Rubiano,6-15
+GIFM,Recocido Simulado,4,1,1,C4Q1_05_B1_FILA4,DGDM,Teoría,teoria,17,Lunes,09:30-11:30,1,2,A3-1,Ángel Rodríguez Santana,1-5
+GIFM,Recocido Simulado,4,1,1,C4Q1_13_B1_FILA12,DGDM,Laboratorio,practica,41,Lunes,09:30-10:30,1,1,L2-4,Ángel Rodríguez Santana,6-15
+GIFM,Recocido Simulado,4,1,1,C4Q1_10_B1_FILA9,FESC,Laboratorio,practica,41,Lunes,10:30-11:30,2,1,L3-1,Rafael Rodríguez Pérez,10-15
+GIFM,Recocido Simulado,4,1,1,C4Q1_03_B1_FILA2,PI,Teoría,teoria,17,Lunes,11:30-13:30,3,2,A3-1,Juan Antonio Guerra Montenegro,1-15
+GIFM,Recocido Simulado,4,1,1,C4Q1_02_B2_FILA1,FESC,Teoría,teoria,17,Lunes,13:30-14:30,5,1,A3-1,Rafael Rodríguez Pérez,1-9
+GIFM,Recocido Simulado,4,1,1,C4Q1_09_B1_FILA8,MCAT,Laboratorio,practica,41,Lunes,13:30-14:30,5,1,LF-4,Rafael Rodríguez Pérez,12-15
+GIFM,Recocido Simulado,4,1,1,C4Q1_04_B1_FILA3,AM4,Teoría,teoria,17,Martes,08:30-10:30,6,2,A3-1,Jackie Jerónimo Harjani Saúco,1-10
+GIFM,Recocido Simulado,4,1,1,C4Q1_12_B1_FILA11,AM4,Laboratorio,practica,41,Martes,09:30-11:30,7,2,L3-3,Jackie Jerónimo Harjani Saúco,11-15
+GIFM,Recocido Simulado,4,1,1,C4Q1_02_B1_FILA1,FESC,Teoría,teoria,17,Martes,10:30-12:30,8,2,A3-1,Rafael Rodríguez Pérez,1-9
+GIFM,Recocido Simulado,4,1,1,C4Q1_14_B1_FILA13,DF,Laboratorio,practica,41,Martes,11:30-12:30,9,1,L3-2,Antonio Hernández Ballester,10-15
+GIFM,Recocido Simulado,4,1,1,C4Q1_01_B1_FILA0,MCAT,Teoría,teoria,17,Martes,12:30-14:30,10,2,A3-1,Rafael Rodríguez Pérez,1-11
+GIFM,Recocido Simulado,4,1,1,C4Q1_08_B1_FILA7,MEM,Teoría,teoria,17,Miércoles,08:30-10:30,12,2,A3-1,Pedro Saavedra Sanatana,1-5
+GIFM,Recocido Simulado,4,1,1,C4Q1_16_B1_FILA15,MEM,Laboratorio,practica,41,Miércoles,08:30-10:30,12,2,L3-3,Ángelo Santana del Pino,6-15
+GIFM,Recocido Simulado,4,1,1,C4Q1_01_B2_FILA0,MCAT,Teoría,teoria,17,Miércoles,10:30-12:30,14,2,A3-1,Rafael Rodríguez Pérez,1-11
+GIFM,Recocido Simulado,4,1,1,C4Q1_04_B2_FILA3,AM4,Teoría,teoria,17,Miércoles,13:30-14:30,17,1,A3-1,Jackie Jerónimo Harjani Saúco,1-10
+GIFM,Recocido Simulado,4,1,1,C4Q1_11_B1_FILA10,PI,Laboratorio,practica,41,Jueves,08:30-10:30,18,2,LF-4,Juan Manuel Cerezo Sánchez,1-15
+GIFM,Recocido Simulado,4,1,1,C4Q1_06_B1_FILA5,DF,Teoría,teoria,17,Jueves,10:30-12:30,20,2,A3-1,Antonio Hernández Ballester,1-9
+GIFM,Recocido Simulado,4,1,1,C4Q1_07_B1_FILA6,FRIAT,Teoría,teoria,17,Jueves,12:30-14:30,22,2,A3-1,Jesús García Rubiano,1-5
+GIFM,CP-SAT,4,1,1,C4Q1_01_B1_FILA0,MCAT,Teoría,teoria,17,Martes,12:30-14:30,10,2,A3-1,Rafael Rodríguez Pérez,1-11
+GIFM,CP-SAT,4,1,1,C4Q1_01_B2_FILA0,MCAT,Teoría,teoria,17,Lunes,12:30-14:30,4,2,A3-1,Rafael Rodríguez Pérez,1-11
+GIFM,CP-SAT,4,1,1,C4Q1_02_B1_FILA1,FESC,Teoría,teoria,17,Martes,08:30-10:30,6,2,A3-1,Rafael Rodríguez Pérez,1-9
+GIFM,CP-SAT,4,1,1,C4Q1_02_B2_FILA1,FESC,Teoría,teoria,17,Lunes,09:30-10:30,1,1,A3-1,Rafael Rodríguez Pérez,1-9
+GIFM,CP-SAT,4,1,1,C4Q1_03_B1_FILA2,PI,Teoría,teoria,17,Jueves,08:30-10:30,18,2,A3-1,Juan Antonio Guerra Montenegro,1-15
+GIFM,CP-SAT,4,1,1,C4Q1_04_B1_FILA3,AM4,Teoría,teoria,17,Martes,10:30-12:30,8,2,A3-1,Jackie Jerónimo Harjani Saúco,1-10
+GIFM,CP-SAT,4,1,1,C4Q1_04_B2_FILA3,AM4,Teoría,teoria,17,Lunes,11:30-12:30,3,1,A3-1,Jackie Jerónimo Harjani Saúco,1-10
+GIFM,CP-SAT,4,1,1,C4Q1_05_B1_FILA4,DGDM,Teoría,teoria,17,Jueves,10:30-12:30,20,2,A3-1,Ángel Rodríguez Santana,1-5
+GIFM,CP-SAT,4,1,1,C4Q1_06_B1_FILA5,DF,Teoría,teoria,17,Miércoles,10:30-12:30,14,2,A3-1,Antonio Hernández Ballester,1-9
+GIFM,CP-SAT,4,1,1,C4Q1_07_B1_FILA6,FRIAT,Teoría,teoria,17,Miércoles,08:30-10:30,12,2,A3-1,Jesús García Rubiano,1-5
+GIFM,CP-SAT,4,1,1,C4Q1_08_B1_FILA7,MEM,Teoría,teoria,17,Jueves,12:30-14:30,22,2,A3-1,Pedro Saavedra Sanatana,1-5
+GIFM,CP-SAT,4,1,1,C4Q1_09_B1_FILA8,MCAT,Laboratorio,practica,41,Lunes,11:30-12:30,3,1,LF-4,Rafael Rodríguez Pérez,12-15
+GIFM,CP-SAT,4,1,1,C4Q1_10_B1_FILA9,FESC,Laboratorio,practica,41,Martes,08:30-09:30,6,1,L2-5,Rafael Rodríguez Pérez,10-15
+GIFM,CP-SAT,4,1,1,C4Q1_11_B1_FILA10,PI,Laboratorio,practica,41,Miércoles,12:30-14:30,16,2,L3-4,Juan Manuel Cerezo Sánchez,1-15
+GIFM,CP-SAT,4,1,1,C4Q1_12_B1_FILA11,AM4,Laboratorio,practica,41,Martes,09:30-11:30,7,2,L3-3,Jackie Jerónimo Harjani Saúco,11-15
+GIFM,CP-SAT,4,1,1,C4Q1_13_B1_FILA12,DGDM,Laboratorio,practica,41,Lunes,10:30-11:30,2,1,L2-4,Ángel Rodríguez Santana,6-15
+GIFM,CP-SAT,4,1,1,C4Q1_14_B1_FILA13,DF,Laboratorio,practica,41,Lunes,09:30-10:30,1,1,L3-1,Antonio Hernández Ballester,10-15
+GIFM,CP-SAT,4,1,1,C4Q1_15_B1_FILA14,FRIAT,Laboratorio,practica,41,Lunes,08:30-09:30,0,1,LF-4,Jesús García Rubiano,6-15
+GIFM,CP-SAT,4,1,1,C4Q1_16_B1_FILA15,MEM,Laboratorio,practica,41,Miércoles,08:30-10:30,12,2,L3-2,Ángelo Santana del Pino,6-15
+GIFM,Recocido Simulado,4,2,1,C4Q2_06_B1_FILA5,EB,Laboratorio,practica,41,Lunes,08:30-10:30,0,2,L3-3,Simón Rodríguez Santana,6-15
+GIFM,Recocido Simulado,4,2,1,C4Q2_04_B1_FILA3,RC,Teoría,teoria,17,Lunes,08:30-10:30,0,2,A3-1,Juan de Dios Hernández,1-5
+GIFM,Recocido Simulado,4,2,1,C4Q2_02_B1_FILA1,EB,Teoría,teoria,17,Lunes,10:30-12:30,2,2,A3-1,Francisco José Vázquez Polo,1-5
+GIFM,Recocido Simulado,4,2,1,C4Q2_08_B1_FILA7,RC,Laboratorio,practica,41,Lunes,10:30-12:30,2,2,L3-4,Juan de Dios Hernández,6-15
+GIFM,Recocido Simulado,4,2,1,C4Q2_03_B1_FILA2,MSFADE,Teoría,teoria,17,Lunes,12:30-14:30,4,2,A3-1,Juan Miguel Gil de la Fe,1-5
+GIFM,Recocido Simulado,4,2,1,C4Q2_01_B1_FILA0,CC,Teoría,teoria,17,Viernes,09:30-10:30,25,1,A3-1,José Carlos Ruiz Luque,1-15
+GIFM,Recocido Simulado,4,2,1,C4Q2_05_B1_FILA4,CC,Laboratorio,practica,41,Viernes,10:30-11:30,26,1,LF-4,Carmelo Cuenca Hernández,1-15
+GIFM,Recocido Simulado,4,2,1,C4Q2_07_B1_FILA6,MSFADE,Laboratorio,practica,41,Viernes,11:30-12:30,27,1,LF-4,Juan Miguel Gil de la Fe,6-15
+GIFM,CP-SAT,4,2,1,C4Q2_01_B1_FILA0,CC,Teoría,teoria,17,Lunes,10:30-11:30,2,1,A3-1,José Carlos Ruiz Luque,1-15
+GIFM,CP-SAT,4,2,1,C4Q2_02_B1_FILA1,EB,Teoría,teoria,17,Martes,08:30-10:30,6,2,A3-1,Francisco José Vázquez Polo,1-5
+GIFM,CP-SAT,4,2,1,C4Q2_03_B1_FILA2,MSFADE,Teoría,teoria,17,Martes,10:30-12:30,8,2,A3-1,Juan Miguel Gil de la Fe,1-5
+GIFM,CP-SAT,4,2,1,C4Q2_04_B1_FILA3,RC,Teoría,teoria,17,Lunes,11:30-13:30,3,2,A3-1,Juan de Dios Hernández,1-5
+GIFM,CP-SAT,4,2,1,C4Q2_05_B1_FILA4,CC,Laboratorio,practica,41,Lunes,09:30-10:30,1,1,LF-4,Carmelo Cuenca Hernández,1-15
+GIFM,CP-SAT,4,2,1,C4Q2_06_B1_FILA5,EB,Laboratorio,practica,41,Martes,08:30-10:30,6,2,L3-3,Simón Rodríguez Santana,6-15
+GIFM,CP-SAT,4,2,1,C4Q2_07_B1_FILA6,MSFADE,Laboratorio,practica,41,Lunes,08:30-09:30,0,1,LF-4,Juan Miguel Gil de la Fe,6-15
+GIFM,CP-SAT,4,2,1,C4Q2_08_B1_FILA7,RC,Laboratorio,practica,41,Lunes,11:30-13:30,3,2,L3-4,Juan de Dios Hernández,6-15

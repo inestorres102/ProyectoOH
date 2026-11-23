@@ -14,29 +14,34 @@ El repositorio unifica de forma modular e independiente las **tres titulaciones 
 
 ```text
 ProyectoOH/
-├── app.py                   # Cuadro de mandos interactivo unificado (Streamlit)
-├── live_runner.py           # Ejecutor aislado en subproceso para el Simulador en Vivo
-├── .streamlit/config.toml   # Configuración visual (tema académico ULPGC)
-├── requirements.txt         # Dependencias unificadas del proyecto completo
-├── README.md                # Documentación general del proyecto integrado
-├── GII/                     # Grado en Ingeniería Informática (4 cursos, mañana y tarde)
-│   ├── datos/               # clases.csv (364 sesiones) y aulas.csv (27 aulas)
-│   ├── src/                 # CP-SAT, Recocido Simulado propio, restricciones, visualizador y benchmark
-│   ├── horarios/            # 18 horarios PNG (1º–4º, Grupos 1, 2, 3 y vistas conjuntas)
-│   ├── memoria/             # MEMORIA.md, benchmark_resultados.csv y gráficas experimentales
-│   ├── horario_GII_2026_2027.pdf  # Horario oficial de la EII para comparativa visual
+├── app.py                        # Cuadro de mandos interactivo unificado (Streamlit)
+├── live_runner.py                # Ejecutor aislado en subproceso para el Simulador en Vivo
+├── generar_activos_integracion.py# Generador reproducible de activos unificados y horarios SA de GII
+├── dashboard_data/               # Caché unificada de horarios resueltos (CP-SAT y SA, 3 carreras)
+├── .streamlit/config.toml        # Configuración visual (tema académico ULPGC)
+├── requirements.txt              # Dependencias unificadas del proyecto completo
+├── README.md                     # Documentación general del proyecto integrado
+├── GII/                          # Grado en Ingeniería Informática (4 cursos, mañana y tarde)
+│   ├── datos/                    # clases.csv (364 sesiones) y aulas.csv (27 aulas)
+│   ├── src/                      # CP-SAT, Recocido Simulado propio, restricciones, visualizador y benchmark
+│   ├── horarios/                 # 18 horarios PNG (CP-SAT: 1º–4º, Grupos 1, 2, 3 y conjuntos)
+│   ├── horarios_SA/              # 18 horarios PNG (Recocido Simulado: 1º–4º, Grupos 1, 2, 3 y conjuntos)
+│   ├── memoria/                  # MEMORIA.md, benchmark_resultados.csv y gráficas experimentales
+│   ├── horario_GII_2026_2027.pdf # Horario oficial EII 2026–2027 (contraste visual)
 │   └── README.md
-├── GCID/                    # Grado en Ciencia e Ingeniería de Datos (4 cursos)
-│   ├── datos/               # clases_gcid.csv (150 sesiones) y aulas.csv (26 aulas)
-│   ├── src/                 # CP-SAT global, Recocido Simulado (60.000 iter.), restricciones y visualizador
-│   ├── horarios_CP-SAT/     # 8 horarios PNG (1º–4º, S1 y S2)
-│   ├── horarios_metaheuristica/ # 8 horarios PNG generados por Recocido Simulado
-│   ├── graficas/            # Curvas de convergencia SA (1er y 2º semestre)
+├── GCID/                         # Grado en Ciencia e Ingeniería de Datos (4 cursos)
+│   ├── datos/                    # clases_gcid.csv (150 sesiones) y aulas.csv (26 aulas)
+│   ├── src/                      # CP-SAT global, Recocido Simulado (60.000 iter.), restricciones y visualizador
+│   ├── horarios_CP-SAT/          # 8 horarios PNG (1º–4º, S1 y S2)
+│   ├── horarios_metaheuristica/  # 8 horarios PNG generados por Recocido Simulado
+│   ├── graficas/                 # Curvas de convergencia SA (1er y 2º semestre)
+│   ├── horario_GCID_2026_2027.pdf# Horario oficial EII 2026–2027 (contraste visual)
 │   └── README.md
-└── GIFM/                    # Grado en Ingeniería Física y Matemática (4 cursos)
-    ├── datos/               # clases.csv (84 sesiones base), datos originales y aulas.csv (27 aulas)
-    ├── src/                 # CP-SAT, paquete metaheuristica/ (SA híbrido), restricciones y visualizador
-    └── resultados/          # 16 horarios PNG (8 CP-SAT + 8 SA), CSVs resueltos y estadísticas SA
+└── GIFM/                         # Grado en Ingeniería Física y Matemática (4 cursos)
+    ├── datos/                    # clases.csv (84 sesiones base), datos originales y aulas.csv (27 aulas)
+    ├── src/                      # CP-SAT, paquete metaheuristica/ (SA híbrido), restricciones y visualizador
+    ├── resultados/               # 16 horarios PNG (8 CP-SAT + 8 SA), CSVs resueltos y estadísticas SA
+    └── horario_GIFM_2026_2027.pdf# Horario oficial EII 2026–2027 (contraste visual)
 ```
 
 ---
@@ -47,7 +52,7 @@ Se recomienda Python 3.10 o superior. Desde la raíz del repositorio:
 
 ```bash
 pip install -r requirements.txt
-streamlit run app.py
+python -m streamlit run app.py
 ```
 
 ### Vistas incluidas en el cuadro de mandos (`app.py`)
