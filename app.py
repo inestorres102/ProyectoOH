@@ -22,6 +22,14 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import streamlit as st
 
+from interactive_tools import (
+    calcular_huecos_estudiante,
+    detectar_subgrupos_disponibles,
+    evaluar_horario_manual,
+    filtrar_horario_subgrupo,
+    generar_ics,
+)
+
 try:
     import pymupdf
     from PIL import Image
@@ -516,13 +524,16 @@ def mostrar_leyenda(paleta: str = "eii"):
         )
 
 
-def renderizar_cuadricula_html(df_bloques: pd.DataFrame, titulo_barra: str, filtro_texto: str = "") -> str:
+def renderizar_cuadricula_html(
+    df_bloques: pd.DataFrame,
+    titulo_barra: str,
+    filtro_texto: str = "",
+    celdas_conflicto: set | None = None,
+) -> str:
     """Genera una cuadrícula semanal HTML limpia y 100% uniforme en las 3 titulaciones."""
     if df_bloques.empty:
         return "<p>No hay sesiones resueltas para mostrar.</p>"
 
-    # Detectar horas de inicio (mañana 08:30, tarde 14:30, o ampliada 08:30-16:30)
-    slots_min = int(df_bloques["Slot"].min())
     es_tarde = any(str(h).startswith(("14:30", "15:30", "16:30", "17:30", "18:30", "19:30")) for h in df_bloques["Hora"]) and not any(
         str(h).startswith(("08:30", "09:30", "10:30", "11:30")) for h in df_bloques["Hora"]
     )
@@ -530,15 +541,11 @@ def renderizar_cuadricula_html(df_bloques: pd.DataFrame, titulo_barra: str, filt
     if es_tarde:
         h_ini, n_horas = 14, 6
     else:
-        # Comprobar si hay horario ampliado hasta las 16:30 (3º GIFM C2)
+        necesita_12 = any(str(h).startswith(("16:30", "17:30", "18:30", "19:30")) for h in df_bloques["Hora"])
         necesita_8 = any(str(h).endswith(("15:30", "16:30")) or str(h).startswith(("14:30", "15:30")) for h in df_bloques["Hora"])
-        h_ini, n_horas = 8, (8 if necesita_8 else 6)
+        h_ini, n_horas = 8, (12 if necesita_12 else (8 if necesita_8 else 6))
 
     horas_labels = [f"{h_ini + i:02d}:30-{h_ini + i + 1:02d}:30" for i in range(n_horas)]
-
-    # Colocar cada bloque en su celda (dia, hora_idx) con rowspan = duracion
-    # Si hay varios bloques solapados en un mismo día/hora (subgrupos distintos), los agrupamos en la celda de inicio
-    # Para que las tablas HTML nunca se rompan con rowspans cruzados entre subgrupos, renderizamos por hora con tarjetas limpias
     celdas: dict[tuple[str, int], list[dict]] = {(d, h): [] for d in DIAS_ORDEN for h in range(n_horas)}
 
     q = filtro_texto.strip().lower()
@@ -568,7 +575,7 @@ def renderizar_cuadricula_html(df_bloques: pd.DataFrame, titulo_barra: str, filt
                     "grupo": str(r["Grupo"]),
                     "aula": str(r["Aula"]),
                     "prof": str(r["Profesor"]),
-                    "sem": str(r["Semanas"]),
+                    "sem": str(r.get("Semanas", "1-15")),
                     "dur": dur,
                     "cont": offset > 0,
                     "match": coincide,
@@ -580,13 +587,16 @@ def renderizar_cuadricula_html(df_bloques: pd.DataFrame, titulo_barra: str, filt
         "Laboratorio": "tt-card-lab",
     }
 
+    conflictos_set = celdas_conflicto or set()
     rows_html = []
     for h_idx, h_lbl in enumerate(horas_labels):
+        h_real = h_ini + h_idx
         tds = [f'<td class="tt-time">{h_lbl}</td>']
         for d in DIAS_ORDEN:
             items = sorted(celdas[(d, h_idx)], key=lambda x: (x["mod"] != "Teoría", x["grupo"], x["asig"]))
+            td_cls = ' class="tt-cell-conflict"' if (d, h_real) in conflictos_set else ""
             if not items:
-                tds.append("<td></td>")
+                tds.append(f"<td{td_cls}></td>")
                 continue
             cards = []
             for it in items:
@@ -603,14 +613,20 @@ def renderizar_cuadricula_html(df_bloques: pd.DataFrame, titulo_barra: str, filt
                     f'<div class="tt-prof">{html.escape(it["prof"])}</div>'
                     f'</div>'
                 )
-            tds.append(f'<td><div class="tt-cell-flex">{"".join(cards)}</div></td>')
+            tds.append(f'<td{td_cls}><div class="tt-cell-flex">{"".join(cards)}</div></td>')
         rows_html.append(f'<tr>{"".join(tds)}</tr>')
 
     ths = '<th class="tt-hcol">HORA</th>' + "".join(f"<th>{d.upper()}</th>" for d in DIAS_ORDEN)
+    badge_right = (
+        f"⚠️ {len(conflictos_set)} celda(s) en conflicto resaltadas en rojo"
+        if conflictos_set
+        else "Pasa el ratón por cualquier tarjeta para ver el detalle completo"
+    )
+    badge_color = "#FCA5A5" if conflictos_set else "#BFDBFE"
     return (
         f'<div class="tt-wrap">'
         f'<div class="tt-header"><span>{html.escape(titulo_barra)}</span>'
-        f'<span style="font-size:0.78rem; font-weight:600; color:#BFDBFE;">Pasa el ratón por cualquier tarjeta para ver el detalle completo</span></div>'
+        f'<span style="font-size:0.78rem; font-weight:600; color:{badge_color};">{html.escape(badge_right)}</span></div>'
         f'<table class="tt-table"><thead><tr>{ths}</tr></thead><tbody>{"".join(rows_html)}</tbody></table>'
         f'</div>'
     )
@@ -764,16 +780,45 @@ with st.sidebar:
     )
 
     st.divider()
-    st.markdown("**Resumen integrado**")
-    st.caption(
-        f"• **3 titulaciones:** GII, GCID y GIFM\n"
-        f"• **24 calendarios** (1º–4º · S1 y S2)\n"
-        f"• **{len(df_catalogo)} sesiones** ({int(df_catalogo['Horas'].sum())} h semanales)\n"
-        f"• **3 PDFs oficiales EII** integrados\n"
-        f"• **Motores:** CP-SAT + Recocido Simulado"
+    modo_presentacion = st.toggle(
+        "🖥️ Modo Presentación (Proyector)",
+        value=False,
+        help="Amplía tipografía, tarjetas y métricas para máxima legibilidad en el aula.",
     )
-    st.divider()
-    st.caption("Equipo: Yone (GII) · Inés (GCID) · María (GIFM)")
+
+    if not modo_presentacion:
+        st.divider()
+        st.markdown("**Resumen integrado**")
+        st.caption(
+            f"• **3 titulaciones:** GII, GCID y GIFM\n"
+            f"• **24 calendarios** (1º–4º · S1 y S2)\n"
+            f"• **{len(df_catalogo)} sesiones** ({int(df_catalogo['Horas'].sum())} h semanales)\n"
+            f"• **3 PDFs oficiales EII** integrados\n"
+            f"• **Motores:** CP-SAT + Recocido Simulado"
+        )
+        st.divider()
+        st.caption("Equipo: Yone · Inés · María")
+
+if modo_presentacion:
+    st.markdown(
+        """
+        <style>
+        .block-container { padding-top: 0.7rem !important; max-width: 98% !important; }
+        .eii-hero { padding: 0.95rem 1.35rem !important; margin-bottom: 0.85rem !important; }
+        .eii-hero h1 { font-size: 1.95rem !important; }
+        .eii-hero p { font-size: 1.04rem !important; }
+        .tt-table th { font-size: 0.95rem !important; padding: 0.65rem 0.5rem !important; }
+        .tt-table td { height: 82px !important; }
+        .tt-table td.tt-time { font-size: 0.9rem !important; width: 122px !important; }
+        .tt-asig { font-size: 0.95rem !important; }
+        .tt-meta { font-size: 0.84rem !important; }
+        .tt-prof { font-size: 0.76rem !important; }
+        div[data-testid="stMetricValue"] { font-size: 2.15rem !important; }
+        div[data-testid="stMetricLabel"] { font-size: 0.95rem !important; }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -865,14 +910,16 @@ if vista == "🗓️ Explorador de Horarios":
     elif tit == "GIFM" and curso == 3 and cuatri == 2:
         st.info("📌 **3º GIFM (2º Cuatri):** Alta carga de bloques → activación automática de **jornada ampliada (08:30–16:30)**.")
 
-    # 3 PESTAÑAS LIMPIAS Y 100% HOMOGÉNEAS PARA LAS 3 TITULACIONES
-    tab_int, tab_pdf, tab_tab = st.tabs([
+    # 5 PESTAÑAS INTERACTIVAS HOMOGÉNEAS PARA LAS 3 TITULACIONES
+    tab_int, tab_est, tab_edit, tab_pdf, tab_tab = st.tabs([
         "🗓️ Horario Interactivo (CP-SAT / SA)",
-        "📄 Contraste vs. Horario Oficial EII (PDF)",
-        "📋 Tabla Detallada y Descargas",
+        "🎓 Mi Horario de Estudiante",
+        "🕹️ Editor Manual (Reto vs. Algoritmo)",
+        "📄 Contraste Oficial EII (PDF)",
+        "📋 Tabla y Descargas",
     ])
 
-    def _dibujar_bloques_titulacion(df_g: pd.DataFrame, metodo_lbl: str, filtro_txt: str):
+    def _dibujar_bloques_titulacion(df_g: pd.DataFrame, metodo_lbl: str, filtro_txt: str, celdas_conf: set | None = None):
         if df_g.empty:
             st.warning("No hay caché resuelta disponible para esta combinación. Ejecuta `python generar_activos_integracion.py`.")
             return
@@ -883,7 +930,7 @@ if vista == "🗓️ Explorador de Horarios":
                 t_barra = f"{curso}º GII · {cuatri}º Cuatrimestre · {gp_txt} — {metodo_lbl}"
             else:
                 t_barra = f"{curso}º {tit} · {cuatri}º Cuatrimestre — {metodo_lbl}"
-            st.markdown(renderizar_cuadricula_html(sub_g, t_barra, filtro_texto=filtro_txt), unsafe_allow_html=True)
+            st.markdown(renderizar_cuadricula_html(sub_g, t_barra, filtro_texto=filtro_txt, celdas_conflicto=celdas_conf), unsafe_allow_html=True)
 
     # ---- PESTAÑA 1: HORARIO INTERACTIVO Y COMPARATIVA DIRECTA CP-SAT vs SA ----
     with tab_int:
@@ -908,7 +955,6 @@ if vista == "🗓️ Explorador de Horarios":
         elif met_int == "Recocido Simulado (SA)":
             _dibujar_bloques_titulacion(df_res_sa, "Recocido Simulado (Metaheurística)", q_hl)
         else:
-            # Resumen cuantitativo de diferencias entre CP-SAT y SA
             if not df_res_cp.empty and not df_res_sa.empty:
                 m_cp = df_res_cp.set_index("Sesion")["Slot"].to_dict()
                 m_sa = df_res_sa.set_index("Sesion")["Slot"].to_dict()
@@ -936,7 +982,202 @@ if vista == "🗓️ Explorador de Horarios":
             st.markdown("#### 🟠 Recocido Simulado (Metaheurística)")
             _dibujar_bloques_titulacion(df_res_sa, "Recocido Simulado (SA)", q_hl)
 
-    # ---- PESTAÑA 2: CONTRASTE VS HORARIO OFICIAL EII (PDF 2026-2027) ----
+    # ---- PESTAÑA 2: MODO "MI HORARIO DE ESTUDIANTE" (SUBGRUPO + MULTICURSO + .ICS) ----
+    with tab_est:
+        e1, e2, e3 = st.columns([1.2, 1.3, 1.5])
+        with e1:
+            est_met = st.radio("Algoritmo base:", ["OR-Tools CP-SAT", "Recocido Simulado"], horizontal=True, key="est_met")
+        df_base_est = df_res_cp if est_met == "OR-Tools CP-SAT" else df_res_sa
+
+        # Si en GII estaba la vista conjunta, permitir elegir grupo principal específico para el alumno
+        if tit == "GII" and gp_filtro is None and not df_base_est.empty:
+            gps_e = sorted(df_base_est["GrupoPrincipal"].unique().tolist())
+            with e2:
+                gp_est = st.selectbox("Tu grupo principal:", options=gps_e, format_func=lambda g: f"Grupo {g} (Tarde)" if g == 3 else f"Grupo {g} (Mañana)", key="gp_est")
+            df_base_est = df_base_est[df_base_est["GrupoPrincipal"] == gp_est].copy()
+        else:
+            gp_est = gp_filtro or 1
+
+        subs_disp = detectar_subgrupos_disponibles(df_base_est)
+        with e3 if (tit == "GII" and gp_filtro is None) else e2:
+            if subs_disp:
+                sub_sel = st.selectbox("Tu subgrupo de prácticas:", options=subs_disp, format_func=lambda s: f"Subgrupo {s}", key="sub_est")
+            else:
+                sub_sel = None
+
+        df_mi_hor = filtrar_horario_subgrupo(df_base_est, sub_sel) if sub_sel else df_base_est.copy()
+
+        # Opción avanzada: añadir asignaturas sueltas de OTRO curso (ej. pendientes / matrícula mixta)
+        with st.expander("➕ Añadir asignaturas sueltas de otro curso (matrícula mixta / pendientes)", expanded=False):
+            met_key = "CP-SAT" if est_met == "OR-Tools CP-SAT" else "Recocido Simulado"
+            df_otros = df_resueltos[
+                (df_resueltos["Titulacion"] == tit)
+                & (df_resueltos["Cuatrimestre"] == cuatri)
+                & (df_resueltos["Metodo"] == met_key)
+                & (df_resueltos["Curso"] != curso)
+            ].copy()
+            if not df_otros.empty:
+                df_otros["Etiqueta"] = df_otros.apply(lambda r: f"{int(r['Curso'])}º · {r['Asignatura']}", axis=1)
+                asigs_extra = st.multiselect(
+                    "Selecciona asignaturas de otros cursos para comprobar si te solapan:",
+                    options=sorted(df_otros["Etiqueta"].unique().tolist()),
+                    key="asigs_extra",
+                )
+                if asigs_extra:
+                    for et in asigs_extra:
+                        c_ext = int(et.split("º")[0])
+                        a_ext = et.split("· ")[1].strip()
+                        sub_ext = df_otros[(df_otros["Curso"] == c_ext) & (df_otros["Asignatura"] == a_ext)]
+                        # Quedarse con GrupoPrincipal 1 y el primer subgrupo disponible de prácticas para simular un alumno real
+                        gp_first = int(sub_ext["GrupoPrincipal"].min())
+                        sub_ext = sub_ext[sub_ext["GrupoPrincipal"] == gp_first]
+                        s_first = detectar_subgrupos_disponibles(sub_ext)
+                        if s_first:
+                            sub_ext = filtrar_horario_subgrupo(sub_ext, s_first[0])
+                        df_mi_hor = pd.concat([df_mi_hor, sub_ext], ignore_index=True)
+
+        stats_est = calcular_huecos_estudiante(df_mi_hor)
+        ek1, ek2, ek3, ek4 = st.columns(4)
+        ek1.metric("Tus horas semanales", f"{stats_est['horas_totales']} h")
+        ek2.metric("Días que vas a clase", f"{stats_est['dias_activos']} / 5")
+        ek3.metric(
+            "Huecos (horas libres en medio)",
+            f"{stats_est['huecos_totales']} h",
+            "Compactación perfecta" if stats_est["huecos_totales"] == 0 else "Horas entre clases",
+            delta_color="normal" if stats_est["huecos_totales"] == 0 else "off",
+            delta_arrow="off",
+        )
+        ek4.metric(
+            "Solapes personales",
+            f"{stats_est['solapes']}",
+            "0 choques" if stats_est["solapes"] == 0 else "Conflicto de matrícula mixta",
+            delta_color="normal" if stats_est["solapes"] == 0 else "inverse",
+            delta_arrow="off",
+        )
+
+        # Resaltar en rojo si hubo solape por matrícula mixta
+        celdas_sol_est = set()
+        if stats_est["solapes"] > 0:
+            exp_e = _expandir_franjas_horarias(df_mi_hor)
+            dup_e = exp_e.groupby(["Dia", "HoraIni"]).size()
+            celdas_sol_est = set(dup_e[dup_e > 1].index.tolist())
+
+        mostrar_leyenda("eii")
+        titulo_est = f"Mi Horario Personal — {curso}º {tit} · C{cuatri}" + (f" · Subgrupo {sub_sel}" if sub_sel else "") + f" ({est_met})"
+        st.markdown(renderizar_cuadricula_html(df_mi_hor, titulo_est, celdas_conflicto=celdas_sol_est), unsafe_allow_html=True)
+
+        if not df_mi_hor.empty:
+            ics_est = generar_ics(df_mi_hor, titulo_est, cuatrimestre=cuatri)
+            st.download_button(
+                "📆 Exportar mi horario a Google Calendar / Outlook (.ics)",
+                data=ics_est.encode("utf-8"),
+                file_name=f"mi_horario_{tit}_{curso}_C{cuatri}_G{sub_sel or 'all'}.ics",
+                mime="text/calendar",
+                key="dl_ics_est",
+            )
+
+    # ---- PESTAÑA 3: EDITOR MANUAL INTERACTIVO (RETO VS. ALGORITMO) ----
+    with tab_edit:
+        st.caption(
+            "🕹️ **Demostración de dificultad NP-hard:** mueve manualmente cualquier clase a otro día, hora o aula "
+            "y comprueba en tiempo real qué restricciones duras o blandas se rompen frente a la solución del optimizador."
+        )
+        ed_c1, ed_c2 = st.columns([1.4, 1.0])
+        with ed_c1:
+            ed_met = st.radio("Partir de la solución:", ["OR-Tools CP-SAT", "Recocido Simulado"], horizontal=True, key="ed_met")
+        df_orig_ed = (df_res_cp if ed_met == "OR-Tools CP-SAT" else df_res_sa).copy().reset_index(drop=True)
+        if tit == "GII" and gp_filtro is None and not df_orig_ed.empty:
+            df_orig_ed = df_orig_ed[df_orig_ed["GrupoPrincipal"] == 1].copy().reset_index(drop=True)
+            st.info("ℹ️ Para editar cómodamente en GII, selecciona un grupo específico arriba (mostrando Grupo 1 por defecto).")
+
+        ed_key = f"manual_edits_{tit}_{curso}_{cuatri}_{gp_filtro}_{ed_met}"
+        if ed_key not in st.session_state:
+            st.session_state[ed_key] = {}
+
+        with ed_c2:
+            if st.button("🔄 Restaurar horario óptimo original", key="reset_ed", width="stretch"):
+                st.session_state[ed_key] = {}
+
+        if not df_orig_ed.empty:
+            # Aplicar modificaciones manuales acumuladas
+            df_mod = df_orig_ed.copy()
+            for ses_id, cambios in st.session_state[ed_key].items():
+                mask_s = df_mod["Sesion"] == ses_id
+                if mask_s.any():
+                    df_mod.loc[mask_s, "Dia"] = cambios["Dia"]
+                    df_mod.loc[mask_s, "Hora"] = cambios["Hora"]
+                    df_mod.loc[mask_s, "Aula"] = cambios["Aula"]
+
+            es_tarde_ed = any(str(h).startswith(("14:30", "15:30", "16:30", "17:30", "18:30", "19:30")) for h in df_orig_ed["Hora"]) and not any(
+                str(h).startswith(("08:30", "09:30", "10:30")) for h in df_orig_ed["Hora"]
+            )
+            horas_ed = (
+                ["14:30-15:30", "15:30-16:30", "16:30-17:30", "17:30-18:30", "18:30-19:30", "19:30-20:30"]
+                if es_tarde_ed
+                else ["08:30-09:30", "09:30-10:30", "10:30-11:30", "11:30-12:30", "12:30-13:30", "13:30-14:30"]
+            )
+
+            ses_labels = {
+                r["Sesion"]: f"{r['Asignatura']} ({r['Modalidad']} · G{r['Grupo']}) — ahora: {r['Dia']} {r['Hora']} [{r['Aula']}]"
+                for _, r in df_mod.iterrows()
+            }
+            mc1, mc2, mc3, mc4, mc5 = st.columns([2.2, 1.0, 1.1, 1.1, 0.9])
+            with mc1:
+                ses_pick = st.selectbox("Clase a mover:", options=list(ses_labels.keys()), format_func=lambda k: ses_labels[k], key="ed_ses")
+            fila_act = df_mod[df_mod["Sesion"] == ses_pick].iloc[0]
+            dur_pick = int(fila_act["DuracionHoras"])
+            horas_validas_pick = horas_ed[: max(1, len(horas_ed) - dur_pick + 1)]
+            h_actual_ini = f"{int(str(fila_act['Hora']).split(':')[0]):02d}:30-{int(str(fila_act['Hora']).split(':')[0]) + 1:02d}:30"
+            idx_h_act = horas_validas_pick.index(h_actual_ini) if h_actual_ini in horas_validas_pick else 0
+            idx_d_act = DIAS_ORDEN.index(_normalizar_dia(fila_act["Dia"])) if _normalizar_dia(fila_act["Dia"]) in DIAS_ORDEN else 0
+            aulas_todas = df_aulas["id_aula"].astype(str).tolist()
+            idx_a_act = aulas_todas.index(str(fila_act["Aula"])) if str(fila_act["Aula"]) in aulas_todas else 0
+
+            with mc2:
+                new_dia = st.selectbox("Nuevo día:", options=DIAS_ORDEN, index=idx_d_act, key="ed_dia")
+            with mc3:
+                new_hora = st.selectbox("Hora inicio:", options=horas_validas_pick, index=idx_h_act, key="ed_hora")
+            with mc4:
+                new_aula = st.selectbox("Nueva aula:", options=aulas_todas, index=idx_a_act, key="ed_aula")
+            with mc5:
+                st.markdown("<div style='height:1.72rem;'></div>", unsafe_allow_html=True)
+                if st.button("Mover", type="primary", key="btn_move_ed", width="stretch"):
+                    st.session_state[ed_key][ses_pick] = {"Dia": new_dia, "Hora": new_hora, "Aula": new_aula}
+                    st.rerun()
+
+            eval_orig = evaluar_horario_manual(df_orig_ed, df_aulas, df_cat_sel)
+            eval_now = evaluar_horario_manual(df_mod, df_aulas, df_cat_sel)
+            delta_e = eval_now["energia"] - eval_orig["energia"]
+
+            ek1, ek2, ek3, ek4 = st.columns(4)
+            ek1.metric(
+                "Violaciones duras",
+                f"{eval_now['duras']}",
+                "Horario válido" if eval_now["duras"] == 0 else "¡Horario ILEGAL!",
+                delta_color="normal" if eval_now["duras"] == 0 else "inverse",
+                delta_arrow="off",
+            )
+            ek2.metric("Huecos del alumnado", f"{eval_now['huecos']} h", f"Original: {eval_orig['huecos']} h", delta_color="off", delta_arrow="off")
+            ek3.metric("Energía total Φ(X)", f"{eval_now['energia']}", f"{delta_e:+d} vs. algoritmo", delta_color="inverse" if delta_e > 0 else ("normal" if delta_e < 0 else "off"), delta_arrow="off")
+            ek4.metric("Movimientos manuales", f"{len(st.session_state[ed_key])}")
+
+            if eval_now["alertas"]:
+                for al in eval_now["alertas"][:8]:
+                    st.error(al)
+            elif st.session_state[ed_key]:
+                st.success("✅ ¡Bien jugado! Tu movimiento mantiene 0 violaciones duras.")
+
+            mostrar_leyenda("eii")
+            st.markdown(
+                renderizar_cuadricula_html(
+                    df_mod,
+                    f"Editor Manual — {curso}º {tit} · C{cuatri} (Modificaciones: {len(st.session_state[ed_key])})",
+                    celdas_conflicto=eval_now["celdas_conflicto"],
+                ),
+                unsafe_allow_html=True,
+            )
+
+    # ---- PESTAÑA 4: CONTRASTE VS HORARIO OFICIAL EII (PDF 2026-2027) ----
     with tab_pdf:
         p_cp, p_sa = obtener_rutas_png(tit, curso, cuatri, gii_opt_sel)
         ctrl1, ctrl2, ctrl3 = st.columns([1.2, 1.3, 1.1])
@@ -987,7 +1228,7 @@ if vista == "🗓️ Explorador de Horarios":
             if img_ley:
                 st.image(img_ley, caption=f"Leyenda oficial de asignaturas — {tit} (Página {ley_idx + 1})", width="stretch")
 
-    # ---- PESTAÑA 3: TABLA DETALLADA Y DESCARGAS (CSV + PNG 300 DPI) ----
+    # ---- PESTAÑA 5: TABLA DETALLADA Y DESCARGAS (CSV + .ICS + PNG 300 DPI) ----
     with tab_tab:
         t_met = st.radio("Tabla resuelta del método:", ["OR-Tools CP-SAT", "Recocido Simulado"], horizontal=True, key="t_met")
         df_t = (df_res_cp if t_met == "OR-Tools CP-SAT" else df_res_sa).copy()
@@ -1019,28 +1260,37 @@ if vista == "🗓️ Explorador de Horarios":
             st.dataframe(df_t[cols_t], width="stretch", hide_index=True)
 
             p_cp, p_sa = obtener_rutas_png(tit, curso, cuatri, gii_opt_sel)
-            d1, d2, d3 = st.columns(3)
+            d1, d2, d3, d4 = st.columns(4)
             with d1:
                 st.download_button(
-                    "⬇️ Descargar tabla en CSV",
+                    "⬇️ Descargar CSV",
                     data=df_t[cols_t].to_csv(index=False).encode("utf-8-sig"),
                     file_name=f"horario_{tit}_{curso}_C{cuatri}_{t_met.replace(' ', '_')}.csv",
                     mime="text/csv",
                     width="stretch",
                 )
             with d2:
+                ics_tab = generar_ics(df_t, f"Horario {curso}º {tit} C{cuatri} ({t_met})", cuatrimestre=cuatri)
+                st.download_button(
+                    "📆 Exportar .ICS",
+                    data=ics_tab.encode("utf-8"),
+                    file_name=f"horario_{tit}_{curso}_C{cuatri}.ics",
+                    mime="text/calendar",
+                    width="stretch",
+                )
+            with d3:
                 if p_cp and p_cp.exists():
                     st.download_button(
-                        "⬇️ Descargar lámina PNG (CP-SAT)",
+                        "⬇️ PNG (CP-SAT)",
                         data=p_cp.read_bytes(),
                         file_name=p_cp.name,
                         mime="image/png",
                         width="stretch",
                     )
-            with d3:
+            with d4:
                 if p_sa and p_sa.exists():
                     st.download_button(
-                        "⬇️ Descargar lámina PNG (SA)",
+                        "⬇️ PNG (SA)",
                         data=p_sa.read_bytes(),
                         file_name=p_sa.name,
                         mime="image/png",
@@ -1143,6 +1393,15 @@ elif vista == "👨‍🏫 Horarios por Profesor y Aula":
 
                 mostrar_leyenda("eii")
                 st.markdown(html_p, unsafe_allow_html=True)
+
+                ics_prof = generar_ics(df_p, f"Docencia {prof_sel} (C{pa_cuatri})", cuatrimestre=pa_cuatri)
+                st.download_button(
+                    "📆 Exportar horario del docente a Google Calendar / Outlook (.ics)",
+                    data=ics_prof.encode("utf-8"),
+                    file_name=f"docente_{prof_sel.replace(' ', '_')}_C{pa_cuatri}.ics",
+                    mime="text/calendar",
+                    key="dl_ics_prof",
+                )
 
                 with st.expander("📋 Ver detalle tabular del docente", expanded=False):
                     cols_p = ["Titulacion", "Curso", "Dia", "Hora", "Asignatura", "Modalidad", "Grupo", "Aula", "DuracionHoras"]
@@ -1623,20 +1882,31 @@ elif vista == "📊 Resultados y Convergencia":
 
 
 # ---------------------------------------------------------------------------
-# VISTA 4: SIMULADOR EN VIVO (DEMO EN CLASE)
+# VISTA 5: SIMULADOR EN VIVO — WHAT-IF, REPLAY DEL SA Y CARRERA DE ALGORITMOS
 # ---------------------------------------------------------------------------
 elif vista == "⚡ Simulador en Vivo":
     st.markdown(
         """
         <div class="eii-hero">
-            <h1>⚡ Simulador de Optimización en Vivo</h1>
-            <p>Ejecuta en directo el motor exacto (<b>CP-SAT</b>) o la metaheurística de <b>Recocido Simulado</b> sobre cualquier titulación sin modificar los archivos del repositorio.</p>
+            <h1>⚡ Laboratorio en Vivo — What-If, Replay del SA y Carrera de Algoritmos</h1>
+            <p>Simula <b>incidencias reales</b> (cierre de aulas, indisponibilidad docente, cambio de pesos), visualiza paso a paso cómo se enfría el <b>Recocido Simulado</b> o lanza una <b>carrera en directo</b> entre los tres métodos.</p>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    c1, c2, c3, c4 = st.columns([1.3, 1.1, 1.0, 1.0])
+    modo_sim = st.radio(
+        "Modo del laboratorio:",
+        options=[
+            "🧪 Simulador What-If + 🎬 Replay del Recocido Simulado",
+            "🏁 Carrera en Directo (Búsqueda Aleatoria vs. CP-SAT vs. Recocido Simulado)",
+        ],
+        horizontal=True,
+        key="modo_sim",
+    )
+    es_carrera = modo_sim.startswith("🏁")
+
+    c1, c2, c3, c4 = st.columns([1.4, 1.1, 0.9, 1.0])
     with c1:
         sim_tit = st.selectbox(
             "Titulación a optimizar",
@@ -1645,12 +1915,16 @@ elif vista == "⚡ Simulador en Vivo":
             key="sim_tit",
         )
     with c2:
-        sim_metodo = st.selectbox(
-            "Motor de optimización",
-            options=["SA", "CP-SAT"],
-            format_func=lambda m: "Recocido Simulado (SA)" if m == "SA" else "OR-Tools CP-SAT (Exacto)",
-            key="sim_met",
-        )
+        if es_carrera:
+            sim_metodo = "SA"
+            st.selectbox("Motores en carrera", options=["Aleatorio + CP-SAT + SA"], disabled=True, key="sim_met_dis")
+        else:
+            sim_metodo = st.selectbox(
+                "Motor de optimización",
+                options=["SA", "CP-SAT"],
+                format_func=lambda m: "Recocido Simulado (SA + Replay)" if m == "SA" else "OR-Tools CP-SAT (Exacto)",
+                key="sim_met",
+            )
     with c3:
         sim_curso = st.selectbox("Curso", options=[1, 2, 3, 4], index=2 if sim_tit == "GII" else 0, format_func=lambda x: f"{x}º", key="sim_cur")
     with c4:
@@ -1675,9 +1949,48 @@ elif vista == "⚡ Simulador en Vivo":
         elif gps_disp:
             sim_gp = int(gps_disp[0])
 
-    t_inicial, alpha, iter_por_temp, max_iter, semilla = 120.0, 0.985, 140, 60000, 42
-    if sim_metodo == "SA":
-        with st.expander("🎛️ Parámetros del Recocido Simulado (ajustables para la demo)", expanded=True):
+    # ---- PANEL WHAT-IF: INCIDENCIAS REALES Y PESOS MULTIOBJETIVO ----
+    with st.expander("🧪 Escenario What-If (incidencias reales y pesos de la función objetivo)", expanded=False):
+        w1, w2, w3 = st.columns([1.4, 1.3, 1.0])
+        with w1:
+            aulas_cerradas_sel = st.multiselect(
+                "🚫 Cerrar aulas / laboratorios (obras o avería):",
+                options=df_aulas["id_aula"].astype(str).tolist(),
+                default=[],
+                help="El optimizador deberá reubicar todas las clases sin usar estos espacios.",
+                key="wi_aulas",
+            )
+        df_inst_profs = df_catalogo[
+            (df_catalogo["Titulación"] == sim_tit)
+            & (df_catalogo["Curso"] == sim_curso)
+            & (df_catalogo["Cuatrimestre"] == sim_cuatri)
+        ]
+        profs_inst = ["(Ninguno)"] + sorted(df_inst_profs["Profesor"].dropna().unique().tolist())
+        with w2:
+            prof_bloq_sel = st.selectbox(
+                "🤒 Docente no disponible un día:",
+                options=profs_inst,
+                disabled=(sim_tit == "GIFM"),
+                help="Disponible en GII y GCID: impide asignar clases a ese profesor el día seleccionado.",
+                key="wi_prof",
+            )
+        with w3:
+            dia_bloq_lbl = st.selectbox(
+                "Día bloqueado:",
+                options=DIAS_ORDEN,
+                disabled=(prof_bloq_sel == "(Ninguno)" or sim_tit == "GIFM"),
+                key="wi_dia",
+            )
+
+        peso_hueco, peso_viernes = 15, 10
+        if sim_tit == "GII" and (sim_metodo == "SA" or es_carrera):
+            pw1, pw2 = st.columns(2)
+            peso_hueco = pw1.slider("⚖️ Peso de huecos del alumnado (w_hueco)", 0, 60, 15, 5, key="wi_wh")
+            peso_viernes = pw2.slider("⚖️ Peso de viernes tarde (w_viernes)", 0, 80, 10, 5, key="wi_wv")
+
+    t_inicial, alpha, iter_por_temp, max_iter, semilla = 120.0, 0.985, 140, 25000, 42
+    if sim_metodo == "SA" or es_carrera:
+        with st.expander("🎛️ Parámetros del Recocido Simulado (ajustables para la demo)", expanded=not es_carrera):
             p1, p2, p3, p4 = st.columns(4)
             if sim_tit == "GII":
                 t_inicial = p1.slider("Temperatura inicial (T₀)", 40.0, 200.0, 120.0, 10.0)
@@ -1685,7 +1998,7 @@ elif vista == "⚡ Simulador en Vivo":
                 iter_por_temp = p3.slider("Iteraciones / escalón (L)", 60, 200, 140, 20)
                 semilla = int(p4.number_input("Semilla aleatoria", min_value=1, max_value=9999, value=42, step=1))
             elif sim_tit == "GCID":
-                max_iter = p1.slider("Iteraciones SA (4 cursos globales)", 15000, 60000, 60000, 5000)
+                max_iter = p1.slider("Iteraciones SA (4 cursos globales)", 15000, 60000, 45000 if es_carrera else 60000, 5000)
                 semilla = int(p2.number_input("Semilla aleatoria", min_value=1, max_value=9999, value=42, step=1))
                 p3.info("T₀ = 5000 → T_f = 0.1 (enfriamiento geométrico)")
                 p4.info("Optimiza los 4 cursos del cuatrimestre a la vez.")
@@ -1695,11 +2008,14 @@ elif vista == "⚡ Simulador en Vivo":
                 max_iter = p3.slider("Iteraciones SA", 200, 2000, 1000, 200)
                 semilla = int(p4.number_input("Semilla aleatoria", min_value=1, max_value=9999, value=42, step=1))
 
-    lanzar = st.button("🚀 Ejecutar optimización en vivo", type="primary", width="stretch")
+    btn_lbl = "🏁 Lanzar carrera de algoritmos en directo" if es_carrera else "🚀 Ejecutar optimización en vivo"
+    lanzar = st.button(btn_lbl, type="primary", width="stretch")
 
     if lanzar:
-        with st.spinner(f"Ejecutando {sim_metodo} para {sim_curso}º {sim_tit} ({sim_cuatri}º cuatrimestre)..."):
+        with st.spinner(f"Ejecutando simulación en vivo para {sim_curso}º {sim_tit} (C{sim_cuatri})..."):
             with tempfile.TemporaryDirectory() as tmpdir:
+                prof_arg = "" if (prof_bloq_sel == "(Ninguno)" or sim_tit == "GIFM") else prof_bloq_sel
+                dia_arg = DIAS_ORDEN.index(dia_bloq_lbl) if prof_arg else -1
                 cmd = [
                     sys.executable,
                     str(REPO_ROOT / "live_runner.py"),
@@ -1713,11 +2029,18 @@ elif vista == "⚡ Simulador en Vivo":
                     "--iter_por_temp", str(iter_por_temp),
                     "--max_iter", str(max_iter),
                     "--semilla", str(semilla),
+                    "--aulas_cerradas", ",".join(aulas_cerradas_sel),
+                    "--prof_bloqueado", prof_arg,
+                    "--dia_bloqueado", str(dia_arg),
+                    "--peso_hueco", str(peso_hueco),
+                    "--peso_viernes", str(peso_viernes),
                     "--out_dir", tmpdir,
                 ]
+                if es_carrera:
+                    cmd.append("--modo_carrera")
                 proc = subprocess.run(cmd, cwd=str(REPO_ROOT), capture_output=True, text=True, timeout=180)
                 if proc.returncode != 0:
-                    st.error("Ocurrió un error al ejecutar la simulación en vivo.")
+                    st.error("No se pudo completar la simulación con las restricciones actuales.")
                     st.code(proc.stderr or proc.stdout)
                 else:
                     summary = json.loads((Path(tmpdir) / "summary.json").read_text(encoding="utf-8"))
@@ -1733,21 +2056,116 @@ elif vista == "⚡ Simulador en Vivo":
                         "png_cp_bytes": png_cp_bytes,
                         "csv_text": csv_text,
                         "df": pd.read_csv(Path(summary["csv_principal"]), encoding="utf-8-sig"),
+                        "whatif_info": {
+                            "aulas_cerradas": aulas_cerradas_sel,
+                            "prof_bloq": prof_arg,
+                            "dia_bloq": dia_bloq_lbl if prof_arg else "",
+                            "w_hueco": peso_hueco,
+                            "w_viernes": peso_viernes,
+                        },
                     }
 
     if "live_result" in st.session_state:
         res = st.session_state["live_result"]
         s = res["summary"]
+        wi = res.get("whatif_info", {})
+        wi_tags = []
+        if wi.get("aulas_cerradas"):
+            wi_tags.append(f"Aulas cerradas: {', '.join(wi['aulas_cerradas'])}")
+        if wi.get("prof_bloq"):
+            wi_tags.append(f"Sin docencia {wi['prof_bloq']} el {wi['dia_bloq']}")
+        wi_str = f" · What-If activo ({' | '.join(wi_tags)})" if wi_tags else ""
+
         st.success(
-            f"Optimización completada para **{s['curso']}º {s['titulacion']} (C{s['cuatrimestre']})** "
-            f"mediante **{s['metodo']}** en **{s['tiempo_s']:.2f} s**."
+            f"Simulación completada para **{s['curso']}º {s['titulacion']} (C{s['cuatrimestre']})** "
+            f"mediante **{s['metodo']}** en **{s['tiempo_s']:.2f} s**{wi_str}."
         )
 
-        k1, k2, k3, k4 = st.columns(4)
-        k1.metric("Tiempo de cómputo", f"{s['tiempo_s']:.2f} s")
-        k2.metric("Violaciones duras", f"{s['violaciones_duras']}", "Factible" if s["factible"] else "Revisar", delta_color="normal" if s["factible"] else "inverse", delta_arrow="off")
-        k3.metric("Coste blando / Energía", f"{s['coste_blando']:.1f}")
-        k4.metric("Sesiones ubicadas", f"{s['sesiones']}")
+        # ---- MARCADOR DE CARRERA DE ALGORITMOS ----
+        if s.get("carrera"):
+            st.markdown("#### 🏁 Marcador de la Carrera en Directo")
+            df_race = pd.DataFrame(s["carrera"])
+            df_race["Estado"] = df_race["Factible"].apply(lambda x: "✅ Factible (0 choques)" if x else "❌ Infactible")
+            st.dataframe(
+                df_race[["Metodo", "Tiempo_s", "Violaciones_Duras", "Coste_Blando", "Energia", "Estado"]],
+                width="stretch",
+                hide_index=True,
+            )
+            rc1, rc2 = st.columns(2)
+            with rc1:
+                fig_rc_e = px.bar(
+                    df_race,
+                    x="Metodo",
+                    y="Coste_Blando",
+                    color="Metodo",
+                    text="Coste_Blando",
+                    title="Coste Blando Final (menor es mejor)",
+                    color_discrete_sequence=["#64748B", "#16A34A", "#F59E0B"],
+                )
+                fig_rc_e.update_layout(height=320, showlegend=False, xaxis_title="", yaxis_title="Coste blando (pts)")
+                st.plotly_chart(fig_rc_e, width="stretch")
+            with rc2:
+                fig_rc_t = px.bar(
+                    df_race,
+                    x="Metodo",
+                    y="Tiempo_s",
+                    color="Metodo",
+                    text="Tiempo_s",
+                    title="Tiempo de Ejecución en Vivo (s)",
+                    color_discrete_sequence=["#64748B", "#16A34A", "#F59E0B"],
+                )
+                fig_rc_t.update_layout(height=320, showlegend=False, xaxis_title="", yaxis_title="Segundos")
+                st.plotly_chart(fig_rc_t, width="stretch")
+        else:
+            k1, k2, k3, k4 = st.columns(4)
+            k1.metric("Tiempo de cómputo", f"{s['tiempo_s']:.2f} s")
+            k2.metric("Violaciones duras", f"{s['violaciones_duras']}", "Factible" if s["factible"] else "Revisar", delta_color="normal" if s["factible"] else "inverse", delta_arrow="off")
+            k3.metric("Coste blando / Energía", f"{s['coste_blando']:.1f}")
+            k4.metric("Sesiones ubicadas", f"{s['sesiones']}")
+
+        # ---- REPLAY PASO A PASO DEL RECOCIDO SIMULADO ----
+        snaps = s.get("snapshots") or []
+        if len(snaps) >= 2:
+            st.markdown("#### 🎬 Replay Paso a Paso del Recocido Simulado (de caos térmico a solución óptima)")
+            snap_idx = st.select_slider(
+                "Desliza para ver cómo se enfría y autoorganiza el horario:",
+                options=list(range(len(snaps))),
+                value=len(snaps) - 1,
+                format_func=lambda i: (
+                    f"Iter {snaps[i]['iteracion']} (Inicio · T={snaps[i]['temperatura']})"
+                    if i == 0
+                    else (
+                        f"Iter {snaps[i]['iteracion']} (Óptimo Final)"
+                        if snaps[i].get("es_final")
+                        else f"Iter {snaps[i]['iteracion']} (T={snaps[i]['temperatura']})"
+                    )
+                ),
+                key="sa_replay_slider",
+            )
+            sn = snaps[snap_idx]
+            rs1, rs2, rs3, rs4 = st.columns(4)
+            rs1.metric("Iteración", f"{sn['iteracion']}")
+            rs2.metric("Temperatura (T)", f"{sn['temperatura']}")
+            rs3.metric(
+                "Conflictos duros",
+                f"{sn['duras']}",
+                "0 conflictos" if sn["duras"] == 0 else "Enfriando...",
+                delta_color="normal" if sn["duras"] == 0 else "inverse",
+                delta_arrow="off",
+            )
+            rs4.metric("Coste blando", f"{sn['blandas']:.1f}")
+
+            df_snap = pd.DataFrame(sn["bloques"])
+            eval_snap = evaluar_horario_manual(df_snap, df_aulas)
+            mostrar_leyenda("eii")
+            st.markdown(
+                renderizar_cuadricula_html(
+                    df_snap,
+                    f"Replay SA — {s['curso']}º {s['titulacion']} (Iteración {sn['iteracion']} · T={sn['temperatura']})",
+                    celdas_conflicto=eval_snap["celdas_conflicto"] if sn["duras"] > 0 else set(),
+                ),
+                unsafe_allow_html=True,
+            )
 
         hist = s.get("historial") or []
         if hist:
@@ -1755,36 +2173,20 @@ elif vista == "⚡ Simulador en Vivo":
             st.markdown("#### Curva de Convergencia Generada en Directo")
             fig_live = make_subplots(specs=[[{"secondary_y": True}]])
             fig_live.add_trace(
-                go.Scatter(
-                    x=df_h["iteracion"],
-                    y=df_h["energia_actual"],
-                    name="Energía actual (exploración)",
-                    line=dict(color="#93C5FD", width=1.4),
-                    opacity=0.75,
-                ),
+                go.Scatter(x=df_h["iteracion"], y=df_h["energia_actual"], name="Energía actual (exploración)", line=dict(color="#93C5FD", width=1.4), opacity=0.75),
                 secondary_y=False,
             )
             fig_live.add_trace(
-                go.Scatter(
-                    x=df_h["iteracion"],
-                    y=df_h["mejor_energia"],
-                    name="Mejor energía (E*)",
-                    line=dict(color="#0F2952", width=2.8),
-                ),
+                go.Scatter(x=df_h["iteracion"], y=df_h["mejor_energia"], name="Mejor energía (E*)", line=dict(color="#0F2952", width=2.8)),
                 secondary_y=False,
             )
             if "temperatura" in df_h.columns:
                 fig_live.add_trace(
-                    go.Scatter(
-                        x=df_h["iteracion"],
-                        y=df_h["temperatura"],
-                        name="Temperatura (T)",
-                        line=dict(color="#DC2626", width=1.8, dash="dot"),
-                    ),
+                    go.Scatter(x=df_h["iteracion"], y=df_h["temperatura"], name="Temperatura (T)", line=dict(color="#DC2626", width=1.8, dash="dot")),
                     secondary_y=True,
                 )
             fig_live.update_layout(
-                height=360,
+                height=340,
                 xaxis_title="Iteración",
                 legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
                 margin=dict(t=40, b=20, l=20, r=20),
@@ -1793,33 +2195,33 @@ elif vista == "⚡ Simulador en Vivo":
             fig_live.update_yaxes(title_text="Temperatura (T)", secondary_y=True)
             st.plotly_chart(fig_live, width="stretch")
 
-        st.markdown("#### Horario Generado en Directo")
-        if res["png_cp_bytes"] is not None:
-            col_a, col_b = st.columns(2)
-            with col_a:
-                st.image(res["png_cp_bytes"], caption="Paso 1: Solución inicial CP-SAT", width="stretch")
-            with col_b:
-                st.image(res["png_bytes"], caption="Paso 2: Refinamiento Recocido Simulado", width="stretch")
-        else:
-            st.image(res["png_bytes"], width="stretch")
+        with st.expander("🖼️ Ver lámina PNG oficial generada y descargas", expanded=(len(snaps) < 2)):
+            if res["png_cp_bytes"] is not None:
+                col_a, col_b = st.columns(2)
+                with col_a:
+                    st.image(res["png_cp_bytes"], caption="Paso 1: Solución inicial CP-SAT", width="stretch")
+                with col_b:
+                    st.image(res["png_bytes"], caption="Paso 2: Refinamiento Recocido Simulado", width="stretch")
+            else:
+                st.image(res["png_bytes"], width="stretch")
 
-        dl1, dl2 = st.columns(2)
-        with dl1:
-            st.download_button(
-                "⬇️ Descargar PNG generado",
-                data=res["png_bytes"],
-                file_name=f"live_{s['titulacion']}_{s['curso']}_C{s['cuatrimestre']}.png",
-                mime="image/png",
-                width="stretch",
-            )
-        with dl2:
-            st.download_button(
-                "⬇️ Descargar tabla CSV generada",
-                data=res["csv_text"],
-                file_name=f"live_{s['titulacion']}_{s['curso']}_C{s['cuatrimestre']}.csv",
-                mime="text/csv",
-                width="stretch",
-            )
+            dl1, dl2 = st.columns(2)
+            with dl1:
+                st.download_button(
+                    "⬇️ Descargar PNG generado",
+                    data=res["png_bytes"],
+                    file_name=f"live_{s['titulacion']}_{s['curso']}_C{s['cuatrimestre']}.png",
+                    mime="image/png",
+                    width="stretch",
+                )
+            with dl2:
+                st.download_button(
+                    "⬇️ Descargar tabla CSV generada",
+                    data=res["csv_text"],
+                    file_name=f"live_{s['titulacion']}_{s['curso']}_C{s['cuatrimestre']}.csv",
+                    mime="text/csv",
+                    width="stretch",
+                )
 
         with st.expander("📋 Ver asignaciones exactas (Día, Hora, Aula, Profesor)", expanded=False):
             st.dataframe(res["df"], width="stretch", hide_index=True)

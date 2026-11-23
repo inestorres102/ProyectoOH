@@ -5,7 +5,7 @@
 **Centro:** Escuela de Ingeniería Informática (EII), Universidad de Las Palmas de Gran Canaria (ULPGC)  
 **Curso Académico:** 2026–2027  
 **Propuesta:** D1 — *Diseño de horarios para la Escuela de Ingeniería Informática (EII)*  
-**Autores:** Yone Suárez Viera · Inés Torres Sánchez · María Naranjo Peñate  
+**Autores:** María Naranjo Peñate · Inés Torres Sánchez · Yone Suárez Viera 
 
 ---
 
@@ -240,11 +240,11 @@ El cuadro de mandos (`app.py`) permite contrastar visualmente los **24 calendari
 * **1º GII (1er Semestre, Grupo 1):** El Recocido Simulado propio alcanza **0 huecos** y deja el **viernes completamente libre** de docencia presencial, frente a jornadas oficiales con prácticas repartidas hasta el viernes.
 * **Carga global de viernes en toda la Escuela:** Sobre los 645 bloques semanales de las 3 titulaciones, únicamente **3 bloques en CP-SAT** y **4 en SA** (`< 0,7 %`) recaen en las últimas franjas del viernes.
 
-### 9.5. Visualización Unificada por Curso, Grupo, Profesor y Aula
-El cuadro de mandos en **Streamlit** (`python -m streamlit run app.py`) cubre íntegramente el requisito de visualización de la Propuesta D1:
-1. **Por Curso y Grupo:** Cuadrícula interactiva unificada con la paleta EII, comparativa directa CP-SAT vs. SA y contraste frente al PDF oficial de la EII.
-2. **Por Profesor y por Aula:** Vistas semanales individuales de cualquier docente o aula física (`A1-1` a `LF-4`) más un **mapa de calor interactivo de saturación de espacios** por día y franja horaria.
-3. **Simulador en Vivo:** Permite lanzar CP-SAT o Recocido Simulado en directo sobre cualquiera de las tres carreras ajustando temperatura, enfriamiento, iteraciones y semilla.
+### 9.5. Visualización Unificada e Interactividad Avanzada (Propuesta D1 + "Para ir más allá")
+El cuadro de mandos en **Streamlit** (`python -m streamlit run app.py`, con **Modo Presentación** para proyector) cubre íntegramente los requisitos de D1 e incorpora extensiones interactivas de alto valor demostrativo:
+1. **Por Curso, Grupo y Subgrupo de Estudiante:** Cuadrícula interactiva unificada con paleta EII, comparativa directa CP-SAT vs. SA, **Modo Mi Horario de Estudiante** (filtro por subgrupo o matrícula mixta multi-curso con cálculo de huecos y exportación a Google Calendar `.ics`), **Editor Manual (Reto vs. Algoritmo)** con validación de restricciones en tiempo real y contraste frente a los 3 PDFs oficiales de la EII.
+2. **Por Profesor y por Aula:** Vistas semanales individuales de cualquier docente (exportables a `.ics`) o aula física (`A1-1` a `LF-4`), **mapa de calor interactivo de saturación de espacios** y auditoría de acoplamiento inter-titulación.
+3. **Laboratorio en Vivo (What-If, Replay SA y Carrera):** Permite simular **reoptimización ante incidencias** (cierre de aulas por obras, bloqueo de día de un profesor y ajuste de pesos de la función objetivo), visualizar un **Replay paso a paso del Recocido Simulado** desde el caos térmico inicial hasta el óptimo, y lanzar una **carrera en directo** (Búsqueda Aleatoria vs. CP-SAT vs. SA).
 
 ---
 

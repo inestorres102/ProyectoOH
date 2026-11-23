@@ -15,7 +15,8 @@ El repositorio unifica de forma modular e independiente las **tres titulaciones 
 ```text
 ProyectoOH/
 ├── app.py                        # Cuadro de mandos interactivo unificado (Streamlit)
-├── live_runner.py                # Ejecutor aislado en subproceso para el Simulador en Vivo
+├── interactive_tools.py          # Exportador .ics, modo Estudiante y validador manual en tiempo real
+├── live_runner.py                # Ejecutor aislado: What-If, Replay del SA y Carrera de Algoritmos
 ├── generar_activos_integracion.py# Generador reproducible de activos unificados y horarios SA de GII
 ├── dashboard_data/               # Caché unificada de horarios resueltos (CP-SAT y SA, 3 carreras)
 ├── .streamlit/config.toml        # Configuración visual (tema académico ULPGC)
@@ -57,12 +58,12 @@ python -m streamlit run app.py
 ```
 
 ### Vistas incluidas en el cuadro de mandos (`app.py`)
-1. **🗓️ Explorador de Horarios:** Cuadrícula interactiva unificada con la paleta oficial EII para `GII`, `GCID` y `GIFM` (alternando entre **CP-SAT**, **Recocido Simulado** y **comparativa directa CP-SAT vs. SA** con buscador/resaltador en vivo), **contraste directo frente a los 3 PDFs oficiales 2026–2027** recortados al semestre exacto, y tabla filtrable con descarga de CSV y láminas PNG (300 DPI).
-2. **👨‍🏫 Horarios por Profesor y Aula:** Calendario semanal individual de cualquier docente o aula física, **mapa de calor de ocupación de espacios EII** y **auditoría automática de acoplamiento inter-titulación**.
+1. **🗓️ Explorador de Horarios:** Cuadrícula interactiva unificada con paleta EII (CP-SAT, SA y comparativa directa con buscador/resaltador), **🎓 Modo Mi Horario de Estudiante** (por subgrupo exacto o matrícula mixta multi-curso con cálculo de huecos y exportación a Google Calendar `.ics`), **🕹️ Editor Manual (Reto vs. Algoritmo)** con validador de restricciones en tiempo real, **contraste directo frente a los 3 PDFs oficiales 2026–2027** recortados al semestre exacto, y tabla con descargas CSV / `.ics` / PNG (300 DPI).
+2. **👨‍🏫 Horarios por Profesor y Aula:** Calendario semanal individual de cualquier docente (con exportación `.ics`) o aula física, **mapa de calor de ocupación de espacios EII** y **auditoría automática de acoplamiento inter-titulación**.
 3. **🏠 Visión General (EII):** KPIs consolidados de la Escuela (598 sesiones / 645 bloques, 1.127 horas semanales, 27 espacios físicos) y gráficas interactivas por titulación, curso y modalidad.
 4. **📊 Resultados y Convergencia:** Benchmark multi-semilla de GII (Random Search vs. CP-SAT vs. SA), resultados globales de GCID con curvas de convergencia y estadísticas de las 8 instancias de GIFM.
-5. **⚡ Simulador en Vivo:** Ejecución real e interactiva de **CP-SAT** o **Recocido Simulado** sobre cualquiera de las tres titulaciones con parámetros ajustables y trazado de la curva de convergencia en directo, ejecutado en subproceso aislado sin alterar los archivos del repositorio.
-6. **📚 Modelo Matemático y Catálogo:** Formulación formal UCTP ($X_{s,t,r}$), catálogo gráfico de aulas y buscador unificado de asignaturas y profesorado en las tres titulaciones.
+5. **⚡ Simulador en Vivo (Laboratorio What-If, Replay SA y Carrera):** Reoptimización en directo ante **incidencias reales** (cierre de aulas, bloqueo de días por profesor, sliders de pesos multiobjetivo), **🎬 Replay paso a paso del Recocido Simulado** (viendo cómo desaparecen los conflictos conforme baja la temperatura) y **🏁 Carrera en directo** (Aleatorio vs. CP-SAT vs. SA).
+6. **📚 Modelo Matemático y Catálogo:** Formulación formal UCTP ($X_{s,t,r}$), catálogo gráfico de aulas y buscador global de asignaturas y profesorado. Incluye además **🖥️ Modo Presentación (Proyector)** en la barra lateral.
 
 ---
 
