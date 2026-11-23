@@ -1,0 +1,151 @@
+id_sesion,asignatura,tipo,grupo,duracion_horas,num_alumnos,tipo_aula_requerida,profesor,curso,cuatrimestre
+S101a,IC1,teoria,17,1,80,Teoria,Jose Carlos Ruiz Luque,1,1
+S101b,IC1,teoria,17,1,80,Teoria,Jose Carlos Ruiz Luque,1,1
+S102,IC1,practica,41,2,25,Laboratorio,Jose Carlos Ruiz Luque,1,1
+S103,IC1,practica,42,2,25,Laboratorio,Francisca Candelaria Quintana Dominguez,1,1
+S104,IC1,practica,43,2,25,Laboratorio,Jose Carlos Ruiz Luque,1,1
+S105,IC1,practica,44,2,25,Laboratorio,Francisca Candelaria Quintana Dominguez,1,1
+S106a,MD,teoria,17,1,80,Teoria,Carmen Paz Suarez Araujo,1,1
+S106b,MD,teoria,17,1,80,Teoria,Carmen Paz Suarez Araujo,1,1
+S107,MD,practica_aula,17,2,50,Teoria,Javier Jesus Sanchez Medina,1,1
+S108,MD,practica_aula,18,2,50,Teoria,Javier Jesus Sanchez Medina,1,1
+S111a,AG,teoria,17,1,80,Teoria,Gabriele Salvatore De Blasio,1,1
+S111b,AG,teoria,17,1,80,Teoria,Gabriele Salvatore De Blasio,1,1
+S112,AG,practica_aula,17,2,50,Teoria,Gabriele Salvatore De Blasio,1,1
+S113,AG,practica_aula,18,2,50,Teoria,Gabriele Salvatore De Blasio,1,1
+S114a,FP1,teoria,17,1,55,Teoria,Miguel Angel Perez Aguiar,1,1
+S114b,FP1,teoria,17,1,55,Teoria,Miguel Angel Perez Aguiar,1,1
+S115,FP1,practica,41,2,25,Laboratorio,Francisco Javier Carreras Riudavets,1,1
+S116,FP1,practica,42,2,25,Laboratorio,Jose Daniel Gonzalez Dominguez,1,1
+S117,FP1,practica,43,2,25,Laboratorio,Francisco Javier Carreras Riudavets,1,1
+S118,FP1,practica,44,2,25,Laboratorio,Jose Daniel Gonzalez Dominguez,1,1
+S119a,ME1,teoria,17,1,55,Teoria,Francisco Jose Vazquez Polo,1,1
+S119b,ME1,teoria,17,1,55,Teoria,Francisco Jose Vazquez Polo,1,1
+S120,ME1,practica,41,2,25,Laboratorio,Francisco Jose Vazquez Polo,1,1
+S121,ME1,practica,42,2,25,Laboratorio,Francisco Jose Vazquez Polo,1,1
+S122,ME1,practica,43,2,25,Laboratorio,Francisco Jose Vazquez Polo,1,1
+S123,ME1,practica,44,2,25,Laboratorio,Francisco Jose Vazquez Polo,1,1
+S201a,IC2,teoria,17,1,60,Teoria,Maria Cristina Carmona Duarte,1,2
+S201b,IC2,teoria,17,1,60,Teoria,Maria Cristina Carmona Duarte,1,2
+S202,IC2,practica,41,2,25,Laboratorio,Maria Cristina Carmona Duarte,1,2
+S203,IC2,practica,42,2,25,Laboratorio,Maria Cristina Carmona Duarte,1,2
+S204,IC2,practica,43,2,25,Laboratorio,Maria Cristina Carmona Duarte,1,2
+S205,IC2,practica,44,2,25,Laboratorio,Maria Cristina Carmona Duarte,1,2
+S206a,FP2,teoria,17,1,60,Teoria,Miguel Angel Perez Aguiar,1,2
+S206b,FP2,teoria,17,1,60,Teoria,Miguel Angel Perez Aguiar,1,2
+S207,FP2,practica,41,2,25,Laboratorio,Jose Evora Gomez,1,2
+S208,FP2,practica,42,2,25,Laboratorio,Jose Daniel Gonzalez Dominguez,1,2
+S209,FP2,practica,43,2,25,Laboratorio,Miguel Angel Perez Aguiar,1,2
+S210,FP2,practica,44,2,25,Laboratorio,Jose Evora Gomez,1,2
+S211a,MC,teoria,17,1,80,Teoria,Maximo,1,2
+S211b,MC,teoria,17,1,80,Teoria,Maximo,1,2
+S212,MC,practica_aula,17,2,50,Teoria,Maximo,1,2
+S213,MC,practica_aula,18,2,50,Teoria,Maximo,1,2
+S214a,EP,teoria,17,1,70,Teoria,Julia Nieves Rodriguez,1,2
+S214b,EP,teoria,17,1,70,Teoria,Julia Nieves Rodriguez,1,2
+S215,EP,practica_aula,17,2,50,Teoria,Julia Nieves Rodriguez,1,2
+S216,EP,practica_aula,18,2,50,Teoria,Julia Nieves Rodriguez,1,2
+S217a,ME2,teoria,17,1,80,Teoria,Jose Vazquez Polo,1,2
+S217b,ME2,teoria,17,1,80,Teoria,Jose Vazquez Polo,1,2
+S218,ME2,practica,41,2,25,Laboratorio,Jose Vazquez Polo,1,2
+S219,ME2,practica,42,2,25,Laboratorio,Jose Vazquez Polo,1,2
+S220,ME2,practica,43,2,25,Laboratorio,Jose Vazquez Polo,1,2
+S221,ME2,practica,44,2,25,Laboratorio,Jose Vazquez Polo,1,2
+S301,FSI,teoria,17,2,60,Teoria,Francisco Mario Hernandez Tejera,2,1
+S302,FSI,practica_aula,17,2,25,Teoria,Jose Daniel Hernandez Jose,2,1
+S303,FSI,practica_aula,18,2,25,Teoria,Jose Daniel Hernandez Jose,2,1
+S304,FSI,practica,41,2,25,Laboratorio,Cayetano Guerra Artal,2,1
+S305,FSI,practica,42,2,25,Laboratorio,Cayetano Guerra Artal,2,1
+S306,FSI,practica,43,2,25,Laboratorio,Cayetano Guerra Artal,2,1
+S307,AEDV,teoria,17,2,60,Teoria,Luis Miguel Álvarez León,2,1
+S308,AEDV,practica,41,2,25,Laboratorio,Luis Miguel Álvarez León,2,1
+S309,AEDV,practica,42,2,25,Laboratorio,Luis Miguel Álvarez León,2,1
+S310,AEDV,practica,43,2,25,Laboratorio,Luis Miguel Álvarez León,2,1
+S311,HPI,teoria,17,2,60,Teoria,Jose Evora Gomez,2,1
+S312,HPI,practica,41,2,25,Laboratorio,Jose Evora Gomez,2,1
+S313,HPI,practica,42,2,25,Laboratorio,Jose Evora Gomez,2,1
+S314,HPI,practica,43,2,25,Laboratorio,Jose Evora Gomez,2,1
+S315,IS,teoria,17,2,60,Teoria,Ana Maria Placido,2,1
+S316,IS,practica,41,2,25,Laboratorio,Ana Maria Placido,2,1
+S317,IS,practica,42,2,25,Laboratorio,Octavio Roncal Andres,2,1
+S318,IS,practica,43,2,25,Laboratorio,Mario Carmelo Caballero Ramírez,2,1
+S319,FMCC,teoria,17,2,60,Teoria,Manuel,2,1
+S320,FMCC,practica_aula,17,2,25,Teoria,Manuel,2,1
+S321,FMCC,practica_aula,18,2,25,Teoria,Manuel,2,1
+S401,BD1,teoria,17,2,60,Teoria,Octavio Mayor,2,2
+S402,BD1,practica,41,2,25,Laboratorio,Octavio Mayor,2,2
+S403,BD1,practica,42,2,25,Laboratorio,Octavio Mayor,2,2
+S404,BD1,practica,43,2,25,Laboratorio,Octavio Mayor,2,2
+S405,BD1,practica,44,2,25,Laboratorio,Octavio Mayor,2,2
+S406,CDEF,teoria,17,2,50,Teoria,Rodrigo Naumchick,2,2
+S407,CDEF,practica,41,2,25,Laboratorio,Rodrigo Naumchick,2,2
+S408,CDEF,practica,42,2,25,Laboratorio,Rodrigo Naumchick,2,2
+S409,CDEF,practica,43,2,25,Laboratorio,Rodrigo Naumchick,2,2
+S410,CDEF,practica,44,2,25,Laboratorio,Rodrigo Naumchick,2,2
+S411,AA1,teoria,17,2,60,Teoria,Francisco Mario Hernandez Tejera,2,2
+S412,AA1,practica,41,2,24,Laboratorio,Jose Javier Lorenzo Navarro,2,2
+S413,AA1,practica,42,2,24,Laboratorio,Jose Javier Lorenzo Navarro,2,2
+S414,AA1,practica,43,2,24,Laboratorio,Jose Javier Lorenzo Navarro,2,2
+S415,AA1,practica,44,2,24,Laboratorio,Jose Javier Lorenzo Navarro,2,2
+S416,IACD,teoria,17,2,60,Teoria,Pablo Carmelo,2,2
+S417,IACD,practica,41,2,25,Laboratorio,Pablo Carmelo,2,2
+S418,IACD,practica,42,2,25,Laboratorio,Pablo Carmelo,2,2
+S419,IACD,practica,43,2,25,Laboratorio,Pablo Carmelo,2,2
+S420,IACD,practica,44,2,25,Laboratorio,Pablo Carmelo,2,2
+S421,DACD,teoria,17,2,60,Teoria,Octavio Roncal Andres,2,2
+S422,DACD,practica,41,2,23,Laboratorio,Octavio Roncal Andres,2,2
+S423,DACD,practica,42,2,23,Laboratorio,Octavio Roncal Andres,2,2
+S424,DACD,practica,43,2,23,Laboratorio,Octavio Roncal Andres,2,2
+S425,DACD,practica,44,2,23,Laboratorio,Octavio Roncal Andres,2,2
+S501,OH,practica,41,3,22,Laboratorio,Javier Sanchez Perez,3,1
+S502,OH,practica,42,3,16,Laboratorio,Javier Sanchez Perez,3,1
+S503,AA2,practica,41,2,24,Laboratorio, Jose Javier Lorenzo Navarro,3,1
+S504,AA2,practica,42,2,22,Laboratorio, Jose Javier Lorenzo Navarro,3,1
+S505,ASO,practica,41,2,25,Laboratorio, Carmelo Ruben Garcia Rodriguez,3,1
+S506,ASO,practica,42,2,25,Laboratorio, Carmelo Ruben Garcia Rodriguez,3,1
+S507,BD,practica,41,2,13,Laboratorio, Maria Dolores Afonso,3,1
+S508,BD,practica,42,2,10,Laboratorio, Maria Dolores Afonso,3,1
+S509,BD2,practica,41,2,25,Laboratorio, Octavio Mayor,3,1
+S510,BD2,practica,42,2,25,Laboratorio, Juan de Dios Duque Oliva,3,1
+S511,OH,teoria,17,1,30,Teoria,Javier Sanchez Perez,3,1
+S512,AA2,teoria,17,2,43,Teoria, Francisco Mario Hernandez Tejera,3,1
+S513,BD2,teoria,17,2,27,Teoria, Juan de Dios Duque Oliva,3,1
+S514,ASO,teoria,17,1,50,Teoria, Carmelo Ruben Garcia Rodriguez,3,1
+S515,BD,teoria,17,2,29,Teoria, Maria Dolores Afonso,3,1
+S601,ASR,practica,41,2,25,Laboratorio,Humberto Javier Alamo Deniz,3,2
+S602,ASR,practica,42,2,25,Laboratorio,Humberto Javier Alamo Deniz,3,2
+S603,BDNR,practica,41,2,24,Laboratorio,Gabino Padron Morales,3,2
+S604,BDNR,practica,42,2,22,Laboratorio,Gabino Padron Morales,3,2
+S605,VPD,practica,41,2,25,Laboratorio,Carmelo Ruben Garcia Rodriguez,3,2
+S606,VPD,practica,42,2,25,Laboratorio,Carmelo Ruben Garcia Rodriguez,3,2
+S607,ASR,teoria,17,2,45,Teoria,Humberto Javier Alamo Deniz,3,2
+S608,BDNR,teoria,17,2,45,Teoria,Gabino Padron Morales,3,2
+S609,VPD,teoria,17,2,45,Teoria,Carmelo Ruben Garcia Rodriguez,3,2
+S701,PLN,teoria,17,1,30,Teoria,Cayetano Guerra Artal,4,1
+S702,PLN,practica_aula,17,1,25,Teoria,Cayetano Guerra Artal,4,1
+S703,PLN,practica,41,2,25,Laboratorio,Maria Cristina Carmona Duarte,4,1
+S704,SACSE,teoria,17,1,30,Teoria,Juan Maria Hernandez Guerra,4,1
+S705,SACSE,practica_aula,17,1,25,Teoria,Juan Maria Hernandez Guerra,4,1
+S706,SACSE,practica,41,2,25,Laboratorio,Juan Maria Hernandez Guerra,4,1
+S707,PIAV,teoria,17,1,30,Teoria,Francisco Mario Hernandez,4,1
+S708,PIAV,practica_aula,17,1,25,Teoria,Jose Carlos Rodriguez Rodriguez,4,1
+S709,PIAV,practica,41,2,25,Laboratorio,Maria Cristina Carmona Duarte,4,1
+S710,CDDE,teoria,17,1,30,Teoria,Maria Teresa Garcia Rodriguez,4,1
+S711,CDDE,practica_aula,17,1,25,Teoria,Maria Teresa Garcia Rodriguez,4,1
+S712,CDDE,practica,41,1,25,Laboratorio,Maria Teresa Garcia Rodriguez,4,1
+S713,CDT,teoria,17,1,30,Teoria,Juan Maria Hernandez Guerra,4,1
+S714,CDT,practica_aula,17,1,25,Teoria,Juan Maria Hernandez Guerra,4,1
+S715,CDT,practica,41,1,25,Laboratorio,Rafael Ricardo Suarez Vega,4,1
+S716,TSCD,teoria,17,1,30,Teoria,Jose Juan Hernandez Cabrera,4,1
+S717,TSCD,practica_aula,17,1,25,Teoria,Jose Juan Hernandez Cabrera,4,1
+S718,TSCD,practica,41,1,25,Laboratorio,Jose Juan Hernandez Cabrera,4,1
+S719,MIPD,teoria,17,1,30,Teoria,Carlos Cristian Diaz Santamaria,4,1
+S720,MIPD,practica_aula,17,1,25,Teoria,Carlos Cristian Diaz Santamaria,4,1
+S721,MIPD,practica,41,1,25,Laboratorio,Carlos Cristian Diaz Santamaria,4,1
+S722,BIO,teoria,17,1,30,Teoria,Maria Dolores Afonso Suarez,4,1
+S723,BIO,practica_aula,17,1,25,Teoria,Maria Dolores Afonso Suarez,4,1
+S724,BIO,practica,41,1,25,Laboratorio,Jose Carlos Rodriguez Rodriguez,4,1
+S801,SI,teoria,17,1,30,Teoria,Antonio Andres Ocon Carreras,4,2
+S802,SI,practica_aula,17,1,25,Teoria,Antonio Andres Ocon Carreras,4,2
+S803,SI,practica,41,1,25,Laboratorio,Antonio Andres Ocon Carreras,4,2
+S804,TFG,teoria,17,6,2,Aula,Jose Daniel Hernandez Sosa,4,2
