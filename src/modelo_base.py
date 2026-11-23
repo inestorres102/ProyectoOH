@@ -1,19 +1,14 @@
 
-
-"""
-MODELO BASE DE OPTIMIZACIÓN DE HORARIOS
-Grado en Ingeniería en Diseño y Fabricación / GIFM
-
-Genera los horarios de los cuatro cursos y los dos cuatrimestres
-utilizando Google OR-Tools CP-SAT.
-"""
-
 from pathlib import Path
 
 import pandas as pd
 from ortools.sat.python import cp_model
 
-# Imports compatibles con ejecución como módulo o como script.
+
+# ---------------------------------------------------------
+# IMPORTS COMPATIBLES CON MÓDULO O SCRIPT
+# ---------------------------------------------------------
+
 if __package__:
     from .restricciones import (
         aplicar_restriccion_estudiantes,
@@ -22,7 +17,13 @@ if __package__:
         aplicar_restriccion_aulas,
         aplicar_restricciones_blandas
     )
+
     from .visualizador import exportar_horario_png
+
+    from .metaheuristica.recocido_simulado import (
+        ejecutar_recocido_simulado
+    )
+
 else:
     from restricciones import (
         aplicar_restriccion_estudiantes,
@@ -31,7 +32,12 @@ else:
         aplicar_restriccion_aulas,
         aplicar_restricciones_blandas
     )
+
     from visualizador import exportar_horario_png
+
+    from metaheuristica.recocido_simulado import (
+        ejecutar_recocido_simulado
+    )
 
 
 # ---------------------------------------------------------
@@ -142,25 +148,33 @@ def cargar_datos():
             + ", ".join(faltantes_aulas)
         )
 
+    # Normalizar el nombre de la columna de semanas.
     if "semanas_activas" not in df_clases.columns:
+
         if "semanas" in df_clases.columns:
             df_clases.rename(
                 columns={"semanas": "semanas_activas"},
                 inplace=True
-        )
-        
+            )
+
         else:
             raise ValueError(
-            
-        )
+                "Falta la columna 'semanas_activas' "
+                "o su equivalente 'semanas' en clases.csv."
+            )
+
     if (
         df_clases["semanas_activas"].isna().any()
-        or (df_clases["semanas_activas"].astype(str).str.strip() == "").any()
+        or (
+            df_clases["semanas_activas"]
+            .astype(str)
+            .str.strip() == ""
+        ).any()
     ):
         raise ValueError(
-        "Hay sesiones sin semanas asignadas."
-    )
-        
+            "Hay sesiones sin semanas asignadas."
+        )
+
     # Convertir columnas numéricas.
     for columna in [
         "curso",
@@ -242,9 +256,8 @@ def dividir_en_bloques(df_clases):
         4 horas -> 2 + 2
         5 horas -> 2 + 2 + 1
 
-    IMPORTANTE:
     La duración representa horas semanales durante todas
-    las semanas activas de la sesión. No se modifica.
+    las semanas activas de la sesión.
     """
 
     bloques = []
@@ -378,10 +391,7 @@ def resolver_modelo(
     end_vars = []
     interval_vars = []
 
-    # -----------------------------------------------------
-    # 1. Variables temporales
-    # -----------------------------------------------------
-
+    # 1. Variables temporales.
     for i, fila in df_bloques.iterrows():
 
         duracion = int(fila["duracion_horas"])
@@ -436,10 +446,7 @@ def resolver_modelo(
         end_vars.append(fin)
         interval_vars.append(intervalo)
 
-    # -----------------------------------------------------
-    # 2. Distribución de bloques de una misma sesión
-    # -----------------------------------------------------
-
+    # 2. Distribución de bloques de una misma sesión.
     grupos_sesion = df_bloques.groupby(
         "indice_sesion_original"
     ).groups
@@ -473,10 +480,7 @@ def resolver_modelo(
         # en días diferentes.
         model.AddAllDifferent(dias_bloques)
 
-    # -----------------------------------------------------
-    # 3. Restricciones de estudiantes
-    # -----------------------------------------------------
-
+    # 3. Restricciones de estudiantes.
     print("Aplicando restricciones de estudiantes...")
 
     aplicar_restriccion_estudiantes(
@@ -485,10 +489,7 @@ def resolver_modelo(
         interval_vars
     )
 
-    # -----------------------------------------------------
-    # 4. Restricciones de jornada diaria
-    # -----------------------------------------------------
-
+    # 4. Restricciones de jornada diaria.
     print("Aplicando restricciones de horario diario...")
 
     aplicar_restriccion_cambio_dia(
@@ -498,10 +499,7 @@ def resolver_modelo(
         horas_por_dia
     )
 
-    # -----------------------------------------------------
-    # 5. Restricciones de profesores
-    # -----------------------------------------------------
-
+    # 5. Restricciones de profesores.
     print("Aplicando restricciones de profesores...")
 
     aplicar_restriccion_profesores(
@@ -510,10 +508,7 @@ def resolver_modelo(
         interval_vars
     )
 
-    # -----------------------------------------------------
-    # 6. Restricciones de aulas
-    # -----------------------------------------------------
-
+    # 6. Restricciones de aulas.
     print("Aplicando restricciones de aulas...")
 
     aula_asignada = aplicar_restriccion_aulas(
@@ -524,10 +519,7 @@ def resolver_modelo(
         df_aulas
     )
 
-    # -----------------------------------------------------
-    # 7. Preferencias de optimización
-    # -----------------------------------------------------
-
+    # 7. Preferencias de optimización.
     print("Aplicando preferencias de optimización...")
 
     aplicar_restricciones_blandas(
@@ -539,10 +531,7 @@ def resolver_modelo(
         aula_preferida=AULA_PREFERIDA
     )
 
-    # -----------------------------------------------------
-    # 8. Resolver
-    # -----------------------------------------------------
-
+    # 8. Resolver.
     solver = cp_model.CpSolver()
 
     solver.parameters.max_time_in_seconds = (
@@ -583,6 +572,12 @@ def generar_horario(
         f"{cuatrimestre}º CUATRIMESTRE"
     )
     print("=" * 65)
+
+    # Crear la carpeta de resultados.
+    RUTA_RESULTADOS.mkdir(
+        parents=True,
+        exist_ok=True
+    )
 
     # 1. Cargar datos.
     df_clases, df_aulas = cargar_datos()
@@ -709,7 +704,7 @@ def generar_horario(
             "hasta las 16:30."
         )
 
-    # 7. Extraer resultados.
+    # 7. Extraer resultados de CP-SAT.
     resultados = []
 
     for i, fila in df_bloques.iterrows():
@@ -754,8 +749,113 @@ def generar_horario(
         by=["Slot", "Asignatura"]
     ).reset_index(drop=True)
 
-    # 8. Mostrar resumen.
-    print("\nResumen del horario:")
+    # -----------------------------------------------------
+    # 8. OPTIMIZACIÓN MEDIANTE RECOCIDO SIMULADO
+    # -----------------------------------------------------
+
+    print("\n" + "=" * 65)
+    print("OPTIMIZACIÓN MEDIANTE RECOCIDO SIMULADO")
+    print("=" * 65)
+
+    resultado_sa = ejecutar_recocido_simulado(
+        df_inicial=df_resultado,
+        horas_por_dia=horas_por_dia,
+        temperatura_inicial=10.0,
+        temperatura_final=0.01,
+        factor_enfriamiento=0.995,
+        iteraciones_maximas=1000,
+        semilla=42,
+        mostrar_progreso=True
+    )
+
+    df_resultado_sa = resultado_sa["horario"].copy()
+
+    # Actualizar las etiquetas de día y hora después
+    # de los movimientos realizados por la metaheurística.
+    df_resultado_sa["Dia"] = df_resultado_sa["Slot"].apply(
+        lambda slot: obtener_dia(slot, horas_por_dia)
+    )
+
+    df_resultado_sa["Hora"] = df_resultado_sa.apply(
+        lambda fila: obtener_hora(
+            fila["Slot"],
+            fila["Duracion_horas"],
+            horas_por_dia
+        ),
+        axis=1
+    )
+
+    df_resultado_sa = df_resultado_sa.sort_values(
+        by=["Slot", "Asignatura"]
+    ).reset_index(drop=True)
+
+    # Guardar horario optimizado en CSV.
+    nombre_csv_sa = (
+        f"horario_{curso}GIFM_{cuatrimestre}cuatri_recocido.csv"
+    )
+
+    ruta_csv_sa = RUTA_RESULTADOS / nombre_csv_sa
+
+    df_resultado_sa.to_csv(
+        ruta_csv_sa,
+        index=False,
+        encoding="utf-8-sig"
+    )
+
+    # Guardar horario optimizado en PNG.
+    nombre_png_sa = (
+        f"horario_{curso}GIFM_{cuatrimestre}cuatri_recocido.png"
+    )
+
+    ruta_png_sa = RUTA_RESULTADOS / nombre_png_sa
+
+    titulo_sa = (
+        f"HORARIO CON RECOCIDO SIMULADO — {curso}º GIFM "
+        f"({cuatrimestre}º CUATRIMESTRE)"
+    )
+
+    exportar_horario_png(
+        df_resultado_sa,
+        ruta_salida=str(ruta_png_sa),
+        abrir_al_terminar=False,
+        titulo=titulo_sa,
+        horas_por_dia=horas_por_dia
+    )
+
+    # Guardar estadísticas para comparar algoritmos.
+    estadisticas = pd.DataFrame([{
+        "Curso": curso,
+        "Cuatrimestre": cuatrimestre,
+        "Algoritmo": "Recocido simulado",
+        "Coste_inicial": resultado_sa["coste_inicial"],
+        "Mejor_coste": resultado_sa["mejor_coste"],
+        "Iteraciones": resultado_sa["iteraciones"],
+        "Aceptados": resultado_sa["aceptados"],
+        "Mejoras": resultado_sa["mejoras"],
+        "Tiempo_segundos": resultado_sa["tiempo"],
+        "Horario_valido": resultado_sa["valido"]
+    }])
+
+    nombre_estadisticas = (
+        f"estadisticas_recocido_{curso}GIFM_"
+        f"{cuatrimestre}cuatri.csv"
+    )
+
+    estadisticas.to_csv(
+        RUTA_RESULTADOS / nombre_estadisticas,
+        index=False,
+        encoding="utf-8-sig"
+    )
+
+    print("\nResultados del recocido simulado guardados.")
+    print("Horario CSV:", ruta_csv_sa)
+    print("Horario PNG:", ruta_png_sa)
+
+    # -----------------------------------------------------
+    # 9. MOSTRAR RESUMEN DE CP-SAT
+    # -----------------------------------------------------
+
+    print("\nResumen del horario generado por CP-SAT:")
 
     print(
         df_resultado[
@@ -772,11 +872,9 @@ def generar_horario(
         ].to_string(index=False)
     )
 
-    # 9. Exportar PNG.
-    RUTA_RESULTADOS.mkdir(
-        parents=True,
-        exist_ok=True
-    )
+    # -----------------------------------------------------
+    # 10. EXPORTAR HORARIO ORIGINAL DE CP-SAT
+    # -----------------------------------------------------
 
     nombre_archivo = (
         f"horario_{curso}GIFM_{cuatrimestre}cuatri.png"
