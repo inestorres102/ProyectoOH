@@ -1,0 +1,22 @@
+metodo,tiempo_seg,energia,duras,blandas,factible,instancia,num_sesiones,semilla
+Búsqueda Aleatoria (Baseline),0.9383819103240967,32670,16,670,False,3º GII - Semestre 1 (Grupo 1),30,
+Recocido Simulado (Propio),3.58060622215271,100,0,100,True,3º GII - Semestre 1 (Grupo 1),30,1.0
+Recocido Simulado (Propio),3.442939281463623,55,0,55,True,3º GII - Semestre 1 (Grupo 1),30,2.0
+Recocido Simulado (Propio),2.783848524093628,45,0,45,True,3º GII - Semestre 1 (Grupo 1),30,3.0
+Recocido Simulado (Propio),1.9945051670074463,45,0,45,True,3º GII - Semestre 1 (Grupo 1),30,4.0
+Recocido Simulado (Propio),2.020908832550049,60,0,60,True,3º GII - Semestre 1 (Grupo 1),30,5.0
+OR-Tools CP-SAT (Exacto),1.3981719017028809,140,0,140,True,3º GII - Semestre 1 (Grupo 1),30,
+Búsqueda Aleatoria (Baseline),0.9324135780334473,28415,14,415,False,2º GII - Semestre 1 (Grupo 1),31,
+Recocido Simulado (Propio),2.1098134517669678,30,0,30,True,2º GII - Semestre 1 (Grupo 1),31,1.0
+Recocido Simulado (Propio),2.358884572982788,30,0,30,True,2º GII - Semestre 1 (Grupo 1),31,2.0
+Recocido Simulado (Propio),1.7598669528961182,100,0,100,True,2º GII - Semestre 1 (Grupo 1),31,3.0
+Recocido Simulado (Propio),2.0509722232818604,100,0,100,True,2º GII - Semestre 1 (Grupo 1),31,4.0
+Recocido Simulado (Propio),2.4891772270202637,30,0,30,True,2º GII - Semestre 1 (Grupo 1),31,5.0
+OR-Tools CP-SAT (Exacto),1.3674867153167725,270,0,270,True,2º GII - Semestre 1 (Grupo 1),31,
+Búsqueda Aleatoria (Baseline),0.689591646194458,12400,6,400,False,1º GII - Semestre 1 (Grupo 1),24,
+Recocido Simulado (Propio),5.375903367996216,0,0,0,True,1º GII - Semestre 1 (Grupo 1),24,1.0
+Recocido Simulado (Propio),4.869925498962402,0,0,0,True,1º GII - Semestre 1 (Grupo 1),24,2.0
+Recocido Simulado (Propio),4.687574863433838,0,0,0,True,1º GII - Semestre 1 (Grupo 1),24,3.0
+Recocido Simulado (Propio),4.7863709926605225,0,0,0,True,1º GII - Semestre 1 (Grupo 1),24,4.0
+Recocido Simulado (Propio),5.826544761657715,0,0,0,True,1º GII - Semestre 1 (Grupo 1),24,5.0
+OR-Tools CP-SAT (Exacto),1.5745534896850586,190,0,190,True,1º GII - Semestre 1 (Grupo 1),24,

@@ -1,5 +1,11 @@
-# Motor de optimización por restricciones
+# Dependencias del Proyecto de Optimización y Heurística (OH) - EII ULPGC
+
+# Motor de optimización exacta por programación con restricciones
 ortools>=9.8.3296
 
-# Manipulación y lectura de datos CSV
+# Manipulación, análisis de datos y cálculo numérico
 pandas>=2.2.0
+numpy>=1.26.0
+
+# Renderizado de horarios oficiales y gráficas experimentales
+matplotlib>=3.8.0
