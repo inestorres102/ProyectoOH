@@ -56,7 +56,7 @@ python -m streamlit run app.py
 ```
 
 ### Vistas incluidas en el cuadro de mandos (`app.py`)
-1. **🗓️ Explorador de Horarios:** Navegación por titulación (`GII`, `GCID`, `GIFM`), curso (`1º`–`4º`), cuatrimestre (`1º`/`2º`) y turno/grupo; **comparador lado a lado CP-SAT vs. Recocido Simulado** (GCID y GIFM) y **comparativa directa frente al PDF oficial de la EII** (GII), con descarga en PNG e inspector de sesiones.
+1. **🗓️ Explorador de Horarios:** Cuadrícula interactiva unificada con la paleta oficial EII para `GII`, `GCID` y `GIFM` (alternando entre **CP-SAT**, **Recocido Simulado** y **comparativa directa CP-SAT vs. SA** con buscador/resaltador en vivo), **contraste directo frente a los 3 PDFs oficiales 2026–2027** recortados al semestre exacto, y tabla filtrable con descarga de CSV y láminas PNG (300 DPI).
 2. **🏠 Visión General (EII):** KPIs consolidados de la Escuela (598 sesiones, 1.127 horas semanales, 27 espacios físicos) y gráficas interactivas por titulación, curso y modalidad.
 3. **📊 Resultados y Convergencia:** Benchmark multi-semilla de GII (Random Search vs. CP-SAT vs. SA), resultados globales de GCID con curvas de convergencia y estadísticas de las 8 instancias de GIFM.
 4. **⚡ Simulador en Vivo:** Ejecución real e interactiva de **CP-SAT** o **Recocido Simulado** sobre cualquiera de las tres titulaciones con parámetros ajustables y trazado de la curva de convergencia en directo, ejecutado en subproceso aislado sin alterar los archivos del repositorio.

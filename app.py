@@ -738,22 +738,11 @@ if vista == "🗓️ Explorador de Horarios":
     df_res_cp = df_res_sel_all[df_res_sel_all["Metodo"] == "CP-SAT"].copy() if not df_res_sel_all.empty else pd.DataFrame()
     df_res_sa = df_res_sel_all[df_res_sel_all["Metodo"] == "Recocido Simulado"].copy() if not df_res_sel_all.empty else pd.DataFrame()
 
-    # KPIs consistentes y reactivos
+    # KPIs limpios y reactivos
     n_bloques = len(df_res_cp) if not df_res_cp.empty else len(df_cat_sel)
     horas_sem = int(df_res_cp["DuracionHoras"].sum()) if not df_res_cp.empty else int(df_cat_sel["Horas"].sum())
     k1, k2, k3, k4 = st.columns(4)
-    if tit == "GIFM" and n_bloques != len(df_cat_sel):
-        k1.metric(
-            "Bloques en horario",
-            f"{n_bloques}",
-            f"{len(df_cat_sel)} sesiones base desglosadas",
-            delta_color="off",
-            delta_arrow="off",
-            help="En GIFM cada asignatura de 4h–6h figura como 1 fila en clases.csv y el optimizador la divide automáticamente en bloques semanales (p. ej. de 2h).",
-        )
-    else:
-        sub_lbl = gii_opt_sel["label"] if (tit == "GII" and gii_opt_sel) else f"{curso}º {tit} · C{cuatri}"
-        k1.metric("Sesiones en horario", f"{n_bloques}", sub_lbl, delta_color="off", delta_arrow="off")
+    k1.metric("Sesiones en horario", f"{n_bloques}")
     k2.metric("Horas semanales", f"{horas_sem} h")
     k3.metric("Asignaturas", f"{df_cat_sel['Asignatura'].nunique()}")
     k4.metric("Docentes implicados", f"{df_cat_sel['Profesor'].nunique()}")
@@ -766,22 +755,34 @@ if vista == "🗓️ Explorador de Horarios":
     elif tit == "GIFM" and curso == 3 and cuatri == 2:
         st.info("📌 **3º GIFM (2º Cuatri):** Alta carga de bloques → activación automática de **jornada ampliada (08:30–16:30)**.")
 
-    # 4 PESTAÑAS 100% HOMOGÉNEAS PARA LAS 3 TITULACIONES
-    tab_int, tab_png, tab_pdf, tab_tab = st.tabs([
-        "✨ Vista Interactiva Unificada (EII)",
-        "⚖️ Comparativa PNGs (CP-SAT vs. SA)",
+    # 3 PESTAÑAS LIMPIAS Y 100% HOMOGÉNEAS PARA LAS 3 TITULACIONES
+    tab_int, tab_pdf, tab_tab = st.tabs([
+        "🗓️ Horario Interactivo (CP-SAT / SA)",
         "📄 Contraste vs. Horario Oficial EII (PDF)",
-        "📋 Tabla Detallada e Inspector",
+        "📋 Tabla Detallada y Descargas",
     ])
 
-    # ---- PESTAÑA 1: CUADRÍCULA INTERACTIVA UNIFICADA ----
+    def _dibujar_bloques_titulacion(df_g: pd.DataFrame, metodo_lbl: str, filtro_txt: str):
+        if df_g.empty:
+            st.warning("No hay caché resuelta disponible para esta combinación. Ejecuta `python generar_activos_integracion.py`.")
+            return
+        for gp_val in sorted(df_g["GrupoPrincipal"].unique().tolist()):
+            sub_g = df_g[df_g["GrupoPrincipal"] == gp_val].copy()
+            if tit == "GII":
+                gp_txt = f"Grupo {gp_val} (Turno de Tarde)" if gp_val == 3 else f"Grupo {gp_val} (Mañana)"
+                t_barra = f"{curso}º GII · {cuatri}º Cuatrimestre · {gp_txt} — {metodo_lbl}"
+            else:
+                t_barra = f"{curso}º {tit} · {cuatri}º Cuatrimestre — {metodo_lbl}"
+            st.markdown(renderizar_cuadricula_html(sub_g, t_barra, filtro_texto=filtro_txt), unsafe_allow_html=True)
+
+    # ---- PESTAÑA 1: HORARIO INTERACTIVO Y COMPARATIVA DIRECTA CP-SAT vs SA ----
     with tab_int:
         mostrar_leyenda("eii")
-        col_m, col_q = st.columns([1.1, 1.9])
+        col_m, col_q = st.columns([1.45, 1.55])
         with col_m:
             met_int = st.radio(
-                "Algoritmo a visualizar",
-                options=["OR-Tools CP-SAT", "Recocido Simulado"],
+                "Modo de visualización",
+                options=["OR-Tools CP-SAT", "Recocido Simulado (SA)", "⚖️ Comparar CP-SAT vs. SA"],
                 horizontal=True,
                 key="met_int",
             )
@@ -792,93 +793,70 @@ if vista == "🗓️ Explorador de Horarios":
                 key="q_hl",
             )
 
-        df_grid = df_res_cp if met_int == "OR-Tools CP-SAT" else df_res_sa
-        if df_grid.empty:
-            st.warning("No hay caché resuelta disponible para esta combinación. Ejecuta `python generar_activos_integracion.py`.")
+        if met_int == "OR-Tools CP-SAT":
+            _dibujar_bloques_titulacion(df_res_cp, "OR-Tools CP-SAT (Método Exacto)", q_hl)
+        elif met_int == "Recocido Simulado (SA)":
+            _dibujar_bloques_titulacion(df_res_sa, "Recocido Simulado (Metaheurística)", q_hl)
         else:
-            grupos_grid = sorted(df_grid["GrupoPrincipal"].unique().tolist())
-            for gp_val in grupos_grid:
-                sub_g = df_grid[df_grid["GrupoPrincipal"] == gp_val].copy()
-                if tit == "GII":
-                    gp_txt = f"Grupo {gp_val} (Turno de Tarde)" if gp_val == 3 else f"Grupo {gp_val} (Mañana)"
-                    t_barra = f"{curso}º GII · {cuatri}º Cuatrimestre · {gp_txt} — {met_int}"
+            # Resumen cuantitativo de diferencias entre CP-SAT y SA
+            if not df_res_cp.empty and not df_res_sa.empty:
+                m_cp = df_res_cp.set_index("Sesion")["Slot"].to_dict()
+                m_sa = df_res_sa.set_index("Sesion")["Slot"].to_dict()
+                comunes = set(m_cp.keys()) & set(m_sa.keys())
+                movidos = sum(1 for k in comunes if m_cp[k] != m_sa[k])
+
+                if tit == "GIFM":
+                    p_st = REPO_ROOT / "GIFM" / "resultados" / f"estadisticas_recocido_{curso}GIFM_{cuatri}cuatri.csv"
+                    if p_st.exists():
+                        r_st = pd.read_csv(p_st, encoding="utf-8-sig").iloc[0]
+                        st.info(
+                            f"⚖️ **Diferencias CP-SAT vs. SA:** `{movidos}` de `{len(comunes)}` sesiones cambiaron de franja. "
+                            f"En GIFM el enfoque es **híbrido (CP-SAT → SA)**: CP-SAT partió de coste `{int(r_st['Coste_inicial'])}` "
+                            f"y SA validó `{int(r_st['Aceptados'])}`/{int(r_st['Iteraciones'])} vecinos factibles en `{float(r_st['Tiempo_segundos']):.2f} s` "
+                            f"(coste final `{int(r_st['Mejor_coste'])}`)."
+                        )
                 else:
-                    t_barra = f"{curso}º {tit} · {cuatri}º Cuatrimestre — {met_int}"
-                st.markdown(renderizar_cuadricula_html(sub_g, t_barra, filtro_texto=q_hl), unsafe_allow_html=True)
-
-    # ---- PESTAÑA 2: COMPARATIVA PNGs CP-SAT vs RECOCIDO SIMULADO ----
-    with tab_png:
-        p_cp, p_sa = obtener_rutas_png(tit, curso, cuatri, gii_opt_sel)
-        mostrar_leyenda("gifm_orig" if tit == "GIFM" else "eii")
-
-        if tit == "GIFM":
-            p_st = REPO_ROOT / "GIFM" / "resultados" / f"estadisticas_recocido_{curso}GIFM_{cuatri}cuatri.csv"
-            if p_st.exists():
-                r_st = pd.read_csv(p_st, encoding="utf-8-sig").iloc[0]
-                s1, s2, s3, s4 = st.columns(4)
-                s1.metric("Coste inicial → final (SA)", f"{int(r_st['Coste_inicial'])} → {int(r_st['Mejor_coste'])}")
-                s2.metric("Tiempo SA", f"{float(r_st['Tiempo_segundos']):.2f} s")
-                s3.metric("Vecinos válidos aceptados", f"{int(r_st['Aceptados'])} / {int(r_st['Iteraciones'])}")
-                s4.metric("Validación", "100% Factible" if bool(r_st["Horario_valido"]) else "Revisar")
-                if int(r_st["Mejoras"]) == 0:
                     st.info(
-                        "ℹ️ **Por qué ambos horarios coinciden en GIFM:** El enfoque de GIFM es **híbrido (CP-SAT → SA)**. "
-                        f"CP-SAT ya alcanzó coste `{int(r_st['Coste_inicial'])}` sin violaciones; el Recocido Simulado "
-                        f"exploró `{int(r_st['Iteraciones'])}` vecinos (aceptando `{int(r_st['Aceptados'])}` permutaciones válidas) "
-                        "confirmando que no existía un estado de menor coste."
+                        f"⚖️ **Comparativa directa:** `{movidos}` de `{len(comunes)}` sesiones ocupan distinta franja horaria "
+                        "entre **CP-SAT** y **Recocido Simulado** (usa el buscador de arriba para seguir cómo se reubica una asignatura o docente concreto)."
                     )
 
-        disp_png = st.radio(
-            "Disposición de pantalla:",
-            options=["Lado a lado (comparativa simultánea)", "Ancho completo (máxima legibilidad)"],
-            horizontal=True,
-            key="disp_png",
-        )
+            st.markdown("#### 🔵 OR-Tools CP-SAT (Método Exacto)")
+            _dibujar_bloques_titulacion(df_res_cp, "OR-Tools CP-SAT", q_hl)
+            st.markdown("#### 🟠 Recocido Simulado (Metaheurística)")
+            _dibujar_bloques_titulacion(df_res_sa, "Recocido Simulado (SA)", q_hl)
 
-        if disp_png.startswith("Lado a lado"):
-            cl, cr = st.columns(2)
-            with cl:
-                st.subheader("OR-Tools CP-SAT (Método Exacto)")
-                if p_cp and p_cp.exists():
-                    st.image(str(p_cp), width="stretch")
-                    st.download_button("⬇️ Descargar PNG (CP-SAT)", p_cp.read_bytes(), file_name=p_cp.name, mime="image/png", key="dl_cp_1")
-                else:
-                    st.warning("PNG de CP-SAT no encontrado.")
-            with cr:
-                st.subheader("Recocido Simulado (Metaheurística)")
-                if p_sa and p_sa.exists():
-                    st.image(str(p_sa), width="stretch")
-                    st.download_button("⬇️ Descargar PNG (SA)", p_sa.read_bytes(), file_name=p_sa.name, mime="image/png", key="dl_sa_1")
-                else:
-                    st.warning("PNG de Recocido Simulado no encontrado.")
-        else:
-            sub_cp, sub_sa = st.tabs(["🔵 OR-Tools CP-SAT (Ancho completo)", "🟠 Recocido Simulado (Ancho completo)"])
-            with sub_cp:
-                if p_cp and p_cp.exists():
-                    st.image(str(p_cp), width="stretch")
-                    st.download_button("⬇️ Descargar PNG (CP-SAT)", p_cp.read_bytes(), file_name=p_cp.name, mime="image/png", key="dl_cp_2")
-            with sub_sa:
-                if p_sa and p_sa.exists():
-                    st.image(str(p_sa), width="stretch")
-                    st.download_button("⬇️ Descargar PNG (SA)", p_sa.read_bytes(), file_name=p_sa.name, mime="image/png", key="dl_sa_2")
-
-    # ---- PESTAÑA 3: CONTRASTE VS HORARIO OFICIAL EII (PDF 2026-2027) ----
+    # ---- PESTAÑA 2: CONTRASTE VS HORARIO OFICIAL EII (PDF 2026-2027) ----
     with tab_pdf:
         p_cp, p_sa = obtener_rutas_png(tit, curso, cuatri, gii_opt_sel)
         ctrl1, ctrl2, ctrl3 = st.columns([1.2, 1.3, 1.1])
         with ctrl1:
-            met_pdf = st.radio("Propuesta a contrastar:", ["CP-SAT", "Recocido Simulado"], horizontal=True, key="met_pdf")
+            met_pdf = st.radio("Propuesta a contrastar:", ["OR-Tools CP-SAT", "Recocido Simulado"], horizontal=True, key="met_pdf")
         with ctrl2:
-            disp_pdf = st.radio("Disposición:", ["Lado a lado", "Ancho completo"], horizontal=True, key="disp_pdf")
+            disp_pdf = st.radio("Disposición:", ["Apilado (ancho completo)", "Lado a lado"], horizontal=True, key="disp_pdf")
         with ctrl3:
-            ver_full_pdf = st.checkbox("Mostrar página entera del PDF (sin recortar semestre)", value=False, key="ver_full_pdf")
+            ver_full_pdf = st.checkbox("Mostrar página entera del PDF (sin recortar)", value=False, key="ver_full_pdf")
 
-        ruta_prop = p_cp if met_pdf == "CP-SAT" else p_sa
         page_idx, default_crop = TITULACIONES_INFO[tit]["pdf_pages"][(curso, cuatri)]
         crop_to_use = "full" if ver_full_pdf else default_crop
         img_pdf = renderizar_pagina_pdf(tit, page_idx, crop_mode=crop_to_use, zoom=2.1)
 
-        if disp_pdf == "Lado a lado":
+        if disp_pdf.startswith("Apilado"):
+            mostrar_leyenda("eii")
+            st.markdown(f"#### ✨ Propuesta Optimizada — {met_pdf}")
+            df_pdf_prop = df_res_cp if met_pdf == "OR-Tools CP-SAT" else df_res_sa
+            _dibujar_bloques_titulacion(df_pdf_prop, f"Propuesta Optimizada ({met_pdf})", "")
+            st.markdown(f"#### 📄 Horario Oficial EII 2026–2027 ({tit})")
+            if img_pdf:
+                st.image(
+                    img_pdf,
+                    caption=f"PDF Oficial EII ({TITULACIONES_INFO[tit]['ruta_pdf'].name}) — Página {page_idx + 1}",
+                    width="stretch",
+                )
+            else:
+                st.warning("No se pudo renderizar el PDF oficial.")
+        else:
+            ruta_prop = p_cp if met_pdf == "OR-Tools CP-SAT" else p_sa
             co1, co2 = st.columns(2)
             with co1:
                 st.subheader(f"Propuesta Optimizada ({met_pdf})")
@@ -892,16 +870,6 @@ if vista == "🗓️ Explorador de Horarios":
                         caption=f"PDF Oficial EII ({TITULACIONES_INFO[tit]['ruta_pdf'].name}) — Página {page_idx + 1}",
                         width="stretch",
                     )
-                else:
-                    st.warning("No se pudo renderizar el PDF oficial.")
-        else:
-            st_p1, st_p2 = st.tabs([f"✨ Propuesta Optimizada ({met_pdf})", f"📄 Horario Oficial EII ({tit})"])
-            with st_p1:
-                if ruta_prop and ruta_prop.exists():
-                    st.image(str(ruta_prop), width="stretch")
-            with st_p2:
-                if img_pdf:
-                    st.image(img_pdf, caption=f"PDF Oficial EII — Página {page_idx + 1}", width="stretch")
 
         with st.expander(f"📖 Ver página oficial de leyenda de siglas ({tit})", expanded=False):
             ley_idx = TITULACIONES_INFO[tit]["pdf_leyenda_idx"]
@@ -909,7 +877,7 @@ if vista == "🗓️ Explorador de Horarios":
             if img_ley:
                 st.image(img_ley, caption=f"Leyenda oficial de asignaturas — {tit} (Página {ley_idx + 1})", width="stretch")
 
-    # ---- PESTAÑA 4: TABLA DETALLADA E INSPECTOR ----
+    # ---- PESTAÑA 3: TABLA DETALLADA Y DESCARGAS (CSV + PNG 300 DPI) ----
     with tab_tab:
         t_met = st.radio("Tabla resuelta del método:", ["OR-Tools CP-SAT", "Recocido Simulado"], horizontal=True, key="t_met")
         df_t = (df_res_cp if t_met == "OR-Tools CP-SAT" else df_res_sa).copy()
@@ -939,12 +907,35 @@ if vista == "🗓️ Explorador de Horarios":
             if tit == "GII":
                 cols_t.insert(0, "GrupoPrincipal")
             st.dataframe(df_t[cols_t], width="stretch", hide_index=True)
-            st.download_button(
-                "⬇️ Descargar horario resuelto en CSV",
-                data=df_t[cols_t].to_csv(index=False).encode("utf-8-sig"),
-                file_name=f"horario_{tit}_{curso}_C{cuatri}_{t_met.replace(' ', '_')}.csv",
-                mime="text/csv",
-            )
+
+            p_cp, p_sa = obtener_rutas_png(tit, curso, cuatri, gii_opt_sel)
+            d1, d2, d3 = st.columns(3)
+            with d1:
+                st.download_button(
+                    "⬇️ Descargar tabla en CSV",
+                    data=df_t[cols_t].to_csv(index=False).encode("utf-8-sig"),
+                    file_name=f"horario_{tit}_{curso}_C{cuatri}_{t_met.replace(' ', '_')}.csv",
+                    mime="text/csv",
+                    width="stretch",
+                )
+            with d2:
+                if p_cp and p_cp.exists():
+                    st.download_button(
+                        "⬇️ Descargar lámina PNG (CP-SAT)",
+                        data=p_cp.read_bytes(),
+                        file_name=p_cp.name,
+                        mime="image/png",
+                        width="stretch",
+                    )
+            with d3:
+                if p_sa and p_sa.exists():
+                    st.download_button(
+                        "⬇️ Descargar lámina PNG (SA)",
+                        data=p_sa.read_bytes(),
+                        file_name=p_sa.name,
+                        mime="image/png",
+                        width="stretch",
+                    )
 
         with st.expander(f"📦 Catálogo bruto de sesiones de entrada ({tit} · {curso}º · C{cuatri})", expanded=False):
             cols_cat = ["ID", "Asignatura", "Modalidad", "Grupo", "Horas", "Alumnos", "Tipo_Aula", "Profesor"]
