@@ -1,6 +1,7 @@
-# Dependencias del Proyecto de Optimización y Heurística (OH) - EII ULPGC
+# Dependencias Unificadas — Proyecto Optimización y Heurística (EII - ULPGC)
+# Cubre las 3 titulaciones (GII, GCID, GIFM) y el Cuadro de Mandos Interactivo (Streamlit)
 
-# Motor de optimización exacta por programación con restricciones
+# Motor de optimización exacta (Programación con Restricciones)
 ortools>=9.8.3296
 
 # Manipulación, análisis de datos y cálculo numérico
@@ -9,3 +10,11 @@ numpy>=1.26.0
 
 # Renderizado de horarios oficiales y gráficas experimentales
 matplotlib>=3.8.0
+Pillow>=10.0.0
+
+# Cuadro de mandos interactivo y visualización web
+streamlit>=1.40.0
+plotly>=5.20.0
+
+# Renderizado del horario oficial de la EII (PDF) para comparativa visual
+pymupdf>=1.24.0
