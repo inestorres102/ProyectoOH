@@ -743,10 +743,17 @@ if vista == "🗓️ Explorador de Horarios":
     horas_sem = int(df_res_cp["DuracionHoras"].sum()) if not df_res_cp.empty else int(df_cat_sel["Horas"].sum())
     k1, k2, k3, k4 = st.columns(4)
     if tit == "GIFM" and n_bloques != len(df_cat_sel):
-        k1.metric("Bloques en horario", f"{n_bloques}", f"{len(df_cat_sel)} sesiones base CSV")
+        k1.metric(
+            "Bloques en horario",
+            f"{n_bloques}",
+            f"{len(df_cat_sel)} sesiones base desglosadas",
+            delta_color="off",
+            delta_arrow="off",
+            help="En GIFM cada asignatura de 4h–6h figura como 1 fila en clases.csv y el optimizador la divide automáticamente en bloques semanales (p. ej. de 2h).",
+        )
     else:
         sub_lbl = gii_opt_sel["label"] if (tit == "GII" and gii_opt_sel) else f"{curso}º {tit} · C{cuatri}"
-        k1.metric("Sesiones en horario", f"{n_bloques}", sub_lbl)
+        k1.metric("Sesiones en horario", f"{n_bloques}", sub_lbl, delta_color="off", delta_arrow="off")
     k2.metric("Horas semanales", f"{horas_sem} h")
     k3.metric("Asignaturas", f"{df_cat_sel['Asignatura'].nunique()}")
     k4.metric("Docentes implicados", f"{df_cat_sel['Profesor'].nunique()}")
@@ -968,11 +975,11 @@ elif vista == "🏠 Visión General (EII)":
     )
 
     m1, m2, m3, m4, m5 = st.columns(5)
-    m1.metric("Titulaciones integradas", "3 Grados", "GII · GCID · GIFM")
-    m2.metric("Sesiones en catálogo", f"{len(df_catalogo)}", "1º a 4º · Ambos cuatris")
-    m3.metric("Carga lectiva semanal", f"{int(df_catalogo['Horas'].sum())} h", "Teoría, Aula y Lab")
-    m4.metric("Espacios docentes EII", f"{len(df_aulas)}", "12 Teoría · 15 Labs")
-    m5.metric("Factibilidad alcanzada", "100 %", "0 choques duros")
+    m1.metric("Titulaciones integradas", "3 Grados", "GII · GCID · GIFM", delta_color="off", delta_arrow="off")
+    m2.metric("Sesiones en catálogo", f"{len(df_catalogo)}", "1º a 4º · Ambos cuatris", delta_color="off", delta_arrow="off")
+    m3.metric("Carga lectiva semanal", f"{int(df_catalogo['Horas'].sum())} h", "Teoría, Aula y Lab", delta_color="off", delta_arrow="off")
+    m4.metric("Espacios docentes EII", f"{len(df_aulas)}", "12 Teoría · 15 Labs", delta_color="off", delta_arrow="off")
+    m5.metric("Factibilidad alcanzada", "100 %", "0 choques duros", delta_color="normal", delta_arrow="off")
 
     st.markdown("### Arquitectura por Titulación")
     col_cards = st.columns(3)
@@ -1093,10 +1100,10 @@ elif vista == "📊 Resultados y Convergencia":
             resumen_gii["Instancia_Corta"] = resumen_gii["instancia"].str.replace(" - Semestre 1 (Grupo 1)", " (S1)", regex=False)
 
             k1, k2, k3, k4 = st.columns(4)
-            k1.metric("Factibilidad Búsqueda Aleatoria", "0.0 %", "6–16 choques duros", delta_color="inverse")
-            k2.metric("Factibilidad CP-SAT & SA", "100.0 %", "0 violaciones duras")
-            k3.metric("Reducción de huecos (SA vs CP-SAT)", "56% – 100%", "0 pts en 1º GII")
-            k4.metric("Tiempo medio de ejecución", "1.4 – 5.1 s", "5 semillas independientes")
+            k1.metric("Factibilidad Búsqueda Aleatoria", "0.0 %", "6–16 choques duros", delta_color="inverse", delta_arrow="off")
+            k2.metric("Factibilidad CP-SAT & SA", "100.0 %", "0 violaciones duras", delta_color="normal", delta_arrow="off")
+            k3.metric("Reducción de huecos (SA vs CP-SAT)", "56% – 100%", "0 pts en 1º GII", delta_color="normal", delta_arrow="off")
+            k4.metric("Tiempo medio de ejecución", "1.4 – 5.1 s", "5 semillas independientes", delta_color="off", delta_arrow="off")
 
             c_ch1, c_ch2 = st.columns(2)
             with c_ch1:
@@ -1156,10 +1163,10 @@ elif vista == "📊 Resultados y Convergencia":
 
     with tab_gcid:
         k1, k2, k3, k4 = st.columns(4)
-        k1.metric("Sesiones globales optimizadas", "150", "86 en S1 · 64 en S2")
-        k2.metric("Choques duros y huecos", "0 / 0", "Tanto en CP-SAT como en SA")
-        k3.metric("Penalización blanda (1er Sem.)", "85 vs 160", "CP-SAT óptimo vs SA")
-        k4.metric("Penalización blanda (2º Sem.)", "25 vs 150", "CP-SAT óptimo vs SA")
+        k1.metric("Sesiones globales optimizadas", "150", "86 en S1 · 64 en S2", delta_color="off", delta_arrow="off")
+        k2.metric("Choques duros y huecos", "0 / 0", "Tanto en CP-SAT como en SA", delta_color="normal", delta_arrow="off")
+        k3.metric("Penalización blanda (1er Sem.)", "85 vs 160", "CP-SAT óptimo vs SA", delta_color="off", delta_arrow="off")
+        k4.metric("Penalización blanda (2º Sem.)", "25 vs 150", "CP-SAT óptimo vs SA", delta_color="off", delta_arrow="off")
 
         c1, c2 = st.columns(2)
         with c1:
@@ -1207,10 +1214,10 @@ elif vista == "📊 Resultados y Convergencia":
         df_gifm = cargar_estadisticas_gifm()
         if not df_gifm.empty:
             k1, k2, k3, k4 = st.columns(4)
-            k1.metric("Instancias resueltas", f"{len(df_gifm)} / 8", "1º a 4º · Ambos cuatris")
-            k2.metric("Horarios válidos", f"{int(df_gifm['Horario_valido'].sum())} / {len(df_gifm)}", "100% Factibles")
-            k3.metric("Coste medio final", f"{df_gifm['Mejor_coste'].mean():.2f}", "0 en 7 de 8 instancias")
-            k4.metric("Tiempo medio SA", f"{df_gifm['Tiempo_segundos'].mean():.2f} s", f"Máx: {df_gifm['Tiempo_segundos'].max():.2f} s (3º C2)")
+            k1.metric("Instancias resueltas", f"{len(df_gifm)} / 8", "1º a 4º · Ambos cuatris", delta_color="off", delta_arrow="off")
+            k2.metric("Horarios válidos", f"{int(df_gifm['Horario_valido'].sum())} / {len(df_gifm)}", "100% Factibles", delta_color="normal", delta_arrow="off")
+            k3.metric("Coste medio final", f"{df_gifm['Mejor_coste'].mean():.2f}", "0 en 7 de 8 instancias", delta_color="off", delta_arrow="off")
+            k4.metric("Tiempo medio SA", f"{df_gifm['Tiempo_segundos'].mean():.2f} s", f"Máx: {df_gifm['Tiempo_segundos'].max():.2f} s (3º C2)", delta_color="off", delta_arrow="off")
 
             c1, c2 = st.columns(2)
             with c1:
@@ -1404,7 +1411,7 @@ elif vista == "⚡ Simulador en Vivo":
 
         k1, k2, k3, k4 = st.columns(4)
         k1.metric("Tiempo de cómputo", f"{s['tiempo_s']:.2f} s")
-        k2.metric("Violaciones duras", f"{s['violaciones_duras']}", "Factible" if s["factible"] else "Revisar")
+        k2.metric("Violaciones duras", f"{s['violaciones_duras']}", "Factible" if s["factible"] else "Revisar", delta_color="normal" if s["factible"] else "inverse", delta_arrow="off")
         k3.metric("Coste blando / Energía", f"{s['coste_blando']:.1f}")
         k4.metric("Sesiones ubicadas", f"{s['sesiones']}")
 
@@ -1555,8 +1562,8 @@ else:
             st.plotly_chart(fig_a, width="stretch")
         with c2:
             st.markdown("#### Resumen de Aforo")
-            st.metric("Aulas de Teoría", f"{int((df_aulas['tipo'] == 'Teoria').sum())}", f"Cap. total: {int(df_aulas.loc[df_aulas['tipo'] == 'Teoria', 'capacidad'].sum())} plazas")
-            st.metric("Laboratorios", f"{int((df_aulas['tipo'] == 'Laboratorio').sum())}", f"Cap. total: {int(df_aulas.loc[df_aulas['tipo'] == 'Laboratorio', 'capacidad'].sum())} plazas")
+            st.metric("Aulas de Teoría", f"{int((df_aulas['tipo'] == 'Teoria').sum())}", f"Cap. total: {int(df_aulas.loc[df_aulas['tipo'] == 'Teoria', 'capacidad'].sum())} plazas", delta_color="off", delta_arrow="off")
+            st.metric("Laboratorios", f"{int((df_aulas['tipo'] == 'Laboratorio').sum())}", f"Cap. total: {int(df_aulas.loc[df_aulas['tipo'] == 'Laboratorio', 'capacidad'].sum())} plazas", delta_color="off", delta_arrow="off")
             st.dataframe(df_aulas, width="stretch", hide_index=True, height=400)
 
     with tab_busq:
