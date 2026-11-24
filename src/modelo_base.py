@@ -22,7 +22,8 @@ if __package__:
     from .visualizador import exportar_horario_png
 
     from .metaheuristica.evaluacion import (
-        comprobar_restricciones
+        comprobar_restricciones,
+        calcular_coste
     )
 
     from .metaheuristica.recocido_simulado import (
@@ -41,7 +42,8 @@ else:
     from visualizador import exportar_horario_png
 
     from metaheuristica.evaluacion import (
-        comprobar_restricciones
+        comprobar_restricciones,
+        calcular_coste
     )
 
     from metaheuristica.recocido_simulado import (
@@ -84,6 +86,9 @@ AULA_PREFERIDA = "A3-1"
 
 SEMILLA_RECOCIDO = 42
 MAX_REINICIOS_INICIAL = 100
+
+# Registro global de resultados de los experimentos.
+REGISTRO_COMPARACION = []
 
 
 # ---------------------------------------------------------
@@ -947,7 +952,10 @@ def generar_horario(
     horas_cp = HORAS_POR_DIA_NORMAL
     df_resultado_cp = None
     tiempo_cp = None
+    tiempo_cp_total = 0.0
     estado_cp_nombre = "No resuelto"
+    solver = None
+    estado = None
 
     try:
 
@@ -964,6 +972,8 @@ def generar_horario(
             end_vars,
             aula_asignada
         ) = resultado_modelo
+
+        tiempo_cp_total += solver.WallTime()
 
         # Ampliación excepcional para 3º GIFM - 2º cuatri.
         if (
@@ -994,8 +1004,10 @@ def generar_horario(
                 aula_asignada
             ) = resultado_modelo
 
+            tiempo_cp_total += solver.WallTime()
+
         estado_cp_nombre = solver.StatusName(estado)
-        tiempo_cp = solver.WallTime()
+        tiempo_cp = tiempo_cp_total
 
         print("\nEstado CP-SAT:", estado_cp_nombre)
         print("Tiempo:", round(tiempo_cp, 2), "segundos")
@@ -1033,6 +1045,55 @@ def generar_horario(
 
         print("Error durante CP-SAT:")
         print(f"{type(error).__name__}: {error}")
+
+    # -----------------------------------------------------
+    # REGISTRAR ESTADÍSTICAS DE CP-SAT
+    # -----------------------------------------------------
+
+    coste_cp = None
+    valido_cp = False
+
+    if df_resultado_cp is not None:
+
+        valido_cp, errores_cp = comprobar_restricciones(
+            df_resultado_cp,
+            horas_cp
+        )
+
+        if valido_cp:
+
+            # IMPORTANTE:
+            # Se utiliza la misma función de evaluación que
+            # emplea el recocido simulado.
+            coste_cp = float(
+                calcular_coste(
+                    df_resultado_cp,
+                    horas_cp
+                )
+            )
+
+        else:
+
+            print(
+                "\nEl horario CP-SAT no supera la "
+                "comprobación de restricciones:"
+            )
+
+            for error_cp in errores_cp:
+                print("-", error_cp)
+
+    REGISTRO_COMPARACION.append({
+        "Curso": curso,
+        "Cuatrimestre": cuatrimestre,
+        "Algoritmo": "CP-SAT",
+        "Estado": estado_cp_nombre,
+        "Coste_inicial": None,
+        "Coste_final": coste_cp,
+        "Tiempo_segundos": tiempo_cp_total,
+        "Iteraciones": None,
+        "Jornada_horas": horas_cp,
+        "Horario_valido": valido_cp
+    })
 
     # -----------------------------------------------------
     # PARTE B: RECOCIDO SIMULADO INDEPENDIENTE
@@ -1151,6 +1212,24 @@ def generar_horario(
                     resultado_sa["horario"],
                     horas_sa
                 )
+
+                # Registrar estadísticas del recocido.
+                REGISTRO_COMPARACION.append({
+                    "Curso": curso,
+                    "Cuatrimestre": cuatrimestre,
+                    "Algoritmo": "Recocido simulado",
+                    "Estado": (
+                        "Válido"
+                        if resultado_sa["valido"]
+                        else "No válido"
+                    ),
+                    "Coste_inicial": resultado_sa["coste_inicial"],
+                    "Coste_final": resultado_sa["mejor_coste"],
+                    "Tiempo_segundos": resultado_sa["tiempo"],
+                    "Iteraciones": resultado_sa["iteraciones"],
+                    "Jornada_horas": horas_sa,
+                    "Horario_valido": resultado_sa["valido"]
+                })
 
                 guardar_horario(
                     df_resultado_sa,
@@ -1275,6 +1354,10 @@ def generar_todos_los_horarios():
 
     resultados = {}
 
+    # Limpiar el registro para no duplicar datos
+    # si se vuelve a ejecutar la función en la misma sesión.
+    REGISTRO_COMPARACION.clear()
+
     total = 8
     contador = 0
 
@@ -1312,7 +1395,10 @@ def generar_todos_los_horarios():
                     (curso, cuatrimestre)
                 ] = None
 
-    # Resumen final.
+    # -----------------------------------------------------
+    # RESUMEN FINAL
+    # -----------------------------------------------------
+
     print("\n" + "=" * 65)
     print("RESUMEN FINAL DE GENERACIÓN")
     print("=" * 65)
@@ -1342,6 +1428,61 @@ def generar_todos_los_horarios():
 
     print("\nHorarios generados:", generados)
     print("Horarios no generados:", fallidos)
+
+    # -----------------------------------------------------
+    # GUARDAR COMPARACIÓN GLOBAL
+    # -----------------------------------------------------
+
+    if REGISTRO_COMPARACION:
+
+        df_comparacion = pd.DataFrame(
+            REGISTRO_COMPARACION
+        )
+
+        # Ordenar por curso, cuatrimestre y método.
+        orden_algoritmos = {
+            "CP-SAT": 0,
+            "Recocido simulado": 1
+        }
+
+        df_comparacion["_orden"] = (
+            df_comparacion["Algoritmo"]
+            .map(orden_algoritmos)
+        )
+
+        df_comparacion = (
+            df_comparacion
+            .sort_values(
+                by=[
+                    "Curso",
+                    "Cuatrimestre",
+                    "_orden"
+                ]
+            )
+            .drop(columns="_orden")
+            .reset_index(drop=True)
+        )
+
+        ruta_comparacion = (
+            RUTA_RESULTADOS / "comparacion_algoritmos.csv"
+        )
+
+        df_comparacion.to_csv(
+            ruta_comparacion,
+            index=False,
+            encoding="utf-8-sig"
+        )
+
+        print(
+            "\nComparación de algoritmos guardada en:",
+            ruta_comparacion
+        )
+
+        print("\nRESUMEN COMPARATIVO:")
+
+        print(
+            df_comparacion.to_string(index=False)
+        )
 
     print(
         "\nLos resultados se encuentran en:",
