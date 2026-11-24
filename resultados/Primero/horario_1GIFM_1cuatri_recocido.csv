@@ -1,0 +1,12 @@
+﻿Slot,Sesion,Sesion_original,Asignatura,Tipo,Grupo,Dia,Hora,Duracion,Duracion_horas,Aula,Profesor,Semanas_activas,tipo_aula_requerida,num_alumnos
+0,C1Q1_04_B1_FILA3,C1Q1_04,AL,teoria,17,Lunes,08:30-10:30,2h,2,A3-1,Luis González Sánchez/María Belén López Brito,1-15,Teoria,22
+2,C1Q1_07_B1_FILA6,C1Q1_07,P1,practica,42,Lunes,10:30-12:30,2h,2,L2-1,Mario Carmelo Caballero Benitez,1-15,Laboratorio,25
+4,C1Q1_02_B1_FILA1,C1Q1_02,IFM,teoria,17,Lunes,12:30-14:30,2h,2,A3-1,Jesús Garcia Rubiano,1-15,Teoria,16
+6,C1Q1_04_B2_FILA3,C1Q1_04,AL,teoria,17,Martes,08:30-10:30,2h,2,A3-1,Luis González Sánchez/María Belén López Brito,1-15,Teoria,22
+9,C1Q1_01_B2_FILA0,C1Q1_01,FF1,teoria,17,Martes,11:30-13:30,2h,2,A3-1,Jesús Garcia Rubiano,1-15,Teoria,22
+12,C1Q1_03_B1_FILA2,C1Q1_03,FM1,teoria,17,Miércoles,08:30-10:30,2h,2,A3-1,Jackie Jerónimo Harjani Saúco,1-15,Teoria,24
+14,C1Q1_01_B3_FILA0,C1Q1_01,FF1,teoria,17,Miércoles,10:30-12:30,2h,2,A1-2,Jesús Garcia Rubiano,1-15,Teoria,22
+16,C1Q1_05_B1_FILA4,C1Q1_05,P1,teoria,17,Miércoles,12:30-14:30,2h,2,A3-1,Daniel ELías Santana Cedrés,1-15,Teoria,25
+22,C1Q1_01_B1_FILA0,C1Q1_01,FF1,teoria,17,Jueves,12:30-14:30,2h,2,A3-1,Jesús Garcia Rubiano,1-15,Teoria,22
+24,C1Q1_03_B2_FILA2,C1Q1_03,FM1,teoria,17,Viernes,08:30-10:30,2h,2,A3-1,Jackie Jerónimo Harjani Saúco,1-15,Teoria,24
+27,C1Q1_06_B1_FILA5,C1Q1_06,P1,practica,41,Viernes,11:30-13:30,2h,2,LF-4,Mario Carmelo Caballero Benitez,1-15,Laboratorio,25

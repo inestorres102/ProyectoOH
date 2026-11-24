@@ -87,8 +87,40 @@ AULA_PREFERIDA = "A3-1"
 SEMILLA_RECOCIDO = 42
 MAX_REINICIOS_INICIAL = 100
 
-# Registro global de resultados de los experimentos.
 REGISTRO_COMPARACION = []
+
+
+# ---------------------------------------------------------
+# CARPETAS DE RESULTADOS
+# ---------------------------------------------------------
+
+def obtener_carpeta_curso(curso):
+    """Devuelve y crea la carpeta correspondiente a cada curso."""
+
+    nombres_cursos = {
+        1: "Primero",
+        2: "Segundo",
+        3: "Tercero",
+        4: "Cuarto"
+    }
+
+    curso = int(curso)
+
+    if curso not in nombres_cursos:
+        raise ValueError(
+            f"Curso no válido: {curso}"
+        )
+
+    carpeta_curso = (
+        RUTA_RESULTADOS / nombres_cursos[curso]
+    )
+
+    carpeta_curso.mkdir(
+        parents=True,
+        exist_ok=True
+    )
+
+    return carpeta_curso
 
 
 # ---------------------------------------------------------
@@ -428,13 +460,11 @@ def generar_solucion_inicial_aleatoria(
 
     indices = list(df_bloques.index)
 
-    # Construcciones con distintos órdenes aleatorios.
     for intento in range(1, max_reinicios + 1):
 
         orden = indices.copy()
         generador.shuffle(orden)
 
-        # Priorizar bloques largos.
         orden.sort(
             key=lambda i: int(
                 df_bloques.loc[i, "duracion_horas"]
@@ -471,8 +501,6 @@ def generar_solucion_inicial_aleatoria(
 
             for slot, aula, dia in candidatos:
 
-                # Los bloques de una misma sesión deben
-                # impartirse en días diferentes.
                 misma_sesion = any(
                     str(fila["Sesion_original"])
                     == str(bloque["id_sesion"])
@@ -841,12 +869,9 @@ def guardar_horario(
     algoritmo,
     horas_por_dia
 ):
-    """Guarda un horario en CSV y PNG."""
+    """Guarda un horario CSV y PNG en la carpeta de su curso."""
 
-    RUTA_RESULTADOS.mkdir(
-        parents=True,
-        exist_ok=True
-    )
+    carpeta_curso = obtener_carpeta_curso(curso)
 
     nombre_base = (
         f"horario_{curso}GIFM_{cuatrimestre}cuatri"
@@ -855,8 +880,8 @@ def guardar_horario(
     if algoritmo == "recocido":
         nombre_base += "_recocido"
 
-    ruta_csv = RUTA_RESULTADOS / f"{nombre_base}.csv"
-    ruta_png = RUTA_RESULTADOS / f"{nombre_base}.png"
+    ruta_csv = carpeta_curso / f"{nombre_base}.csv"
+    ruta_png = carpeta_curso / f"{nombre_base}.png"
 
     titulo = (
         f"HORARIO — {curso}º GIFM "
@@ -915,6 +940,9 @@ def generar_horario(
         parents=True,
         exist_ok=True
     )
+
+    # Crear desde el principio la carpeta del curso.
+    carpeta_curso = obtener_carpeta_curso(curso)
 
     # 1. Cargar datos.
     df_clases, df_aulas = cargar_datos()
@@ -1062,9 +1090,6 @@ def generar_horario(
 
         if valido_cp:
 
-            # IMPORTANTE:
-            # Se utiliza la misma función de evaluación que
-            # emplea el recocido simulado.
             coste_cp = float(
                 calcular_coste(
                     df_resultado_cp,
@@ -1103,9 +1128,6 @@ def generar_horario(
     print("SEGUNDO MÉTODO: RECOCIDO SIMULADO")
     print("=" * 65)
 
-    # Elegir jornada para el recocido.
-    # Se utiliza la jornada de CP-SAT si se ha encontrado
-    # una solución. En caso contrario, se prueba la normal.
     horas_sa = (
         horas_cp
         if df_resultado_cp is not None
@@ -1133,8 +1155,6 @@ def generar_horario(
         print("\nNo se pudo construir la solución inicial:")
         print(f"{type(error).__name__}: {error}")
 
-        # Si la jornada normal no funciona y este es el
-        # único curso ampliable, intentar con jornada ampliada.
         if (
             df_inicial_sa is None
             and horas_sa == HORAS_POR_DIA_NORMAL
@@ -1258,9 +1278,14 @@ def generar_horario(
                 )
 
                 estadisticas.to_csv(
-                    RUTA_RESULTADOS / nombre_estadisticas,
+                    carpeta_curso / nombre_estadisticas,
                     index=False,
                     encoding="utf-8-sig"
+                )
+
+                print(
+                    "\nEstadísticas guardadas en:",
+                    carpeta_curso / nombre_estadisticas
                 )
 
                 print("\nRecocido simulado finalizado.")
@@ -1337,8 +1362,6 @@ def generar_horario(
             ].to_string(index=False)
         )
 
-    # Devolver el resultado de CP-SAT si existe;
-    # si no, devolver el del recocido simulado.
     if df_resultado_cp is not None:
         return df_resultado_cp
 
@@ -1354,8 +1377,6 @@ def generar_todos_los_horarios():
 
     resultados = {}
 
-    # Limpiar el registro para no duplicar datos
-    # si se vuelve a ejecutar la función en la misma sesión.
     REGISTRO_COMPARACION.clear()
 
     total = 8
@@ -1439,7 +1460,6 @@ def generar_todos_los_horarios():
             REGISTRO_COMPARACION
         )
 
-        # Ordenar por curso, cuatrimestre y método.
         orden_algoritmos = {
             "CP-SAT": 0,
             "Recocido simulado": 1

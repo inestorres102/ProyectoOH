@@ -1,17 +1,17 @@
 ﻿Curso,Cuatrimestre,Algoritmo,Estado,Coste_inicial,Coste_final,Tiempo_segundos,Iteraciones,Jornada_horas,Horario_valido
-1,1,CP-SAT,OPTIMAL,,0.0,0.08998220000000001,,6,True
-1,1,Recocido simulado,Válido,26.0,2.0,4.918908499996178,1000.0,6,True
-1,2,CP-SAT,OPTIMAL,,0.0,0.0730076,,6,True
-1,2,Recocido simulado,Válido,14.0,2.0,5.339746099998592,1000.0,6,True
-2,1,CP-SAT,OPTIMAL,,0.0,0.08298430000000001,,6,True
-2,1,Recocido simulado,Válido,14.0,4.0,5.968514899999718,1000.0,6,True
-2,2,CP-SAT,OPTIMAL,,0.0,0.2911554,,6,True
-2,2,Recocido simulado,Válido,28.0,4.0,11.656835000001593,1000.0,6,True
-3,1,CP-SAT,OPTIMAL,,0.0,0.231408,,6,True
-3,1,Recocido simulado,Válido,42.0,10.0,6.715879099996528,1000.0,6,True
-3,2,CP-SAT,OPTIMAL,,0.0,1.3261807,,8,True
-3,2,Recocido simulado,Válido,42.0,18.0,21.89694390000659,1000.0,8,True
-4,1,CP-SAT,OPTIMAL,,0.0,0.3043502,,6,True
-4,1,Recocido simulado,Válido,40.0,4.0,5.42637349999859,1000.0,6,True
-4,2,CP-SAT,OPTIMAL,,0.0,0.0681064,,6,True
-4,2,Recocido simulado,Válido,8.0,0.0,2.5381750000087777,1000.0,6,True
+1,1,CP-SAT,OPTIMAL,,0.0,0.0928784,,6,True
+1,1,Recocido simulado,Válido,26.0,2.0,4.694727600013721,1000.0,6,True
+1,2,CP-SAT,OPTIMAL,,0.0,0.11318850000000001,,6,True
+1,2,Recocido simulado,Válido,14.0,2.0,4.973169900011271,1000.0,6,True
+2,1,CP-SAT,OPTIMAL,,0.0,0.08583020000000001,,6,True
+2,1,Recocido simulado,Válido,14.0,4.0,5.358043500003987,1000.0,6,True
+2,2,CP-SAT,OPTIMAL,,0.0,0.2614327,,6,True
+2,2,Recocido simulado,Válido,28.0,4.0,11.653609900007723,1000.0,6,True
+3,1,CP-SAT,OPTIMAL,,0.0,0.2268262,,6,True
+3,1,Recocido simulado,Válido,42.0,10.0,6.677412800010643,1000.0,6,True
+3,2,CP-SAT,OPTIMAL,,0.0,1.3156424000000002,,8,True
+3,2,Recocido simulado,Válido,42.0,18.0,21.685202799999388,1000.0,8,True
+4,1,CP-SAT,OPTIMAL,,0.0,0.3430686,,6,True
+4,1,Recocido simulado,Válido,40.0,4.0,6.276104500007932,1000.0,6,True
+4,2,CP-SAT,OPTIMAL,,0.0,0.07128340000000001,,6,True
+4,2,Recocido simulado,Válido,8.0,0.0,2.6490464999951655,1000.0,6,True
