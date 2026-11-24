@@ -1,0 +1,32 @@
+﻿Slot,Sesion,Sesion_original,Asignatura,Tipo,Grupo,Dia,Hora,Duracion,Duracion_horas,Aula,Profesor,Semanas_activas,tipo_aula_requerida,num_alumnos
+0,C3Q2_10_B2_FILA9,C3Q2_10,ESM,practica,41,Lunes,08:30-10:30,2h,2,L1-1,Antonio Alejandro Valido Flores,7-15,Laboratorio,22
+2,C3Q2_02_B1_FILA1,C3Q2_02,ESM,teoria,17,Lunes,10:30-12:30,2h,2,A3-1,Antonio Alejandro Valido Flores,1-7,Teoria,16
+2,C3Q2_09_B1_FILA8,C3Q2_09,FFFT,practica,41,Lunes,10:30-12:30,2h,2,LF-4,Ángel Rodríguez Santana,11-15,Laboratorio,22
+4,C3Q2_01_B1_FILA0,C3Q2_01,FFFT,teoria,17,Lunes,12:30-14:30,2h,2,A3-1,María de los Ángeles Marrero Diaz,1-11,Teoria,22
+4,C3Q2_13_B1_FILA12,C3Q2_13,FPAT,practica,41,Lunes,12:30-14:30,2h,2,L3-4,Juan Miguel Gil de la Fe,14-15,Laboratorio,22
+6,C3Q2_11_B1_FILA10,C3Q2_11,IM,practica,41,Lunes,14:30-16:30,2h,2,L1-3,Juan Montiel Caminos,"1,9-15",Laboratorio,22
+8,C3Q2_10_B1_FILA9,C3Q2_10,ESM,practica,41,Martes,08:30-10:30,2h,2,L1-2,Antonio Alejandro Valido Flores,7-15,Laboratorio,22
+10,C3Q2_06_B1_FILA5,C3Q2_06,FO,teoria,17,Martes,10:30-12:30,2h,2,A3-1,Alonso Hernández Guerra,1-10,Teoria,22
+10,C3Q2_14_B1_FILA13,C3Q2_14,FO,practica,41,Martes,10:30-12:30,2h,2,L3-4,Alonso Hernández Guerra,11-15,Laboratorio,22
+12,C3Q2_08_B1_FILA7,C3Q2_08,IE,teoria,17,Martes,12:30-14:30,2h,2,A3-1,Francisco José Vázquez Polo,1-10,Teoria,22
+12,C3Q2_16_B2_FILA15,C3Q2_16,IE,practica,41,Martes,12:30-14:30,2h,2,L2-4,Simón Rodríguez Santana,11-15,Laboratorio,22
+14,C3Q2_05_B1_FILA4,C3Q2_05,FPAT,teoria,17,Martes,14:30-16:30,2h,2,A3-1,Rafael Rodríguez Pérez,1-13,Teoria,24
+16,C3Q2_03_B1_FILA2,C3Q2_03,IM,teoria,17,Miércoles,08:30-10:30,2h,2,A3-1,Juan Antonio Montiel Nelson,1-13,Teoria,16
+18,C3Q2_04_B2_FILA3,C3Q2_04,MMA3,teoria,17,Miércoles,10:30-12:30,2h,2,A3-1,Begoña González Landín,1-7,Teoria,24
+18,C3Q2_12_B2_FILA11,C3Q2_12,MMA3,practica,41,Miércoles,10:30-12:30,2h,2,L2-5,Begoña González Landín,8-15,Laboratorio,22
+20,C3Q2_01_B2_FILA0,C3Q2_01,FFFT,teoria,17,Miércoles,12:30-14:30,2h,2,A3-1,María de los Ángeles Marrero Diaz,1-11,Teoria,22
+22,C3Q2_02_B3_FILA1,C3Q2_02,ESM,teoria,17,Miércoles,14:30-15:30,1h,1,A3-1,Antonio Alejandro Valido Flores,1-7,Teoria,16
+22,C3Q2_09_B2_FILA8,C3Q2_09,FFFT,practica,41,Miércoles,14:30-16:30,2h,2,L1-3,Ángel Rodríguez Santana,11-15,Laboratorio,22
+23,C3Q2_07_B2_FILA6,C3Q2_07,AP,teoria,17,Miércoles,15:30-16:30,1h,1,A3-1,Francisco Mario Hernández Tejera,1-8,Teoria,22
+24,C3Q2_10_B3_FILA9,C3Q2_10,ESM,practica,41,Jueves,08:30-10:30,2h,2,L3-3,Antonio Alejandro Valido Flores,7-15,Laboratorio,22
+26,C3Q2_15_B1_FILA14,C3Q2_15,AP,practica,41,Jueves,10:30-12:30,2h,2,L2-1,Jose Carlos Rodríguez Rodríguez,8-15,Laboratorio,22
+28,C3Q2_11_B3_FILA10,C3Q2_11,IM,practica,41,Jueves,12:30-13:30,1h,1,L2-3,Juan Montiel Caminos,"1,9-15",Laboratorio,22
+29,C3Q2_01_B3_FILA0,C3Q2_01,FFFT,teoria,17,Jueves,13:30-14:30,1h,1,A3-1,María de los Ángeles Marrero Diaz,1-11,Teoria,22
+30,C3Q2_07_B1_FILA6,C3Q2_07,AP,teoria,17,Jueves,14:30-16:30,2h,2,A3-1,Francisco Mario Hernández Tejera,1-8,Teoria,22
+30,C3Q2_16_B1_FILA15,C3Q2_16,IE,practica,41,Jueves,14:30-16:30,2h,2,L1-1,Simón Rodríguez Santana,11-15,Laboratorio,22
+32,C3Q2_10_B4_FILA9,C3Q2_10,ESM,practica,41,Viernes,08:30-09:30,1h,1,LF-4,Antonio Alejandro Valido Flores,7-15,Laboratorio,22
+33,C3Q2_15_B2_FILA14,C3Q2_15,AP,practica,41,Viernes,09:30-10:30,1h,1,L3-2,Jose Carlos Rodríguez Rodríguez,8-15,Laboratorio,22
+33,C3Q2_02_B2_FILA1,C3Q2_02,ESM,teoria,17,Viernes,09:30-11:30,2h,2,A3-1,Antonio Alejandro Valido Flores,1-7,Teoria,16
+34,C3Q2_12_B1_FILA11,C3Q2_12,MMA3,practica,41,Viernes,10:30-12:30,2h,2,L1-3,Begoña González Landín,8-15,Laboratorio,22
+35,C3Q2_04_B1_FILA3,C3Q2_04,MMA3,teoria,17,Viernes,11:30-13:30,2h,2,A3-1,Begoña González Landín,1-7,Teoria,24
+37,C3Q2_11_B2_FILA10,C3Q2_11,IM,practica,41,Viernes,13:30-15:30,2h,2,L2-2,Juan Montiel Caminos,"1,9-15",Laboratorio,22

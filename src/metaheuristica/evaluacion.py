@@ -12,6 +12,9 @@ import pandas as pd
 
 AULA_PREFERIDA = "A3-1"
 
+PENALIZACION_VIERNES = 10
+PENALIZACION_AULA_TEORIA = 2
+
 
 # ---------------------------------------------------------
 # FUNCIONES AUXILIARES
@@ -20,7 +23,7 @@ AULA_PREFERIDA = "A3-1"
 def normalizar_texto(valor):
     """Normaliza un texto para poder compararlo."""
 
-    if pd.isna(valor):
+    if valor is None or pd.isna(valor):
         return ""
 
     texto = str(valor).strip().lower()
@@ -47,9 +50,6 @@ def obtener_valor(fila, columna, defecto=None):
 def obtener_duracion(fila):
     """
     Obtiene la duración numérica de una actividad.
-
-    Prioriza Duracion_horas.
-    Si no existe o está vacía, utiliza Duracion.
 
     Admite:
     - 2
@@ -97,6 +97,7 @@ def obtener_semanas(valor):
 
     Admite:
     - '1-5,8,10-12'
+    - '1,9-15'
     - '[1, 2, 3, 4]'
     - listas y tuplas de números.
 
@@ -118,9 +119,15 @@ def obtener_semanas(valor):
         return None
 
     if texto.startswith("[") and texto.endswith("]"):
+
         try:
             elementos = ast.literal_eval(texto)
-            return {int(x) for x in elementos}
+
+            return {
+                int(x)
+                for x in elementos
+            }
+
         except (ValueError, SyntaxError, TypeError):
             pass
 
@@ -143,12 +150,24 @@ def obtener_semanas(valor):
             inicio = int(coincidencia.group(1))
             final = int(coincidencia.group(2))
 
+            if final < inicio:
+                raise ValueError(
+                    f"Rango de semanas no válido: {parte}"
+                )
+
             resultado.update(
                 range(inicio, final + 1)
             )
 
         elif parte.isdigit():
+
             resultado.add(int(parte))
+
+        else:
+
+            raise ValueError(
+                f"Formato de semanas no válido: {parte}"
+            )
 
     return resultado if resultado else None
 
@@ -167,7 +186,7 @@ def semanas_coincidentes(semanas_a, semanas_b):
 def obtener_profesores(valor):
     """Obtiene los profesores de una actividad."""
 
-    if pd.isna(valor):
+    if valor is None or pd.isna(valor):
         return set()
 
     return {
@@ -243,10 +262,7 @@ def preparar_actividades(df):
     Prepara los datos de las actividades para evaluarlas.
 
     Convierte cada fila en un diccionario con los valores
-    que necesitamos para comprobar las restricciones.
-
-    Así evitamos recalcular semanas, profesores y duraciones
-    durante cada comparación entre actividades.
+    necesarios para comprobar las restricciones.
     """
 
     actividades = []
@@ -255,26 +271,31 @@ def preparar_actividades(df):
 
         actividad = {
             "Slot": int(float(fila["Slot"])),
+
             "Duracion": obtener_duracion(fila),
+
             "Grupo": fila["Grupo"],
+
             "Profesor": obtener_profesores(
                 fila["Profesor"]
             ),
+
             "Aula": normalizar_texto(
                 fila["Aula"]
             ),
+
             "Semanas": obtener_semanas(
                 fila["Semanas_activas"]
             ),
+
             "Sesion_original": fila.get(
                 "Sesion_original"
             ),
-        }
 
-        actividad["Dia"] = (
-            actividad["Slot"]
-            // 1
-        )
+            "Tipo": normalizar_texto(
+                fila.get("Tipo", "")
+            )
+        }
 
         actividades.append(actividad)
 
@@ -340,9 +361,11 @@ def comprobar_restricciones(
     # -----------------------------------------------------
 
     try:
+
         actividades = preparar_actividades(df)
 
     except (ValueError, TypeError, KeyError):
+
         return False, [
             "Hay valores horarios, duraciones o datos "
             "de actividades no válidos."
@@ -372,8 +395,15 @@ def comprobar_restricciones(
         hora_inicio_dia = inicio % horas_por_dia
 
         if hora_inicio_dia + duracion > horas_por_dia:
+
             errores.append(
                 f"Actividad {indice}: supera el horario diario."
+            )
+
+        if inicio >= 5 * horas_por_dia:
+
+            errores.append(
+                f"Actividad {indice}: está fuera de la semana lectiva."
             )
 
     if errores:
@@ -392,7 +422,10 @@ def comprobar_restricciones(
         inicio_a = actividad_a["Slot"]
         duracion_a = actividad_a["Duracion"]
 
-        dia_a = inicio_a // horas_por_dia
+        dia_a = obtener_dia(
+            inicio_a,
+            horas_por_dia
+        )
 
         semanas_a = actividad_a["Semanas"]
         profesores_a = actividad_a["Profesor"]
@@ -406,13 +439,14 @@ def comprobar_restricciones(
             inicio_b = actividad_b["Slot"]
             duracion_b = actividad_b["Duracion"]
 
-            dia_b = inicio_b // horas_por_dia
+            dia_b = obtener_dia(
+                inicio_b,
+                horas_por_dia
+            )
 
-            # Si son días distintos, no existe solapamiento.
             if dia_a != dia_b:
                 continue
 
-            # Si no coinciden las semanas, pueden compartir horario.
             if not semanas_coincidentes(
                 semanas_a,
                 actividad_b["Semanas"]
@@ -432,27 +466,30 @@ def comprobar_restricciones(
                 grupo_a,
                 actividad_b["Grupo"]
             ):
+
                 errores.append(
-                    f"Conflicto de estudiantes entre las actividades "
-                    f"{i} y {j}."
+                    f"Conflicto de estudiantes entre las "
+                    f"actividades {i} y {j}."
                 )
 
             # Restricción de profesores.
             if profesores_a.intersection(
                 actividad_b["Profesor"]
             ):
+
                 errores.append(
-                    f"Conflicto de profesores entre las actividades "
-                    f"{i} y {j}."
+                    f"Conflicto de profesores entre las "
+                    f"actividades {i} y {j}."
                 )
 
             # Restricción de aulas.
             aula_b = actividad_b["Aula"]
 
             if aula_a and aula_a == aula_b:
+
                 errores.append(
-                    f"Conflicto de aula entre las actividades "
-                    f"{i} y {j}."
+                    f"Conflicto de aula entre las "
+                    f"actividades {i} y {j}."
                 )
 
     # -----------------------------------------------------
@@ -467,22 +504,23 @@ def comprobar_restricciones(
 
             sesion = actividad["Sesion_original"]
 
-            if pd.isna(sesion):
+            if sesion is None or pd.isna(sesion):
                 continue
 
-            dia = (
-                actividad["Slot"]
-                // horas_por_dia
+            dia = obtener_dia(
+                actividad["Slot"],
+                horas_por_dia
             )
 
             sesiones.setdefault(
-                sesion,
+                str(sesion),
                 []
             ).append(dia)
 
         for sesion, dias in sesiones.items():
 
             if len(dias) != len(set(dias)):
+
                 errores.append(
                     f"La sesión {sesion} tiene bloques "
                     f"en el mismo día."
@@ -505,36 +543,42 @@ def calcular_coste(
     Cuanto menor sea el coste, mejor será el horario.
 
     Penalizaciones:
-    - Actividades situadas al final del viernes: +10.
-    - Actividades teóricas que no utilizan el aula preferida: +5.
+    - Actividades que comienzan durante las dos últimas
+      horas del viernes: +10.
+    - Actividades teóricas que no utilizan A3-1: +2.
     """
 
     if df is None or df.empty:
         return float("inf")
 
+    if horas_por_dia <= 0:
+        raise ValueError(
+            "El número de horas por día no es válido."
+        )
+
     coste = 0
+
+    inicio_ultima_parte_viernes = (
+        4 * horas_por_dia
+        + (horas_por_dia - 2)
+    )
 
     for fila in df.to_dict(orient="records"):
 
         slot = int(fila["Slot"])
 
-        dia = slot // horas_por_dia
+        # -------------------------------------------------
+        # PREFERENCIA 1: EVITAR EL FINAL DEL VIERNES
+        # -------------------------------------------------
 
-        hora_dentro_del_dia = (
-            slot % horas_por_dia
-        )
+        if slot >= inicio_ultima_parte_viernes:
 
-        duracion = obtener_duracion(fila)
+            coste += PENALIZACION_VIERNES
 
-        # Preferencia: evitar las últimas horas del viernes.
-        if (
-            dia == 4
-            and hora_dentro_del_dia + duracion
-            > horas_por_dia - 2
-        ):
-            coste += 10
+        # -------------------------------------------------
+        # PREFERENCIA 2: UTILIZAR EL AULA A3-1 EN TEORÍA
+        # -------------------------------------------------
 
-        # Preferencia: utilizar el aula teórica preferida.
         tipo = normalizar_texto(
             fila.get("Tipo", "")
         )
@@ -546,7 +590,8 @@ def calcular_coste(
             ).strip()
 
             if aula != AULA_PREFERIDA:
-                coste += 5
+
+                coste += PENALIZACION_AULA_TEORIA
 
     return coste
 

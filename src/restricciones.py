@@ -277,8 +277,6 @@ def aplicar_restriccion_cambio_dia(
     """
     Impide que un bloque empiece un día y termine
     en el siguiente.
-
-    Funciona con jornadas de 6 o 7 horas, entre otras.
     """
 
     if horas_por_dia <= 0:
@@ -432,10 +430,7 @@ def aplicar_restriccion_aulas(
 
     intervalos_por_aula = {}
 
-    # -----------------------------------------------------
     # Crear asignaciones de aulas e intervalos opcionales.
-    # -----------------------------------------------------
-
     for i in range(len(df_clases)):
 
         clase = df_clases.iloc[i]
@@ -520,10 +515,7 @@ def aplicar_restriccion_aulas(
 
         asignaciones.append(variables_aula)
 
-    # -----------------------------------------------------
     # Evitar solapamientos en cada aula.
-    # -----------------------------------------------------
-
     for aula_id, intervalos in intervalos_por_aula.items():
 
         for i, j in combinations(range(len(intervalos)), 2):
@@ -551,31 +543,42 @@ def aplicar_restricciones_blandas(
     df_clases,
     total_slots,
     aula_assign=None,
-    aula_preferida="A3-1"
+    aula_preferida="A3-1",
+    horas_por_dia=6
 ):
     """
     Preferencias que el modelo intenta cumplir,
     pero que no son obligatorias.
 
-    - Evitar las últimas horas del viernes.
+    - Evitar las dos últimas horas del viernes.
     - Favorecer el aula preferida para teoría.
 
-    No modifica las duraciones ni las restricciones duras.
+    Penalizaciones:
+    - Comienzo durante las dos últimas horas del viernes: 10.
+    - Aula distinta de la preferida en teoría: 2.
+
+    Funciona con jornadas de 6 o de 8 horas.
     """
+
+    if horas_por_dia <= 0:
+        raise ValueError(
+            "Las horas por día deben ser mayores que cero."
+        )
 
     penalizaciones = []
 
-    horas_por_dia = 6
     viernes = 4
+
+    # El comienzo de las dos últimas horas del viernes.
+    inicio_ultima_parte_viernes = (
+        viernes * horas_por_dia
+        + (horas_por_dia - 2)
+    )
 
     # -----------------------------------------------------
     # Penalizar clases que comienzan en las dos últimas
     # franjas del viernes.
     # -----------------------------------------------------
-
-    inicio_ultima_parte_viernes = (
-        viernes * horas_por_dia + 4
-    )
 
     for i, inicio in enumerate(start_vars):
 

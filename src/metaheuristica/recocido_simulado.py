@@ -32,22 +32,13 @@ def aceptar_solucion(
     temperatura,
     generador=None
 ):
-    """
-    Decide si se acepta una nueva solución.
-
-    Las soluciones mejores siempre se aceptan.
-
-    Las soluciones peores pueden aceptarse con una
-    probabilidad que depende de la temperatura.
-    """
+    """Decide si se acepta una nueva solución."""
 
     diferencia = coste_nuevo - coste_actual
 
-    # Si mejora o mantiene el coste, se acepta.
     if diferencia <= 0:
         return True
 
-    # Si la temperatura es cero, no aceptamos empeoramientos.
     if temperatura <= 0:
         return False
 
@@ -73,7 +64,8 @@ def ejecutar_recocido_simulado(
     factor_enfriamiento=FACTOR_ENFRIAMIENTO,
     iteraciones_maximas=ITERACIONES_MAXIMAS,
     semilla=None,
-    mostrar_progreso=True
+    mostrar_progreso=True,
+    df_aulas=None
 ):
     """
     Ejecuta el algoritmo de recocido simulado.
@@ -84,7 +76,10 @@ def ejecutar_recocido_simulado(
 
         horas_por_dia:
             Número de slots disponibles por día.
-            Normalmente 6; 8 para 3º GIFM - 2º cuatrimestre.
+
+        df_aulas:
+            Catálogo de aulas. Si se proporciona, se activa
+            el movimiento de cambio de aula.
 
         temperatura_inicial:
             Temperatura inicial del algoritmo.
@@ -149,7 +144,11 @@ def ejecutar_recocido_simulado(
             "El número máximo de iteraciones debe ser positivo."
         )
 
-    # Generador aleatorio independiente.
+    if df_aulas is not None and df_aulas.empty:
+        raise ValueError(
+            "El catálogo de aulas está vacío."
+        )
+
     generador = random.Random(semilla)
 
     # -----------------------------------------------------
@@ -195,6 +194,7 @@ def ejecutar_recocido_simulado(
     historial = []
 
     if mostrar_progreso:
+
         print("\n" + "=" * 60)
         print("INICIANDO RECOCIDO SIMULADO")
         print("=" * 60)
@@ -204,6 +204,11 @@ def ejecutar_recocido_simulado(
         print(f"Temperatura final: {temperatura_final}")
         print(f"Factor de enfriamiento: {factor_enfriamiento}")
         print(f"Iteraciones máximas: {iteraciones_maximas}")
+
+        if df_aulas is not None:
+            print("Movimiento de cambio de aula: ACTIVADO")
+        else:
+            print("Movimiento de cambio de aula: DESACTIVADO")
 
     # -----------------------------------------------------
     # BUCLE PRINCIPAL
@@ -216,11 +221,12 @@ def ejecutar_recocido_simulado(
 
         iteraciones += 1
 
-        # Generamos un horario vecino.
+        # Generar un horario vecino.
         solucion_nueva = generar_vecino(
             solucion_actual,
-            horas_por_dia,
-            generador=generador
+            horas_por_dia=horas_por_dia,
+            generador=generador,
+            df_aulas=df_aulas
         )
 
         if solucion_nueva is None:
@@ -234,7 +240,6 @@ def ejecutar_recocido_simulado(
                 horas_por_dia
             )
 
-            # Decidimos si aceptamos la nueva solución.
             if aceptar_solucion(
                 coste_actual,
                 coste_nuevo,
@@ -250,7 +255,7 @@ def ejecutar_recocido_simulado(
 
                 aceptados += 1
 
-                # Actualizamos la mejor solución global.
+                # Actualizar la mejor solución global.
                 if coste_actual < mejor_coste:
 
                     mejor_solucion = solucion_actual.copy(
@@ -260,7 +265,7 @@ def ejecutar_recocido_simulado(
                     mejor_coste = coste_actual
                     mejoras += 1
 
-        # Guardamos información para analizar la evolución.
+        # Guardar información para analizar la evolución.
         historial.append({
             "iteracion": iteraciones,
             "temperatura": temperatura,
@@ -268,10 +273,8 @@ def ejecutar_recocido_simulado(
             "mejor_coste": mejor_coste,
         })
 
-        # Reducimos la temperatura.
         temperatura *= factor_enfriamiento
 
-        # Mostrar progreso cada 100 iteraciones.
         if mostrar_progreso and iteraciones % 100 == 0:
 
             print(
@@ -287,7 +290,6 @@ def ejecutar_recocido_simulado(
 
     tiempo_total = time.perf_counter() - tiempo_inicio
 
-    # Verificamos nuevamente la mejor solución.
     valido, errores = comprobar_restricciones(
         mejor_solucion,
         horas_por_dia
@@ -299,13 +301,13 @@ def ejecutar_recocido_simulado(
             + "\n".join(errores[:10])
         )
 
-    # La mejor solución nunca debe ser peor que la inicial.
     if mejor_coste > coste_inicial:
         raise RuntimeError(
             "Error: la mejor solución es peor que la inicial."
         )
 
     if mostrar_progreso:
+
         print("\n" + "=" * 60)
         print("RECOCIDO SIMULADO FINALIZADO")
         print("=" * 60)
@@ -339,3 +341,4 @@ def ejecutar_recocido_simulado(
         "errores": errores,
         "historial": historial,
     }
+

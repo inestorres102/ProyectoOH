@@ -1,2 +1,2 @@
 ﻿Curso,Cuatrimestre,Algoritmo,Coste_inicial,Mejor_coste,Iteraciones,Aceptados,Mejoras,Tiempo_segundos,Horario_valido
-4,1,Recocido simulado,0,0,1000,928,0,5.836074199993163,True
+4,1,Recocido simulado independiente,40,4,1000,913,11,5.872816400005831,True
